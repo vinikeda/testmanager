@@ -1,0 +1,32 @@
+<field id="0" value="0200"/>
+      <field id="3" value="003000"/>
+      <field id="4" value="000012131455"/>
+      <field id="7" value="0131143910"/>
+      <field id="11" value="000040"/>
+      <field id="12" value="143910"/>
+      <field id="13" value="0131"/>
+      <field id="22" value="021"/>
+      <field id="35" value="5413330000000000=2512101050930812"/>
+      <field id="41" value="GT006010"/>
+      <field id="42" value="012000006010001"/>
+      <field id="48" value="00300201005033298ED3DD895A4DF3F0000000000000000"/>
+      <field id="49" value="986"/>
+      <field id="61" value="001008GP0102CW0020200000000000005A0011570030260000000000800076          0040040.00005003PAX006004d2000070062.4.69"/>
+      <field id="126" value="00300120050061  111"/>
+
+
+ <field id="0" value="0210"/>
+      <field id="3" value="003000"/>
+      <field id="4" value="000012131455"/>
+      <field id="7" value="0131143910"/>
+      <field id="11" value="000040"/>
+      <field id="12" value="143910"/>
+      <field id="13" value="0131"/>
+      <field id="38" value="324957"/>
+      <field id="39" value="00"/>
+      <field id="41" value="GT006010"/>
+      <field id="42" value="012000006010001"/>
+      <field id="49" value="986"/>
+      <field id="60" value="C@@       Global Payments Brasil         @Credenciadora BRB-BancodeBrasilia S.A.@       Mastercard - Via Cliente       @@012000006010001 - Simulador AGT @Av Do Estado 1315 - Bloco 2       SPBR@CNPJ:001006074/0001-06       5599-4514@EC:012000006010001@@MASTERCARD@VENDA CREDITO A VISTA    @************0037   @31/01/16                         14:39@VALOR APROVADO:           R$ 121314,55@CV:000131143900            AUTO:324957@TERM:GT006010     @         CW - Software House          @"/>
+      <field id="62" value="C@@       Global Payments Brasil         @Credenciadora BRB-BancodeBrasilia S.A.@   Mastercard - Via Estabelecimento   @@012000006010001 - Simulador AGT @Av Do Estado 1315 - Bloco 2       SPBR@CNPJ:001006074/0001-06       5599-4514@EC:012000006010001@@MASTERCARD@VENDA CREDITO A VISTA    @************0037   @31/01/16                         14:39@VALOR APROVADO:           R$ 121314,55@CV:000131143900            AUTO:324957@TERM:GT006010     @@   --------------------------------   @        ASSINATURA DO CLIENTE         @         CW - Software House          @"/>
+      <field id="127" value="000131143900"/>

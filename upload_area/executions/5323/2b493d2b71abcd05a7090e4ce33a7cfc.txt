@@ -1,0 +1,1784 @@
+GEDI Static Lib: 01.005.0001
+BTAStack: 01.005.0009-1605251815
+GEDI failed to load             libhw.so: libgedi_hw.so: cannot open shared object file: No such file or directory
+GEDI Dynamic Lib: MOBIPIN20 01.002.0000-1605161532
+GEDI Profile TERMINAL
+GEDI Profile PAYMENT
+GEDI Static Lib: 01.005.0001
+GEDI Profile TERMINAL
+GEDI Profile PAYMENT
+DateTime: 2017-01-09 11:24:01
+Starting AgtTransit 17010401...
+LogMsg Entry - Status: 0
+initGSM gsmEn entry: 0 tempEn: 0
+* Translate Ret: GSM_4609
+Enable Temp modem resp: 
+OK
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+Creating thread: 1
+Thread: 1 created OK
+0 - agtlogo1.bmp
+[Thread:1] - ctlAcq thread
+CfgGet element MerchantId - content: C6A055F412B14994940124E3B5803EC6
+Root node ns href: urn:AcceptorAuthorisationRequestV02.1 - prefix:  (null)
+SetElement: @MerchId = C6A055F412B14994940124E3B5803EC6
+SetElement: @PoiId = 00000000000000008100071606002002
+SetElement: @TrsCurr = 986
+CTX_set_cipher_list: TLSv1.2:HIGH -  ret: 1
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+--- DateTime: 2017-01-09 11:24:07
+--- calling agtNetTryWifi
+agtNetTryWifi --- netType not configured as Dual
+NetInit... 1            
+CfgGet element NetType - content: DUAL
+agtNetInitEx --- Dual Configuration
+Enable Wifi... 0
+* Translate Ret: WIFI_6001
+Scan Wifi... 12301
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+Scanning... 0 Status: 0
+Number of Wifi networks found: 29
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Argotechno
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Argotechno
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Argotechno
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Argotechno
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Argotechno
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Argotechno
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: ArgotechnoGuest
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: ArgotechnoGuest
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: ArgotechnoGuest
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: ArgotechnoGuest
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: ArgotechnoGuest
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: ArgotechnoGuest
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: AndroidAP
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: AndroidAP
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: AndroidAP
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: AndroidAP
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: AndroidAP
+Found WIFI name: AndroidAP
+CfgGet element WiFiPWD5 - content: 12345678
+WIFI KEY: WiFiPWD5 AP: AndroidAP PWD: 12345678
+* Translate Ret: WIFI_6001
+Wifi APConnect... 12301
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 60
+1 - contactless1.bmp
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 59
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 58
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 57
+2 - mastercard1.bmp
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 56
+Connecting... 0 Status: 2 Tries: 55
+LogMsg Entry - Status: 60
+agtNetInitEx --- Dual - agtNetInitExWifi ret: 0
+--- agtSetNetType netType = WIFI
+--- Connected to Network ... 
+agtNetInitEx --- ret: 0 netConnected: 1 
+TLS Connect - Entry
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+3 - agtlogo2.bmp
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+TLS Connect - Exit OK
+WL check first time!
+WL check for update!
+DateTime: 2017-01-09 11:24:18
+
+HTTP Request: 197
+GET /v2/api/cards/GetAllCards HTTP/1.1
+Host: homolog-whitelist-publictransport.stone.com.br:4433
+Connection: close 
+Authorization: C6A055F412B14994940124E3B5803EC6 
+Accept: application/xml 
+
+
+4 - emv1.bmp
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+5 - mifare1.bmp
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+6 - (null)
+BIO_write: 197
+LogMsg Entry - Status: 0
+WL Rec: 5345404910EF3B701015;0
+WL recNum: 1 - key: 5345404910EF3B701015 - keyLen: 20 - val: 0
+WL Rec: 5136598FBBE89CFE7273;0
+WL recNum: 2 - key: 5136598FBBE89CFE7273 - keyLen: 20 - val: 0
+WL Rec: 5413332CD9E307E51075;0
+WL recNum: 3 - key: 5413332CD9E307E51075 - keyLen: 20 - val: 0
+WL Rec: 54133386B9235C440408;0
+WL recNum: 4 - key: 54133386B9235C440408 - keyLen: 20 - val: 0
+WL Rec: 54133300ACBEE5470507;0
+WL recNum: 5 - key: 54133300ACBEE5470507 - keyLen: 20 - val: 0
+WL Rec: 54133342FD4AFE211018;0
+WL recNum: 6 - key: 54133342FD4AFE211018 - keyLen: 20 - val: 0
+WL Rec: 54133358186778521067;0
+WL recNum: 7 - key: 54133358186778521067 - keyLen: 20 - val: 0
+WL Rec: 5413332CD9E307E51075;0
+WL recNum: 8 - key: 5413332CD9E307E51075 - keyLen: 20 - val: 0
+WL Rec: 541333D90E9DC3D81109;0
+WL recNum: 9 - key: 541333D90E9DC3D81109 - keyLen: 20 - val: 0
+WL Rec: 54133388AC6DB1B60010;0
+WL recNum: 10 - key: 54133388AC6DB1B60010 - keyLen: 20 - val: 0
+WL Rec: 5413337879CAAD950028;0
+WL recNum: 11 - key: 5413337879CAAD950028 - keyLen: 20 - val: 0
+WL Rec: 5413339956BF34744012;0
+WL recNum: 12 - key: 5413339956BF34744012 - keyLen: 20 - val: 0
+WL Rec: 541333BA77A6B2F24111;0
+WL recNum: 13 - key: 541333BA77A6B2F24111 - keyLen: 20 - val: 0
+WL Rec: 6799996195FA3F5A4010;0
+WL recNum: 14 - key: 6799996195FA3F5A4010 - keyLen: 20 - val: 0
+WL Rec: 67999921FD2040220125;0
+WL recNum: 15 - key: 67999921FD2040220125 - keyLen: 20 - val: 0
+WL Rec: 67999922B4A5C3A70133;0
+WL recNum: 16 - key: 67999922B4A5C3A70133 - keyLen: 20 - val: 0
+WL Rec: 603689ED918E2D368603;0
+WL recNum: 17 - key: 603689ED918E2D368603 - keyLen: 20 - val: 0
+WL Rec: 679999A3486CBF080182;0
+WL recNum: 18 - key: 679999A3486CBF080182 - keyLen: 20 - val: 0
+WL Rec: 6799995B56AF7CFC4119;0
+WL recNum: 19 - key: 6799995B56AF7CFC4119 - keyLen: 20 - val: 0
+WL Rec: 6799990B9731A3470018;0
+WL recNum: 20 - key: 6799990B9731A3470018 - keyLen: 20 - val: 0
+WL Rec: 6799993CCF82C3E20406;0
+WL recNum: 21 - key: 6799993CCF82C3E20406 - keyLen: 20 - val: 0
+WL Rec: 679999C4583AEC5C0117;0
+WL recNum: 22 - key: 679999C4583AEC5C0117 - keyLen: 20 - val: 0
+WL Rec: 679999096AF86E1D0141;0
+WL recNum: 23 - key: 679999096AF86E1D0141 - keyLen: 20 - val: 0
+WL Rec: 6799992CCB7EAF9D0158;0
+WL recNum: 24 - key: 6799992CCB7EAF9D0158 - keyLen: 20 - val: 0
+WL Rec: 679999F66AC5AEDE0166;0
+WL recNum: 25 - key: 679999F66AC5AEDE0166 - keyLen: 20 - val: 0
+WL Rec: 679999EC35CF845A0675;0
+WL recNum: 26 - key: 679999EC35CF845A0675 - keyLen: 20 - val: 0
+WL Rec: 679999A3486CBF080182;0
+WL recNum: 27 - key: 679999A3486CBF080182 - keyLen: 20 - val: 0
+WL Rec: 67999917A4BEAC030190;0
+WL recNum: 28 - key: 67999917A4BEAC030190 - keyLen: 20 - val: 0
+WL Rec: 6799993AB5835AE70208;0
+WL recNum: 29 - key: 6799993AB5835AE70208 - keyLen: 20 - val: 0
+WL Rec: 6799992A33A655330505;0
+WL recNum: 30 - key: 6799992A33A655330505 - keyLen: 20 - val: 0
+WL Rec: 6799993BD4E0F1D90711;0
+WL recNum: 31 - key: 6799993BD4E0F1D90711 - keyLen: 20 - val: 0
+WL Rec: 679999BCC456738C0729;0
+WL recNum: 32 - key: 679999BCC456738C0729 - keyLen: 20 - val: 0
+WL Rec: 679999EDECA64DCB0919;0
+WL recNum: 33 - key: 679999EDECA64DCB0919 - keyLen: 20 - val: 0
+WL Rec: 679999220FA122F10927;0
+WL recNum: 34 - key: 679999220FA122F10927 - keyLen: 20 - val: 0
+WL Rec: 222300C704F9505E9611;0
+WL recNum: 35 - key: 222300C704F9505E9611 - keyLen: 20 - val: 0
+WL Rec: 2223007214DE82829587;0
+WL recNum: 36 - key: 2223007214DE82829587 - keyLen: 20 - val: 0
+WL Rec: 2223001015881F369595;0
+WL recNum: 37 - key: 2223001015881F369595 - keyLen: 20 - val: 0
+WL Rec: 22230053A54C46139629;0
+WL recNum: 38 - key: 22230053A54C46139629 - keyLen: 20 - val: 0
+WL Rec: 541333F04C4AA9E60036;0
+WL recNum: 39 - key: 541333F04C4AA9E60036 - keyLen: 20 - val: 0
+WL Rec: 541333B36D606DDC0044;0
+WL recNum: 40 - key: 541333B36D606DDC0044 - keyLen: 20 - val: 0
+WL Rec: 5413338C96EA71AD0069;0
+WL recNum: 41 - key: 5413338C96EA71AD0069 - keyLen: 20 - val: 0
+WL Rec: 541333D31104DF490077;0
+WL recNum: 42 - key: 541333D31104DF490077 - keyLen: 20 - val: 0
+WL Rec: 541333502EFC138F0093;0
+WL recNum: 43 - key: 541333502EFC138F0093 - keyLen: 20 - val: 0
+WL Rec: 5413330612193A960101;0
+WL recNum: 44 - key: 5413330612193A960101 - keyLen: 20 - val: 0
+WL Rec: 5413338E2690BDB20119;0
+WL recNum: 45 - key: 5413338E2690BDB20119 - keyLen: 20 - val: 0
+WL Rec: 54133341A4ADC9170127;0
+WL recNum: 46 - key: 54133341A4ADC9170127 - keyLen: 20 - val: 0
+WL Rec: 2223608ABE3961E50203;0
+WL recNum: 47 - key: 2223608ABE3961E50203 - keyLen: 20 - val: 0
+WL Rec: 22230061999ED11B9561;0
+WL recNum: 48 - key: 22230061999ED11B9561 - keyLen: 20 - val: 0
+WL Rec: 222300145F6B2BAB9579;0
+WL recNum: 49 - key: 222300145F6B2BAB9579 - keyLen: 20 - val: 0
+GEDI Static Lib: 00.010.0002
+CAKEYS Test only.
+* Translate Ret: SMART_1401
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 1 stStr: WN:AndroidAP 
+* Translate Ret: POWER_5606
+agtGetBatteryCap - eRet: 11003 cap: 0
+agtGetBatteryCap - cap alterado: 0
+CardProcessed: 0
+CardPl: 0 CardPh: 0 CardPs: 2 
+int: 2042818254 79c2eece 
+
+HTTP Response: 4855
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/xml; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Mon, 09 Jan 2017 13:24:38 GMT
+Connection: close
+Content-Length: 4577
+
+<ArrayOfCard xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/publictransport.stone_api.com.br.Models"><Card><CARD_NUMBER>5345404910EF3B701015</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5136598FBBE89CFE7273</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413332CD9E307E51075</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>54133386B9235C440408</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>54133300ACBEE5470507</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>54133342FD4AFE211018</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>54133358186778521067</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413332CD9E307E51075</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>541333D90E9DC3D81109</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>54133388AC6DB1B60010</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413337879CAAD950028</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413339956BF34744012</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>541333BA77A6B2F24111</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799996195FA3F5A4010</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>67999921FD2040220125</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>67999922B4A5C3A70133</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>603689ED918E2D368603</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999A3486CBF080182</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799995B56AF7CFC4119</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799990B9731A3470018</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799993CCF82C3E20406</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999C4583AEC5C0117</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999096AF86E1D0141</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799992CCB7EAF9D0158</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999F66AC5AEDE0166</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999EC35CF845A0675</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999A3486CBF080182</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>67999917A4BEAC030190</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799993AB5835AE70208</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799992A33A655330505</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>6799993BD4E0F1D90711</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999BCC456738C0729</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999EDECA64DCB0919</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>679999220FA122F10927</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>222300C704F9505E9611</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>2223007214DE82829587</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>2223001015881F369595</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>22230053A54C46139629</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>541333F04C4AA9E60036</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>541333B36D606DDC0044</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413338C96EA71AD0069</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>541333D31104DF490077</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>541333502EFC138F0093</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413330612193A960101</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>5413338E2690BDB20119</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>54133341A4ADC9170127</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>2223608ABE3961E50203</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>22230061999ED11B9561</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card><Card><CARD_NUMBER>222300145F6B2BAB9579</CARD_NUMBER><OPERATION>INCLUDE</OPERATION></Card></ArrayOfCard>
+WL Content-length: 4577 - 4577
+conRecv: 4577 contentLen: 4577
+LogMsg Entry - Status: 0
+WL Update file size: 4577
+Card Number: 5345404910EF3B701015
+Operation: 0
+wlRec: 5345404910EF3B701015;0
+Card Number: 5136598FBBE89CFE7273
+Operation: 0
+wlRec: 5136598FBBE89CFE7273;0
+Card Number: 5413332CD9E307E51075
+Operation: 0
+wlRec: 5413332CD9E307E51075;0
+Card Number: 54133386B9235C440408
+Operation: 0
+wlRec: 54133386B9235C440408;0
+Card Number: 54133300ACBEE5470507
+Operation: 0
+wlRec: 54133300ACBEE5470507;0
+Card Number: 54133342FD4AFE211018
+Operation: 0
+wlRec: 54133342FD4AFE211018;0
+Card Number: 54133358186778521067
+Operation: 0
+wlRec: 54133358186778521067;0
+Card Number: 5413332CD9E307E51075
+Operation: 0
+wlRec: 5413332CD9E307E51075;0
+Card Number: 541333D90E9DC3D81109
+Operation: 0
+wlRec: 541333D90E9DC3D81109;0
+Card Number: 54133388AC6DB1B60010
+Operation: 0
+wlRec: 54133388AC6DB1B60010;0
+Card Number: 5413337879CAAD950028
+Operation: 0
+wlRec: 5413337879CAAD950028;0
+Card Number: 5413339956BF34744012
+Operation: 0
+wlRec: 5413339956BF34744012;0
+Card Number: 541333BA77A6B2F24111
+Operation: 0
+wlRec: 541333BA77A6B2F24111;0
+Card Number: 6799996195FA3F5A4010
+Operation: 0
+wlRec: 6799996195FA3F5A4010;0
+Card Number: 67999921FD2040220125
+Operation: 0
+wlRec: 67999921FD2040220125;0
+Card Number: 67999922B4A5C3A70133
+Operation: 0
+wlRec: 67999922B4A5C3A70133;0
+Card Number: 603689ED918E2D368603
+Operation: 0
+wlRec: 603689ED918E2D368603;0
+Card Number: 679999A3486CBF080182
+Operation: 0
+wlRec: 679999A3486CBF080182;0
+Card Number: 6799995B56AF7CFC4119
+Operation: 0
+wlRec: 6799995B56AF7CFC4119;0
+Card Number: 6799990B9731A3470018
+Operation: 0
+wlRec: 6799990B9731A3470018;0
+Card Number: 6799993CCF82C3E20406
+Operation: 0
+wlRec: 6799993CCF82C3E20406;0
+Card Number: 679999C4583AEC5C0117
+Operation: 0
+wlRec: 679999C4583AEC5C0117;0
+Card Number: 679999096AF86E1D0141
+Operation: 0
+wlRec: 679999096AF86E1D0141;0
+Card Number: 6799992CCB7EAF9D0158
+Operation: 0
+wlRec: 6799992CCB7EAF9D0158;0
+Card Number: 679999F66AC5AEDE0166
+Operation: 0
+wlRec: 679999F66AC5AEDE0166;0
+Card Number: 679999EC35CF845A0675
+Operation: 0
+wlRec: 679999EC35CF845A0675;0
+Card Number: 679999A3486CBF080182
+Operation: 0
+wlRec: 679999A3486CBF080182;0
+Card Number: 67999917A4BEAC030190
+Operation: 0
+wlRec: 67999917A4BEAC030190;0
+Card Number: 6799993AB5835AE70208
+Operation: 0
+wlRec: 6799993AB5835AE70208;0
+Card Number: 6799992A33A655330505
+Operation: 0
+wlRec: 6799992A33A655330505;0
+Card Number: 6799993BD4E0F1D90711
+Operation: 0
+wlRec: 6799993BD4E0F1D90711;0
+Card Number: 679999BCC456738C0729
+Operation: 0
+wlRec: 679999BCC456738C0729;0
+Card Number: 679999EDECA64DCB0919
+Operation: 0
+wlRec: 679999EDECA64DCB0919;0
+Card Number: 679999220FA122F10927
+Operation: 0
+wlRec: 679999220FA122F10927;0
+Card Number: 222300C704F9505E9611
+Operation: 0
+wlRec: 222300C704F9505E9611;0
+Card Number: 2223007214DE82829587
+Operation: 0
+wlRec: 2223007214DE82829587;0
+Card Number: 2223001015881F369595
+Operation: 0
+wlRec: 2223001015881F369595;0
+Card Number: 22230053A54C46139629
+Operation: 0
+wlRec: 22230053A54C46139629;0
+Card Number: 541333F04C4AA9E60036
+Operation: 0
+wlRec: 541333F04C4AA9E60036;0
+Card Number: 541333B36D606DDC0044
+Operation: 0
+wlRec: 541333B36D606DDC0044;0
+Card Number: 5413338C96EA71AD0069
+Operation: 0
+wlRec: 5413338C96EA71AD0069;0
+Card Number: 541333D31104DF490077
+Operation: 0
+wlRec: 541333D31104DF490077;0
+Card Number: 541333502EFC138F0093
+Operation: 0
+wlRec: 541333502EFC138F0093;0
+Card Number: 5413330612193A960101
+Operation: 0
+wlRec: 5413330612193A960101;0
+Card Number: 5413338E2690BDB20119
+Operation: 0
+wlRec: 5413338E2690BDB20119;0
+Card Number: 54133341A4ADC9170127
+Operation: 0
+wlRec: 54133341A4ADC9170127;0
+Card Number: 2223608ABE3961E50203
+Operation: 0
+wlRec: 2223608ABE3961E50203;0
+Card Number: 22230061999ED11B9561
+Operation: 0
+wlRec: 22230061999ED11B9561;0
+Card Number: 222300145F6B2BAB9579
+Operation: 0
+wlRec: 222300145F6B2BAB9579;0
+
+WL Rec: 5345404910EF3B701015;0
+WL recNum: 1 - key: 5345404910EF3B701015 - keyLen: 20 - val: 0
+WL Rec: 5136598FBBE89CFE7273;0
+WL recNum: 2 - key: 5136598FBBE89CFE7273 - keyLen: 20 - val: 0
+WL Rec: 5413332CD9E307E51075;0
+WL recNum: 3 - key: 5413332CD9E307E51075 - keyLen: 20 - val: 0
+WL Rec: 54133386B9235C440408;0
+WL recNum: 4 - key: 54133386B9235C440408 - keyLen: 20 - val: 0
+WL Rec: 54133300ACBEE5470507;0
+WL recNum: 5 - key: 54133300ACBEE5470507 - keyLen: 20 - val: 0
+WL Rec: 54133342FD4AFE211018;0
+WL recNum: 6 - key: 54133342FD4AFE211018 - keyLen: 20 - val: 0
+WL Rec: 54133358186778521067;0
+WL recNum: 7 - key: 54133358186778521067 - keyLen: 20 - val: 0
+WL Rec: 5413332CD9E307E51075;0
+WL recNum: 8 - key: 5413332CD9E307E51075 - keyLen: 20 - val: 0
+WL Rec: 541333D90E9DC3D81109;0
+WL recNum: 9 - key: 541333D90E9DC3D81109 - keyLen: 20 - val: 0
+WL Rec: 54133388AC6DB1B60010;0
+WL recNum: 10 - key: 54133388AC6DB1B60010 - keyLen: 20 - val: 0
+WL Rec: 5413337879CAAD950028;0
+WL recNum: 11 - key: 5413337879CAAD950028 - keyLen: 20 - val: 0
+WL Rec: 5413339956BF34744012;0
+WL recNum: 12 - key: 5413339956BF34744012 - keyLen: 20 - val: 0
+WL Rec: 541333BA77A6B2F24111;0
+WL recNum: 13 - key: 541333BA77A6B2F24111 - keyLen: 20 - val: 0
+WL Rec: 6799996195FA3F5A4010;0
+WL recNum: 14 - key: 6799996195FA3F5A4010 - keyLen: 20 - val: 0
+WL Rec: 67999921FD2040220125;0
+WL recNum: 15 - key: 67999921FD2040220125 - keyLen: 20 - val: 0
+WL Rec: 67999922B4A5C3A70133;0
+WL recNum: 16 - key: 67999922B4A5C3A70133 - keyLen: 20 - val: 0
+WL Rec: 603689ED918E2D368603;0
+WL recNum: 17 - key: 603689ED918E2D368603 - keyLen: 20 - val: 0
+WL Rec: 679999A3486CBF080182;0
+WL recNum: 18 - key: 679999A3486CBF080182 - keyLen: 20 - val: 0
+WL Rec: 6799995B56AF7CFC4119;0
+WL recNum: 19 - key: 6799995B56AF7CFC4119 - keyLen: 20 - val: 0
+WL Rec: 6799990B9731A3470018;0
+WL recNum: 20 - key: 6799990B9731A3470018 - keyLen: 20 - val: 0
+WL Rec: 6799993CCF82C3E20406;0
+WL recNum: 21 - key: 6799993CCF82C3E20406 - keyLen: 20 - val: 0
+WL Rec: 679999C4583AEC5C0117;0
+WL recNum: 22 - key: 679999C4583AEC5C0117 - keyLen: 20 - val: 0
+WL Rec: 679999096AF86E1D0141;0
+WL recNum: 23 - key: 679999096AF86E1D0141 - keyLen: 20 - val: 0
+WL Rec: 6799992CCB7EAF9D0158;0
+WL recNum: 24 - key: 6799992CCB7EAF9D0158 - keyLen: 20 - val: 0
+WL Rec: 679999F66AC5AEDE0166;0
+WL recNum: 25 - key: 679999F66AC5AEDE0166 - keyLen: 20 - val: 0
+WL Rec: 679999EC35CF845A0675;0
+WL recNum: 26 - key: 679999EC35CF845A0675 - keyLen: 20 - val: 0
+WL Rec: 679999A3486CBF080182;0
+WL recNum: 27 - key: 679999A3486CBF080182 - keyLen: 20 - val: 0
+WL Rec: 67999917A4BEAC030190;0
+WL recNum: 28 - key: 67999917A4BEAC030190 - keyLen: 20 - val: 0
+WL Rec: 6799993AB5835AE70208;0
+WL recNum: 29 - key: 6799993AB5835AE70208 - keyLen: 20 - val: 0
+WL Rec: 6799992A33A655330505;0
+WL recNum: 30 - key: 6799992A33A655330505 - keyLen: 20 - val: 0
+WL Rec: 6799993BD4E0F1D90711;0
+WL recNum: 31 - key: 6799993BD4E0F1D90711 - keyLen: 20 - val: 0
+WL Rec: 679999BCC456738C0729;0
+WL recNum: 32 - key: 679999BCC456738C0729 - keyLen: 20 - val: 0
+WL Rec: 679999EDECA64DCB0919;0
+WL recNum: 33 - key: 679999EDECA64DCB0919 - keyLen: 20 - val: 0
+WL Rec: 679999220FA122F10927;0
+WL recNum: 34 - key: 679999220FA122F10927 - keyLen: 20 - val: 0
+WL Rec: 222300C704F9505E9611;0
+WL recNum: 35 - key: 222300C704F9505E9611 - keyLen: 20 - val: 0
+WL Rec: 2223007214DE82829587;0
+WL recNum: 36 - key: 2223007214DE82829587 - keyLen: 20 - val: 0
+WL Rec: 2223001015881F369595;0
+WL recNum: 37 - key: 2223001015881F369595 - keyLen: 20 - val: 0
+WL Rec: 22230053A54C46139629;0
+WL recNum: 38 - key: 22230053A54C46139629 - keyLen: 20 - val: 0
+WL Rec: 541333F04C4AA9E60036;0
+WL recNum: 39 - key: 541333F04C4AA9E60036 - keyLen: 20 - val: 0
+WL Rec: 541333B36D606DDC0044;0
+WL recNum: 40 - key: 541333B36D606DDC0044 - keyLen: 20 - val: 0
+WL Rec: 5413338C96EA71AD0069;0
+WL recNum: 41 - key: 5413338C96EA71AD0069 - keyLen: 20 - val: 0
+WL Rec: 541333D31104DF490077;0
+WL recNum: 42 - key: 541333D31104DF490077 - keyLen: 20 - val: 0
+WL Rec: 541333502EFC138F0093;0
+WL recNum: 43 - key: 541333502EFC138F0093 - keyLen: 20 - val: 0
+WL Rec: 5413330612193A960101;0
+WL recNum: 44 - key: 5413330612193A960101 - keyLen: 20 - val: 0
+WL Rec: 5413338E2690BDB20119;0
+WL recNum: 45 - key: 5413338E2690BDB20119 - keyLen: 20 - val: 0
+WL Rec: 54133341A4ADC9170127;0
+WL recNum: 46 - key: 54133341A4ADC9170127 - keyLen: 20 - val: 0
+WL Rec: 2223608ABE3961E50203;0
+WL recNum: 47 - key: 2223608ABE3961E50203 - keyLen: 20 - val: 0
+WL Rec: 22230061999ED11B9561;0
+WL recNum: 48 - key: 22230061999ED11B9561 - keyLen: 20 - val: 0
+WL Rec: 222300145F6B2BAB9579;0
+WL recNum: 49 - key: 222300145F6B2BAB9579 - keyLen: 20 - val: 0
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+ProcessEMV psInput: 0099000000000000
+DateTime before StartGetCard: 170109112441
+DateTime before GetCard: 170109112441
+Call GetCard...
+DateTime after GetCard: 170109112442
+GetCard psOut: 06001010100                                                                            345413330089600408=25122010123409172   000                                                                                                        165413330089600408   01AGTMCLA901      000                          2512310000000000000000000000000000005606607A0000000041010FFFFFFFFFFFFFFFFFFAGTMCLA901      Argo AGTMCLA901 
+Token Data: 54133300896004082512
+StartGoOnChip psInput: 00000000000000000000000001130100000000000000000000000000000000000000000000000000000000 psTag: 0299F02829F279F269F36959F349F379F335F2A9F1A9C9A9F10845F349F6E psTagsOpt: 000
+* Translate Ret: SMART_1401
+agtProcessEMV time: 1570
+Process EMV time: 1630
+int: 69211908 4201704 
+InitStan: 000000504 len: 9 stan: 000000504
+KeyList Buffer to be added to SAF - len: 645 - buf:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112442;08,@ValCode,032,1101090B182A54133386B9235C440408;08,@TrmStan,009,000000505;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Trs list count: 14
+Key = @TrsAcct - Len = 5 - Val = CRDT
+Key = @Track2 - Len = 35 - Val = 5413330089600408=25122010123409172
+Key = @Pan - Len = 17 - Val = 5413330089600408
+Key = @ExpDate - Len = 7 - Val = 251231
+Key = @ExpDtY4 - Len = 8 - Val = 2025-12
+Key = @SrvCode - Len = 4 - Val = 201
+Key = @TokenPan - Len = 21 - Val = 54133386B9235C440408
+Key = @Psn - Len = 3 - Val = 01
+Key = @IccData - Len = 233 - Val = 9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+Key = @TrsAmnt - Len = 4 - Val = 380
+Key = @PoiId - Len = 33 - Val = 01020304050607088100071606002002
+Key = @TrsVlDt - Len = 13 - Val = 170109112442
+Key = @ValCode - Len = 33 - Val = 1101090B182A54133386B9235C440408
+Key = @TrmStan - Len = 10 - Val = 000000505
+Amount: R$ 3,80
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+SAFGet fsRet: 0 - readLen: 1024
+SAF record read:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112442;08,@ValCode,032,1101090B182A54133386B9235C440408;08,@TrmStan,009,000000505;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+KeyListFromBufferEx - listLen: 640
+SAF record found - Elements: 14
+SetElement: @Pan = 5413330089600408
+SetElement: @ExpDtY4 = 2025-12
+SetElement: @Psn = 01
+SetElement: @Track2 = 5413330089600408=25122010123409172
+SetElement: @TrsAmnt = 380
+SetElement: @TrsAcct = CRDT
+SetElement: @TrsDtTm = 2017-01-09T11:24:43
+SetElement: @IccData = 9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+SetElement: @TrmStan = 000000505
+SetElement: @ValCode = 1101090B182A54133386B9235C440408
+SetElement: @PoiId = 01020304050607088100071606002002
+DateTime: 2017-01-09 11:24:44
+
+HTTP Request: 2618
+POST /Authorize HTTP/1.1
+Host: homolog-pos.stone.com.br:443
+Connection: close 
+Content-Type: text/xml 
+Content-Length: 2486 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:AcceptorAuthorisationRequestV02.1">    <AccptrAuthstnReq>        <Hdr>            <MsgFctn>AUTQ</MsgFctn>            <PrtcolVrsn>2.0</PrtcolVrsn>        </Hdr>        <AuthstnReq>            <Envt>                <Mrchnt>                    <Id>                        <Id>C6A055F412B14994940124E3B5803EC6</Id>                        <ShrtNm>FAREPROC</ShrtNm>                    </Id>                </Mrchnt>                <POI>                    <Id>                        <Id>01020304050607088100071606002002</Id>                    </Id>                    <Cpblties>                        <PrtLineWidth>0</PrtLineWidth>                    </Cpblties>                </POI>                <Card>                     <PlainCardData>                        <PAN>5413330089600408</PAN>                        <XpryDt>2025-12</XpryDt>                        <CardSeqNb>01</CardSeqNb>                        <TrckData>                            <TrckNb>2</TrckNb>                            <TrckVal>5413330089600408=25122010123409172</TrckVal>                        </TrckData>                    </PlainCardData>                </Card>                <Crdhldr>                    <Authntcn>                        <AuthntcnMtd>BYPS</AuthntcnMtd>                    </Authntcn>                </Crdhldr>            </Envt>            <Cntxt>                <PmtCntxt>                    <CardDataNtryMd>CTLS</CardDataNtryMd>                </PmtCntxt>            </Cntxt>            <Tx>                <InitrTxId>1101090B182A54133386B9235C440408</InitrTxId>                <TxCaptr>true</TxCaptr>                <TxId>                    <TxDtTm>2017-01-09T11:24:43</TxDtTm>                    <TxRef>000000505</TxRef>                </TxId>                <TxDtls>                    <Ccy>986</Ccy>                    <TtlAmt>380</TtlAmt>                    <AcctTp>CRDT</AcctTp>                    <ICCRltdData>9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData>                    <RcrngTx>                        <InstlmtTp>NONE</InstlmtTp>                        <TtlNbOfPmts>0</TtlNbOfPmts>                    </RcrngTx>                </TxDtls>            </Tx>        </AuthstnReq>    </AccptrAuthstnReq></Document>
+
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_write: 2618
+LogMsg Entry - Status: 0
+BIO_read wait: -1
+
+HTTP Response: 1448
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 1202
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Mon, 09 Jan 2017 13:24:59 GMT
+Connection: close
+
+<?xml version="1.0" encoding="utf-8"?><Document xmlns="urn:AcceptorAuthorisationResponseV02.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><AccptrAuthstnRspn><Hdr><MsgFctn>AUTP</MsgFctn><PrtcolVrsn>2.0</PrtcolVrsn><CreDtTm>2017-01-09T11:24:59</CreDtTm></Hdr><AuthstnRspn><Envt><MrchntId><Id>C6A055F412B14994940124E3B5803EC6</Id><ShrtNm>FAREPROC</ShrtNm></MrchntId></Envt><Tx><TxId><TxDtTm>2017-01-09T11:24:43</TxDtTm><TxRef>000000505</TxRef></TxId><RcptTxId>10970052150592</RcptTxId><TxDtls><Ccy>986</Ccy><TtlAmt>380</TtlAmt><ICCRltdData>9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData><AcctTp>CRDT</AcctTp></TxDtls></Tx><TxRspn><AuthstnRslt><RspnToAuthstn><Rspn>APPR</Rspn><RspnRsn>0000</RspnRsn></RspnToAuthstn><AuthstnCd>150592</AuthstnCd><CmpltnReqrd>false</CmpltnReqrd></AuthstnRslt><Actn><ActnTp>DISP</ActnTp><MsgToPres><MsgDstn>MDSP</MsgDstn><MsgCntt>Aprovado</MsgCntt></MsgToPres></Actn></TxRspn></AuthstnRspn></AccptrAuthstnRspn></Document>
+BIO_read wait: 0
+LogMsg Entry - Status: 0
+DateTime: 2017-01-09 11:24:48
+Term STAN: 505 - TLS ret: 0  - received Length: 1202
+Response Received OK (200)
+XMLPutRsp - will convert memory to Doc...
+Root node ns href: urn:AcceptorAuthorisationResponseV02.1 - prefix:  rsp
+XPathNewContext...
+XPathRegisterNs ret: 0
+GetElement: @RespCod = APPR
+GetElement: @RespRsn = 0000
+GetElement: @AcqrCod = 10970052150592
+GetElement: @AuthCod = 150592
+KeyList Buffer to be updated in SAF - len: 777 - buf:
+2:0772:08,@TrsAcct,004,CRDT;07,@Track2,034,541333****************************;04,@Pan,016,541333******0408;08,@ExpDate,006,******;08,@ExpDtY4,007,*******;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608A9F017BAD8B79CD09F36020001950500000000009F34031F03029F3704990A3E4A9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112442;08,@ValCode,032,1101090B182A54133386B9235C440408;08,@TrmStan,009,000000505;08,@TrsDtTm,019,2017-01-09T11:24:43;08,@RespCod,004,APPR;08,@RespRsn,004,0000;08,@AcqrCod,014,10970052150592;08,@AuthCod,006,150592;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Trs Time:  4650 - Total Time: 4650 #of Trs OK: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+ProcessEMV psInput: 0099000000000000
+DateTime before StartGetCard: 170109112455
+DateTime before GetCard: 170109112455
+Call GetCard...
+DateTime after GetCard: 170109112456
+GetCard psOut: 06001010100                                                                            345413330089600408=25122010123409172   000                                                                                                        165413330089600408   01AGTMCLA901      000                          2512310000000000000000000000000000005606607A0000000041010FFFFFFFFFFFFFFFFFFAGTMCLA901      Argo AGTMCLA901 
+Token Data: 54133300896004082512
+StartGoOnChip psInput: 00000000000000000000000001130100000000000000000000000000000000000000000000000000000000 psTag: 0299F02829F279F269F36959F349F379F335F2A9F1A9C9A9F10845F349F6E psTagsOpt: 000
+* Translate Ret: SMART_1401
+agtProcessEMV time: 1530
+Process EMV time: 1590
+int: -998816862 c47743a2 
+InitStan: 000000505 len: 9 stan: 000000505
+KeyList Buffer to be added to SAF - len: 645 - buf:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112456;08,@ValCode,032,1101090B183854133386B9235C440408;08,@TrmStan,009,000000506;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Trs list count: 14
+Key = @TrsAcct - Len = 5 - Val = CRDT
+Key = @Track2 - Len = 35 - Val = 5413330089600408=25122010123409172
+Key = @Pan - Len = 17 - Val = 5413330089600408
+Key = @ExpDate - Len = 7 - Val = 251231
+Key = @ExpDtY4 - Len = 8 - Val = 2025-12
+Key = @SrvCode - Len = 4 - Val = 201
+Key = @TokenPan - Len = 21 - Val = 54133386B9235C440408
+Key = @Psn - Len = 3 - Val = 01
+Key = @IccData - Len = 233 - Val = 9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+Key = @TrsAmnt - Len = 4 - Val = 380
+Key = @PoiId - Len = 33 - Val = 01020304050607088100071606002002
+Key = @TrsVlDt - Len = 13 - Val = 170109112456
+Key = @ValCode - Len = 33 - Val = 1101090B183854133386B9235C440408
+Key = @TrmStan - Len = 10 - Val = 000000506
+Amount: R$ 3,80
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+SAFGet fsRet: 0 - readLen: 1024
+SAF record read:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112456;08,@ValCode,032,1101090B183854133386B9235C440408;08,@TrmStan,009,000000506;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+KeyListFromBufferEx - listLen: 640
+SAF record found - Elements: 14
+SetElement: @Pan = 5413330089600408
+SetElement: @ExpDtY4 = 2025-12
+SetElement: @Psn = 01
+SetElement: @Track2 = 5413330089600408=25122010123409172
+SetElement: @TrsAmnt = 380
+SetElement: @TrsAcct = CRDT
+SetElement: @TrsDtTm = 2017-01-09T11:24:57
+SetElement: @IccData = 9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+SetElement: @TrmStan = 000000506
+SetElement: @ValCode = 1101090B183854133386B9235C440408
+SetElement: @PoiId = 01020304050607088100071606002002
+DateTime: 2017-01-09 11:24:57
+
+HTTP Request: 2618
+POST /Authorize HTTP/1.1
+Host: homolog-pos.stone.com.br:443
+Connection: close 
+Content-Type: text/xml 
+Content-Length: 2486 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:AcceptorAuthorisationRequestV02.1">    <AccptrAuthstnReq>        <Hdr>            <MsgFctn>AUTQ</MsgFctn>            <PrtcolVrsn>2.0</PrtcolVrsn>        </Hdr>        <AuthstnReq>            <Envt>                <Mrchnt>                    <Id>                        <Id>C6A055F412B14994940124E3B5803EC6</Id>                        <ShrtNm>FAREPROC</ShrtNm>                    </Id>                </Mrchnt>                <POI>                    <Id>                        <Id>01020304050607088100071606002002</Id>                    </Id>                    <Cpblties>                        <PrtLineWidth>0</PrtLineWidth>                    </Cpblties>                </POI>                <Card>                     <PlainCardData>                        <PAN>5413330089600408</PAN>                        <XpryDt>2025-12</XpryDt>                        <CardSeqNb>01</CardSeqNb>                        <TrckData>                            <TrckNb>2</TrckNb>                            <TrckVal>5413330089600408=25122010123409172</TrckVal>                        </TrckData>                    </PlainCardData>                </Card>                <Crdhldr>                    <Authntcn>                        <AuthntcnMtd>BYPS</AuthntcnMtd>                    </Authntcn>                </Crdhldr>            </Envt>            <Cntxt>                <PmtCntxt>                    <CardDataNtryMd>CTLS</CardDataNtryMd>                </PmtCntxt>            </Cntxt>            <Tx>                <InitrTxId>1101090B183854133386B9235C440408</InitrTxId>                <TxCaptr>true</TxCaptr>                <TxId>                    <TxDtTm>2017-01-09T11:24:57</TxDtTm>                    <TxRef>000000506</TxRef>                </TxId>                <TxDtls>                    <Ccy>986</Ccy>                    <TtlAmt>380</TtlAmt>                    <AcctTp>CRDT</AcctTp>                    <ICCRltdData>9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData>                    <RcrngTx>                        <InstlmtTp>NONE</InstlmtTp>                        <TtlNbOfPmts>0</TtlNbOfPmts>                    </RcrngTx>                </TxDtls>            </Tx>        </AuthstnReq>    </AccptrAuthstnReq></Document>
+
+ProcessEMV psInput: 0099000000000000
+DateTime before StartGetCard: 170109112459
+DateTime before GetCard: 170109112459
+Call GetCard...
+DateTime after GetCard: 170109112500
+GetCard Error: 83
+* Translate Ret: SMART_1401
+agtProcessEMV time: 720
+Process EMV time: 770
+int: 1869223445 6f6a1615 
+
+Trs list count: 0
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+BIO_do_connect NB error: error:2006A066:BIO routines:BIO_get_host_ip:bad hostname lookup - errno: 0
+LogMsg Entry - Status: 21
+DateTime: 2017-01-09 11:25:18
+Term STAN: 506 - TLS ret: 3  - received Length: 4095
+NetTermEx --- netType: 1
+NetTermEx WIFI AP: AndroidAP PWD: 12345678
+* Translate Ret: WIFI_6001
+* Translate Ret: WIFI_6001
+agtNetTerm --- ret: 0 netConnected: 0 --- tlsRet = AGTTLS_ERROR_CONN
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: POWER_5606
+agtGetBatteryCap - eRet: 11003 cap: 0
+agtGetBatteryCap - cap alterado: 0
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: -944787886 c7afae52 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: POWER_5606
+agtGetBatteryCap - eRet: 11003 cap: 0
+agtGetBatteryCap - cap alterado: 0
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: 195508974 ba73aee 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+ProcessEMV psInput: 0099000000000000
+DateTime before StartGetCard: 170109112619
+DateTime before GetCard: 170109112619
+Call GetCard...
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+--- DateTime: 2017-01-09 11:26:20
+--- calling agtNetTryWifi
+agtNetTryWifi --- Not connected to Wifi or GPRS
+NetInit... 1            
+CfgGet element NetType - content: DUAL
+agtNetInitEx --- Dual Configuration
+Enable Wifi... 0
+* Translate Ret: WIFI_6001
+Scan Wifi... 12301
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+DateTime after GetCard: 170109112621
+GetCard psOut: 06001010100                                                                            345413330089600408=25122010123409172   000                                                                                                        165413330089600408   01AGTMCLA901      000                          2512310000000000000000000000000000005606607A0000000041010FFFFFFFFFFFFFFFFFFAGTMCLA901      Argo AGTMCLA901 
+Token Data: 54133300896004082512
+StartGoOnChip psInput: 00000000000000000000000001130100000000000000000000000000000000000000000000000000000000 psTag: 0299F02829F279F269F36959F349F379F335F2A9F1A9C9A9F10845F349F6E psTagsOpt: 000
+* Translate Ret: SMART_1401
+agtProcessEMV time: 1770
+Process EMV time: 1850
+int: -822910602 cef36176 
+InitStan: 000000506 len: 9 stan: 000000506
+KeyList Buffer to be added to SAF - len: 645 - buf:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112621;08,@ValCode,032,1101090B1A1554133386B9235C440408;08,@TrmStan,009,000000507;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Trs list count: 14
+Key = @TrsAcct - Len = 5 - Val = CRDT
+Key = @Track2 - Len = 35 - Val = 5413330089600408=25122010123409172
+Key = @Pan - Len = 17 - Val = 5413330089600408
+Key = @ExpDate - Len = 7 - Val = 251231
+Key = @ExpDtY4 - Len = 8 - Val = 2025-12
+Key = @SrvCode - Len = 4 - Val = 201
+Key = @TokenPan - Len = 21 - Val = 54133386B9235C440408
+Key = @Psn - Len = 3 - Val = 01
+Key = @IccData - Len = 233 - Val = 9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+Key = @TrsAmnt - Len = 4 - Val = 380
+Key = @PoiId - Len = 33 - Val = 01020304050607088100071606002002
+Key = @TrsVlDt - Len = 13 - Val = 170109112621
+Key = @ValCode - Len = 33 - Val = 1101090B1A1554133386B9235C440408
+Key = @TrmStan - Len = 10 - Val = 000000507
+Amount: R$ 3,80
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+Scanning... 0 Status: 0
+Number of Wifi networks found: 33
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Argotechno
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Argotechno
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Argotechno
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Argotechno
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Argotechno
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Argotechno
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: ArgotechnoGuest
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: ArgotechnoGuest
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: ArgotechnoGuest
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: ArgotechnoGuest
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: ArgotechnoGuest
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: ArgotechnoGuest
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: HP-Print-87-HPDeskjet
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: HP-Print-87-HPDeskjet
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: HP-Print-87-HPDeskjet
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: HP-Print-87-HPDeskjet
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: HP-Print-87-HPDeskjet
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: HP-Print-87-HPDeskjet
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: MADO-SP
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: MADO-SP
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: MADO-SP
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: MADO-SP
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: MADO-SP
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: MADO-SP
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Pavani & Rodrigues
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Pavani & Rodrigues
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Pavani & Rodrigues
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: mado rubi
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: mado rubi
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: mado rubi
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: mado rubi
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: mado rubi
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: mado rubi
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: HP-Print-2F-Officejet Pro 276dw
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: HP-Print-2F-Officejet Pro 276dw
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: HP-Print-2F-Officejet Pro 276dw
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: HP-Print-2F-Officejet Pro 276dw
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: HP-Print-2F-Officejet Pro 276dw
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: HP-Print-2F-Officejet Pro 276dw
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Debora
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Debora
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Debora
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Debora
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Debora
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Debora
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: synthex-d82ef37_AP
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: synthex-d82ef37_AP
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: synthex-d82ef37_AP
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: synthex-d82ef37_AP
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: synthex-d82ef37_AP
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: synthex-d82ef37_AP
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: KablocNet
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: KablocNet
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: KablocNet
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: KablocNet
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: KablocNet
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: KablocNet
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: synthex
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: synthex
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: synthex
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: synthex
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: synthex
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: synthex
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: HEBROM
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: HEBROM
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: HEBROM
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: HEBROM
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: HEBROM
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: HEBROM
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: net711
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: net711
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: net711
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: net711
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: net711
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: net711
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: certidaonamaovivo
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: certidaonamaovivo
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: certidaonamaovivo
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: certidaonamaovivo
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: certidaonamaovivo
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: certidaonamaovivo
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: vivo-sp
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: vivo-sp
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: vivo-sp
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: vivo-sp
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: vivo-sp
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: vivo-sp
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: TIM Wi-Fi
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: TIM Wi-Fi
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: TIM Wi-Fi
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: TIM Wi-Fi
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: TIM Wi-Fi
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: TIM Wi-Fi
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: certidaonamaovivo
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: certidaonamaovivo
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: certidaonamaovivo
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: certidaonamaovivo
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: certidaonamaovivo
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: certidaonamaovivo
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: APTO 812
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: APTO 812
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: APTO 812
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: APTO 812
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: APTO 812
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: APTO 812
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: EVEO Atendimento
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: EVEO Atendimento
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: EVEO Atendimento
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: EVEO Atendimento
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: EVEO Atendimento
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: EVEO Atendimento
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: CERTIDANAMAOVIVO2
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: CERTIDANAMAOVIVO2
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: CERTIDANAMAOVIVO2
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: CERTIDANAMAOVIVO2
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: CERTIDANAMAOVIVO2
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: CERTIDANAMAOVIVO2
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Synthex
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Synthex
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Synthex
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Synthex
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Synthex
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Synthex
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Djou 2015
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Djou 2015
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Djou 2015
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Djou 2015
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Djou 2015
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Djou 2015
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: #NET-WIFI
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: #NET-WIFI
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: #NET-WIFI
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: #NET-WIFI
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: #NET-WIFI
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: #NET-WIFI
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Fontanezi
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Fontanezi
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Fontanezi
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Fontanezi
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Fontanezi
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Fontanezi
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: TIM Wi-Fi SIM
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: TIM Wi-Fi SIM
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: TIM Wi-Fi SIM
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: TIM Wi-Fi SIM
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: TIM Wi-Fi SIM
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: TIM Wi-Fi SIM
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: FAMAZA
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: FAMAZA
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: FAMAZA
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: FAMAZA
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: FAMAZA
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: FAMAZA
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: bibi01
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: bibi01
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: bibi01
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: bibi01
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: bibi01
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: bibi01
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: ALO WIFI GRATIS
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: ALO WIFI GRATIS
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: ALO WIFI GRATIS
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: ALO WIFI GRATIS
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: ALO WIFI GRATIS
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: ALO WIFI GRATIS
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Caio.virtua
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Caio.virtua
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Caio.virtua
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Caio.virtua
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Caio.virtua
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Caio.virtua
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Glaucia
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Glaucia
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Glaucia
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Glaucia
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Glaucia
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Glaucia
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: netvirtua_ap41
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: netvirtua_ap41
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: netvirtua_ap41
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: netvirtua_ap41
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: netvirtua_ap41
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: netvirtua_ap41
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: FEMUTANTE
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: FEMUTANTE
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: FEMUTANTE
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: FEMUTANTE
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: FEMUTANTE
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: FEMUTANTE
+Wifi network not found!
+agtNetInitEx --- Dual - agtNetInitExWifi ret: 3
+agtNetInitEx --- Dual - Could not connect to Wifi, try GPRS 
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+CfgGet element GprsOPR - content: Claro
+CfgGet element GprsAPN - content: claro.com.br
+CfgGet element GprsUSR - content: claro
+CfgGet element GprsPWD - content: claro
+GPRS APN: claro.com.br USR: claro, PWD: claro
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: POWER_5606
+agtGetBatteryCap - eRet: 11003 cap: 0
+agtGetBatteryCap - cap alterado: 0
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: 1046749718 3e642216 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: POWER_5606
+agtGetBatteryCap - eRet: 11003 cap: 0
+agtGetBatteryCap - cap alterado: 0
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: 1854876929 6e8f2d01 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: POWER_5606
+agtGetBatteryCap - eRet: 11003 cap: 0
+agtGetBatteryCap - cap alterado: 0
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: 488008605 1d166b9d 
+* Translate Ret: GSM_23E3
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+* Translate Ret: GSM_23E3
+LogMsg Entry - Status: 51
+agtNetInitEx --- Dual - agtNetInitExGPRS ret: 3
+agtNetInitEx --- ret: 3 netConnected: 0 
+initGSM gsmEn entry: 0 tempEn: 0
+* Translate Ret: GSM_4609
+Enable Temp modem resp: 
+OK
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+agtGetBatteryCap - eRet: 0 cap: 100
+agtGetBatteryCap - batCapTemp: 100
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: 431630154 19ba274a 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+NetInit... 2            
+CfgGet element NetType - content: DUAL
+agtNetInitEx --- Dual Configuration
+Enable Wifi... 0
+* Translate Ret: WIFI_6001
+Scan Wifi... 12301
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+* Translate Ret: WIFI_6001
+Scanning... 12301 Status: 8
+Scanning... 0 Status: 0
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 0 stStr: WF 
+agtGetBatteryCap - eRet: 0 cap: 100
+agtGetBatteryCap - batCapTemp: 100
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: 50646415 304cd8f 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 0 stStr: WF 
+Number of Wifi networks found: 15
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: Argotechno
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: Argotechno
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: Argotechno
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: Argotechno
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: Argotechno
+Element WiFiAP6 not found!
+WIFI KEY: WiFiAP6 AP:  ESSID: Argotechno
+CfgGet element WiFiAP1 - content: ArgotechnoGuest321
+WIFI KEY: WiFiAP1 AP: ArgotechnoGuest321 ESSID: AndroidAP
+CfgGet element WiFiAP2 - content: Livebox-5E1A
+WIFI KEY: WiFiAP2 AP: Livebox-5E1A ESSID: AndroidAP
+CfgGet element WiFiAP3 - content: NOKIA
+WIFI KEY: WiFiAP3 AP: NOKIA ESSID: AndroidAP
+CfgGet element WiFiAP4 - content: CAP
+WIFI KEY: WiFiAP4 AP: CAP ESSID: AndroidAP
+CfgGet element WiFiAP5 - content: AndroidAP
+WIFI KEY: WiFiAP5 AP: AndroidAP ESSID: AndroidAP
+Found WIFI name: AndroidAP
+CfgGet element WiFiPWD5 - content: 12345678
+WIFI KEY: WiFiPWD5 AP: AndroidAP PWD: 12345678
+* Translate Ret: WIFI_6001
+Wifi APConnect... 12301
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 60
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 59
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 58
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 57
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 56
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 55
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 54
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 53
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 52
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 51
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 50
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 49
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 48
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 47
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 46
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 45
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 44
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 43
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 42
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 41
+* Translate Ret: WIFI_6001
+Connecting... 12301 Status: 10 Tries: 40
+Connecting... 0 Status: 2 Tries: 39
+LogMsg Entry - Status: 60
+agtNetInitEx --- Dual - agtNetInitExWifi ret: 0
+--- agtSetNetType netType = WIFI
+--- Connected to Network ... 
+agtNetInitEx --- ret: 0 netConnected: 1 
+TLS Connect - Entry
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+TLS Connect - Exit OK
+SAFGet fsRet: 0 - readLen: 1024
+SAF record read:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112456;08,@ValCode,032,1101090B183854133386B9235C440408;08,@TrmStan,009,000000506;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+KeyListFromBufferEx - listLen: 640
+SAF record found - Elements: 14
+SetElement: @Pan = 5413330089600408
+SetElement: @ExpDtY4 = 2025-12
+SetElement: @Psn = 01
+SetElement: @Track2 = 5413330089600408=25122010123409172
+SetElement: @TrsAmnt = 380
+SetElement: @TrsAcct = CRDT
+SetElement: @TrsDtTm = 2017-01-09T11:29:30
+SetElement: @IccData = 9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+SetElement: @TrmStan = 000000506
+SetElement: @ValCode = 1101090B183854133386B9235C440408
+SetElement: @PoiId = 01020304050607088100071606002002
+DateTime: 2017-01-09 11:29:30
+
+HTTP Request: 2618
+POST /Authorize HTTP/1.1
+Host: homolog-pos.stone.com.br:443
+Connection: close 
+Content-Type: text/xml 
+Content-Length: 2486 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:AcceptorAuthorisationRequestV02.1">    <AccptrAuthstnReq>        <Hdr>            <MsgFctn>AUTQ</MsgFctn>            <PrtcolVrsn>2.0</PrtcolVrsn>        </Hdr>        <AuthstnReq>            <Envt>                <Mrchnt>                    <Id>                        <Id>C6A055F412B14994940124E3B5803EC6</Id>                        <ShrtNm>FAREPROC</ShrtNm>                    </Id>                </Mrchnt>                <POI>                    <Id>                        <Id>01020304050607088100071606002002</Id>                    </Id>                    <Cpblties>                        <PrtLineWidth>0</PrtLineWidth>                    </Cpblties>                </POI>                <Card>                     <PlainCardData>                        <PAN>5413330089600408</PAN>                        <XpryDt>2025-12</XpryDt>                        <CardSeqNb>01</CardSeqNb>                        <TrckData>                            <TrckNb>2</TrckNb>                            <TrckVal>5413330089600408=25122010123409172</TrckVal>                        </TrckData>                    </PlainCardData>                </Card>                <Crdhldr>                    <Authntcn>                        <AuthntcnMtd>BYPS</AuthntcnMtd>                    </Authntcn>                </Crdhldr>            </Envt>            <Cntxt>                <PmtCntxt>                    <CardDataNtryMd>CTLS</CardDataNtryMd>                </PmtCntxt>            </Cntxt>            <Tx>                <InitrTxId>1101090B183854133386B9235C440408</InitrTxId>                <TxCaptr>true</TxCaptr>                <TxId>                    <TxDtTm>2017-01-09T11:29:30</TxDtTm>                    <TxRef>000000506</TxRef>                </TxId>                <TxDtls>                    <Ccy>986</Ccy>                    <TtlAmt>380</TtlAmt>                    <AcctTp>CRDT</AcctTp>                    <ICCRltdData>9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData>                    <RcrngTx>                        <InstlmtTp>NONE</InstlmtTp>                        <TtlNbOfPmts>0</TtlNbOfPmts>                    </RcrngTx>                </TxDtls>            </Tx>        </AuthstnReq>    </AccptrAuthstnReq></Document>
+
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_write: 2618
+LogMsg Entry - Status: 0
+BIO_read wait: -1
+BIO_read wait: -1
+
+HTTP Response: 1448
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 1202
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Mon, 09 Jan 2017 13:29:45 GMT
+Connection: close
+
+<?xml version="1.0" encoding="utf-8"?><Document xmlns="urn:AcceptorAuthorisationResponseV02.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><AccptrAuthstnRspn><Hdr><MsgFctn>AUTP</MsgFctn><PrtcolVrsn>2.0</PrtcolVrsn><CreDtTm>2017-01-09T11:29:45</CreDtTm></Hdr><AuthstnRspn><Envt><MrchntId><Id>C6A055F412B14994940124E3B5803EC6</Id><ShrtNm>FAREPROC</ShrtNm></MrchntId></Envt><Tx><TxId><TxDtTm>2017-01-09T11:29:30</TxDtTm><TxRef>000000506</TxRef></TxId><RcptTxId>10970052150602</RcptTxId><TxDtls><Ccy>986</Ccy><TtlAmt>380</TtlAmt><ICCRltdData>9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData><AcctTp>CRDT</AcctTp></TxDtls></Tx><TxRspn><AuthstnRslt><RspnToAuthstn><Rspn>APPR</Rspn><RspnRsn>0000</RspnRsn></RspnToAuthstn><AuthstnCd>150602</AuthstnCd><CmpltnReqrd>false</CmpltnReqrd></AuthstnRslt><Actn><ActnTp>DISP</ActnTp><MsgToPres><MsgDstn>MDSP</MsgDstn><MsgCntt>Aprovado</MsgCntt></MsgToPres></Actn></TxRspn></AuthstnRspn></AccptrAuthstnRspn></Document>
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 1 stStr: WN:AndroidAP 
+agtGetBatteryCap - eRet: 0 cap: 100
+agtGetBatteryCap - batCapTemp: 100
+CardProcessed: 1
+CardPl: 1 CardPh: 0 CardPs: 2 
+int: -906580469 c9f6ae0b 
+KeepAliveEvt Ret: 1
+BIO_read wait: 0
+LogMsg Entry - Status: 0
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+DateTime: 2017-01-09 11:29:34
+Term STAN: 506 - TLS ret: 0  - received Length: 1202
+Response Received OK (200)
+XMLPutRsp - will convert memory to Doc...
+Root node ns href: urn:AcceptorAuthorisationResponseV02.1 - prefix:  rsp
+XPathNewContext...
+XPathRegisterNs ret: 0
+GetElement: @RespCod = APPR
+GetElement: @RespRsn = 0000
+GetElement: @AcqrCod = 10970052150602
+GetElement: @AuthCod = 150602
+KeyList Buffer to be updated in SAF - len: 777 - buf:
+2:0772:08,@TrsAcct,004,CRDT;07,@Track2,034,541333****************************;04,@Pan,016,541333******0408;08,@ExpDate,006,******;08,@ExpDtY4,007,*******;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608E54AD36336F6DEA69F36020001950500000000009F34031F03029F37048368CE759F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112456;08,@ValCode,032,1101090B183854133386B9235C440408;08,@TrmStan,009,000000506;08,@TrsDtTm,019,2017-01-09T11:29:30;08,@RespCod,004,APPR;08,@RespRsn,004,0000;08,@AcqrCod,014,10970052150602;08,@AuthCod,006,150602;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Trs Time:  3440 - Total Time: 8090 #of Trs OK: 2
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+--- DateTime: 2017-01-09 11:29:34
+--- calling agtNetTryWifi
+--- agtGetNetType netType = WIFI
+agtNetTryWifi netType: 1
+agtNetTryWifi --- Not connected to GPRS
+SAFGet fsRet: 0 - readLen: 1024
+SAF record read:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112621;08,@ValCode,032,1101090B1A1554133386B9235C440408;08,@TrmStan,009,000000507;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+KeyListFromBufferEx - listLen: 640
+SAF record found - Elements: 14
+SetElement: @Pan = 5413330089600408
+SetElement: @ExpDtY4 = 2025-12
+SetElement: @Psn = 01
+SetElement: @Track2 = 5413330089600408=25122010123409172
+SetElement: @TrsAmnt = 380
+SetElement: @TrsAcct = CRDT
+SetElement: @TrsDtTm = 2017-01-09T11:29:34
+SetElement: @IccData = 9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+SetElement: @TrmStan = 000000507
+SetElement: @ValCode = 1101090B1A1554133386B9235C440408
+SetElement: @PoiId = 01020304050607088100071606002002
+DateTime: 2017-01-09 11:29:34
+
+HTTP Request: 2618
+POST /Authorize HTTP/1.1
+Host: homolog-pos.stone.com.br:443
+Connection: close 
+Content-Type: text/xml 
+Content-Length: 2486 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:AcceptorAuthorisationRequestV02.1">    <AccptrAuthstnReq>        <Hdr>            <MsgFctn>AUTQ</MsgFctn>            <PrtcolVrsn>2.0</PrtcolVrsn>        </Hdr>        <AuthstnReq>            <Envt>                <Mrchnt>                    <Id>                        <Id>C6A055F412B14994940124E3B5803EC6</Id>                        <ShrtNm>FAREPROC</ShrtNm>                    </Id>                </Mrchnt>                <POI>                    <Id>                        <Id>01020304050607088100071606002002</Id>                    </Id>                    <Cpblties>                        <PrtLineWidth>0</PrtLineWidth>                    </Cpblties>                </POI>                <Card>                     <PlainCardData>                        <PAN>5413330089600408</PAN>                        <XpryDt>2025-12</XpryDt>                        <CardSeqNb>01</CardSeqNb>                        <TrckData>                            <TrckNb>2</TrckNb>                            <TrckVal>5413330089600408=25122010123409172</TrckVal>                        </TrckData>                    </PlainCardData>                </Card>                <Crdhldr>                    <Authntcn>                        <AuthntcnMtd>BYPS</AuthntcnMtd>                    </Authntcn>                </Crdhldr>            </Envt>            <Cntxt>                <PmtCntxt>                    <CardDataNtryMd>CTLS</CardDataNtryMd>                </PmtCntxt>            </Cntxt>            <Tx>                <InitrTxId>1101090B1A1554133386B9235C440408</InitrTxId>                <TxCaptr>true</TxCaptr>                <TxId>                    <TxDtTm>2017-01-09T11:29:34</TxDtTm>                    <TxRef>000000507</TxRef>                </TxId>                <TxDtls>                    <Ccy>986</Ccy>                    <TtlAmt>380</TtlAmt>                    <AcctTp>CRDT</AcctTp>                    <ICCRltdData>9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData>                    <RcrngTx>                        <InstlmtTp>NONE</InstlmtTp>                        <TtlNbOfPmts>0</TtlNbOfPmts>                    </RcrngTx>                </TxDtls>            </Tx>        </AuthstnReq>    </AccptrAuthstnReq></Document>
+
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_write: 2618
+LogMsg Entry - Status: 0
+BIO_read wait: -1
+BIO_read wait: -1
+
+HTTP Response: 1448
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 1202
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Mon, 09 Jan 2017 13:29:48 GMT
+Connection: close
+
+<?xml version="1.0" encoding="utf-8"?><Document xmlns="urn:AcceptorAuthorisationResponseV02.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><AccptrAuthstnRspn><Hdr><MsgFctn>AUTP</MsgFctn><PrtcolVrsn>2.0</PrtcolVrsn><CreDtTm>2017-01-09T11:29:48</CreDtTm></Hdr><AuthstnRspn><Envt><MrchntId><Id>C6A055F412B14994940124E3B5803EC6</Id><ShrtNm>FAREPROC</ShrtNm></MrchntId></Envt><Tx><TxId><TxDtTm>2017-01-09T11:29:34</TxDtTm><TxRef>000000507</TxRef></TxId><RcptTxId>10970052150603</RcptTxId><TxDtls><Ccy>986</Ccy><TtlAmt>380</TtlAmt><ICCRltdData>9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData><AcctTp>CRDT</AcctTp></TxDtls></Tx><TxRspn><AuthstnRslt><RspnToAuthstn><Rspn>APPR</Rspn><RspnRsn>0000</RspnRsn></RspnToAuthstn><AuthstnCd>150603</AuthstnCd><CmpltnReqrd>false</CmpltnReqrd></AuthstnRslt><Actn><ActnTp>DISP</ActnTp><MsgToPres><MsgDstn>MDSP</MsgDstn><MsgCntt>Aprovado</MsgCntt></MsgToPres></Actn></TxRspn></AuthstnRspn></AccptrAuthstnRspn></Document>
+BIO_read wait: 0
+LogMsg Entry - Status: 0
+DateTime: 2017-01-09 11:29:37
+Term STAN: 507 - TLS ret: 0  - received Length: 1202
+Response Received OK (200)
+XMLPutRsp - will convert memory to Doc...
+Root node ns href: urn:AcceptorAuthorisationResponseV02.1 - prefix:  rsp
+XPathNewContext...
+XPathRegisterNs ret: 0
+GetElement: @RespCod = APPR
+GetElement: @RespRsn = 0000
+GetElement: @AcqrCod = 10970052150603
+GetElement: @AuthCod = 150603
+KeyList Buffer to be updated in SAF - len: 777 - buf:
+2:0772:08,@TrsAcct,004,CRDT;07,@Track2,034,541333****************************;04,@Pan,016,541333******0408;08,@ExpDate,006,******;08,@ExpDtY4,007,*******;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608DA89210ACC2926C99F36020001950500000000009F34031F03029F3704734637799F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109112621;08,@ValCode,032,1101090B1A1554133386B9235C440408;08,@TrmStan,009,000000507;08,@TrsDtTm,019,2017-01-09T11:29:34;08,@RespCod,004,APPR;08,@RespRsn,004,0000;08,@AcqrCod,014,10970052150603;08,@AuthCod,006,150603;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Trs Time:  3520 - Total Time: 11610 #of Trs OK: 3
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+CfgGet element PackageVer - content: 17010401STD
+--- agtGetNetType netType = WIFI
+agtNetGetConnName --- netType: 1 netConnected: 1 stStr: WN:AndroidAP 
+agtGetBatteryCap - eRet: 0 cap: 100
+agtGetBatteryCap - batCapTemp: 100
+CardProcessed: 3
+CardPl: 3 CardPh: 0 CardPs: 2 
+int: 1948095912 741d95a8 
+KeepAliveEvt Ret: 1
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+ProcessEMV psInput: 0099000000000000
+DateTime before StartGetCard: 170109113027
+DateTime before GetCard: 170109113027
+Call GetCard...
+DateTime after GetCard: 170109113028
+GetCard Error: 83
+* Translate Ret: SMART_1401
+agtProcessEMV time: 760
+Process EMV time: 820
+int: -976098890 c5d1e9b6 
+
+Trs list count: 0
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+ProcessEMV psInput: 0099000000000000
+DateTime before StartGetCard: 170109113030
+DateTime before GetCard: 170109113030
+Call GetCard...
+DateTime after GetCard: 170109113031
+GetCard psOut: 06001010100                                                                            345413330089600408=25122010123409172   000                                                                                                        165413330089600408   01AGTMCLA901      000                          2512310000000000000000000000000000005606607A0000000041010FFFFFFFFFFFFFFFFFFAGTMCLA901      Argo AGTMCLA901 
+Token Data: 54133300896004082512
+StartGoOnChip psInput: 00000000000000000000000001130100000000000000000000000000000000000000000000000000000000 psTag: 0299F02829F279F269F36959F349F379F335F2A9F1A9C9A9F10845F349F6E psTagsOpt: 000
+* Translate Ret: SMART_1401
+agtProcessEMV time: 1480
+Process EMV time: 1540
+int: -2051312340 85bb752c 
+InitStan: 000000507 len: 9 stan: 000000507
+KeyList Buffer to be added to SAF - len: 645 - buf:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109113031;08,@ValCode,032,1101090B1E1F54133386B9235C440408;08,@TrmStan,009,000000508;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Trs list count: 14
+Key = @TrsAcct - Len = 5 - Val = CRDT
+Key = @Track2 - Len = 35 - Val = 5413330089600408=25122010123409172
+Key = @Pan - Len = 17 - Val = 5413330089600408
+Key = @ExpDate - Len = 7 - Val = 251231
+Key = @ExpDtY4 - Len = 8 - Val = 2025-12
+Key = @SrvCode - Len = 4 - Val = 201
+Key = @TokenPan - Len = 21 - Val = 54133386B9235C440408
+Key = @Psn - Len = 3 - Val = 01
+Key = @IccData - Len = 233 - Val = 9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+Key = @TrsAmnt - Len = 4 - Val = 380
+Key = @PoiId - Len = 33 - Val = 01020304050607088100071606002002
+Key = @TrsVlDt - Len = 13 - Val = 170109113031
+Key = @ValCode - Len = 33 - Val = 1101090B1E1F54133386B9235C440408
+Key = @TrmStan - Len = 10 - Val = 000000508
+Amount: R$ 3,80
+--- agtGetNetType netType = WIFI
+agtNetGetStStr --- netType: 1 netConnected: 1 stStr: WN AndroidAP 
+SAFGet fsRet: 0 - readLen: 1024
+SAF record read:
+0:0640:08,@TrsAcct,004,CRDT;07,@Track2,034,5413330089600408=25122010123409172;04,@Pan,016,5413330089600408;08,@ExpDate,006,251231;08,@ExpDtY4,007,2025-12;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109113031;08,@ValCode,032,1101090B1E1F54133386B9235C440408;08,@TrmStan,009,000000508;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+KeyListFromBufferEx - listLen: 640
+SAF record found - Elements: 14
+SetElement: @Pan = 5413330089600408
+SetElement: @ExpDtY4 = 2025-12
+SetElement: @Psn = 01
+SetElement: @Track2 = 5413330089600408=25122010123409172
+SetElement: @TrsAmnt = 380
+SetElement: @TrsAcct = CRDT
+SetElement: @TrsDtTm = 2017-01-09T11:30:32
+SetElement: @IccData = 9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031
+SetElement: @TrmStan = 000000508
+SetElement: @ValCode = 1101090B1E1F54133386B9235C440408
+SetElement: @PoiId = 01020304050607088100071606002002
+DateTime: 2017-01-09 11:30:32
+
+HTTP Request: 2618
+POST /Authorize HTTP/1.1
+Host: homolog-pos.stone.com.br:443
+Connection: close 
+Content-Type: text/xml 
+Content-Length: 2486 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:AcceptorAuthorisationRequestV02.1">    <AccptrAuthstnReq>        <Hdr>            <MsgFctn>AUTQ</MsgFctn>            <PrtcolVrsn>2.0</PrtcolVrsn>        </Hdr>        <AuthstnReq>            <Envt>                <Mrchnt>                    <Id>                        <Id>C6A055F412B14994940124E3B5803EC6</Id>                        <ShrtNm>FAREPROC</ShrtNm>                    </Id>                </Mrchnt>                <POI>                    <Id>                        <Id>01020304050607088100071606002002</Id>                    </Id>                    <Cpblties>                        <PrtLineWidth>0</PrtLineWidth>                    </Cpblties>                </POI>                <Card>                     <PlainCardData>                        <PAN>5413330089600408</PAN>                        <XpryDt>2025-12</XpryDt>                        <CardSeqNb>01</CardSeqNb>                        <TrckData>                            <TrckNb>2</TrckNb>                            <TrckVal>5413330089600408=25122010123409172</TrckVal>                        </TrckData>                    </PlainCardData>                </Card>                <Crdhldr>                    <Authntcn>                        <AuthntcnMtd>BYPS</AuthntcnMtd>                    </Authntcn>                </Crdhldr>            </Envt>            <Cntxt>                <PmtCntxt>                    <CardDataNtryMd>CTLS</CardDataNtryMd>                </PmtCntxt>            </Cntxt>            <Tx>                <InitrTxId>1101090B1E1F54133386B9235C440408</InitrTxId>                <TxCaptr>true</TxCaptr>                <TxId>                    <TxDtTm>2017-01-09T11:30:32</TxDtTm>                    <TxRef>000000508</TxRef>                </TxId>                <TxDtls>                    <Ccy>986</Ccy>                    <TtlAmt>380</TtlAmt>                    <AcctTp>CRDT</AcctTp>                    <ICCRltdData>9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData>                    <RcrngTx>                        <InstlmtTp>NONE</InstlmtTp>                        <TtlNbOfPmts>0</TtlNbOfPmts>                    </RcrngTx>                </TxDtls>            </Tx>        </AuthstnReq>    </AccptrAuthstnReq></Document>
+
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 115
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_do_connect NB error: error:00000000:lib(0):func(0):reason(0) - errno: 11
+BIO_write: 2618
+LogMsg Entry - Status: 0
+BIO_read wait: -1
+BIO_read wait: -1
+
+HTTP Response: 1448
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 1202
+Content-Type: application/xml; charset=utf-8
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Mon, 09 Jan 2017 13:30:47 GMT
+Connection: close
+
+<?xml version="1.0" encoding="utf-8"?><Document xmlns="urn:AcceptorAuthorisationResponseV02.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><AccptrAuthstnRspn><Hdr><MsgFctn>AUTP</MsgFctn><PrtcolVrsn>2.0</PrtcolVrsn><CreDtTm>2017-01-09T11:30:47</CreDtTm></Hdr><AuthstnRspn><Envt><MrchntId><Id>C6A055F412B14994940124E3B5803EC6</Id><ShrtNm>FAREPROC</ShrtNm></MrchntId></Envt><Tx><TxId><TxDtTm>2017-01-09T11:30:32</TxDtTm><TxRef>000000508</TxRef></TxId><RcptTxId>10970052150604</RcptTxId><TxDtls><Ccy>986</Ccy><TtlAmt>380</TtlAmt><ICCRltdData>9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031</ICCRltdData><AcctTp>CRDT</AcctTp></TxDtls></Tx><TxRspn><AuthstnRslt><RspnToAuthstn><Rspn>APPR</Rspn><RspnRsn>0000</RspnRsn></RspnToAuthstn><AuthstnCd>150604</AuthstnCd><CmpltnReqrd>false</CmpltnReqrd></AuthstnRslt><Actn><ActnTp>DISP</ActnTp><MsgToPres><MsgDstn>MDSP</MsgDstn><MsgCntt>Aprovado</MsgCntt></MsgToPres></Actn></TxRspn></AuthstnRspn></AccptrAuthstnRspn></Document>
+BIO_read wait: 0
+LogMsg Entry - Status: 0
+DateTime: 2017-01-09 11:30:36
+Term STAN: 508 - TLS ret: 0  - received Length: 1202
+Response Received OK (200)
+XMLPutRsp - will convert memory to Doc...
+Root node ns href: urn:AcceptorAuthorisationResponseV02.1 - prefix:  rsp
+XPathNewContext...
+XPathRegisterNs ret: 0
+GetElement: @RespCod = APPR
+GetElement: @RespRsn = 0000
+GetElement: @AcqrCod = 10970052150604
+GetElement: @AuthCod = 150604
+KeyList Buffer to be updated in SAF - len: 777 - buf:
+2:0772:08,@TrsAcct,004,CRDT;07,@Track2,034,541333****************************;04,@Pan,016,541333******0408;08,@ExpDate,006,******;08,@ExpDtY4,007,*******;08,@SrvCode,003,201;09,@TokenPan,020,54133386B9235C440408;04,@Psn,002,01;08,@IccData,232,9F020600000000000082021B809F2701809F2608606826C853CD5BD69F36020001950500000000009F34031F03029F3704A0FC20EF9F33030008085F2A0209869F1A0200769C01009A031701099F10120110A00000000000000000000000000000FF8407A00000000410109F6E06005611123031;08,@TrsAmnt,003,380;06,@PoiId,032,01020304050607088100071606002002;08,@TrsVlDt,012,170109113031;08,@ValCode,032,1101090B1E1F54133386B9235C440408;08,@TrmStan,009,000000508;08,@TrsDtTm,019,2017-01-09T11:30:32;08,@RespCod,004,APPR;08,@RespRsn,004,0000;08,@AcqrCod,014,10970052150604;08,@AuthCod,006,150604;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Trs Time:  4560 - Total Time: 16170 #of Trs OK: 4
+initGSM gsmEn entry: 1 tempEn: 1
+initGSM gsmEn exit: 1 tempEn: 1
+Temp: 38C
+--- DateTime: 2017-01-09 11:30:36
+--- calling agtNetTryWifi
+--- agtGetNetType netType = WIFI
+agtNetTryWifi netType: 1
+agtNetTryWifi --- Not connected to GPRS

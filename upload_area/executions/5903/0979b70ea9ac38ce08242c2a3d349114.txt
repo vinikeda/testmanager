@@ -1,0 +1,173 @@
+[Jan 05 22h14:31.467] - <0200> Message from TEFACQR [128.127.26.5,4321]
+0200:
+   [Fixed  n       6 006] 003 [003000] 
+   [None   n         012] 004 [000012131401] 
+   [Fixed  n      10 010] 007 [0106001429] 
+   [Fixed  n       6 006] 011 [050045] 
+   [Fixed  n       6 006] 012 [001429] 
+   [Fixed  n       4 004] 013 [0106] 
+   [Fixed  n       3 003] 022 [051] 
+   [None   n         003] 023 [001] 
+   [LLVAR  ans  ..37 037] 035 [4427800000000000000=22122011822239289] 
+   [Fixed  ans     8 008] 041 [AGTCQAC1] 
+   [Fixed  ans    15 015] 042 [012000004146001] 
+   [LLLVAR ans ..999 047] 048 [003002010050332D1DBBE379BDEF8525614673A23E8C28D] 
+   [Fixed  a/n     3 003] 049 [986] 
+   [LLLVAR ans ..999 180] 055 [FF20579F3704F31F1EA25F2A02098682025C00950502800080009A031701059C01009F02060000121314019F100706010A03A000009F1A0200769F26080CFCD9823C9F10AB9F2701809F34031E03009F360200029F3303E0F0E8] 
+   [LLLVAR ans ..999 081] 061 [001008AG0102QA002011524-299-4300030260000010000800076014401-3110040045.0700500201] 
+   [LLLVAR ans ..999 019] 126 [00300120050060     ] 
+binary data
+[Jan 05 22h14:31.495] - <0200> Message to Transaction Manager [128.127.26.5,4321]
+0200:
+   [Fixed  n       6 006] 003 [003000] 
+   [None   n         012] 004 [000012131401] 
+   [Fixed  n      10 010] 007 [0106001429] 
+   [Fixed  n       6 006] 011 [050045] 
+   [Fixed  n       6 006] 012 [001429] 
+   [Fixed  n       4 004] 013 [0106] 
+   [Fixed  n       3 003] 022 [051] 
+   [None   n         003] 023 [001] 
+   [Fixed  n       2 002] 025 [00] 
+   [LLVAR  z    ..37 037] 035 [4427808001112223337=22122011822239289] 
+   [Fixed  ans     8 008] 041 [AGTCQAC1] 
+   [Fixed  ans    15 015] 042 [012000004146001] 
+   [Fixed  ans    40 040] 043 [DEMONSTRATEEC7         SAO PAULO    SPBR] 
+   [Fixed  a/n     3 003] 049 [986] 
+   [LLVAR  n    ..11 011] 100 [01700000001] 
+   [LLLVAR an     15 015] 123 [81110150034C101] 
+   [LLVAR  ans  ..32 030] 127.002 [AGTCQAC1;050045;0106001429;200] 
+   [Fixed  ans    22 022] 127.004 [AGTCQAC100000000000000] 
+   [Fixed  ans*   17 017] 127.013 [110760487796  076] 
+   [LLLLLVAans 99999 970] 127.022.CNPJSLP
+                                   [12816233000146]
+   [LLLLLVAans 99999 970] 127.022.PAYMENT_FACILITATOR_NAME
+                                   [AGTDEMO]
+   [LLLLLVAans 99999 970] 127.022.Postilion:MetaData
+                                   [17CNPJSLP111224PAYMENT_FACILITATOR_NAME111218RT:VALOR_TRANSACAO111217RT:TIPO_PARCELADO111240RT:UNCHANGED_MSG_FIELDamount transaction111233RT:UNCHANGED_MSG_FIELDterminal id111232RT:UNCHANGED_MSG_FIELDdate local111215SUB_MERCHANT_ID111222PAYMENT_FACILITATOR_ID111236RT:UNCHANGED_MSG_FIELDpos entry_mode111234RT:TRANSACTION_FEATURESpin present111233INDEPENDENT_SALES_ORGANIZATION_ID111232RT:UNCHANGED_MSG_FIELDtime local111]
+   [LLLLLVAans 99999 970] 127.022.RT:VALOR_TRANSACAO
+                                   [000012131401]
+   [LLLLLVAans 99999 970] 127.022.RT:TIPO_PARCELADO
+                                   [NONE]
+   [LLLLLVAans 99999 970] 127.022.RT:UNCHANGED_MSG_FIELDamount transaction
+                                   [000012131401]
+   [LLLLLVAans 99999 970] 127.022.SUB_MERCHANT_ID
+                                   [000000005507644]
+   [LLLLLVAans 99999 970] 127.022.RT:UNCHANGED_MSG_FIELDdate local
+                                   [0106]
+   [LLLLLVAans 99999 970] 127.022.RT:UNCHANGED_MSG_FIELDterminal id
+                                   [AGTCQAC1]
+   [LLLLLVAans 99999 970] 127.022.RT:UNCHANGED_MSG_FIELDpos entry_mode
+                                   [051]
+   [LLLLLVAans 99999 970] 127.022.PAYMENT_FACILITATOR_ID
+                                   [00000000901]
+   [LLLLLVAans 99999 970] 127.022.RT:TRANSACTION_FEATURESpin present
+                                   [FALSE]
+   [LLLLLVAans 99999 970] 127.022.RT:UNCHANGED_MSG_FIELDtime local
+                                   [001429]
+   [LLLLLVAans 99999 970] 127.022.INDEPENDENT_SALES_ORGANIZATION_ID
+                                   [00000000001]
+   [LLLLVARans .9999 0816] 127.025.IccData
+                                   [<?xml version="1.0" encoding="UTF-8"?>
+                                     <IccData>
+                                       <IccRequest>
+                                         <AmountAuthorized>000012131401</AmountAuthorized>
+                                         <ApplicationInterchangeProfile>5C00</ApplicationInterchangeProfile>
+                                         <ApplicationTransactionCounter>0002</ApplicationTransactionCounter>
+                                         <Cryptogram>0CFCD9823C9F10AB</Cryptogram>
+                                         <CryptogramInformationData>80</CryptogramInformationData>
+                                         <CvmResults>1E0300</CvmResults>
+                                         <IssuerApplicationData>06010A03A00000</IssuerApplicationData>
+                                         <TerminalCapabilities>E0F0E8</TerminalCapabilities>
+                                         <TerminalCountryCode>076</TerminalCountryCode>
+                                         <TerminalVerificationResult>0280008000</TerminalVerificationResult>
+                                         <TransactionCurrencyCode>986</TransactionCurrencyCode>
+                                         <TransactionDate>170105</TransactionDate>
+                                         <TransactionType>00</TransactionType>
+                                         <UnpredictableNumber>F31F1EA2</UnpredictableNumber>
+                                       </IccRequest>
+                                     </IccData>]
+   [LLVAR  ans  ..99 018] 127.041 [128.127.26.5,4321] 
+binary data
+[Jan 05 22h14:31.814] - <0210> Message from Transaction Manager [128.127.26.5,4321]
+0210:
+   [LLVAR  n    ..19 019] 002 [4427808001112223337] 
+   [Fixed  n       6 006] 003 [003000] 
+   [None   n         012] 004 [000012131401] 
+   [Fixed  n      10 010] 007 [0106001429] 
+   [Fixed  n       6 006] 011 [050045] 
+   [Fixed  n       6 006] 012 [001429] 
+   [Fixed  n       4 004] 013 [0106] 
+   [Fixed  n       4 004] 014 [2212] 
+   [Fixed  n       4 004] 015 [0105] 
+   [Fixed  n       4 004] 018 [7512] 
+   [Fixed  n       3 003] 022 [051] 
+   [None   n         003] 023 [001] 
+   [Fixed  n       2 002] 025 [00] 
+   [Fixed  x+n     9 009] 028 [C00000000] 
+   [Fixed  x+n     9 009] 030 [C00000000] 
+   [LLVAR  z    ..37 037] 035 [4427808001112223337=22122011822239289] 
+   [Fixed  anp    12 012] 037 [000000158885] 
+   [Fixed  ans     6 006] 038 [037507] 
+   [Fixed  an      2 002] 039 [00] 
+   [Fixed  an      3 003] 040 [201] 
+   [Fixed  ans     8 008] 041 [AGTCQAC1] 
+   [Fixed  ans    15 015] 042 [012000004146001] 
+   [Fixed  ans    40 040] 043 [DEMONSTRATEEC7         SAO PAULO    SPBR] 
+   [Fixed  a/n     3 003] 049 [986] 
+   [LLLVAR an* ..120 020] 054 [3053986D000012131401] 
+   [LLVAR  n    ..11 011] 100 [01700000001] 
+   [LLLVAR an     15 015] 123 [81110150034C101] 
+   [LLVAR  ans  ..32 030] 127.002 [AGTCQAC1;050045;0106001429;200] 
+   [Fixed  ans*   48 048] 127.003 [TEFACQR     VisaAcqr    050045050045VisaCrdGrp  ] 
+   [Fixed  ans    22 022] 127.004 [AGTCQAC100000000000000] 
+   [Fixed  an      2 002] 127.006 [94] 
+   [LLLVAR ans ..999 032] 127.009 [VISABASE12~E3070060086900479QR7~] 
+   [Fixed  ans*   17 017] 127.013 [110760487796  076] 
+   [Fixed  n       8 008] 127.020 [20170105] 
+   [LLLLLVAans 99999 394] 127.022.Postilion:MetaData
+                                   [15BaseI11116BaseII111217RT:RT_POSDATA_TIF111]
+   [LLLLLVAans 99999 394] 127.022.BaseII
+                                   [<?xml version="1.0" encoding="UTF-8"?>
+                                     <BaseII>
+                                       <TranId>307006008690047</TranId>
+                                     </BaseII>]
+   [LLLLLVAans 99999 394] 127.022.BaseI
+                                   [<?xml version="1.0" encoding="UTF-8"?>
+                                     <BaseI>
+                                       <ProcessingCodeData>
+                                         <TransactionType>00</TransactionType>
+                                         <FromAccount>30</FromAccount>
+                                         <ToAccount>00</ToAccount>
+                                       </ProcessingCodeData>
+                                     </BaseI>]
+   [LLLLLVAans 99999 394] 127.022.RT:RT_POSDATA_TIF
+                                   [05000010]
+   [LLLLVARans .9999 0229] 127.025.IccData
+                                   [<?xml version="1.0" encoding="UTF-8"?>
+                                     <IccData>
+                                       <IccResponse>
+                                         <ApplicationTransactionCounter>0002</ApplicationTransactionCounter>
+                                         <CardAuthenticationResultsCode>2</CardAuthenticationResultsCode>
+                                       </IccResponse>
+                                     </IccData>]
+   [LLVAR  ans  ..11 004] 127.031 [0002] 
+   [LLVAR  ans  ..99 018] 127.041 [128.127.26.5,4321] 
+binary data
+[Jan 05 22h14:31.855] - <0210> Message to TEFACQR [128.127.26.5,4321] (Destination selection: Originating remote connection, Delivery: Online)
+0210:
+   [Fixed  n       6 006] 003 [003000] 
+   [None   n         012] 004 [000012131401] 
+   [Fixed  n      10 010] 007 [0106001429] 
+   [Fixed  n       6 006] 011 [050045] 
+   [Fixed  n       6 006] 012 [001429] 
+   [Fixed  n       4 004] 013 [0106] 
+   [Fixed  ans     6 006] 038 [037507] 
+   [Fixed  an      2 002] 039 [00] 
+   [Fixed  ans     8 008] 041 [AGTCQAC1] 
+   [Fixed  ans    15 015] 042 [012000004146001] 
+   [Fixed  a/n     3 003] 049 [986] 
+   [LLLVAR ans ..999 024] 055 [FF2109DF0101329F36020002] 
+   [LLLVAR ans ..999 361] 060 [C@@          VISA - Via Cliente          @@DEMONSTRATEEC7          @TAMANDARE 01986                   SPBR@CNPJ: 12816233/0001-46        34267865@EC:005507644                          @@VENDA CREDITO A VISTA@***************3337@06/01/16                         00:14@VALOR APROVADO: R$ 121.314,01@@CV:000000158885            AUTO:037507@ @@TERM:AGTCQAC1       @] 
+   [LLLVAR ans ..999 440] 062 [C@@      VISA - Via Estabelecimento      @@DEMONSTRATEEC7          @TAMANDARE 01986                   SPBR@CNPJ: 12816233/0001-46        34267865@EC:005507644                          @@VENDA CREDITO A VISTA@***************3337@06/01/16                         00:14@VALOR APROVADO: R$ 121.314,01@@CV:000000158885            AUTO:037507@ @@TERM:AGTCQAC1       @@   ________________________________   @         ASSINATURA DO CLIENTE        @] 
+   [LLLVAR ans ..999 012] 127 [000000158885] 
+binary data

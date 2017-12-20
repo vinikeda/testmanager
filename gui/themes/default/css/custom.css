@@ -1,0 +1,42 @@
+/*
+TestLink Open Source Project - http://testlink.sourceforge.net/
+@filesource custom.css
+*/
+
+/* ***** Execution & Results ********************************************************* */
+
+div.warning {
+	color: 			white;
+	margin: 		8px;
+	padding: 		6px;
+	text-align: 	center;
+	background:		#DAD220; /* yellow */
+}
+
+/* ***** execution tree coloring ************************* */
+span.warning
+{
+	color:				#FBFF11;
+	padding:			3px;
+}
+
+
+span.light_warning {
+	background: 		#FBFF11; 
+}
+
+/* ***** render test result status (coloring background) ************************* */
+
+.warning {
+	color: 			white;
+	background:		#FBFF11;
+}
+
+/* ***** render test result status (coloring text) ************************* */
+
+.warning {
+	color:       #FBFF11;
+	font-weight: bold;
+}
+
+/* ----- END ------------------------------------------------------------------------- */

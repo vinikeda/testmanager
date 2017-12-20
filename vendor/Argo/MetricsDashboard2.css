@@ -1,0 +1,25 @@
+/*esse arquivo é específico do painel de acompanhamento.foi necessário criar ele devido ás excessões nos estilos que ocorrem nele.*/
+#ext-gen11{
+	position:fixed;
+	z-index:2;
+	width:100%;
+	top:0%;
+	left:0%;
+	color:#FFF;
+}
+.x-grid3-header{
+	position:fixed;
+	z-index:2;
+	margin-top:48px;
+}
+.x-panel-tbar{
+	position:fixed;
+	z-index:2;
+	margin-top:26px;
+}
+.x-grid3-body{
+	margin-top:73px;
+}
+.x-grid3-body,.x-grid3-row ,.x-grid-group-title,.x-grid-group-hd,.x-grid3-header-offset table,.x-grid3-header-offset,.x-grid3-row-table{
+	width:100% !important;
+}
