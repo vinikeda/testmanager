@@ -1043,9 +1043,9 @@ class tlUser extends tlDBObject
 	  LEFT OUTER JOIN user_testplan_roles USER_TPLAN_ROLES ON TPLAN.id = USER_TPLAN_ROLES.testplan_id
 	  AND USER_TPLAN_ROLES.user_id = ".intval($this->dbID)." left join builds on (nh.id = builds.testplan_id) inner join sub_adquirente on TPLAN.id_subadiquirentes = sub_adquirente.id
 	  WHERE sub_adquirente.active = 1 and TPLAN.testproject_id = ".intval($testprojectID) ." AND TPLAN.active = 1 AND (USER_TPLAN_ROLES.role_id IS NULL OR USER_TPLAN_ROLES.role_id != 3) ORDER BY builds.is_open desc";
-	  //$sub_adquirenteSet = $db->get_recordset($sql);//pularei a parte que faz o controle das permissões para ganhar tempo ;) depois eu farei estou muito cansado hoje
-	  $sub_adquirenteSet2 = $db->fetchRowsIntoMap($sql,'id_subadiquirentes');//print_r($sub_adquirenteSet2);
-	  return $sub_adquirenteSet2;echo $sql;
+	  //$sub_adquirenteSet = $db->get_recordset($sql)
+	  $sub_adquirenteSet2 = $db->fetchRowsIntoMap($sql,'id_subadiquirentes');//echo $sql;//print_r($sub_adquirenteSet2);
+	  return $sub_adquirenteSet2;
 }
 function getSub_adquirentesID (&$db, $IDtestplan){
 	$sql = "SELECT id_subadiquirentes val from testplans where id =".$IDtestplan;//echo $sql;
@@ -1159,7 +1159,7 @@ function getAccessibleTestPlansFilteringBySubadiq(&$db,$testprojectID,$subadiq)
     if( $doReindex && $numericIndex)
     {
       $testPlanSet = array_values($testPlanSet);
-    }
+    }//echo $sql;
     return $testPlanSet;
   }
 

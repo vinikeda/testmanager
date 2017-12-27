@@ -343,6 +343,7 @@ display:block !important;
 			<ul class="dropdown-menu">
 				{if $gui->grants.project_edit == "yes"}
 					<li><a href="lib/project/projectView.php" target="mainframe">{$labels.href_tproject_management}</a></li>
+					<li><a href="lib/subadiq/subadiqView.php" target="mainframe">gerenciar sub-adquirente</a></li>
 				{/if}
 
 				{if $gui->grants.tproject_user_role_assignment == "yes"}

@@ -132,6 +132,7 @@ function initNavBar(){
 	$currentUser = $_SESSION['currentUser'];
 	
 	$subadiq = $currentUser->getAccessibleSub_adquirentes($db,$testprojectID);
+//var_dump($subadiq);
 	if(!isset($_SESSION['sub_adquirenteID']) || $_SESSION['sub_adquirenteID'] == null){//uma gambiarra para selecionar o primeiro sub adquirente caso não exista um definido na sessão ou se o definido na sessão não está presente na lista.
 		foreach($subadiq as $chave=>&$valor){
 			$_SESSION['sub_adquirenteID'] = $chave;break;
@@ -147,11 +148,13 @@ function initNavBar(){
 	$_SESSION['sub_adquirenteID']= ($_SESSION['sub_adquirenteID']==null)?0:$_SESSION['sub_adquirenteID'];
 	//$arrPlans = $currentUser->getAccessibleTestPlans($db,$testprojectID);//var_dump($currentUser);
 	$arrPlans = $currentUser->getAccessibleTestPlansFilteringBySubadiq($db,$testprojectID,$_SESSION['sub_adquirenteID']);//var_dump($currentUser);
-	if($arrPlans == null){//significa que o projeto de teste não possui nenhum sub_adquirente que tenha permissão de aparecer. então será mostrado todos os vazios. pois assim poderão ser preenchidos sem vazar dados bloqueados
+	if($currentUser->getEffectiveRole($testprojectID)->dbID == 8){//se for admin pode ver os sub_adquirentes vazios
 		$subadiq_mgr = new subadiq_mgr($db);//echo $testprojectID;
-		$subadiq=$subadiq_mgr->get_empty_subadiqs($testprojectID);	
-	}
-var_dump($arrPlans);
+		$temp = $subadiq_mgr->get_empty_subadiqs($testprojectID);
+		if($temp != null) foreach($temp as $key=>$value)$subadiq[$key]= $value;
+		/*var_dump($temp);
+		var_dump($subadiq);*/
+	}//echo ;
 	if($testplanID > 0)
 	{
 		// if this test plan is present on $arrPlans
