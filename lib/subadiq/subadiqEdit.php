@@ -14,7 +14,7 @@ require_once("common.php");
 require_once("subadiq.class.php");
 require_once("web_editor.php");
 //$editorCfg = getWebEditorCfg('build');
-//require_once(require_web_editor($editorCfg['type']));//echo '<!--'.require_web_editor($editorCfg['type'])."-->";
+//require_once(require_web_editor($editorCfg['type']));
 
 testlinkInitPage($db,false,false,"checkRights");
 $templateCfg = templateConfiguration();
@@ -50,7 +50,6 @@ switch($args->do_action)
 {
   case 'edit':
     $op = edit($args,$subadiq_mgr/*,$date_format_cfg*/);
-  //print_r($args);
     //$gui->closed_on_date = $args->closed_on_date;
     //$of->Value = $op->notes;
   break;
@@ -163,7 +162,7 @@ function initializeGui(&$argsObj/*,&$subadiq_mgr*/)
   $guiObj = new stdClass();
   $guiObj->main_descr = lang_get('title_build_2') . config_get('gui_title_separator_2') . 
                         lang_get('test_plan') . config_get('gui_title_separator_1') . 
-                        $argsObj->tplan_name;//print_r($buildMgr);
+                        $argsObj->tplan_name;
   /*$guiObj->cfields = $subadiq_mgr->html_custom_field_inputs($argsObj->build_id,$argsObj->testprojectID,
                                                          'design','',$_REQUEST);*/
   $dummy = config_get('results');
@@ -186,7 +185,7 @@ function initializeGui(&$argsObj/*,&$subadiq_mgr*/)
 */
 function edit(&$argsObj,&$subadiq_mgr/*,$dateFormat*/)
 {
-  $binfo = $subadiq_mgr->get_by_id($argsObj->sub_adquirenteID);//print_r($binfo);
+  $binfo = $subadiq_mgr->get_by_id($argsObj->sub_adquirenteID);
   $op = new stdClass();
   $op->buttonCfg = new stdClass();
   $op->buttonCfg->name = "do_update";
@@ -324,8 +323,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       $guiObj->is_active = $argsObj->is_active;
       $guiObj->is_open = $argsObj->is_open;
       $guiObj->copy_tester_assignments = $argsObj->copy_tester_assignments;
-	     // print_r($guiObj);
-      $smartyObj->assign('gui',$guiObj);//print_r($guiObj);
+      $smartyObj->assign('gui',$guiObj);
       $smartyObj->display($templateCfg->template_dir . $tpl);
     }
 
@@ -351,7 +349,7 @@ function doCreate(&$argsObj,&$subadiq_mgr) //,&$smartyObj)
   $op->status_ok = 0;
   $op->buttonCfg = null;
   $targetDate=null;
-    $user_feedback = lang_get("cannot_add_build");//print_r($argsObj);
+    $user_feedback = lang_get("cannot_add_build");
     $buildID = $subadiq_mgr->create($argsObj->testprojectID,$argsObj->subadiq_name, //,$argsObj->notes,
                                  $argsObj->is_active,$argsObj->is_open);
     if ($buildID)
