@@ -30,7 +30,7 @@ $control = new tlTestCaseFilterControl($db, 'plan_add_mode');
 $gui = initializeGui($control);
 $control->build_tree_menu($gui);
 $control->formAction = $_SESSION['basehref'] . "lib/plan/planAddTCNavigator.php";
-
+//var_dump($control->settings['setting_testplan']['items']);
 $smarty = new TLSmarty();
 $smarty->assign('gui', $gui);
 $smarty->assign('control', $control);

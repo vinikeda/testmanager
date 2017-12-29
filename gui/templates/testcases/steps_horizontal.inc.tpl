@@ -47,8 +47,8 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
           onclick="javascript:clearTextAreaByClassName('step_note_textarea');" title="{$inc_steps_labels.clear_all_notes}"></th>
 
       <th>{$inc_steps_labels.exec_result}
-       <img class="clickable" src="{$tlImages.reset}" 
-          onclick="javascript:clearSelectByClassName('step_status');" title="{$inc_steps_labels.clear_all_status}"></th>
+       <!--img class="clickable" src="{$tlImages.reset}" 
+          onclick="javascript:clearSelectByClassName('step_status');" title="{$inc_steps_labels.clear_all_status}"--></th>
     {/if}    
 
 

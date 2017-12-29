@@ -458,6 +458,7 @@ IMPORTANT: if you change value, you need to chang init_args() logic on execSetRe
 	{/if}
   
   {include file="execute/inc_exec_show_tc_exec.tpl"}
+  
   {if isset($gui->refreshTree) && $gui->refreshTree}
     {include file="inc_refreshTreeWithFilters.tpl"}
   {/if}
