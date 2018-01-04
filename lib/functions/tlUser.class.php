@@ -1053,7 +1053,7 @@ function getSub_adquirentesID (&$db, $IDtestplan){
 	return $temp[0]['val'];
 }
 
-function getAccessibleTestPlansFilteringBySubadiq(&$db,$testprojectID,$subadiq)
+function getAccessibleTestPlansFilteringBySubadiq(&$db,$testprojectID,$subadiq,$options=null)
   {
 	  $debugTag = 'Class:' .  __CLASS__ . '- Method:' . __FUNCTION__ . '-';
     
