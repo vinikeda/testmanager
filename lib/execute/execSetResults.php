@@ -42,7 +42,7 @@ if( $cfg->exec_cfg->enable_test_automation )
 // log to event viewer fails, but log to file works ok
 testlinkInitPage($db);
 $templateCfg = templateConfiguration();
-
+var_dump($_SESSION['banana']);
 $tcversion_id = null;
 $submitResult = null;
 list($args,$its) = init_args($db,$cfg);
@@ -137,7 +137,7 @@ if(!is_null($linked_tcversions))
       }  
 
 
-      $_REQUEST['save_results'] = $args->save_results;echo "requset = ";//var_dump($_REQUEST);
+      $_REQUEST['save_results'] = $args->save_results;//echo "requset = ";//var_dump($_REQUEST);
       list($execSet,$gui->addIssueOp) = write_execution($db,$args,$_REQUEST,$its);
       
       if($args->assignTask)

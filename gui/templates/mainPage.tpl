@@ -101,7 +101,7 @@ var showMetrics = function(){
 	/*var gif = document.getElementById("loader");
 	gif.style.display = 'inline';*/
 	var frame = document.getElementById("metricas");
-	frame.innerHTML = '<div><img id="circle" src = "{$smarty.const.TL_THEME_IMG_DIR}/circle.png" style ="position:absolute;top:50%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);"><img id="loader" src = "{$smarty.const.TL_THEME_IMG_DIR}/loader.gif" style ="position:absolute;top:50%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);"><iframe id="manageHelper" src="lib/results/metricsDashboard2.php" frameborder="0" scrolling="auto" allowtransparency="true" style="position:absolute;width:calc(100% - 30px);height: 100%;"></iframe></div>';
+	frame.innerHTML = '<div><img id="circle" src = "{$smarty.const.TL_THEME_IMG_DIR}/circle.png" style ="position:absolute;top:50%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);"><img id="loader" src = "{$smarty.const.TL_THEME_IMG_DIR}/loader.gif" style ="position:absolute;top:50%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);"><iframe id="manageHelper" src="http://localhost/testlink/lib/results/metricsDashboard4.php" frameborder="0" scrolling="auto" allowtransparency="true" style="position:absolute;width:calc(100% - 30px);height: 100%;"></iframe></div>';
 	//frame.style.cssText="height:100%;";
 	var button = document.getElementById("vizualizar");
 	//button.hidden = true;

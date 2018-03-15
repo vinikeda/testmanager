@@ -143,7 +143,7 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
       
       // at least for Postgres DBMS table name is needed. 
       $execution_id = $db->insert_id($executions_table);
-      generateBlankSteps($db,$val,$tcversion_id,$execution_id);
+      if(isset($exec_data['do_bulk_save'])) generateBlankSteps($db,$val,$tcversion_id,$execution_id);
       $execSet[$tcversion_id] = $execution_id;
       
       if( $has_custom_fields )

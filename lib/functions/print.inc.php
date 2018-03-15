@@ -1733,7 +1733,7 @@ PASS_ONLY_TEST_CASE_RENDER:
 			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Não aplicavel' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='N/A')
 				$table_style = 'style="background-color: #B7B7B7; color: rgb(0,0,0);"';
 			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Aprovado com restrição' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Approved with restrictions')
-				$table_style = 'style="background-color: #FEDF91; color: rgb(0,0,0);"';
+				$table_style = 'style="background-color: #FBE4D5; color: rgb(132,60,12);"';
 			else
 				$table_style = 'style="color: rgb(0, 0, 0);"';
 			

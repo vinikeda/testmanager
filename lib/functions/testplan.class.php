@@ -7673,7 +7673,7 @@ class build_mgr extends tlObject
 
     rev :
   */
-  function create($tplan_id,$name,$notes = '',$active=1,$open=1,$release_date='')
+  function create($tplan_id,$name,$usrs, $notes = '',$active=1,$open=1,$release_date='')
   {
     $targetDate=trim($release_date);
     $sql = " INSERT INTO {$this->tables['builds']} " .
@@ -7700,10 +7700,21 @@ class build_mgr extends tlObject
     {
       $new_build_id = $this->db->insert_id($this->tables['builds']);
     }
-    
+    /** inicio do trecho inserido para fazer a inserção dos usuáriosque foram colocados como analistas responsávers e responsáveis pelo double */
+    $this->addusr($new_build_id,$usrs);
+    /**from do trecho*/
     return $new_build_id;
   }
-
+  function addusr($new_build_id,$usrs){
+        foreach($usrs as $users){
+            foreach($users['list'] as $usr){
+                if($usr != 0){
+                    $sql = "insert into users_builds(id_build,id_usr,tipo_analist) values ($new_build_id,$usr,".$users['tipo'].")";
+                    $this->db->exec_query($sql);
+                }
+            }
+        }      
+  }
 
   /*
     function: update
@@ -7721,7 +7732,7 @@ class build_mgr extends tlObject
 
     rev :
   */
-  function update($id,$name,$notes,$active=null,$open=null,$release_date='',$closed_on_date='')
+  function update($id,$name,$notes,$usrs,$active=null,$open=null,$release_date='',$closed_on_date='')
   {
     $closure_date = '';
     $targetDate=trim($release_date);
@@ -7765,9 +7776,30 @@ class build_mgr extends tlObject
     
     $sql .= " WHERE id={$id}";
     $result = $this->db->exec_query($sql);
+    /**trecho criado para realizar o update nos campos de relacionamentos com a tabela de usuários*/
+    $this->delete_user_related_data ($id);   // var_dump($usrs);
+    $this->addusr($id, $usrs);
+    /*foreach($usrs as $usr){
+        if($usr != 0){
+            $sql = "insert into users_builds(id_build,id_usr,tipo_analist) values ($id,$usr,1 )";
+            $this->db->exec_query($sql);
+        }
+        
+    }
+    foreach($doubles as $dbl){
+        if($dbl != 0){
+            $sql = "insert into users_builds(id_build,id_usr,tipo_analist) values ($id,$dbl,2 )";
+            $this->db->exec_query($sql);
+        }
+        
+    }*/
+    /**fim do trecho*/
     return $result ? 1 : 0;
   }
-
+  function delete_user_related_data ($id){
+          $sql = 'delete from users_builds where id_build = '.$id;
+    $this->db->exec_query($sql);
+  }
   /**
    * Delete a build
    * 
@@ -7800,6 +7832,14 @@ class build_mgr extends tlObject
 
     $sql = " DELETE FROM {$this->tables['builds']} WHERE id={$safe_id}";
     $result=$this->db->exec_query($sql);
+    
+    /**trecho colocado para apagar os treco da tabela users_builds*/
+    
+    $sql = " DELETE FROM users_builds WHERE id_build ={$safe_id}";
+    $result=$this->db->exec_query($sql);
+    
+    /**fim do frecho*/
+    
     return $result ? 1 : 0;
   }
 
@@ -7850,10 +7890,26 @@ class build_mgr extends tlObject
     
     $result = $this->db->exec_query($sql);
     $myrow = $this->db->fetch_array($result);
+    
+    /**inserção para fazer a busca dos usuários analistas de de double*/
+    
+    $myrow['analist'] = $this->getRelatedUsers($id, 1);//$a;
+    
+    $myrow['double'] = $this->getRelatedUsers($id, 2);
+    
+    $myrow['QA'] = $this->getRelatedUsers($id, 3);
+    
+    $myrow['QA_relat'] = $this->getRelatedUsers($id, 4);
+    /**fim da inserção*/
     return $myrow;
   }
-
-
+//função criada para facilitar a busca dos usuários relacionados as builds(requisições)
+  function getRelatedUsers ($id,$tipo){
+    $sql = "select * from users_builds where tipo_analist = {$tipo} and id_build = ".$id;
+    $temp = $this->db->get_recordset($sql);$a;
+    foreach($temp as $tmp)$a[] = $tmp['id_usr'];
+    return $a;
+  }
 
   /*
      function: get_by_name

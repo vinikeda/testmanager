@@ -370,7 +370,7 @@ function getTestersForHtmlOptions(&$db,$tplanID,$tproject,$users = null,
   }
 
   $users_roles = get_tplan_effective_role($db,$tplanID,$tproject,null,$users);
-
+  
   $userFilter = array();
   foreach($users_roles as $keyUserID => $roleInfo)
   {

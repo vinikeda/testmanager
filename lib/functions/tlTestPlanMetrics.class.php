@@ -2660,12 +2660,8 @@ class tlTestPlanMetrics extends testplan
     
     (SELECT max(id) as id, status, build_id , tcversion_id, testplan_id FROM `executions` where testplan_id = ".$id." group by build_id, tcversion_id)
     
-    
     c on (b.id = c.build_id and a.tcversion_id = c.tcversion_id and a.testplan_id = c.testplan_id) inner join tcversions d on (a.tcversion_id = d.id) inner join nodes_hierarchy f on ( a.tcversion_id = f.id) inner join nodes_hierarchy g on (g.id = f.parent_id) inner join nodes_hierarchy h on (h.id = g.parent_id)
-    WHERE a.testplan_id =".$id." and b.active = 1 and d.active = 1
-
-
-GROUP BY b.id,c.status";
+    WHERE a.testplan_id =".$id." GROUP BY b.id,c.status";
 	$dummy = (array)$this->db->get_recordset($sql,'build_id');
 	$sql = "SELECT e.name as testplan_name FROM nodes_hierarchy e WHERE e.id = ".$id;
 	$testplan_name = (array)$this->db->get_recordset($sql,'testplan_name');
@@ -2697,7 +2693,94 @@ GROUP BY b.id,c.status";
 	}//echo $id." - ";//print_r($conversion);
 	return $conversion;
   }
-  function createEmptyStatusArray(){// metodo legado que eucriei. usei em uma das versões anteriores. mas se provou desnecessário mais recentemente. porém ele ajuda no debug em alguns casos então vou deixalo aqui mesmo.
+
+    function getExecByStatusPerBuildByDay($id){
+      $sql ="SELECT count(id) qtd,date_format(date(execution_ts),'%d/%m') date_time ,status FROM `executions` where build_id in ($id) group by camp, status";
+      $dummy = (array)$this->db->get_recordset($sql,'build_id');
+      return($dummy);
+  }
+
+    function getExecByStatusPerBuildByhour  ($id){
+      $sql ="SELECT count(id) qtd,date(execution_ts) camp ,hour(execution_ts) hora,concat(date_format(date(execution_ts),'%d/%m'),' ',if(hour(execution_ts)<10,concat(0,hour(execution_ts)),hour(execution_ts))) date_time,status FROM `executions` where build_id in ($id) group by camp, hora, status";
+      $dummy = (array)$this->db->get_recordset($sql,'build_id');
+      return($dummy);
+  }
+  
+    function getExecByStatusPerBuildByHalfHour  ($id){
+      $sql ="SELECT count(id) qtd,date(execution_ts) camp ,hour(execution_ts) hora, floor(minute(execution_ts)/30)*30 min , concat(date_format(date(execution_ts),'%d/%m') ,' ',if(hour(execution_ts)<10,concat(0,hour(execution_ts)),hour(execution_ts)),':',if(floor(minute(execution_ts)/30)*30 = 0, '00',floor(minute(execution_ts)/30)*30)) date_time ,status FROM `executions` where build_id in ($id) group by camp, hora,min, status";
+      $dummy = (array)$this->db->get_recordset($sql,'build_id');
+      return($dummy);
+  }
+  
+    /*function getExecBySubPerDay($id){
+      $sql ="select name, testproject_id, count(c.id) exec,status, date_format(date(execution_ts),'%d/%m/%y') date_time from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id order by execution_ts ) c group by name , status, date_time";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return($dummy);
+  }*/
+  
+  function getSubList($id){/*gera uma lista com o nome dos sub_adquirentes do projeto de teste*/
+      $sql ="SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where b.parent_id =$id";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return($dummy);
+  }
+  
+  function getTestplansPerSub($id,$subName){
+      $sql ="SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return($dummy);
+  }
+  
+  
+    function getExecBySubPerDay($id,$subName,$rightbuilds){
+        $buildstring = $rightbuilds[0];
+        foreach($rightbuilds as $build) $buildstring .= ','.$build;
+        $sql ="select name, testproject_id, count(c.id) exec,status, date_format(date(execution_ts),'%m/%d/%y') date_time from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%')  ) c group by name , status, date_time order by execution_ts";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+  }
+  function getCleanExecBySubPerDay($id,$subName,$rightbuilds){
+        $buildstring = $rightbuilds[0];
+        foreach($rightbuilds as $build) $buildstring .= ','.$build;
+        $sql ="select name, testproject_id, count(c.id) exec,status, date_format(date(execution_ts),'%m/%d/%y') date_time from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%')  ) c  where status in('p','f') group by name , status, date_time order by execution_ts";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+  }
+    function getExecBySubPerXDays($id,$subName,$days,$rightbuilds){
+        $buildstring = $rightbuilds[0];
+        foreach($rightbuilds as $build) $buildstring .= ','.$build;
+        $sql ="select name, testproject_id, count(c.id) exec, status, execution_ts , date_format(from_unixtime( ceil(unix_timestamp(execution_ts)/(24*60*60*$days))*(24*60*60*$days)+if(hour(from_unixtime(ceil(unix_timestamp(execution_ts)/(24*60*60*$days))*(24*60*60*$days)))='21',(3*60*60),(2*60*60))),'%m/%d/%y') date_time, unix_timestamp(execution_ts)batata from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') ) c group by name , status, date_time order by execution_ts";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+    }
+    function getCleanExecBySubPerXDays($id,$subName,$days,$rightbuilds){
+        $buildstring = $rightbuilds[0];
+        foreach($rightbuilds as $build) $buildstring .= ','.$build;
+        $sql ="select name, testproject_id, count(c.id) exec, status, execution_ts , date_format(from_unixtime( ceil(unix_timestamp(execution_ts)/(24*60*60*$days))*(24*60*60*$days)+if(hour(from_unixtime(ceil(unix_timestamp(execution_ts)/(24*60*60*$days))*(24*60*60*$days)))='21',(3*60*60),(2*60*60))),'%m/%d/%y') date_time, unix_timestamp(execution_ts)batata from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') ) c where status in('p','f') group by name , status, date_time order by execution_ts";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+    }
+    function getExecBySubPerXHours($id,$subName,$days,$rightbuilds){
+        $buildstring = $rightbuilds[0];
+        foreach($rightbuilds as $build) $buildstring .= ','.$build;
+        $sql ="select name, testproject_id, count(c.id) exec, status, execution_ts , date_format(from_unixtime( ceil(unix_timestamp(execution_ts)/(60*60*$days))*(60*60*$days)+if(hour(from_unixtime(ceil(unix_timestamp(execution_ts)/(60*60*$days))*(60*60*$days)))='21',(0*60*60),(0*60*60))),'%m/%d/%y %H:00') date_time, unix_timestamp(execution_ts)batata from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') ) c group by name , status, date_time order by execution_ts";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+    }
+    function getCleanExecBySubPerXHours($id,$subName,$days,$rightbuilds){
+        $buildstring = $rightbuilds[0];
+        foreach($rightbuilds as $build) $buildstring .= ','.$build;
+        $sql ="select name, testproject_id, count(c.id) exec, status, execution_ts , date_format(from_unixtime( ceil(unix_timestamp(execution_ts)/(60*60*$days))*(60*60*$days)+if(hour(from_unixtime(ceil(unix_timestamp(execution_ts)/(60*60*$days))*(60*60*$days)))='21',(0*60*60),(0*60*60))),'%m/%d/%y %H:00') date_time, unix_timestamp(execution_ts)batata from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') ) c where status in('p','f') group by name , status, date_time order by execution_ts";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+    }
+    function getExplainedBuildsBySub($id,$subName){
+      $sql ="select id, cname, SUBSTRING_INDEX(cname,'-',1) sub_adquirente, SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1) solucao, trim(BOTH '-' FROM substring_index(SUBSTRING_INDEX(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1),-1)) roteiro, substring_index (cname,substring_index(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),-1)ciclo, testplan_id from ( select id, replace(replace(name,'–','-'),'PRÉ-CICLO','PRÉ CICLO')cname, creation_ts,testplan_id from ( SELECT * FROM `builds` where testplan_id in ( SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id))conts where /*filtrando pela whitelist dos projetos de testes.*/ testplan_id in (SELECT id FROM `nodes_hierarchy` where parent_id in(1,2252,34704,17972,24546,32883)) /*filtrando os ultimos 6 meses*/ and date(creation_ts) > '2017-6-1' /*blacklist dos casos inválidos*/ and ( upper(name) not like('%DUMMY%') AND UPPER(name)not like('%DEBUG%') AND UPPER(name) not like('%N/A%'))) clean_build order by sub_adquirente,1 desc";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return($dummy);
+  }
+  
+  /**/
+  function createEmptyStatusArray(){// metodo legado que eu criei. usei em uma das versões anteriores. mas se provou desnecessário mais recentemente. porém ele ajuda no debug em alguns casos então vou deixalo aqui mesmo.
 	$stat = array_flip($this->map_tc_status);
 	foreach($stat as $code => $elem)$stat[$code]= 0;
 	return $stat;

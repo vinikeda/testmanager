@@ -30,7 +30,6 @@ switch ($args->doAction)
   break;  
 }
 $map = get_execution($db,$args->exec_id);
-//print_r($map);
 $owebeditor->Value = $map[0]['notes'];
 $stat = $map[0]['status'];//criei para passar o status para o editStatus.tpl usar
 // order on script is critic 
@@ -45,7 +44,6 @@ $gui->execStatusValues[$cfgObj->tc_status['not_run']] = '';
 //inicio do trecho que irá adicionar os steps para edição
 $steps = get_execution_steps($db,$args->exec_id);//nessa linha é carregado em forma de matriz o SELECT que traz as notas e os status dos steps 
 //$resultsCfg = config_get('results');// não lembro, depois procurarei o que isto faz
-//print_r($gui);
 //fim do trecho
 $smarty = new TLSmarty();
 $smarty->assign('gui',$gui);

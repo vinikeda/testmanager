@@ -130,11 +130,13 @@ if(count($gui->tplan_metrics) > 0)
         $rowData[] = $tplan_string;// aqui ele tá passando o cabeçalho o "nome do plano de teste" e a porcentagem completa do plano de teste
         if ($gui->show_platforms) 
         {
-          $rowData[] = /*strip_tags(*/$platform_metric['platform_name']/*)*/;//foi necessário comentar o strip tags pois ele não me permitia obter o link que eu gerava.
+          $rowData[] = /*strip_tags(*/$platform_metric['platform_name'].'<br>'.'<img width = 400 height = 400 src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id='.$tplanid.'&build='.$key.'" >';/*)*///;//foi necessário comentar o strip tags pois ele não me permitia obter o link que eu gerava.
         }
-        $rowData[] = '<a href="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id='.$tplanid.'&build='.$key.'" target = "_blank">'.lang_get('link_charts').'</a>';
+        
+        $rowData[] = '<img width = 1000 height = 230 src="lib/results/LineChartHistoryBuild.php?build='.$key.'" >';
+        //$rowData[] = '<img width = 400 height = 400 src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id='.$tplanid.'&build='.$key.'" >';//target = "_blank">'.lang_get('link_charts').'</a>';
         //$rowData[] = isset($platform_metric['total']) ? $platform_metric['total'] : $platform_metric['active'];
-        $rowData[] = $platform_metric['total'];
+        /*$rowData[] = $platform_metric['total'];
 		$rowData[] = getPercentage($platform_metric['executed'], $platform_metric['active'],
                                    $round_precision);
         foreach ($statusSetForDisplay as $status_verbose => $status_label)
@@ -150,7 +152,7 @@ if(count($gui->tplan_metrics) > 0)
             $rowData[] = 0;
             $rowData[] = 0;
           }
-        }
+        }*/
 
         
         $matrixData[] = $rowData;
@@ -158,7 +160,7 @@ if(count($gui->tplan_metrics) > 0)
     }//fim do foreach
   }
   //new dBug($matrixData);
-  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard');
+  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard');var_dump($columns);var_dump($matrixData);
   // if platforms are to be shown -> group by test plan
   // if no platforms are to be shown -> no grouping
   if($gui->show_platforms) 
@@ -381,8 +383,8 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
                       'filter' => 'list', 'filterOptions' => $platforms);
   }
 
-  $colDef[] = array('title_key' => 'link_charts', 'width' => 40, 'type' => 'text', 'filter' => 'string');
-  $colDef[] = array('title_key' => 'th_active_tc', 'width' => 40, 'sortType' => 'asInt', 'filter' => 'numeric');
+  $colDef[] = array('title_key' => 'link_charts', 'width' => 200, /*'type' => 'text',*/ 'filter' => 'string');
+ /* $colDef[] = array('title_key' => 'th_active_tc', 'width' => 40, 'sortType' => 'asInt', 'filter' => 'numeric');
   $colDef[] = array('title_key' => 'progress', 'width' => 40, 'sortType' => 'asFloat', 'filter' => 'numeric');
   // create 2 columns for each defined status
   foreach($statusLbl as $lbl)
@@ -394,7 +396,7 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
                       'col_id' => 'id_'. $lbl .'_percent', 'type' => 'float', 'sortType' => 'asFloat',
                       'filter' => 'numeric');
   }
-  
+  */
   //print_r($colDef);
 
   return $colDef;

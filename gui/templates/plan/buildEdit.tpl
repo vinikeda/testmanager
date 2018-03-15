@@ -70,6 +70,41 @@ function validateForm(f)
                 {include file="error_icon.tpl" field="build_name"}
       </td>
     </tr>
+    <tr>
+      <th style="background:none;">Analista responsável</th>
+      <td>      <select class="chosen-bulk-select" multiple="multiple"
+              name="bulk_tester_div[]" id="bulk_tester_div" >
+				{html_options options=$gui->testers selected=$gui->bulk_tester_div}
+			</select>
+      </td>
+    </tr>
+    
+    <tr>
+      <th style="background:none;">Responsável pelo double</th>
+      <td>      <select class="chosen-bulk-select" multiple="multiple"
+              name="bulk_double_div[]" id="bulk_tester_div" >
+				{html_options options=$gui->testers selected=$gui->bulk_double_div}
+			</select>
+      </td>
+    </tr>
+    
+    <tr>
+      <th style="background:none;">Responsável de QA - Liberação</th>
+      <td>      <select class="chosen-bulk-select" multiple="multiple"
+              name="bulk_QA_div[]" id="bulk_tester_div" >
+				{html_options options=$gui->QA selected=$gui->bulk_QA_div}
+			</select>
+      </td>
+    </tr>
+    
+    <tr>
+      <th style="background:none;">Responsável de QA - Relatório</th>
+      <td>      <select class="chosen-bulk-select" multiple="multiple"
+              name="bulk_QA_relat_div[]" id="bulk_tester_div" >
+				{html_options options=$gui->QA selected=$gui->bulk_QA_relat_div}
+			</select>
+      </td>
+    </tr>
     <!--tr><th style="background:none;">{$labels.enter_build_notes}</th>     descrição. por solicitação do caio o campo foi removido
       <td>{$gui->notes}</td>
     </tr-->
@@ -168,4 +203,14 @@ function validateForm(f)
 </div>
 </div>
 </body>
+<script>
+jQuery( document ).ready(function() {
+jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });
+jQuery(".chosen-bulk-select").chosen({ width: "35%", allow_single_deselect: true });
+var dtpreenchimento = document.getElementById("custom_field_10_13_input");
+var d = new Date();
+var data = d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear();
+dtpreenchimento.value = data;
+});
+</script>
 </html>

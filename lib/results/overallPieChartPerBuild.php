@@ -19,7 +19,8 @@ require_once('../../config.inc.php');
 require_once('common.php');
 define('PCHART_PATH','../../third_party/pchart');
 include(PCHART_PATH . "/pChart/pData.class");   
-include(PCHART_PATH . "/pChart/pChart.class");   
+include(PCHART_PATH . "/pChart/pChart.class");
+require_once('../functions/tlTestPlanMetrics.class.php');
 
 $resultsCfg = config_get('results');
 $chart_cfg = $resultsCfg['charts']['dimensions']['overallPieChart'];
@@ -28,7 +29,7 @@ $args = init_args($db);
 $tplan_mgr = new testplan($db);
 
 $metricsMgr = new tlTestPlanMetrics($db);
-$totals2 = $metricsMgr->getExecStatusPerBuild($args->tplan_id);//print_r($totals2);
+$totals2 = $metricsMgr->getExecStatusPerBuild($args->tplan_id);
 	$totals2 = $totals2[$build];//encontrar uma forma de passar a build.
 	if(isset($totals2['total']))$result['total'] = $totals2['total'];
 	if(isset($totals2['passed']))$result['passed'] = $totals2['passed'];
@@ -39,10 +40,10 @@ $totals2 = $metricsMgr->getExecStatusPerBuild($args->tplan_id);//print_r($totals
 	if(isset($totals2['analise']))$result['analise'] = $totals2['analise'];
 	if(isset($totals2['warning']))$result['warning'] = $totals2['warning'];
 
-//print_r($result);
 
 
-$totals = $result;//$metricsMgr->getExecCountersByExecStatus($args->tplan_id);print_r($totals);
+
+$totals = $result;//$metricsMgr->getExecCountersByExecStatus($args->tplan_id);
 
 unset($totals['total']);
 
@@ -51,19 +52,18 @@ $labels = array();
 foreach($totals as $key => $value)
 {
   $values[] = $value;
-  $labels[] = lang_get($resultsCfg['status_label'][$key]) . " ($value)"; 
+  $labels[] = lang_get($resultsCfg['status_label'][$key]) . " ($value)";
   if( isset($resultsCfg['charts']['status_colour'][$key]) )
   {
     $series_color[] = $resultsCfg['charts']['status_colour'][$key];
   } 
 }
-
-// Dataset definition    
-$DataSet = new pData;   
-$DataSet->AddPoint($values,"Serie1");   
-$DataSet->AddPoint($labels,"Serie8");   
-$DataSet->AddAllSeries();   
-$DataSet->SetAbsciseLabelSerie("Serie8");   
+// Dataset definition
+$DataSet = new pData;
+$DataSet->AddPoint($values,"Serie1");
+$DataSet->AddPoint($labels,"Serie8");
+$DataSet->AddAllSeries();
+$DataSet->SetAbsciseLabelSerie("Serie8");
 
 // Initialise the graph
 $pChartCfg = new stdClass(); 
@@ -85,15 +85,15 @@ $Test = new pChart($pChartCfg->XSize,$pChartCfg->YSize);
 foreach($series_color as $key => $hexrgb)
 {
   $rgb = str_split($hexrgb,2);
-  $Test->setColorPalette($key,hexdec($rgb[0]),hexdec($rgb[1]),hexdec($rgb[2]));  
+  $Test->setColorPalette($key,hexdec($rgb[0]),hexdec($rgb[1]),hexdec($rgb[2]));
 }
  
 // Draw the pie chart   
 $Test->setFontProperties(config_get('charts_font_path'),config_get('charts_font_size'));
 $Test->AntialiasQuality = 0;
 $Test->drawBasicPieGraph($graph->data,$graph->description,
-                         $pChartCfg->centerX,$pChartCfg->centerY,$pChartCfg->radius,PIE_PERCENTAGE,255,255,218);   
-$Test->drawPieLegend($pChartCfg->legendX,$pChartCfg->legendY,$graph->data,$graph->description,250,250,250);                                
+                         $pChartCfg->centerX,$pChartCfg->centerY,$pChartCfg->radius,PIE_PERCENTAGE,255,255,218);
+$Test->drawPieLegend($pChartCfg->legendX,$pChartCfg->legendY,$graph->data,$graph->description,250,250,250);
 $Test->Stroke();
 
 

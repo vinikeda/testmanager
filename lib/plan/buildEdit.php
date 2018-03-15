@@ -12,6 +12,7 @@
 require('../../config.inc.php');
 require_once("common.php");
 require_once("web_editor.php");
+require_once("treeMenu.inc.php");
 $editorCfg = getWebEditorCfg('build');
 require_once(require_web_editor($editorCfg['type']));//echo '<!--'.require_web_editor($editorCfg['type'])."-->";
 
@@ -50,6 +51,10 @@ switch($args->do_action)
   case 'edit':
     $op = edit($args,$build_mgr,$date_format_cfg);
     $gui->closed_on_date = $args->closed_on_date;
+    $gui->bulk_tester_div = $op->analist;
+    $gui->bulk_double_div = $op->double;
+    $gui->bulk_QA_div = $op->QA;
+    $gui->bulk_QA_relat_div = $op->QA_relat;
     $of->Value = $op->notes;
   break;
 
@@ -100,7 +105,14 @@ $gui->closed_on_date = $args->closed_on_date;
 $gui->operation_descr = $op->operation_descr;
 $gui->user_feedback = $op->user_feedback;
 $gui->buttonCfg = $op->buttonCfg;
-
+$gui->all_users = tlUser::getAll($db,null,"id",null);
+    $tproject_mgr = new testproject($db);
+    $tproject_info = $tproject_mgr->get_by_id($args->testprojectID);
+$gui->testers = getTestersForHtmlOptions($db,$args->tplan_id,$tproject_info,$gui->all_users);//var_dump($gui->testers);
+$teste = get_tplan_effective_role($db,$args->tplan_id,$tproject_info,null,$gui->all_users);//var_dump($teste);
+$filteredQA = array();
+foreach ($teste as $userid=>$usr)if($usr['effective_role_id'] == 11) $filteredQA[$userid] = $usr['user'];
+$gui->QA = buildUserMap($filteredQA,true,null);/*$gui->QA[] = $gui->QA[0];$gui->QA[0] = '';*///var_dump($gui->QA);
 $gui->mgt_view_events = $args->user->hasRight($db,"mgt_view_events");
 $gui->editorType = $editorCfg['type'];
 
@@ -155,7 +167,10 @@ function init_args($request_hash, $session_hash,$date_format)
       $args->release_date = $date_array['year'] . "-" . $date_array['month'] . "-" . $date_array['day'];
     }
   }
-  
+  $args->usr[] = array('tipo'=>1, 'list'=>$request_hash['bulk_tester_div']);
+  $args->usr[] = array('tipo'=>2, 'list'=>$request_hash['bulk_double_div']);
+  $args->usr[] = array('tipo'=>3, 'list'=>$request_hash['bulk_QA_div']);
+  $args->usr[] = array('tipo'=>4, 'list'=>$request_hash['bulk_QA_relat_div']);
   $args->release_date_original = isset($request_hash['release_date']) && $request_hash['release_date'] != '' ?
                                    $request_hash['release_date'] : null;
     
@@ -214,6 +229,10 @@ function edit(&$argsObj,&$buildMgr,$dateFormat)
   $op->notes = $binfo['notes'];
   $op->user_feedback = '';
   $op->status_ok = 1;
+  $op->analist = $binfo['analist'];
+  $op->double = $binfo['double'];
+  $op->QA = $binfo['QA'];
+  $op->QA_relat = $binfo['QA_relat'];
 
   $argsObj->build_name = $binfo['name'];
   $argsObj->is_active = $binfo['active'];
@@ -362,7 +381,7 @@ function renderGui(&$smartyObj,&$argsObj,&$tplanMgr,$templateCfg,$owebeditor,&$g
   @internal revisions
 */
 function doCreate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat) //,&$smartyObj)
-{
+{//var_dump($argsObj);
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
@@ -375,7 +394,9 @@ function doCreate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat) //,&$smartyObj)
   if($check->status_ok)
   {
     $user_feedback = lang_get("cannot_add_build");
-    $buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,$argsObj->notes,
+    /*$buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,$argsObj->notes,
+                                 $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);*/
+    $buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,$argsObj->usr,$argsObj->notes,
                                  $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);
     if ($buildID)
     {
@@ -501,7 +522,7 @@ function doUpdate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat)
   if($check->status_ok)
   {
     $user_feedback = lang_get("cannot_update_build");
-    if ($buildMgr->update($argsObj->build_id,$argsObj->build_name,$argsObj->notes,
+    if ($buildMgr->update($argsObj->build_id,$argsObj->build_name,$argsObj->notes,$argsObj->usr,
                           $argsObj->is_active,$argsObj->is_open,$argsObj->release_date))
     {
       $cf_map = $buildMgr->get_linked_cfields_at_design($argsObj->build_id,$argsObj->testprojectID);
