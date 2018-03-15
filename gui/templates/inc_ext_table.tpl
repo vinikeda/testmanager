@@ -270,7 +270,7 @@ Ext.onReady(function() {
       {rdelim}, // END listeners
 
       view: new Ext.grid.GroupingView({ldelim}
-        {$matrix->getGridViewConfig()}
+        {$matrix->getGridViewConfig()},startCollapsed : true
       {rdelim}), // END view
       
       columns: columnData['{$tableID}']
