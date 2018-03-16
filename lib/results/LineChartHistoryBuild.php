@@ -67,6 +67,7 @@ else {
 $listdate = array_flip($datelist);
 //var_dump($datelist);//var_dump($data);
 $values = array();
+$valuesC = array();
 $valuesdebug = array();
 $labels = array();
 $names = array();
@@ -74,19 +75,21 @@ $names = array();
 foreach ($data as $reg) {
     $datahora = ($daysPerPeriod > 0)?date('d/m/Y',strtotime($reg['date_time'])):date('d/m/Y H:00',strtotime($reg['date_time']));
     $valuesdebug[$resultsCfg['code_status'][$reg['status']]][$datahora] = $reg['exec'];
-    if(isset($listdate[$datahora]))//verificando se a data precisa de correção depois das inúmeras conversões seguidas
-        $values[/*lang_get($resultsCfg['status_label'][*/$resultsCfg['code_status'][$reg['status']]/*]/*)*/][$datahora] = $reg['exec'];
+    $valuesC[$resultsCfg['code_status'][$reg['status']]] = 0;
+    if(isset($listdate[$datahora])){//verificando se a data precisa de correção depois das inúmeras conversões seguidas
+        $values[lang_get($resultsCfg['status_label'][$resultsCfg['code_status'][$reg['status']]])/*lang_get($resultsCfg['status_label'][//$resultsCfg['code_status'][$reg['status']]/*]/*)*/][$datahora] = $reg['exec'];
+    }
     else {
         $datahora = substr($datahora,0,1).(substr($datahora,1,1)+1).substr($datahora,-8);//corrigindo caso tenha ficado com uma hora de atraso devido ao reajuste na coonversão do horário de verão + utc. o que acarreta em um dia de atrado
         if(isset($listdate[$datahora])){
-            $values[$resultsCfg['code_status'][$reg['status']]][$datahora] = $reg['exec'];
+            $values[lang_get($resultsCfg['status_label'][$resultsCfg['code_status'][$reg['status']]])][$datahora] = $reg['exec'];
         }else{//algum erro não previsto
             var_dump('data não válida na divisão dos períodos: '.date('d/m/Y H:00',strtotime($reg['date_time'])));
         }
     }
     /*if (!in_array($datahora, $labels))
         $labels[] = $datahora;*/
-}
+}//var_dump($valuesC);
 $labels = $datelist;
 /*
 var_dump($labels);
@@ -158,9 +161,9 @@ $Test->setFontProperties(config_get('charts_font_path'), 10);
 $Test->setGraphArea(40, 7, $grapW - 40, 205);
 $Test->drawGraphArea(252, 252, 252);
 $colorList = array();
-foreach ($values as $key => $value) {
+foreach ($valuesC as $key => $value) {
     $colorList[] = $resultsCfg['charts']['status_colour'][$key];
-}
+}//var_dump($colorList);
 foreach($colorList as $key => $hexrgb)
 {
   $rgb = str_split($hexrgb,2);

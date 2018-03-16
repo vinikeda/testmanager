@@ -18,7 +18,7 @@ require_once('common.php');
 require_once('exttable.class.php');
 require_once('../functions/tlTestPlanMetrics.class.php');
 $templateCfg = templateConfiguration();
-
+var_dump($tlCfg->results);
 //testlinkInitPage($db,false,false,"checkRights");
 list($args, $gui) = initEnv($db);
 $result_cfg = config_get('results');
@@ -85,6 +85,8 @@ VAR;
             $text .= '</div>';
             $text .= '<div class="resultBox" style="float:right">'
                             . 'Quantidade de períodos: <input type="number" id = "period'.$subgraph.'" value = "'.$period.'"><br>'
+                           /* . 'mostrar casos de teste: <input type="checkbox" id = "bloc'.$subgraph.'">bloqueado <input type="checkbox" id = "warn'.$subgraph.'">warning <input type="checkbox" id = "anl'.$subgraph.'">analise<br>'
+                            . '<input type="checkbox" id = "nava'.$subgraph.'">'*/
                             . 'Ocultar os outros status: <input type="checkbox" id = "stat'.$subgraph.'" '.($clean == 'true'?'checked':'').'><br>'
                             . 'Largura do gráfico por tempo: <input type="number" id = "width'.$subgraph.'" value = "'.$width.'">'
                             /*. 'quantidade de períodos: <input type="text" id = "period'.$subgraph.'">'*/
