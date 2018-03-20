@@ -64,27 +64,39 @@ loader.hidden=true;
     function resetparams(radical,period,clear,width){
         document.getElementById('period'+radical).value = period;
         document.getElementById('width'+radical).value = width;
-        document.getElementById('stat'+radical).checked = clear;
+        statlist = clear.split('');console.log(statlist);
+        
+        {foreach key = "key" item="value" from=$gui->status_radicals}
+            temp = document.getElementById("{$key}"+radical);console.log("{$value}");
+            temp.checked = (statlist.includes('{$value}'));
+        {/foreach}
+        
         getnewparams(radical);
     }
     
     function getnewparams(radical){
         period = document.getElementById('period'+radical).value;
         width = document.getElementById('width'+radical).value;
-        clear = document.getElementById('stat'+radical).checked;
-        
-        setparams(radical,period,clear,width);
+        //clear = document.getElementById('stat'+radical).checked;
+        stats = '';
+        {foreach key = "key" item="value" from=$gui->status_radicals}
+            temp = document.getElementById("{$key}"+radical);
+            if(temp.checked)stats += temp.value;
+        {/foreach}
+            
+        //console.log(stats);
+        setparams(radical,period,stats,width);
     }
     
     function setparams(radical,period,clear,width){
         graph = document.getElementById('imgtime'+radical);
         graph.width = width;
-        div = document.getElementById('time'+radical);//console.log(div.style.width);//console.log(div.offsetWidth);
+        //div = document.getElementById('time'+radical);//console.log(div.style.width);//console.log(div.offsetWidth);
         //div.setAttribute("style","clear:both;resize:both;overflow: scroll;width:"+width+"px");
         params = graph.src.split('&');
         params[2] = params[2].replace(params[2].split('=')[1],clear);
         params[3] = params[3].replace(params[3].split('=')[1],period);
-        params[4] = params[4].replace(params[4].split('=')[1],width);
+        params[4] = (params[4].split('=')[1] == '')?params[4] + 1500: params[4].replace(params[4].split('=')[1],width);
         str = params[0];
         for(var i = 1;i<params.length;i++){
             str+='&'+params[i];

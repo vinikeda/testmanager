@@ -15,7 +15,7 @@
  */
 $build = $_GET['build'];
 $sub = $_GET['sub'];
-$clean = $_GET['clean'];
+$clean = $_GET['stats'];
 $periods = $_GET['periods'];
 $rightbuilds = $_GET['buildvalid'];
 $grapw = $_GET['width'];
@@ -37,7 +37,8 @@ $metricsMgr = new tlTestPlanMetrics($db);
 //var_dump($args->tproject_id);
 //$data = $metricsMgr->getExecByStatusPerBuildByHalfHour($build);
 //$data = $metricsMgr->getExecBySubPerDay($args->tproject_id,$sub);
-$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerDay($build,$sub,$rightbuilds):$metricsMgr->getExecBySubPerDay($build,$sub,$rightbuilds);
+//$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerDay($build,$sub,$rightbuilds):$metricsMgr->getExecBySubPerDay($build,$sub,$rightbuilds);
+$data = $metricsMgr->getCustomExecBySubPerDay($build,$sub,$rightbuilds,$clean);
 if(count($data)==0) withoutData();
 else{
 $begin = $data[0]['date_time'];
@@ -45,12 +46,16 @@ $last = end($data)['date_time'];
 $days = date_dif($begin,$last);
 $daysPerPeriod = ceil($days/$periods);//var_dump($daysPerPeriod);
 if($daysPerPeriod>1){
-    $data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds):$metricsMgr->getExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds);
+    //$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds):$metricsMgr->getExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds);
+    $data = $metricsMgr->getCustomExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds,$clean);
+    
 }else if($daysPerPeriod == 0){
-    $data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXHours($build,$sub,1,$rightbuilds):$metricsMgr->getExecBySubPerXHours($build,$sub,1,$rightbuilds);
+    //$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXHours($build,$sub,1,$rightbuilds):$metricsMgr->getExecBySubPerXHours($build,$sub,1,$rightbuilds);
+    $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,1,$rightbuilds,$clean);
     $begin = $data[0]['execution_ts'];
     $last = end($data)['execution_ts'];
-    $data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXHours($build,$sub,1,$rightbuilds):$metricsMgr->getExecBySubPerXHours($build,$sub,1,$rightbuilds);
+    //$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXHours($build,$sub,1,$rightbuilds):$metricsMgr->getExecBySubPerXHours($build,$sub,1,$rightbuilds);
+    $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,1,$rightbuilds,$clean);
 }else $daysPerPeriod = 1;
 $begin = $data[0]['date_time'];
 $last = end($data)['date_time'];
@@ -119,8 +124,8 @@ $total;
 $temp = 0;
 foreach ($labels as $lbl){
     foreach ($values as $chave => $valor){
-    $total[$lbl] += $valor[$lbl];
-    
+        $total[$lbl] += $valor[$lbl];
+        
     }
     $total[$lbl] += $temp;
     $temp = $total[$lbl];

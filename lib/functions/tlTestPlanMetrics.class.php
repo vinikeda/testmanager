@@ -2724,11 +2724,11 @@ class tlTestPlanMetrics extends testplan
       return($dummy);
   }
   
-  function getTestplansPerSub($id,$subName){
-      $sql ="SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id";
-      $dummy = (array)$this->db->get_recordset($sql);
-      return($dummy);
-  }
+    function getTestplansPerSub($id,$subName){
+        $sql ="SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id";
+        $dummy = (array)$this->db->get_recordset($sql);
+        return($dummy);
+    }
   
   
     function getExecBySubPerDay($id,$subName,$rightbuilds){
@@ -2737,12 +2737,12 @@ class tlTestPlanMetrics extends testplan
         $sql ="select name, testproject_id, count(c.id) exec,status, date_format(date(execution_ts),'%m/%d/%y') date_time from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%')  ) c group by name , status, date_time order by execution_ts";
         $dummy = (array)$this->db->get_recordset($sql);
         return($dummy);
-  }
+    }
   
     function getCustomExecBySubPerDay($id,$subName,$rightbuilds,$status){
         $stat_array = str_split($status);
         $statlist = '';
-        foreach($stat_array as $stat)$statlist .= '"'.stat.'",';$statlist .='"'.$stat_array[0].'"';
+        foreach($stat_array as $stat)$statlist .= '"'.$stat.'",';$statlist .='"'.$stat_array[0].'"';
         $buildstring = $rightbuilds[0];
         foreach($rightbuilds as $build) $buildstring .= ','.$build;
         $sql ="select name, testproject_id, count(c.id) exec,status, date_format(date(execution_ts),'%m/%d/%y') date_time from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%')  ) c  where status in($statlist) group by name , status, date_time order by execution_ts";
@@ -2768,7 +2768,7 @@ class tlTestPlanMetrics extends testplan
     function getCustomExecBySubPerXDays($id,$subName,$days,$rightbuilds,$status){
         $stat_array = str_split($status);
         $statlist = '';
-        foreach($stat_array as $stat)$statlist .= '"'.stat.'",';$statlist .='"'.$stat_array[0].'"';
+        foreach($stat_array as $stat)$statlist .= '"'.$stat.'",';$statlist .='"'.$stat_array[0].'"';
         $buildstring = $rightbuilds[0];
         foreach($rightbuilds as $build) $buildstring .= ','.$build;
         $sql ="select name, testproject_id, count(c.id) exec, status, execution_ts , date_format(from_unixtime( ceil(unix_timestamp(execution_ts)/(24*60*60*$days))*(24*60*60*$days)+if(hour(from_unixtime(ceil(unix_timestamp(execution_ts)/(24*60*60*$days))*(24*60*60*$days)))='21',(3*60*60),(2*60*60))),'%m/%d/%y') date_time, unix_timestamp(execution_ts)batata from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') ) c  where status in($statlist) group by name , status, date_time order by execution_ts";
@@ -2794,7 +2794,7 @@ class tlTestPlanMetrics extends testplan
     function getCustomExecBySubPerXHours($id,$subName,$days,$rightbuilds,$status){
         $stat_array = str_split($status);
         $statlist = '';
-        foreach($stat_array as $stat)$statlist .= '"'.stat.'",';$statlist .='"'.$stat_array[0].'"';
+        foreach($stat_array as $stat)$statlist .= '"'.$stat.'",';$statlist .='"'.$stat_array[0].'"';
         $buildstring = $rightbuilds[0];
         foreach($rightbuilds as $build) $buildstring .= ','.$build;
         $sql ="select name, testproject_id, count(c.id) exec, status, execution_ts , date_format(from_unixtime( ceil(unix_timestamp(execution_ts)/(60*60*$days))*(60*60*$days)+if(hour(from_unixtime(ceil(unix_timestamp(execution_ts)/(60*60*$days))*(60*60*$days)))='21',(0*60*60),(0*60*60))),'%m/%d/%y %H:00') date_time, unix_timestamp(execution_ts)batata from( SELECT DISTINCT SUBSTRING_INDEX(b.name,'-',1) 'name' , b.parent_id 'testproject_id' ,c.* FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) inner join executions c on a.id = c.testplan_id where b.parent_id = $id and c.build_id in($buildstring) and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') ) c where status in($statlist) group by name , status, date_time order by execution_ts";
