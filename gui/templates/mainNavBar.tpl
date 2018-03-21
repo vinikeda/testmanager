@@ -570,5 +570,11 @@ display:block !important;
 		</ul>
 	{/if}
 {/if}
-
+<ul class="nav navbar-nav">
+    <li>
+        <a href="lib/dtManagement/categoriesView.php" target="mainframe">
+            Data Management
+        </a>
+    </li>
+</ul>
 <!-- termina aqui o mainNavBar.tpl-->
