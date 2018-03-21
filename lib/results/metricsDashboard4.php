@@ -31,7 +31,7 @@ $labels = init_labels(array('overall_progress' => null, 'test_plan' => null, 'pr
 
 /// valores default para o grático de linha:
 $period = 15;
-$clean = 'pf';
+$clean = 'pf';$default_arr_stat = array('p','f');
 $width = 1500;
 
 //$statusSetForDisplay = $result_cfg['status_label_for_exec_ui'];
@@ -86,7 +86,7 @@ VAR;
             foreach($tlCfg->results['code_status'] as $key=>$val){
                 if($key != 'n' && $key != 't')
                     if(lang_get($tlCfg->results['status_label'][$val])!= null){
-                        $chkstatus .= '<input type="checkbox" id = "'.$val.$subgraph.'" value="'.$key.'">'.lang_get($tlCfg->results['status_label'][$val]).'<br>';
+                        $chkstatus .= '<input type="checkbox" id = "'.$val.$subgraph.'" value="'.$key.'" '.(in_array($key,$default_arr_stat)?'checked = "true"':'').'>'.lang_get($tlCfg->results['status_label'][$val]).'<br>';
                         $status_radicals[$val] = $key;//salvei no endereço para não ter que lidar com os casos repetidos
                     }
             }
@@ -96,7 +96,7 @@ VAR;
             $text .= '<div class="resultBox" style="float:right">'
                         . '<table>'
                         . '<tr><th>Quantidade de períodos:</th><td><input type="number" id = "period'.$subgraph.'" value = "'.$period.'"></td></tr>'
-                        . '<tr><th>mostrar casos de teste:</th><td>'.$chkstatus.'</td></tr>'//<input type="checkbox" id = "bloc'.$subgraph.'">bloqueado <input type="checkbox" id = "warn'.$subgraph.'">warning <input type="checkbox" id = "anl'.$subgraph.'">analise<br>'
+                        . '<tr><th>Filtrar casos de teste:</th><td>'.$chkstatus.'</td></tr>'//<input type="checkbox" id = "bloc'.$subgraph.'">bloqueado <input type="checkbox" id = "warn'.$subgraph.'">warning <input type="checkbox" id = "anl'.$subgraph.'">analise<br>'
                         //. '<input type="checkbox" id = "nava'.$subgraph.'">'
                         //. '<tr><th>Ocultar os outros status:</th><td><input type="checkbox" id = "stat'.$subgraph.'" '.($clean == 'true'?'checked':'').'></td></tr>'
                         . '<tr style="display:none"><th>Largura do gráfico por tempo:</th><td><input type="number" id = "width'.$subgraph.'" value = "'.$width.'"></td></tr>'
@@ -152,7 +152,7 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms) {
         'filter' => 'string');
 
     if ($showPlatforms) {
-        $colDef[] = array('title_key' => 'platform', 'width' => 60, 'sortType' => 'asText',
+        $colDef[] = array('title_key' => '', 'width' => 60, 'sortType' => 'asText',
             'filter' => 'string'/*, 'filterOptions' => $platforms*/);
     }
 

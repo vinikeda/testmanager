@@ -107,7 +107,7 @@ var showMetrics = function(){
 	//button.hidden = true;
 	var close = function(){		
 	button.value="{$labels.btn_close}";
-	button.style.cssText="top: 10px;position: absolute;left: 95%;margin-right: -50%;transform: translate(-50%, 0%);";
+	button.style.cssText="top: 0px;position: absolute;left: 95%;margin-right: -50%;transform: translate(-50%, 0%);";
 	}
 	close();
 	var reclick = function(){

@@ -226,7 +226,7 @@ function withoutData(){
     $Test->setFontProperties(config_get('charts_font_path'), 10);
     $Test->setGraphArea(40, 7, $grapW - 40, 205);
     $Test->drawGraphArea(252, 252, 252);
-    $Test->drawTitle(60,22,"Sem dados suficientes para gerar gráfico",50,50,50,585);
+    $Test->drawTitle(60,22,"Aguardando inicio dos testes",50,50,50,585);
     $Test->Stroke();
     exit(0);
 }

@@ -105,5 +105,15 @@ loader.hidden=true;
     }
 </script>
 </body>
+
+<style>
+    div.x-panel-tbar,div.x-grid3-header{
+        display:none;
+    }
+    div.x-grid3-body{
+        margin-top: 26px;
+    }
+</style>
+
 </html>
 <!-- termina aqui o metricsDashboard2.tpl-->
