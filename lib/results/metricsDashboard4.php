@@ -75,7 +75,7 @@ VAR;
                 $titulo = $selection; //$chave.$roteiro[0]['ciclo'];
                 $line ['titulo']= "<th>$titulo</th>";//.$temp;//$text .= "<th>$titulo</th>";
                 
-                $line ['grafico'] = "<td id = \"$idGraph\" >" . '<img width = 280 height = 280 title="clique aqui para ver o gráfico desse ciclo" src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id=' . $roteiro[0]['testplan_id'] . '&build=' . $roteiro[0]['id'] ." \" onclick=\" document.getElementById('time$subgraph').innerHTML ='<img id = \'imgtime$subgraph\' width = 1500 height= 230 src =\'lib/results/LineChartHistoryBuild.php?build=$args->tproject_id&sub=$subname&stats=$clean&periods=$period&width=$width&buildvalid[]=".$item['id']."\' >' \" ".'>' . "</td>";
+                $line ['grafico'] = "<td id = \"$idGraph\" >" . '<img width = 280 height = 280 title="clique aqui para ver o gráfico desse ciclo" src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id=' . $roteiro[0]['testplan_id'] . '&build=' . $roteiro[0]['id'] ." \" onclick=\" document.getElementById('imgtime$subgraph').src ='lib/results/LineChartHistoryBuild.php?build=$args->tproject_id&sub=$subname&stats=$clean&periods=$period&width=$width&buildvalid[]=".$roteiro[0]['id']."'\" >" . "</td>";
                 $temp[] = $line;
             }
             $text = '<div>';
