@@ -61,13 +61,14 @@ loader.hidden=true;
 {/foreach}
 </div>
 <script>
-    function resetparams(radical,period,clear,width){
+    function resetparams(radical,period,clear,width,cumulative){
         document.getElementById('period'+radical).value = period;
         document.getElementById('width'+radical).value = width;
+        document.getElementById('cumulative'+radical).checked = cumulative;
         statlist = clear.split('');console.log(statlist);
         
         {foreach key = "key" item="value" from=$gui->status_radicals}
-            temp = document.getElementById("{$key}"+radical);console.log("{$value}");
+            temp = document.getElementById("{$key}"+radical);//console.log("{$value}");
             temp.checked = (statlist.includes('{$value}'));
         {/foreach}
         
@@ -83,12 +84,12 @@ loader.hidden=true;
             temp = document.getElementById("{$key}"+radical);
             if(temp.checked)stats += temp.value;
         {/foreach}
-            
+         cumulative = document.getElementById('cumulative'+radical).checked;   
         //console.log(stats);
-        setparams(radical,period,stats,width);
+        setparams(radical,period,stats,width,cumulative);
     }
     
-    function setparams(radical,period,clear,width){
+    function setparams(radical,period,clear,width,cumulative){
         graph = document.getElementById('imgtime'+radical);
         graph.width = width;
         //div = document.getElementById('time'+radical);//console.log(div.style.width);//console.log(div.offsetWidth);
@@ -97,6 +98,7 @@ loader.hidden=true;
         params[2] = params[2].replace(params[2].split('=')[1],clear);
         params[3] = params[3].replace(params[3].split('=')[1],period);
         params[4] = (params[4].split('=')[1] == '')?params[4] + 1500: params[4].replace(params[4].split('=')[1],width);
+        params[5] = params[5].replace(params[5].split('=')[1],cumulative);
         str = params[0];
         for(var i = 1;i<params.length;i++){
             str+='&'+params[i];

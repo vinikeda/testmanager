@@ -19,6 +19,7 @@ $clean = $_GET['stats'];
 $periods = $_GET['periods'];
 $rightbuilds = $_GET['buildvalid'];
 $grapw = $_GET['width'];
+$cumulative = $_GET['cumulative'];
 require_once('../../config.inc.php');
 require_once('common.php');
 require_once('../functions/tlTestPlanMetrics.class.php');
@@ -120,6 +121,18 @@ foreach ($labels as $lb) {
         }
     }
 }
+
+if($cumulative == "true"){
+    foreach ($values as &$val){
+        $acc = 0;
+        foreach ($val as &$data){
+            $tmp = $data;
+            $data += $acc;
+            $acc += $tmp;
+        }
+    }
+}
+
 $total;
 $temp = 0;
 foreach ($labels as $lbl){
@@ -129,7 +142,7 @@ foreach ($labels as $lbl){
     }
     $total[$lbl] += $temp;
     $temp = $total[$lbl];
-}
+}//var_dump($values);
 //$values['executados'] = $total;
 
 foreach ($values as &$val) {
