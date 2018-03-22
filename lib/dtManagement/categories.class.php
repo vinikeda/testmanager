@@ -51,6 +51,10 @@ class categories {
 		return $this->db->get_recordset("select * from kibana_links");
 	}
 	
+        function getDashboardByTestproject($tproject){
+		return $this->db->get_recordset("select * from kibana_links where tproject_id = $tproject");
+	}
+        
 	function get_by_id($id){
 		return $this->db->exec_query("select * from categories where id = ".intval($id))->fields;
 	}

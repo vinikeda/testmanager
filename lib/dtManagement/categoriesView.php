@@ -23,7 +23,7 @@ $templateCfg = templateConfiguration();
 
 $categories = new categories($db);
 $gui = new StdClass();
-$gui->categories = $categories->getCategories();
+$gui->categories = $categories->getDashboardByTestproject($_SESSION['testprojectID']);
 $gui->user_feedback = null;
 
 $smarty = new TLSmarty();

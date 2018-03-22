@@ -19,7 +19,6 @@ require_once("web_editor.php");
 
 testlinkInitPage($db,false,false,"checkRights");
 $templateCfg = templateConfiguration();
-
 //$date_format_cfg = config_get('date_format');
 
 $op = new stdClass();
@@ -107,7 +106,6 @@ function init_args($request_hash, $session_hash)
 {
   $args = new stdClass();
   $request_hash = strings_stripSlashes($request_hash);
-
   $nullable_keys = array('do_action','subadiq_name');
   foreach($nullable_keys as $value)
   {
