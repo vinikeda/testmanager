@@ -17,6 +17,7 @@ $build = $_GET['build'];
 $sub = $_GET['sub'];
 $clean = $_GET['stats'];
 $periods = $_GET['periods'];
+$timetype = $_GET['timetype'];
 $rightbuilds = $_GET['buildvalid'];
 $grapw = $_GET['width'];
 $cumulative = $_GET['cumulative'];
@@ -42,165 +43,168 @@ $metricsMgr = new tlTestPlanMetrics($db);
 $data = $metricsMgr->getCustomExecBySubPerDay($build,$sub,$rightbuilds,$clean);
 if(count($data)==0) withoutData();
 else{
-$begin = $data[0]['date_time'];
-$last = end($data)['date_time'];
-$days = date_dif($begin,$last);
-$daysPerPeriod = ceil($days/$periods);//var_dump($daysPerPeriod);
-if($daysPerPeriod>1){
-    //$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds):$metricsMgr->getExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds);
-    $data = $metricsMgr->getCustomExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds,$clean);
-    
-}else if($daysPerPeriod == 0){
-    //$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXHours($build,$sub,1,$rightbuilds):$metricsMgr->getExecBySubPerXHours($build,$sub,1,$rightbuilds);
-    $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,1,$rightbuilds,$clean);
-    $begin = $data[0]['execution_ts'];
-    $last = end($data)['execution_ts'];
-    //$data = ($clean=='true')?$metricsMgr->getCleanExecBySubPerXHours($build,$sub,1,$rightbuilds):$metricsMgr->getExecBySubPerXHours($build,$sub,1,$rightbuilds);
-    $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,1,$rightbuilds,$clean);
-}else $daysPerPeriod = 1;
-$begin = $data[0]['date_time'];
-$last = end($data)['date_time'];
-/*var_dump($data);
-var_dump($begin);
-var_dump($last);
-var_dump($daysPerPeriod);/**/
-if($daysPerPeriod != 0)$datelist = date_range($begin, date('m/d/Y',strtotime($last)+(60*60*24)), "+$daysPerPeriod day", 'd/m/Y');
-else {
-    $hours = hour_dif($begin,$last);
-    if($hours != 0)$datelist = date_range($begin, $last, "+".ceil($hours/$periods)." hour", 'd/m/Y H:00');
-    else withoutData();
-}
-$listdate = array_flip($datelist);
-//var_dump($datelist);//var_dump($data);
-$values = array();
-$valuesC = array();
-$valuesdebug = array();
-$labels = array();
-$names = array();
-
-foreach ($data as $reg) {
-    $datahora = ($daysPerPeriod > 0)?date('d/m/Y',strtotime($reg['date_time'])):date('d/m/Y H:00',strtotime($reg['date_time']));
-    $valuesdebug[$resultsCfg['code_status'][$reg['status']]][$datahora] = $reg['exec'];
-    $valuesC[$resultsCfg['code_status'][$reg['status']]] = 0;
-    if(isset($listdate[$datahora])){//verificando se a data precisa de correção depois das inúmeras conversões seguidas
-        $values[lang_get($resultsCfg['status_label'][$resultsCfg['code_status'][$reg['status']]])/*lang_get($resultsCfg['status_label'][//$resultsCfg['code_status'][$reg['status']]/*]/*)*/][$datahora] = $reg['exec'];
-    }
-    else {
-        $datahora = substr($datahora,0,1).(substr($datahora,1,1)+1).substr($datahora,-8);//corrigindo caso tenha ficado com uma hora de atraso devido ao reajuste na coonversão do horário de verão + utc. o que acarreta em um dia de atrado
-        if(isset($listdate[$datahora])){
-            $values[lang_get($resultsCfg['status_label'][$resultsCfg['code_status'][$reg['status']]])][$datahora] = $reg['exec'];
-        }else{//algum erro não previsto
-            var_dump('data não válida na divisão dos períodos: '.date('d/m/Y H:00',strtotime($reg['date_time'])));
-        }
-    }
-    /*if (!in_array($datahora, $labels))
-        $labels[] = $datahora;*/
-}//var_dump($valuesC);
-$labels = $datelist;
-/*
-var_dump($labels);
-var_dump($valuesdebug);/**/
-function datesort($a,$b){//essa  função foi criada para ordenar as datas.
-    if (substr($a, 6,4) > substr($b, 6,4))return 1;
-    if (substr($a, 6,4) < substr($b, 6,4))return -1;
-    if (substr($a, 3,2) > substr($b, 3,2))return 1;
-    if (substr($a, 3,2) < substr($b, 3,2))return -1;
-    if (substr($a, 0,2) > substr($b, 0,2))return 1;
-    if (substr($a, 0,2) < substr($b, 0,2))return -1;
-    if (substr($a, 11,2) > substr($b, 11,2))return 1;
-    if (substr($a, 11,2) < substr($b, 11,2))return -1;
-}
-usort($labels,'datesort');
-//array_unique($labels);
-//var_dump($values);
-foreach ($labels as $lb) {
-    foreach ($values as &$val) {
-        if (!isset($val[$lb])) {
-            $val[$lb] = 0;
-            uksort($val, 'datesort');
-        }
-    }
-}
-
-if($cumulative == "true"){
-    foreach ($values as &$val){
-        $acc = 0;
-        foreach ($val as &$data){
-            $tmp = $data;
-            $data += $acc;
-            $acc += $tmp;
-        }
-    }
-}
-
-$total;
-$temp = 0;
-foreach ($labels as $lbl){
-    foreach ($values as $chave => $valor){
-        $total[$lbl] += $valor[$lbl];
+    $datelist = array();
+    if($timetype == 'd'){
+        $data = $metricsMgr->getCustomExecBySubPerXDays($build,$sub,$periods,$rightbuilds,$clean);
+        $begin = $data[0]['date_time'];
+        $last = end($data)['date_time'];
+        $datelist = date_range($begin, date('m/d/Y',strtotime($last)/*+(60*60*24)*/), "+$periods day", 'd/m/Y');
+        if($begin == $last) withoutData();
         
+    }else if($timetype == 'h'){
+        $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,$periods,$rightbuilds,$clean);
+        $begin = $data[0]['date_time'];
+        $last = end($data)['date_time'];
+        $datelist = date_range($begin, date('m/d/Y H:00',strtotime($last)+(60*60*24)), "+$periods hour", 'd/m/Y H:00');
+        if($begin == $last) withoutData();
+        
+    }else if($timetype = 'r'){
+        $begin = $data[0]['date_time'];
+        $last = end($data)['date_time'];
+        $days = date_dif($begin,$last);
+        $daysPerPeriod = ceil($days/$periods);
+        if($daysPerPeriod>1)$data = $metricsMgr->getCustomExecBySubPerXDays($build,$sub,$daysPerPeriod,$rightbuilds,$clean);
+        else if($daysPerPeriod == 0){
+            $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,1,$rightbuilds,$clean);
+            $begin = $data[0]['execution_ts'];
+            $last = end($data)['execution_ts'];
+            $data = $metricsMgr->getCustomExecBySubPerXHours($build,$sub,1,$rightbuilds,$clean);
+        }else $daysPerPeriod = 1;
+        $begin = $data[0]['date_time'];
+        $last = end($data)['date_time'];
+        if($daysPerPeriod != 0)$datelist = date_range($begin, date('m/d/Y',strtotime($last)+(60*60*24)), "+$daysPerPeriod day", 'd/m/Y');
+        else {
+            $hours = hour_dif($begin,$last);
+            if($hours != 0)$datelist = date_range($begin, $last, "+".ceil($hours/$periods)." hour", 'd/m/Y H:00');
+            else withoutData();
+        }
     }
-    $total[$lbl] += $temp;
-    $temp = $total[$lbl];
-}//var_dump($values);
-//$values['executados'] = $total;
+    $listdate = array_flip($datelist);
+    /*var_dump($listdate);
+    var_dump($data);/**/
+    $values = array();
+    $valuesC = array();
+    $valuesdebug = array();
+    $labels = array();
+    $names = array();
 
-foreach ($values as &$val) {
-    $temporario = 0;
-    foreach ($val as &$subval){
-        $temporario += $subval;
-        //$subval = $temporario;
+    foreach ($data as $reg) {
+        $datahora = ($timetype == 'r' || $timetype == 'h')?($daysPerPeriod > 0)?date('d/m/Y',strtotime($reg['date_time'])):date('d/m/Y H:00',strtotime($reg['date_time'])):date('d/m/Y',strtotime($reg['date_time']));//var_dump($datahora);
+        $valuesdebug[$resultsCfg['code_status'][$reg['status']]][$datahora] = $reg['exec'];
+        $valuesC[$resultsCfg['code_status'][$reg['status']]] = 0;
+        if(isset($listdate[$datahora])){//verificando se a data precisa de correção depois das inúmeras conversões seguidas
+            $values[lang_get($resultsCfg['status_label'][$resultsCfg['code_status'][$reg['status']]])][$datahora] = $reg['exec'];
+        }
+        else {
+            $datahora = substr($datahora,0,1).(substr($datahora,1,1)+1).substr($datahora,-8);//corrigindo caso tenha ficado com uma hora de atraso devido ao reajuste na coonversão do horário de verão + utc. o que acarreta em um dia de atrado
+            if(isset($listdate[$datahora])){
+                $values[lang_get($resultsCfg['status_label'][$resultsCfg['code_status'][$reg['status']]])][$datahora] = $reg['exec'];
+            }else{//algum erro não previsto
+                var_dump('data não válida na divisão dos períodos: '.date('d/m/Y H:00',strtotime($reg['date_time'])));
+            }
+        }
     }
-}
-//var_dump($resultsCfg);
-/*var_dump($args->tproject_id);
-var_dump($sub);*/
-/*var_dump($daysPerPeriod);
-var_dump($data);
-var_dump($values);
-var_dump($labels);/**/
+    $labels = $datelist;
+    function datesort($a,$b){//essa  função foi criada para ordenar as datas.
+        if (substr($a, 6,4) > substr($b, 6,4))return 1;
+        if (substr($a, 6,4) < substr($b, 6,4))return -1;
+        if (substr($a, 3,2) > substr($b, 3,2))return 1;
+        if (substr($a, 3,2) < substr($b, 3,2))return -1;
+        if (substr($a, 0,2) > substr($b, 0,2))return 1;
+        if (substr($a, 0,2) < substr($b, 0,2))return -1;
+        if (substr($a, 11,2) > substr($b, 11,2))return 1;
+        if (substr($a, 11,2) < substr($b, 11,2))return -1;
+    }
+    usort($labels,'datesort');
+    foreach ($labels as $lb) {
+        foreach ($values as &$val) {
+            if (!isset($val[$lb])) {
+                $val[$lb] = 0;
+                uksort($val, 'datesort');
+            }
+        }
+    }
 
-//var_dump($metricsMgr->getExecStatusPerBuild($build));
-// Dataset definition
-$DataSet = new pData;
-foreach ($values as $chave => $value) {
-    $DataSet->AddPoint($value, $chave);
-    $DataSet->SetSerieName($chave, $chave);
-}
-$DataSet->AddAllSeries();
-$DataSet->AddPoint($labels, 'Serie3');
-$DataSet->SetAbsciseLabelSerie('Serie3');
-//$DataSet->SetAbsciseLabelSerie("Serie1");
-// Initialise the graph
-$grapW = (isset($grapw))?$grapw:1500;
-$Test = new pChart($grapW, 230);
-//$Test->setFixedScale(0,$temp,5);
-$Test->setFontProperties(config_get('charts_font_path'), 10);
-$Test->setGraphArea(40, 7, $grapW - 40, 205);
-$Test->drawGraphArea(252, 252, 252);
-$colorList = array();
-foreach ($valuesC as $key => $value) {
-    $colorList[] = $resultsCfg['charts']['status_colour'][$key];
-}//var_dump($colorList);
-foreach($colorList as $key => $hexrgb)
-{
-  $rgb = str_split($hexrgb,2);
-  $Test->setColorPalette($key,hexdec($rgb[0]),hexdec($rgb[1]),hexdec($rgb[2]));
-}
-$Test->drawScale($DataSet->GetData(), $DataSet->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, TRUE, 0, 2);
-$Test->drawGrid(4, TRUE, 230, 230, 230, 255);
+    if($cumulative == "true"){
+        foreach ($values as &$val){
+            $acc = 0;
+            foreach ($val as &$data){
+                $tmp = $data;
+                $data += $acc;
+                $acc += $tmp;
+            }
+        }
+    }
 
-// Draw the line graph
-$Test->drawLineGraph($DataSet->GetData(), $DataSet->GetDataDescription());
-$Test->drawPlotGraph($DataSet->GetData(), $DataSet->GetDataDescription(), 3, 2, 250, 250, 250);
+    $total;
+    $temp = 0;
+    foreach ($labels as $lbl){
+        foreach ($values as $chave => $valor){
+            $total[$lbl] += $valor[$lbl];
 
-// Finish the graph
-$Test->setFontProperties(config_get('charts_font_path'), 8);
-$Test->drawLegend(45, 35, $DataSet->GetDataDescription(), 255, 255, 255);
-//$batata = $Test->drawPieLegend(45,35,$DataSet->GetData(),$DataSet->GetDataDescription(),250,250,250);
-$Test->setFontProperties(config_get('charts_font_path'), 10);
-//$Test->drawTitle(60,22,"My pretty graph",50,50,50,585);
-$Test->Stroke();
+        }
+        $total[$lbl] += $temp;
+        $temp = $total[$lbl];
+    }//var_dump($values);
+    //$values['executados'] = $total;
+
+    foreach ($values as &$val) {
+        $temporario = 0;
+        foreach ($val as &$subval){
+            $temporario += $subval;
+            //$subval = $temporario;
+        }
+    }
+    //var_dump($resultsCfg);
+    /*var_dump($args->tproject_id);
+    var_dump($sub);*/
+    /*var_dump($daysPerPeriod);
+    var_dump($data);
+    var_dump($values);
+    var_dump($labels);/**/
+
+    //var_dump($metricsMgr->getExecStatusPerBuild($build));
+    // Dataset definition
+    $DataSet = new pData;
+    foreach ($values as $chave => $value) {
+        $DataSet->AddPoint($value, $chave);
+        $DataSet->SetSerieName($chave, $chave);
+    }
+    $DataSet->AddAllSeries();
+    $DataSet->AddPoint($labels, 'Serie3');
+    $DataSet->SetAbsciseLabelSerie('Serie3');
+    //$DataSet->SetAbsciseLabelSerie("Serie1");
+    // Initialise the graph
+    //$grapW = (isset($grapw))?$grapw:1500;
+    $grapW = count($labels)*($timetype == 'd'?100:130);
+    $Test = new pChart($grapW, 230);
+    //$Test->setFixedScale(0,$temp,5);
+    $Test->setFontProperties(config_get('charts_font_path'), 10);
+    $Test->setGraphArea(40, 7, $grapW - 40, 205);
+    $Test->drawGraphArea(252, 252, 252);
+    $colorList = array();
+    foreach ($valuesC as $key => $value) {
+        $colorList[] = $resultsCfg['charts']['status_colour'][$key];
+    }//var_dump($colorList);
+    foreach($colorList as $key => $hexrgb)
+    {
+      $rgb = str_split($hexrgb,2);
+      $Test->setColorPalette($key,hexdec($rgb[0]),hexdec($rgb[1]),hexdec($rgb[2]));
+    }
+    $Test->drawScale($DataSet->GetData(), $DataSet->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, TRUE, 0, 2);
+    $Test->drawGrid(4, TRUE, 230, 230, 230, 255);
+
+    // Draw the line graph
+    $Test->drawLineGraph($DataSet->GetData(), $DataSet->GetDataDescription());
+    $Test->drawPlotGraph($DataSet->GetData(), $DataSet->GetDataDescription(), 3, 2, 250, 250, 250);
+
+    // Finish the graph
+    $Test->setFontProperties(config_get('charts_font_path'), 8);
+    $Test->drawLegend(45, 35, $DataSet->GetDataDescription(), 255, 255, 255);
+    //$batata = $Test->drawPieLegend(45,35,$DataSet->GetData(),$DataSet->GetDataDescription(),250,250,250);
+    $Test->setFontProperties(config_get('charts_font_path'), 10);
+    //$Test->drawTitle(60,22,"My pretty graph",50,50,50,585);
+    $Test->Stroke();
 }
 function date_range($first, $last, $step = '+1 day', $output_format = 'd/m/Y' ) {
     $first = date('m/d/Y H:00', strtotime($first)/*-(24*60*60)*/);

@@ -61,17 +61,20 @@ loader.hidden=true;
 {/foreach}
 </div>
 <script>
-    function resetparams(radical,period,clear,width,cumulative){
+    function resetparams(radical,period,clear,width,cumulative,timetype){
         document.getElementById('period'+radical).value = period;
         document.getElementById('width'+radical).value = width;
         document.getElementById('cumulative'+radical).checked = cumulative;
-        statlist = clear.split('');console.log(statlist);
+        statlist = clear.split('');
         
         {foreach key = "key" item="value" from=$gui->status_radicals}
             temp = document.getElementById("{$key}"+radical);//console.log("{$value}");
             temp.checked = (statlist.includes('{$value}'));
         {/foreach}
-        
+        tmtpList = document.getElementsByName('timetype'+radical);
+        for(var i = 0;i<tmtpList.length;i++){
+            tmtpList[i].checked = (tmtpList[i].value == timetype);
+        }
         getnewparams(radical);
     }
     
@@ -85,13 +88,13 @@ loader.hidden=true;
             if(temp.checked)stats += temp.value;
         {/foreach}
          cumulative = document.getElementById('cumulative'+radical).checked;   
-        //console.log(stats);
-        setparams(radical,period,stats,width,cumulative);
+       timetype = document.querySelector('input[name="timetype'+radical+'"]:checked').value;
+        setparams(radical,period,stats,width,cumulative,timetype);
     }
     
-    function setparams(radical,period,clear,width,cumulative){
+    function setparams(radical,period,clear,width,cumulative,timetype){
         graph = document.getElementById('imgtime'+radical);
-        graph.width = width;
+        //graph.width = width;
         //div = document.getElementById('time'+radical);//console.log(div.style.width);//console.log(div.offsetWidth);
         //div.setAttribute("style","clear:both;resize:both;overflow: scroll;width:"+width+"px");
         params = graph.src.split('&');
@@ -99,6 +102,7 @@ loader.hidden=true;
         params[3] = params[3].replace(params[3].split('=')[1],period);
         params[4] = (params[4].split('=')[1] == '')?params[4] + 1500: params[4].replace(params[4].split('=')[1],width);
         params[5] = params[5].replace(params[5].split('=')[1],cumulative);
+        params[6] = params[6].replace(params[6].split('=')[1],timetype);
         str = params[0];
         for(var i = 1;i<params.length;i++){
             str+='&'+params[i];
@@ -114,6 +118,10 @@ loader.hidden=true;
     }
     div.x-grid3-body{
         margin-top: 26px;
+    }
+    div.resultBox{
+        margin:0px;
+    
     }
 </style>
 

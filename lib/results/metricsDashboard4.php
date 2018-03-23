@@ -34,6 +34,7 @@ $period = 15;
 $clean = 'pf';$default_arr_stat = array('p','f');
 $width = 1500;
 $cumulative = "false";
+$timetype = 'r';
 //$statusSetForDisplay = $result_cfg['status_label_for_exec_ui'];
 $gui->warning_msg = '';
 $testplannames = array();
@@ -67,7 +68,7 @@ foreach ($sublist as $sub) {
                 $selection = "<select onchange='document.getElementById(\"$idGraph\").innerHTML = this.value'>";
                 foreach ($roteiro as $item) {
                     $value = <<<VAR
-<img width = 280 height = 280 title='clique aqui para ver o gráfico desse ciclo' src='lib/results/overallPieChartPerBuild.php?apikey=&tplan_id={$item['testplan_id']}&build={$item['id']}' onclick=&quot document.getElementById('imgtime$subgraph').src = 'lib/results/LineChartHistoryBuild.php?build={$args->tproject_id}&sub=$subname&stats=$clean&periods=$period&width=$width&cumulative=$cumulative&buildvalid[]={$item['id']}';getnewparams('$subgraph');&quot>
+<img width = 280 height = 280 title='clique aqui para ver o gráfico desse ciclo' src='lib/results/overallPieChartPerBuild.php?apikey=&tplan_id={$item['testplan_id']}&build={$item['id']}' onclick=&quot document.getElementById('imgtime$subgraph').src = 'lib/results/LineChartHistoryBuild.php?build={$args->tproject_id}&sub=$subname&stats=$clean&periods=$period&width=$width&cumulative=$cumulative&timetype=$timetype&buildvalid[]={$item['id']}';getnewparams('$subgraph');&quot>
 VAR;
                     $selection .= "<option value = \"$value\" >" . $chave . $item['ciclo'] . "</option>";
                 }
@@ -75,7 +76,7 @@ VAR;
                 $titulo = $selection; //$chave.$roteiro[0]['ciclo'];
                 $line ['titulo']= "<th>$titulo</th>";//.$temp;//$text .= "<th>$titulo</th>";
                 
-                $line ['grafico'] = "<td id = \"$idGraph\" >" . '<img width = 280 height = 280 title="clique aqui para ver o gráfico desse ciclo" src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id=' . $roteiro[0]['testplan_id'] . '&build=' . $roteiro[0]['id'] ." \" onclick=\" document.getElementById('imgtime$subgraph').src ='lib/results/LineChartHistoryBuild.php?build=$args->tproject_id&sub=$subname&stats=$clean&periods=$period&width=$width&cumulative=$cumulative&buildvalid[]=".$roteiro[0]['id']."';getnewparams('$subgraph');\" >" . "</td>";
+                $line ['grafico'] = "<td id = \"$idGraph\" >" . '<img width = 280 height = 280 title="clique aqui para ver o gráfico desse ciclo" src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id=' . $roteiro[0]['testplan_id'] . '&build=' . $roteiro[0]['id'] ." \" onclick=\" document.getElementById('imgtime$subgraph').src ='lib/results/LineChartHistoryBuild.php?build=$args->tproject_id&sub=$subname&stats=$clean&periods=$period&width=$width&cumulative=$cumulative&timetype=$timetype&buildvalid[]=".$roteiro[0]['id']."';getnewparams('$subgraph');\" >" . "</td>";
                 $temp[] = $line;
             }
             $text = '<div>';
@@ -92,21 +93,26 @@ VAR;
             }
             $gui->status_radicals = $status_radicals;
             $text .= '</div>';
-            $text .= "<div style='clear:both;resize:both;overflow: scroll;' id = \"time$subgraph\">"."<img id = \"imgtime$subgraph\" width = 1500 height= 230 src =\"lib/results/LineChartHistoryBuild.php?build=$args->tproject_id&sub=$subname&stats=$clean&periods=$period&width=$width&cumulative=$cumulative".$buildvalid[$ch]."\" >";
-            $text .= '<div class="resultBox" style="float:right">'
+            $text .= "<div class = 'col-md-10' style='clear:both;/*resize:horizontal;*/overflow: scroll;' id = \"time$subgraph\">"
+                    ."<img id = \"imgtime$subgraph\" height= 230 src =\"lib/results/LineChartHistoryBuild.php?build=$args->tproject_id&sub=$subname&stats=$clean&periods=$period&width=$width&cumulative=$cumulative&timetype=$timetype".$buildvalid[$ch]."\" >"
+                    ."</div>";
+            $text .= '<div class="resultBox col-md-2" style="float:right">'
                         . '<table>'
-                        . '<tr><th>Quantidade de períodos:</th><td><input type="number" id = "period'.$subgraph.'" value = "'.$period.'"></td></tr>'
+                        . '<tr><th>Agrupar execuções em </th><td><input type="number" style="width:4em"id = "period'.$subgraph.'" value = "'.$period.'">'
+                        . '<div id = timetype'.$subgraph.'><input type="radio" id="r1" name="timetype'.$subgraph.'" value="d" '.($timetype == 'd'?'checked':'').'>Dias'
+                        . '<input type="radio" id="r2" name="timetype'.$subgraph.'" value="h" '.($timetype == 'h'?'checked':'').'>Horas'
+                        . '<input type="radio" id="r3" name="timetype'.$subgraph.'" value="r" '.($timetype == 'r'?'checked':'').'>Agrupamentos</div></td></tr>'
                         . '<tr><th>Filtrar casos de teste:</th><td>'.$chkstatus.'</td></tr>'//<input type="checkbox" id = "bloc'.$subgraph.'">bloqueado <input type="checkbox" id = "warn'.$subgraph.'">warning <input type="checkbox" id = "anl'.$subgraph.'">analise<br>'
                         //. '<input type="checkbox" id = "nava'.$subgraph.'">'
                         . '<tr><th>Modo acumulativo:</th><td><input type="checkbox" id = "cumulative'.$subgraph.'" '.($clean == 'true'?'checked':'').'></td></tr>'
-                        . '<tr style="display:none"><th>Largura do gráfico por tempo:</th><td><input type="number" id = "width'.$subgraph.'" value = "'.$width.'"></td></tr>'
+                        . '<tr style = "display:none"><th>Largura do gráfico por tempo:</th><td><input type="number" id = "width'.$subgraph.'" value = "'.$width.'"></td></tr>'
                         . '</table>'
                         /*. 'quantidade de períodos: <input type="text" id = "period'.$subgraph.'">'*/
                         . '<div>'
-                            . '<input type="button" class="btn" style="float:right" onclick="document.getElementById(\'imgtime'.$subgraph.'\').src=\'lib/results/LineChartHistoryBuild.php?'."build={$args->tproject_id}&sub=$subname".'&stats='."$clean&periods=$period&width=$width&cumulative=$cumulative".$buildvalid[$ch].'\';resetparams(\''.$subgraph.'\','.$period.',\''.$clean.'\','.$width.','.$cumulative.');" value="Reset">'
+                            . '<input type="button" class="btn" style="float:right" onclick="document.getElementById(\'imgtime'.$subgraph.'\').src=\'lib/results/LineChartHistoryBuild.php?'."build={$args->tproject_id}&sub=$subname".'&stats='."$clean&periods=$period&width=$width&cumulative=$cumulative&timetype=$timetype".$buildvalid[$ch].'\';resetparams(\''.$subgraph.'\','.$period.',\''.$clean.'\','.$width.','.$cumulative.',\''.$timetype.'\');" value="Reset">'
                             . '<input type="button" class="btn" style="float:right" onclick="getnewparams(\''.$subgraph.'\')" value="Apply">'/*setparams(\'imgtime'.$subgraph.'\',document.getElementById(\'period'.$subgraph.'\').value,document.getElementById(\'stat'.$subgraph.'\').checked,document.getElementById(\'width'.$subgraph.'\').value)" value="apply">'*/
                         . '</div>'
-                    . ' </div>'."</div>";
+                    . ' </div>';
             /*$text = '<table>';
             $text .= '<tr>';
             $text .= $temp;
