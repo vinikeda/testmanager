@@ -71,7 +71,7 @@ function validateForm(f)
       </td>
     </tr>
    
-    <tr>
+    <tr style="display:none">
       <th style="background:none;">Categoria</th>
       <td>
         <select name="category" class = "chosen-bulk-select" id="bulk_tester_div">
@@ -80,7 +80,7 @@ function validateForm(f)
       </td>
     </tr>
     
-   <tr>
+   <tr style="display:none">
 	  <th style="background:none;">Marcadores</th>
       <td>
         <select name="markersID[]" class = "chosen-bulk-select" multiple = multiple id="bulk_tester_div">
@@ -88,9 +88,13 @@ function validateForm(f)
         </select>
       </td>
     </tr>
-   </tr>
    
-   
+   <tr>
+	  <th style="background:none;">Descrição</th>
+      <td>
+          <textarea name="descText">{$gui->descText}</textarea>
+      </td>
+    </tr>
    
    
   </table>

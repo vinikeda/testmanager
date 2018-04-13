@@ -14,14 +14,13 @@ testlinkInitPage($db,false,false,"checkRights");
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+$templateCfg = templateConfiguration();
 $categories  = new categories($db);
 $markers = new markers($db);
 $issues = new issues($db);
 
 $categoriesList = $categories->getCategoriesForSelect();
-$gui->categories = $categoriesList;
-
+$gui->Categories = $categoriesList;
 if(isset($_SESSION['selectedCategoryID'])){
     $gui->issues = $issues->getIssuesByCategory($_SESSION['selectedCategoryID']);
     if(isset($_SESSION['selectedMarkersID'])){
@@ -32,26 +31,9 @@ if(isset($_SESSION['selectedCategoryID'])){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 $smarty = new TLSmarty();
 $smarty->assign('gui', $gui);
 $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
-
-
-
-
-
 
 
 

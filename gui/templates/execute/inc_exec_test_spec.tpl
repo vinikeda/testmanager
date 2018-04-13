@@ -1,3 +1,5 @@
+<!-- comeca aqui o inc_exec_test_spec.tpl -->
+
 {* 
 TestLink Open Source Project - http://testlink.sourceforge.net/
 $Id: inc_exec_test_spec.tpl,v 1.22.2.1 2010/11/18 15:17:45 mx-julian Exp $
@@ -154,3 +156,4 @@ Author : franciscom
       </div>
       <br />
     {/if}
+<!-- termina aqui o inc_exec_test_spec.tpl -->

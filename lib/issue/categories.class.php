@@ -1,4 +1,5 @@
 <?php
+function batata() {var_dump('troslei');}
 class categories {
 	public $db = null;
 	function __construct(&$db){

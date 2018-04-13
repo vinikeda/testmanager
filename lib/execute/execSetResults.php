@@ -42,7 +42,7 @@ if( $cfg->exec_cfg->enable_test_automation )
 // log to event viewer fails, but log to file works ok
 testlinkInitPage($db);
 $templateCfg = templateConfiguration();
-var_dump($_SESSION['banana']);
+//var_dump($_SESSION['banana']);
 $tcversion_id = null;
 $submitResult = null;
 list($args,$its) = init_args($db,$cfg);
@@ -139,6 +139,10 @@ if(!is_null($linked_tcversions))
 
       $_REQUEST['save_results'] = $args->save_results;//echo "requset = ";//var_dump($_REQUEST);
       list($execSet,$gui->addIssueOp) = write_execution($db,$args,$_REQUEST,$its);
+      require_once("../issue/issues.class.php");
+      $issue = new issues($db);
+      $issue->assignIssue($execSet,$args->issue);
+      
       
       if($args->assignTask)
       {
@@ -326,7 +330,7 @@ else
     $gui->execution_time_cfields[0] = $xx;
   }  
   initWebEditors($gui,$cfg,$_SESSION['basehref']);
-
+  setupIssues($gui,$db);
   // To silence smarty errors
   //  future must be initialized in a right way
   $smarty->assign('test_automation_enabled',0);
@@ -397,12 +401,13 @@ function init_args(&$dbHandler,$cfgObj)
   $args->tc_versions = isset($_REQUEST['tc_version']) ? $_REQUEST['tc_version'] : null;  
 
   $key2loop = array('level' => '','status' => null, 'statusSingle' => null, 'do_bulk_save' => 0, 
-                    'save_results' => 0, 'save_and_next' => 0, 'save_and_exit' => 0);
+                    'save_results' => 0, 'save_and_next' => 0, 'save_and_exit' => 0,'issue'=>0);
   foreach($key2loop as $key => $value)
   {
     $args->$key = isset($_REQUEST[$key]) ? $_REQUEST[$key] : $value;
   }
-
+  //var_dump($args->issue);
+  
   // See details on: "When nullify filter_status - 20080504" in this file
   if( $args->level == 'testcase' || is_null($args->filter_status) || 
       (!is_array($args->filter_status) && trim($args->filter_status)=='')
@@ -1967,4 +1972,22 @@ function manageCookies(&$argsObj,$cfgObj)
       setcookie($cookiePrefix . $key,$argsObj->$key,TL_COOKIE_KEEPTIME, '/');
     }
   }
-}  
+}
+/*aqui os dados do sintese são preparados para serem apresentados*/
+function setupIssues(&$gui,&$db){
+    
+    require_once ('../issue/categories.class.php');
+    require_once ('../issue/markers.class.php');
+    require_once ('../issue/issues.class.php');
+    $categories = new categories($db);
+    $markers = new markers($db);
+    $issues = new issues($db);
+    $gui->Categories = $categories->getCategoriesForSelect();
+    $gui->markers = $markers->getMarkersForSelection();
+    $isslist = $issues->getIssues();
+    foreach($isslist as $chade=>$item){
+        $isslist[$chade]['adjusted_text_description'] =str_replace("\r\n", "\\n",$isslist[$chade]['text_description']);
+    }
+    $gui->issues = $isslist;
+    
+}

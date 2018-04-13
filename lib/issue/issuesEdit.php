@@ -127,7 +127,7 @@ function init_args($request_hash, $session_hash)
   $args = new stdClass();
   $request_hash = strings_stripSlashes($request_hash);
 
-  $nullable_keys = array('do_action','subadiq_name');
+  $nullable_keys = array('do_action','subadiq_name','descText');
   foreach($nullable_keys as $value)
   {
     $args->$value = isset($request_hash[$value]) ? $request_hash[$value] : null;
@@ -189,6 +189,7 @@ function edit(&$argsObj,&$subadiq_mgr)
 
   $argsObj->subadiq_name = $binfo['description'];
   $argsObj->SelectedCategory = $binfo['category_id'];
+  $argsObj->descText = $binfo['text_description'];
   $argsObj->markersID = $subadiq_mgr->getMarkers($argsObj->markerID);
   //$argsObj->release_date = $binfo['release_date'];
 
@@ -308,6 +309,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       $guiObj->selectedMarkers = $argsObj->markersID;
       $guiObj->SelectedCategory = $argsObj->SelectedCategory;
       $guiObj->subadiq_name = $argsObj->subadiq_name;
+      $guiObj->descText = $argsObj->descText;
       $guiObj->is_active = $argsObj->is_active;
       $guiObj->is_open = $argsObj->is_open;
       $guiObj->copy_tester_assignments = $argsObj->copy_tester_assignments;
@@ -338,7 +340,7 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op->buttonCfg = null;
   $targetDate=null;
     $user_feedback = lang_get("cannot_add_build");
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,($argsObj->user->globalRole->dbID === '13'?'QA':'analis' ), $argsObj->markersID);
+    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,($argsObj->user->globalRole->dbID === '13'?'QA':'analis' ),$argsObj->descText, $argsObj->markersID);
     if ($buildID)
     {
       /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
@@ -388,7 +390,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr)
   //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
   //if($check->status_ok){
     $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->category,$argsObj->markersID)) 
+    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->category,$argsObj->descText,$argsObj->markersID)) 
     {
       //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
       //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');
