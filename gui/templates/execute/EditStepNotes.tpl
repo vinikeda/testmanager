@@ -56,6 +56,7 @@
     {/if}
 
     {if $inExec}
+        <th>Mensagens Padrão</th>
       <th>{if $tlCfg->exec_cfg->steps_exec_notes_default == 'latest'}{$inc_steps_labels.latest_exec_notes}
           {else}{$inc_steps_labels.step_exec_notes}{/if}
           <img class="clickable" src="{$tlImages.clear_notes}" 
@@ -113,7 +114,93 @@
     </td>
     
     {/if}
+<td {if $edit_enabled} style="cursor:pointer;" onclick="launchEditStep({$step_info.id})" {/if}>{$gui->execution_types[$step_info.execution_type]}
+            <!--a onClick="C = window.open('lib/issue/searchIssue.php','janela teste','width = 800,height=600,resizable=yes,scrollbars=yes,dependent=yes');"> link torto</a-->
+            <style>
+                #fixed{
+                    display:inline-block !important;/*eu sei que isso não deveria existir, mas se tirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
+                }
+            </style>
+            <div class = "dropdown" id = 'fixed'>
+                <button class='btn btn-default' type='button' id="dropdownMenu{$step_info.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Mensagens Padrão</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu{$step_info.id}">
+                    <table>
+                    <tr style="display:none">
+                        <td>
+                            Categoria
+                        </td>
+                        <td>
+                            <select name="category" class = "chosen-select" id="bulk_tester_div">
+                                {html_options options=$gui->Categories selected=$gui->SelectedCategory}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td>
+                            Marcadores
+                        </td>
+                        <td>
+                            <select name="markersID[]" class = "chosen-bulk-select" multiple = multiple id="bulk_tester_div">
+                                {html_options options=$gui->markers selected=$gui->selectedMarkers}
+                            </select>
+                        </td>
+                    </tr>
+                    <script>
+                        jQuery( document ).ready(function() {
+                        jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });
+                        jQuery(".chosen-bulk-select").chosen({ width: "100%", allow_single_deselect: true });
+                        });
+                    </script>
+                    <tr>
+                        <td>
+                            Buscar Erros
+                        </td>
+                        <td>
+                            <input id="chkfilter{$step_info.id}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Erros
+                        </td>
+                        <td>
+                            <div style="overflow-y: scroll;height:180px">
+                                {foreach key=chave item=issue from=$gui->issues}
+                                    <div id="issr{$step_info.id}{$issue.description}" style="width:100%">
+                                        <a data-toggle="tooltip" title="{$issue.text_description} ">
+                                            <script>/*issr{$step_info.id}{$chave} =  '{$issue.text_description} ';*/</script>
+                                            <input id="issr{$step_info.id}{$issue.description}" type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';"  value = "{$issue.description}">
+                                        </a>        
+                                    </div><br id = "issr{$step_info.id}{$issue.description}">
+                                        
+                                {/foreach}
+                            </div>
+                            <style>
+                                [id^="issr{$step_info.id}"]{
+                                    display: inline-block;
+                                }
+                                
+                            </style>
+                        </td>
+                    </tr>
+                    <script>
+                        jQuery('#chkfilter{$step_info.id}').on('keyup', function() {
+                            var query = this.value;
 
+                            jQuery('[id^="issr{$step_info.id}"]').each(function(i, elem) {
+                                
+                                  if (elem.id.indexOf(query) != -1) {
+                                      elem.style.display = 'inline-block';console.log(elem);
+                                  }else{
+                                      elem.style.display = 'none';
+                                  }
+                            });
+                        });
+                    </script>
+                </table>
+                </div>
+            </div>
+        </td>
     {if $inExec}
       <td class="exec_tcstep_note">
 	  
@@ -164,12 +251,12 @@
     {if ($rCount < $rowCount) && ($rowCount>=1)}
       <tr width="100%">
         {if $session['testprojectOptions']->automationEnabled}
-        <td colspan=6>
+        <!--td colspan=6>
         {else}
-        <td colspan=5>
+        <!--td colspan=5>
         {/if}
         <hr align="center" width="100%" color="grey" size="1">
-        </td>
+        </td-->
       </tr>
     {/if}
   {/foreach}  {* ----- show Test Suite data --------------------------------------------- *}

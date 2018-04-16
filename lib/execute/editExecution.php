@@ -13,6 +13,7 @@ require_once('../../config.inc.php');
 require_once('common.php');
 require_once('exec.inc.php');
 require_once("web_editor.php");
+require_once("../issue/issues.class.php");
 $editorCfg = getWebEditorCfg('edit_execution');
 require_once(require_web_editor($editorCfg['type']));
 testlinkInitPage($db,false,false,"checkRights");
@@ -40,11 +41,15 @@ $gui->notes = $owebeditor->CreateHTML(8,84);//$owebeditor->CreateHTML($rows,$col
 $gui->editorType = $editorCfg['type'];
 $gui->execStatusValues = createResultsMenu();//carregando a relação das siglas dos status com os status
 $gui->execStatusValues[$cfgObj->tc_status['not_run']] = '';
-
+$issue = new issues($db);
+$temp =  ($issue->getAssignedIssue($args->exec_id));$a;
+foreach($temp as $chave=>$valor)$a[$valor['id_issue']] = 1;
+$gui->selectedIssues =$a;
 //inicio do trecho que irá adicionar os steps para edição
 $steps = get_execution_steps($db,$args->exec_id);//nessa linha é carregado em forma de matriz o SELECT que traz as notas e os status dos steps 
 //$resultsCfg = config_get('results');// não lembro, depois procurarei o que isto faz
 //fim do trecho
+  setupIssues($gui,$db);
 $smarty = new TLSmarty();
 $smarty->assign('gui',$gui);
 $smarty->assign('stat',$stat);
@@ -57,6 +62,8 @@ $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
  */
 function doUpdate(&$db,&$args,&$tcaseMgr,&$request)
 {
+    $issue = new issues($db);
+    $issue->reassignIssue($args->exec_id, $args->issues);
 	updateExecutionNotes($db,$args->exec_id,$args->notes);
     updateExecutionNotesSteps($db,$_REQUEST);//função criada para realizar os updates nas notas dos steps e nos status deles
 	updateStatus($db,$_REQUEST['executionStatus'],$args->exec_id);
@@ -82,8 +89,8 @@ function init_args()
 
 	$args = new stdClass();
   R_PARAMS($iParams,$args);
-    
   $args->basehref = $_SESSION['basehref'];
+  $args->issues =$_REQUEST['issue'];
   $args->user = $_SESSION['currentUser'];
 
   return $args; 

@@ -460,4 +460,4 @@ jQuery( document ).ready(function() {
 jQuery(".chosen-select").chosen({ width: "auto" });
 });
 </script>
-<!-- termina aqui o mainPageLeft.tpl-->
+<!-- termina aqui o mainPageBar.tpl-->

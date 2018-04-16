@@ -1973,21 +1973,3 @@ function manageCookies(&$argsObj,$cfgObj)
     }
   }
 }
-/*aqui os dados do sintese são preparados para serem apresentados*/
-function setupIssues(&$gui,&$db){
-    
-    require_once ('../issue/categories.class.php');
-    require_once ('../issue/markers.class.php');
-    require_once ('../issue/issues.class.php');
-    $categories = new categories($db);
-    $markers = new markers($db);
-    $issues = new issues($db);
-    $gui->Categories = $categories->getCategoriesForSelect();
-    $gui->markers = $markers->getMarkersForSelection();
-    $isslist = $issues->getIssues();
-    foreach($isslist as $chade=>$item){
-        $isslist[$chade]['adjusted_text_description'] =str_replace("\r\n", "\\n",$isslist[$chade]['text_description']);
-    }
-    $gui->issues = $isslist;
-    
-}

@@ -159,5 +159,18 @@ class issues {
             $this->db->exec_query($sql);
         }
     }
+    function reassignIssue($idExecution,$idIssues){
+        if($idExecution==0||$idIssues==0)return;
+        $idlist = '';
+        foreach($idissues as $idissue)$idlist .= $isissue.',';
+        $idlist = substr($idlist, 0,-1);
+        $sql = "delete from issues_executions where id_execution in ($idExecution)";
+        $this->db->exec_query($sql);$temp[0] = $idExecution;
+        $this->assignIssue($temp, $idIssues);
+    }
+    function getAssignedIssue($id){
+        $sql = "select * from issues_executions where id_execution = $id";
+        return $this->db->get_recordset($sql);
+    }
 }
 ?>

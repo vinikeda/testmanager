@@ -563,7 +563,11 @@ display:block !important;
 	
 					{if $gui->grants.testplan_metrics == "yes"}
 						<li><a href="{$gui->launcher}?feature=showMetrics" target="mainframe" method="post">{$labels.href_rep_and_metrics}</a></li>
+                                                <!-- CODIGO ORIGINAL 
 						<li><a href="{$gui->url.metrics_dashboard}" target="mainframe" method="post">{$labels.href_metrics_dashboard}</a></li>
+						-->
+						<li><a href="lib/results/metricsDashboard4.php" target="mainframe" method="post">Acompanhamento completo</a></li>
+						<li><a href="lib/results/metricsDashboard2.php" target="mainframe" method="post">Acompanhamento rÃ¡pido</a></li>
 					{/if}
 				</ul>
 			</li>

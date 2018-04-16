@@ -63,24 +63,25 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 			{$gui->cfields_exec}
 			<!--acaba div-->
 	</div>
-    <div class="container-fluid" id ="sexta">
-	<div class="row">
-        {$gui->notes}
-		<script>
-		init(document.getElementById('notes'));
-		document.getElementById('notes').classList.add('col-sm-10');
-		</script>
-		
-	<div class="col-sm-2"{*width = "138"*} style="float:right">
-		{include file="execute/editStatus.tpl"}
-		<div class="groupBtn" style = "float:right;padding-right:12px">
-		  <input type="hidden" name="doAction" value="doUpdate" />
-		  <input type="submit" value="{lang_get s='btn_save'}" />
-		  <input type="button" value="{lang_get s='btn_close'}" onclick="window.close()" />
-		</div>
-	</div>
-	</div>
-	</div>
+   
+    <table>
+	<tr>
+            <td>
+            {$gui->notes}
+            </td>
+            <td>
+                {include file="execute/issuesMenu.tpl"}
+            </td>
+            <td>
+                    {include file="execute/editStatus.tpl"}
+                    <div class="groupBtn" style = "float:right;padding-right:12px">
+                      <input type="hidden" name="doAction" value="doUpdate" />
+                      <input type="submit" value="{lang_get s='btn_save'}" />
+                      <input type="button" value="{lang_get s='btn_close'}" onclick="window.close()" />
+                    </div>
+            </td>
+	</tr>
+    </table>
   </form>
 </div>
 

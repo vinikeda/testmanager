@@ -82,7 +82,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
             <!--a onClick="C = window.open('lib/issue/searchIssue.php','janela teste','width = 800,height=600,resizable=yes,scrollbars=yes,dependent=yes');"> link torto</a-->
             <style>
                 #fixed{
-                    display:inline-block !important;/*eu sei que isso não deveria existir, mas se dirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
+                    display:inline-block !important;/*eu sei que isso não deveria existir, mas se tirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
                 }
             </style>
             <div class = "dropdown" id = 'fixed'>
