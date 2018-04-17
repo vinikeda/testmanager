@@ -115,6 +115,8 @@ class issues {
     function delete($id){            
         $sql = "delete from issues_markers where id_issue = $id";
         $this->db->exec_query($sql);
+        $sql = "delete from issues_executions where id_issue = $id";
+        $this->db->exec_query($sql);
         $sql = "delete from issues where id = $id";
         $this->db->exec_query($sql);
 

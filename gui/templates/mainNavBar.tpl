@@ -55,34 +55,34 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
 {$display_left_block_bottom = false}
 
 {if $gui->testprojectID && 
-	(
-		$gui->grants.project_edit == "yes" || 
-		$gui->grants.tproject_user_role_assignment == "yes" ||
-		$gui->grants.cfield_management == "yes" || 
-		$gui->grants.platform_management == "yes" || 
-		$gui->grants.keywords_view == "yes"
-	)}
-	{$display_left_block_1=true}
+    (
+        $gui->grants.project_edit == "yes" || 
+        $gui->grants.tproject_user_role_assignment == "yes" ||
+        $gui->grants.cfield_management == "yes" || 
+        $gui->grants.platform_management == "yes" || 
+        $gui->grants.keywords_view == "yes"
+    )}
+    {$display_left_block_1=true}
 {/if}
 
 {if $gui->testprojectID && ($gui->grants.cfield_management == "yes" || $gui->grants.issuetracker_management || $gui->grants.issuetracker_view)}
-	{$display_left_block_2=true}
+    {$display_left_block_2=true}
 {/if}
 
 {if $gui->testprojectID && $gui->opt_requirements == TRUE && ($gui->grants.reqs_view == "yes" || $gui->grants.reqs_edit == "yes")}
-	{$display_left_block_3=true}
+    {$display_left_block_3=true}
 {/if}
 
 {if $gui->testprojectID && $gui->grants.view_tc == "yes"}
-	{$display_left_block_4=true}
+    {$display_left_block_4=true}
 {/if}
 
 {if isset($gui->plugins.EVENT_LEFTMENU_TOP) &&  $gui->plugins.EVENT_LEFTMENU_TOP}
-	{$display_left_block_top=true}
+    {$display_left_block_top=true}
 {/if}
 
 {if isset($gui->plugins.EVENT_LEFTMENU_BOTTOM) &&  $gui->plugins.EVENT_LEFTMENU_BOTTOM}
-	{$display_left_block_bottom=true}
+    {$display_left_block_bottom=true}
 {/if}
 
 {*começo  cabeçalho do MPR*}
@@ -95,7 +95,7 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
 {$display_left_block_bottom = false}
 
 {if $gui->grants.testplan_planning == "yes" || $gui->grants.mgt_testplan_create == "yes" ||
-	  $gui->grants.testplan_user_role_assignment == "yes" or $gui->grants.testplan_create_build == "yes"}
+    $gui->grants.testplan_user_role_assignment == "yes" or $gui->grants.testplan_create_build == "yes"}
    {$display_right_block_1=true}
 {/if}
 
@@ -111,10 +111,10 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
 {$display_right_block_bottom=false}
 
 {if isset($gui->plugins.EVENT_RIGHTMENU_TOP) &&  $gui->plugins.EVENT_RIGHTMENU_TOP}
-  {$display_right_block_top=true}
+    {$display_right_block_top=true}
 {/if}
 {if isset($gui->plugins.EVENT_RIGHTMENU_BOTTOM) &&  $gui->plugins.EVENT_RIGHTMENU_BOTTOM}
-  {$display_right_block_bottom=true}
+    {$display_right_block_bottom=true}
 {/if}
 {*fim do cabeçalho do MPR*}	
 <style>
@@ -506,7 +506,11 @@ display:block !important;
 						<li><a href="{$gui->url.testcase_assignments}" target="mainframe">{$labels.href_my_testcase_assignments}</a></li>
 					{/if} 
 				{/if} 
-
+                                <li>
+                                    <a href="lib/issue/issuesView.php" target="mainframe">
+                                        Gerenciar Erros
+                                    </a>
+                                </li>
 			</ul>
 		</li>
 	</ul>
