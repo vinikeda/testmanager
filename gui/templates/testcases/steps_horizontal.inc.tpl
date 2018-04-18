@@ -133,7 +133,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                                     <div id="issr{$step_info.id}{$issue.description}" style="width:100%">
                                         <a data-toggle="tooltip" title="{$issue.text_description} ">
                                             <script>/*issr{$step_info.id}{$chave} =  '{$issue.text_description} ';*/</script>
-                                            <input id="issr{$step_info.id}{$issue.description}" type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';"  value = "{$issue.description}">
+                                            <input id="issr{$step_info.id}{$issue.description}" type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('issr2{$issue.description}').checked = true"  value = "{$issue.description}">
                                         </a>        
                                     </div><br id = "issr{$step_info.id}{$issue.description}">
                                         

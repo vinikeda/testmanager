@@ -511,6 +511,11 @@ display:block !important;
                                         Gerenciar Erros
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="lib/issue/CategoriesView.php" target="mainframe">
+                                        Gerenciar Categorias de Erros
+                                    </a>
+                                </li>
 			</ul>
 		</li>
 	</ul>
@@ -571,7 +576,7 @@ display:block !important;
 						<li><a href="{$gui->url.metrics_dashboard}" target="mainframe" method="post">{$labels.href_metrics_dashboard}</a></li>
 						-->
 						<li><a href="lib/results/metricsDashboard4.php" target="mainframe" method="post">Acompanhamento completo</a></li>
-						<li><a href="lib/results/metricsDashboard2.php" target="mainframe" method="post">Acompanhamento rÃ¡pido</a></li>
+						<li><a href="lib/results/metricsDashboard2.php" target="mainframe" method="post">Acompanhamento rápido</a></li>
 					{/if}
 				</ul>
 			</li>

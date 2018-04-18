@@ -71,7 +71,7 @@ function validateForm(f)
       </td>
     </tr>
    
-    <tr style="display:none">
+    <tr style="/*display:none*/">
       <th style="background:none;">Categoria</th>
       <td>
         <select name="category" class = "chosen-bulk-select" id="bulk_tester_div">
