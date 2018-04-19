@@ -67,10 +67,10 @@ $DataSet->SetAbsciseLabelSerie("Serie8");
 
 // Initialise the graph
 $pChartCfg = new stdClass(); 
-$pChartCfg->XSize = $chart_cfg['XSize'];
-$pChartCfg->YSize = $chart_cfg['YSize'];                    
-$pChartCfg->radius = $chart_cfg['radius'];
-$pChartCfg->legendX = $chart_cfg['legendX'];                    
+$pChartCfg->XSize = 280;//$chart_cfg['XSize']-70;//var_dump($chart_cfg['XSize']);
+$pChartCfg->YSize = 280;//$chart_cfg['YSize']-70;//var_dump($chart_cfg['ySize']);
+$pChartCfg->radius = 105;//$chart_cfg['radius'];var_dump($chart_cfg['radius']);
+$pChartCfg->legendX = $chart_cfg['legendX'];
 $pChartCfg->legendY = $chart_cfg['legendY'];
 
 $pChartCfg->centerX = intval($pChartCfg->XSize/2);                    
