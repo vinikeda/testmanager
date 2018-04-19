@@ -161,6 +161,11 @@ during refresh feature, and then we have a bad refresh on page getting a bug.
     		<th>{$tlImages.sort_hint}{$labels.User}</th>
     		{assign var="featureVerbose" value=$gui->featureType}
     		<th>{$tlImages.sort_hint}{lang_get s="th_roles_$featureVerbose"} ({$my_feature_name|escape})</th>
+                {if $gui->featureType == 'testproject'}
+                <th>
+                    Conceder Permissões
+                </th>
+                {/if}
     	</tr>
     	{foreach from=$gui->users item=user}
     	    {$globalRoleName=$user->globalRole->name}
@@ -209,6 +214,16 @@ during refresh feature, and then we have a bad refresh on page getting a bug.
             {$gui->hintImg} 
           {/if}
 			</td>
+                        {if $gui->featureType == 'testproject'}
+                        <td>
+                            <a onclick="massiveAssign('userRole_{$uID}','{$uID}','project')">
+                                <input type="button" value="todos os Projetos de teste">
+                            </a>
+                            <a onclick="massiveAssign('userRole_{$uID}','{$uID}','plan')">
+                                <input type="button" value="todos os Planos de teste do Projeto">
+                            </a>
+                        </td>
+                        {/if}
     	</tr>
     	{/foreach}
     	</table>
@@ -226,4 +241,13 @@ during refresh feature, and then we have a bad refresh on page getting a bug.
 {/if} {* if $gui->features *}
 </div>
 </body>
+<script>
+    function massiveAssign(rolefiledID,userID,type){
+        var roleID = document.getElementById(rolefiledID).selectedOptions[0].value;
+        var projectID = document.getElementById("featureSel").selectedOptions[0].value;
+        if(roleID == 0)return;
+        window.open('lib/usermanagement/massiveAssign.php?role='+roleID+'&usr='+userID+"&project"+projectID+'&type'+type,'_self');
+    }
+    
+</script>
 </html>

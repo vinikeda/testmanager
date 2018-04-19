@@ -80,7 +80,7 @@ function validateForm(f)
       </td>
     </tr>
     
-   <tr style="display:none">
+   <tr style="/*display:none*/">
 	  <th style="background:none;">Marcadores</th>
       <td>
         <select name="markersID[]" class = "chosen-bulk-select" multiple = multiple id="bulk_tester_div">

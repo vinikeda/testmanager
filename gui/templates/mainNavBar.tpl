@@ -516,6 +516,11 @@ display:block !important;
                                         Gerenciar Categorias de Erros
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="lib/issue/MarkersView.php" target="mainframe">
+                                        Gerenciar Marcadores de Erros
+                                    </a>
+                                </li>
 			</ul>
 		</li>
 	</ul>

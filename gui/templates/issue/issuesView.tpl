@@ -117,7 +117,7 @@ var del_action=fRoot+'{$deleteAction}';
   	</table>
    </form> 
   {else}
-  	<p>{$labels.no_builds}</p>
+  	<p>Nenhum marcador criado!</p>
   {/if}
 </div>
 {* ------------------------------------------------------------------------------------------- *}
