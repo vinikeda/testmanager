@@ -130,17 +130,17 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                         <td>
                             <div style="overflow-y: scroll;height:180px">
                                 {foreach key=chave item=issue from=$gui->issues}
-                                    <div id="issr{$step_info.id}{$issue.description}" style="width:100%">
+                                    <div id="step{$step_info.id}{$issue.description}" style="width:100%">
                                         <a data-toggle="tooltip" title="{$issue.text_description} ">
-                                            <script>/*issr{$step_info.id}{$chave} =  '{$issue.text_description} ';*/</script>
-                                            <input id="issr{$step_info.id}{$issue.description}" type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('issr2{$issue.description}').checked = true"  value = "{$issue.description}">
+                                            <script>/*step{$step_info.id}{$chave} =  '{$issue.text_description} ';*/</script>
+                                            <input  type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('step2{$issue.description}').checked = true"  value = "{$issue.description}">
                                         </a>        
-                                    </div><br id = "issr{$step_info.id}{$issue.description}">
+                                    </div><br id = "step{$step_info.id}{$issue.description}">
                                         
                                 {/foreach}
                             </div>
                             <style>
-                                [id^="issr{$step_info.id}"]{
+                                [id^="step{$step_info.id}"]{
                                     display: inline-block;
                                 }
                                 
@@ -151,10 +151,10 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                         jQuery('#chkfilter{$step_info.id}').on('keyup', function() {
                             var query = this.value;
 
-                            jQuery('[id^="issr{$step_info.id}"]').each(function(i, elem) {
+                            jQuery('[id^="step{$step_info.id}"]').each(function(i, elem) {
                                 
-                                  if (elem.id.indexOf(query) != -1) {
-                                      elem.style.display = 'inline-block';console.log(elem);
+                                  if (elem.id.substring("step{$step_info.id}".length).indexOf(query) != -1) {
+                                      elem.style.display = 'inline-block';//console.log(elem);
                                   }else{
                                       elem.style.display = 'none';
                                   }

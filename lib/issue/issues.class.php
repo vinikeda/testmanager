@@ -123,16 +123,27 @@ class issues {
     }
 
     function getIssuesByCategory($id){
-        $sql = "select id, description, qa_accept, analist_accept from issues where category_id = ".$id;
+        $sql = "select id, description, qa_accept, analis_accept from issues where category_id = ".$id;
         return $this->db->get_recordset($sql);	
     }
-
-    function getIssuesByMarksAndCategories($category,$markers){
-        $stacked = $markers[0];
+    
+    function getIssuesByMarks($markers){
+        $stacked = "";
         foreach($markers as $marker){
-                $stacked .= ", ".$marker;
+                $stacked .= "inner join ( select * from `issues_markers` where id_marker = $marker ) a$marker on (issues.id = a$marker.id_issue) ";
         }
-        $sql = "select distinct a.id,a.description,a.qa_accept, a.analist_accept from issues a inner join issues_markers b on (a.id = b.id_issue) where a.category_id = ".$category." b.id_marker in(".$stacked.")";
+        $sql = "SELECT issues.id,description from issues $stacked";
+        //echo $sql;
+        return $this->db->get_recordset($sql);
+    }	
+    function getIssuesByMarksAndCategories($category,$markers){
+        $stacked = "";
+        foreach($markers as $marker){
+                $stacked .= "inner join ( select * from `issues_markers` where id_marker = $marker ) a$marker on (issues.id = a$marker.id_issue) ";
+        }
+        $sql = "SELECT issues.id,description from issues $stacked where issues.category_id = $category";
+        //echo $sql;
+        //$sql = "select distinct a.id,a.description,a.qa_accept, a.analis_accept from issues a inner join issues_markers b on (a.id = b.id_issue) where a.category_id = ".$category." and  b.id_marker in(".$stacked.")";
         return $this->db->get_recordset($sql);
     }	
 

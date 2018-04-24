@@ -246,7 +246,7 @@ during refresh feature, and then we have a bad refresh on page getting a bug.
         var roleID = document.getElementById(rolefiledID).selectedOptions[0].value;
         var projectID = document.getElementById("featureSel").selectedOptions[0].value;
         if(roleID == 0)return;
-        window.open('lib/usermanagement/massiveAssign.php?role='+roleID+'&usr='+userID+"&project"+projectID+'&type'+type,'_self');
+        window.open('lib/usermanagement/massiveAssign.php?role='+roleID+'&usr='+userID+"&project="+projectID+'&type='+type,'_self');
     }
     
 </script>

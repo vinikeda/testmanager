@@ -69,6 +69,7 @@ class categories {
             foreach ($temp as $b){
                     $a[$b['id']] = $b['name'];
             }
+            $a[0]='todos';
             return $a;
         }
 }
