@@ -811,7 +811,7 @@ function setupIssues(&$gui,&$db){
     $issues = new issues($db);
     $gui->Categories = $categories->getCategoriesForSelect();
     $gui->markers = $markers->getMarkersForSelection();
-    $isslist = $issues->getIssues();
+    $isslist = $issues->getActiveIssues();
     foreach($isslist as $chade=>$item){
         $isslist[$chade]['adjusted_text_description'] =str_replace("\r\n", "\\n",$isslist[$chade]['text_description']);
     }

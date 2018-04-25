@@ -80,7 +80,7 @@ switch($args->do_action)
   break;
 
   case 'qaAccepted':
-      echo 'foi pora'.$args->markerID;
+      //echo 'foi pora'.$args->markerID;
    $subadiq_mgr->qaAccept($args->markerID);
   break;
 
@@ -92,6 +92,21 @@ switch($args->do_action)
     $subadiq_mgr->analistAccept($args->markerID);
   break;
 
+  case 'supRejected':
+    $subadiq_mgr->superReject($args->markerID);
+  break;
+
+  case 'supAccepted':
+    $subadiq_mgr->superAccept($args->markerID);
+  break;
+
+  case 'desactivate':
+    $subadiq_mgr->desactivate($args->markerID);
+  break;
+
+  case 'activate':
+    $subadiq_mgr->activate($args->markerID);
+  break;
 }
 
 $dummy = null;
@@ -281,6 +296,10 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       case "qaAccepted":
       case "analistRejected":
       case "analistAccepted":
+      case "supRejected":
+      case "supAccepted":
+      case "activate":
+      case "desactivate":
         $doRender = true;
         $tpl = is_null($templateCfg->template) ? 'issuesView.tpl' : $templateCfg->template;
       break;
@@ -340,7 +359,7 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op->buttonCfg = null;
   $targetDate=null;
     $user_feedback = lang_get("cannot_add_build");
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,($argsObj->user->globalRole->dbID === '13'?'QA':'analis' ),$argsObj->descText, $argsObj->markersID);
+    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,($argsObj->user->globalRole->dbID === '13' || $argsObj->user->globalRole->dbID === '11'?'QA':($argsObj->user->globalRole->dbID === '12'?'sup':'analis') ),$argsObj->descText, $argsObj->markersID);
     if ($buildID)
     {
       /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);

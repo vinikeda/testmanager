@@ -8,7 +8,7 @@ class issues {
     function create($description,$categoryId,$whoAccept,$descText,$markers = null){
         if(!$this->verifyDuplicity($description,$markers)){
 
-            $author = ($whoAccept == "QA"?'qa':'analis');
+            $author = ($whoAccept == "QA"?'qa':($whoAccept == "sup"?'super':'analis'));
             $this->db->exec_query("insert into issues(description,category_id,".$author."_accept,text_description) values ('$description',$categoryId,1,'$descText')");
             if($markers != null){
                 $lastId = $this->db->insert_Id();
@@ -83,12 +83,28 @@ class issues {
         $sql = "update issues set analis_accept = 1 where id =". intval($id);
         $this->db->exec_query($sql);
     }
+    function superAccept($id){
+        $sql = "update issues set super_accept = 1 where id =". intval($id);
+        $this->db->exec_query($sql);
+    }
+    function activate($id){
+        $sql = "update issues set active = 1 where id =". intval($id);
+        $this->db->exec_query($sql);
+    }
     function qaReject($id){
         $sql = "update issues set qa_accept = 0 where id =". intval($id);
         $this->db->exec_query($sql);
     }
     function analistReject($id){
         $sql = "update issues set analis_accept = 0 where id =". intval($id);
+        $this->db->exec_query($sql);
+    }
+    function superReject($id){
+        $sql = "update issues set super_accept = 0 where id =". intval($id);
+        $this->db->exec_query($sql);
+    }
+    function desactivate($id){
+        $sql = "update issues set active = 0 where id =". intval($id);
         $this->db->exec_query($sql);
     }
 
@@ -150,7 +166,9 @@ class issues {
     function getIssues(){
         return $this->db->get_recordset("select * from issues");
     }
-
+    function getActiveIssues(){
+        return $this->db->get_recordset("select * from issues where active = 1");
+    }
     function get_by_id($id){
         return $this->db->exec_query("select * from issues where id = ".intval($id))->fields;
     }
