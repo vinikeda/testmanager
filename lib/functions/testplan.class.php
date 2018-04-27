@@ -8105,8 +8105,15 @@ class build_mgr extends tlObject
     return $cf_smarty;
   }
 
-
-
+/*função criada para transferir as builds para outros planos de teste*/
+  function transferbuild($id_tpOrigin,$id_testplan,$id_build){
+      $sql = "update executions set testplan_id = $id_testplan where build_id = $id_build";
+      $this->db->exec_query($sql);
+      $sql = "UPDATE `builds` SET `testplan_id` = '$id_testplan' WHERE `builds`.`id` = $id_build;";
+      $this->db->exec_query($sql);
+      $sql = "insert into testplan_tcversions (SELECT null, '$id_testplan',tcversion_id,node_order,urgency,platform_id,author_id,creation_ts FROM `testplan_tcversions` where testplan_id = $id_tpOrigin  and tcversion_id not in( SELECT tcversion_id FROM `testplan_tcversions` where testplan_id = $id_testplan ))";
+      $this->db->exec_query($sql);
+  }
 
 
 } // end class build_mgr

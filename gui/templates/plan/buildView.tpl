@@ -50,13 +50,14 @@ var del_action=fRoot+'{$deleteAction}';
   <form method="post" id="buildView" name="buildView" action="{$managerURL}">
     <input type="hidden" name="do_action" id="do_action" value="">
     <input type="hidden" name="build_id" id="build_id" value="">
+    <input type="hidden" name="target" id="target_id" value="">
 
 
     {* table id MUST BE item_view to use show/hide API info *}
   	<table id="item_view" class="simple_tableruler sortable">
   		<tr>
   			<th>{$tlImages.toggle_api_info}{$tlImages.sort_hint}{$labels.th_title}</th>
-  			<th class="{$noSortableColumnClass}">{$labels.th_description}</th>
+  			<th class="{$noSortableColumnClass}">Realocar{*$labels.th_description*}</th>
   			<th class="{$noSortableColumnClass}" style="width:90px;">{$labels.release_date}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_active}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_open}</th>
@@ -72,7 +73,11 @@ var del_action=fRoot+'{$deleteAction}';
   					     {/if}    
   					  </a>   
   				</td>
-  				<td>{$build.notes}</td>
+  				<td>{*$build.notes*}
+                                    <select onchange="move(this.value,this,{$build.id})">
+                                        {html_options options=$gui->arrplans selected=$gui->tplan_id}
+                                    </select>
+                                </td>
   				<td>{if $build.release_date != ''}{localize_date d=$build.release_date}{/if}</td>
 
           <td class="clickable_icon">
@@ -113,6 +118,15 @@ var del_action=fRoot+'{$deleteAction}';
   			</tr>
   		{/foreach}
   	</table>
+        <script>
+            function move(value, element,build){
+                build_id.value=build;
+                document.getElementById("target_id").value = value;
+                document.getElementById("do_action").value = "transfer";
+                element.form.submit();
+            }
+
+        </script>
    </form> 
   {else}
   	<p>{$labels.no_builds}</p>
@@ -128,6 +142,5 @@ var del_action=fRoot+'{$deleteAction}';
 
 <p class ="white">{$labels.builds_description}</p>
 </div>
-
 </body>
 </html>

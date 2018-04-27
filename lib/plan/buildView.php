@@ -18,16 +18,22 @@ require_once("common.php");
 testlinkInitPage($db,false,false,"checkRights");
 
 $templateCfg = templateConfiguration();
-
+$currentUser = $_SESSION['currentUser'];
 $tplan_mgr = new testplan($db);
 $build_mgr = new build_mgr($db);
-
 $gui = new StdClass();
+
+$arrplans = $currentUser->getAccessibleTestPlans($db,$_SESSION['testprojectID']);
+//var_dump($gui->arrplans);
+foreach ($arrplans as $key=>$value){
+    $gui->arrplans[$value['id']] = $value['name'];
+}
+//$gui->arrplans = $arrplans;
 $gui->tplan_id = isset($_SESSION['testplanID']) ? $_SESSION['testplanID'] : 0;
 $gui->tplan_name = $_SESSION['testplanName'];
+//$gui->tproject_id = $_SESSION['testprojectID'];
 $gui->buildSet = $tplan_mgr->get_builds($gui->tplan_id);
 $gui->user_feedback = null;
-
 $smarty = new TLSmarty();
 $smarty->assign('gui', $gui);
 $smarty->display($templateCfg->template_dir . $templateCfg->default_template);

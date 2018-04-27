@@ -46,6 +46,13 @@ $op->user_feedback = '';
 $op->buttonCfg = '';
 $op->status_ok = 1;
 
+
+$currentUser = $_SESSION['currentUser'];
+$arrplans = $currentUser->getAccessibleTestPlans($db,$_SESSION['testprojectID']);
+foreach ($arrplans as $key=>$value){
+    $gui->arrplans[$value['id']] = $value['name'];
+}
+
 switch($args->do_action)
 {
   case 'edit':
@@ -95,6 +102,10 @@ switch($args->do_action)
     $build_mgr->setClosed($args->build_id);
   break;
 
+  case 'transfer':
+    $build_mgr->transferbuild($args->tplan_id,$args->id_tpTarget,$args->build_id);
+  break;
+
 }
 
 $dummy = null;
@@ -135,6 +146,7 @@ renderGui($smarty,$args,$tplan_mgr,$templateCfg,$of,$gui);
 function init_args($request_hash, $session_hash,$date_format)
 {
   $args = new stdClass();
+  $args->id_tpTarget = $request_hash['target'];
   $request_hash = strings_stripSlashes($request_hash);
 
   $nullable_keys = array('notes','do_action','build_name');
@@ -336,6 +348,7 @@ function renderGui(&$smartyObj,&$argsObj,&$tplanMgr,$templateCfg,$owebeditor,&$g
       case "setInactive":
       case "open":
       case "close":
+      case 'transfer':
         $doRender = true;
         $tpl = is_null($templateCfg->template) ? 'buildView.tpl' : $templateCfg->template;
       break;

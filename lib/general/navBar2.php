@@ -147,6 +147,7 @@ function initNavBar(){
 	$gui->subadiqID = $_SESSION['sub_adquirenteID'];
 	$_SESSION['sub_adquirenteID']= ($_SESSION['sub_adquirenteID']==null)?0:$_SESSION['sub_adquirenteID'];
 	//$arrPlans = $currentUser->getAccessibleTestPlans($db,$testprojectID);//var_dump($currentUser);
+        //var_dump($currentUser->getAccessibleTestPlans($db,$testprojectID),$testprojectID);
 	$arrPlans = $currentUser->getAccessibleTestPlansFilteringBySubadiq($db,$testprojectID,$_SESSION['sub_adquirenteID']);//var_dump($currentUser);
 	if($currentUser->getEffectiveRole($testprojectID)->dbID == 8){//se for admin pode ver os sub_adquirentes vazios
 		$subadiq_mgr = new subadiq_mgr($db);//echo $testprojectID;

@@ -1008,7 +1008,6 @@ class tlUser extends tlDBObject
         $numericIndex = true;
       break;
     }
-                                           
     // Admin exception
     $doReindex = false;
     if( $this->globalRoleID != TL_ROLES_ADMIN && count($testPlanSet) > 0 )

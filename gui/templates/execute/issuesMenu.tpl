@@ -47,7 +47,16 @@
             </style>
         </td>
     </tr>
+    <tr>
+        <td></td>
+        <td><a onclick><button>criar novos erros</button></a></td>
+    </tr>
     <script>
+        function createInExecution(){
+            creationWindow = window.open("http://localhost/testlink/lib/issue/issuesEdit.php?do_action=create");
+            creationWindow.getElementById()
+        }
+        
         selectedCategory = 0;
         jsonObj = 0;
         function buildURL(){
