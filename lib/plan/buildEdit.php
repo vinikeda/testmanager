@@ -409,7 +409,7 @@ function doCreate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat) //,&$smartyObj)
     $user_feedback = lang_get("cannot_add_build");
     /*$buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,$argsObj->notes,
                                  $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);*/
-    $buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,$argsObj->usr,$argsObj->notes,
+    $buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,/*$argsObj->usr,*/$argsObj->notes,
                                  $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);
     if ($buildID)
     {
@@ -535,7 +535,7 @@ function doUpdate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat)
   if($check->status_ok)
   {
     $user_feedback = lang_get("cannot_update_build");
-    if ($buildMgr->update($argsObj->build_id,$argsObj->build_name,$argsObj->notes,$argsObj->usr,
+    if ($buildMgr->update($argsObj->build_id,$argsObj->build_name,$argsObj->notes,/*$argsObj->usr,*/
                           $argsObj->is_active,$argsObj->is_open,$argsObj->release_date))
     {
       $cf_map = $buildMgr->get_linked_cfields_at_design($argsObj->build_id,$argsObj->testprojectID);
