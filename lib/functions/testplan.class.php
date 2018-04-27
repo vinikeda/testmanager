@@ -157,7 +157,7 @@ class testplan extends tlObjectWithAttachments
    *
    */
   function createFromObject($item,$opt=null)
-  {
+  { 
     $debugMsg = 'Class:' . __CLASS__ . ' - Method: ' . __FUNCTION__;
     $my['opt'] = array('doChecks' => false, 'setSessionProject' => true);
     $my['opt'] = array_merge($my['opt'],(array)$opt);
