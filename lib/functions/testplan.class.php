@@ -8271,7 +8271,7 @@ class milestone_mgr extends tlObject
 
 
   /*
-    function: get_all_by_testplan
+    function: get_all_by_testplan 
               get info about all milestones defined for a testlan
     args :
           tplan_id

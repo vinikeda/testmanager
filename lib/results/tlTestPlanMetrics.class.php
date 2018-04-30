@@ -2661,9 +2661,9 @@ class tlTestPlanMetrics extends testplan
     (SELECT max(id) as id, status, build_id , tcversion_id, testplan_id FROM `executions` where testplan_id = ".$id." group by build_id, tcversion_id)
     
     c on (b.id = c.build_id and a.tcversion_id = c.tcversion_id and a.testplan_id = c.testplan_id) inner join tcversions d on (a.tcversion_id = d.id) inner join nodes_hierarchy f on ( a.tcversion_id = f.id) inner join nodes_hierarchy g on (g.id = f.parent_id) inner join nodes_hierarchy h on (h.id = g.parent_id)
-    WHERE a.testplan_id =".$id." and b.active = 1 and d.active = 1
+    WHERE a.testplan_id =".$id." and b.active = 1 and b.is_open = 1 and d.active = 1
 	
-	GROUP BY b.id,c.status";
+	GROUP BY b.id,c.status";//echo($sql);
 	$dummy = (array)$this->db->get_recordset($sql,'build_id');
 	$sql = "SELECT e.name as testplan_name FROM nodes_hierarchy e WHERE e.id = ".$id;
 	$testplan_name = (array)$this->db->get_recordset($sql,'testplan_name');
