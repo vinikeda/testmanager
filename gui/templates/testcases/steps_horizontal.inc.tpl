@@ -153,7 +153,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 
                             jQuery('[id^="step{$step_info.id}"]').each(function(i, elem) {
                                 
-                                  if (elem.id.substring("step{$step_info.id}".length).indexOf(query) != -1) {
+                                  if (elem.id.toUpperCase().substring("step{$step_info.id}".length).indexOf(query.toUpperCase()) !== -1) {
                                       elem.style.display = 'inline-block';//console.log(elem);
                                   }else{
                                       elem.style.display = 'none';

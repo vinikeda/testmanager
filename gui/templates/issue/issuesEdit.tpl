@@ -88,7 +88,14 @@ function validateForm(f)
         </select>
       </td>
     </tr>
-   
+   <tr style="/*display:none*/">
+	  <th style="background:none;">Disponível a</th>
+      <td>
+        <select name="projectsID[]" class = "chosen-bulk-select" multiple = multiple id="bulk_tester_div">
+                {html_options options=$gui->projects selected=$gui->selectedProjects}
+        </select>
+      </td>
+    </tr>
    <tr>
 	  <th style="background:none;">Descrição</th>
       <td>

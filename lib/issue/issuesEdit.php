@@ -33,9 +33,14 @@ $smarty = new TLSmarty();
 //$tplan_mgr = new testplan($db);
 $subadiq_mgr = new issues($db);
 $testers = new markers($db);
+$tproject_mgr = new testproject($db);
 $args = init_args($_REQUEST,$_SESSION);
 $gui = initializeGui($args);
 $gui->testers = $testers->getMarkersForSelection();
+$gui->projects = $tproject_mgr->get_accessible_for_user($args->user->dbID,
+                                                        array('output' => 'map_name_with_inactive_mark',
+                                                                  'field_set' => null,
+                                                                  'order_by' => null));
 
 /*$of = web_editor('notes',$_SESSION['basehref'],$editorCfg);
 $of->Value = getItemTemplateContents('build_template', $of->InstanceName, $args->notes);*/
@@ -154,6 +159,7 @@ function init_args($request_hash, $session_hash)
     $args->$key = isset($request_hash[$key]) ? intval($request_hash[$key]) : $value;
   }
   $args->markersID = $request_hash['markersID'];
+  $args->projectsID = $request_hash['projectsID'];
   $args->userID = intval($session_hash['userID']);
 
 
@@ -206,6 +212,7 @@ function edit(&$argsObj,&$subadiq_mgr)
   $argsObj->SelectedCategory = $binfo['category_id'];
   $argsObj->descText = $binfo['text_description'];
   $argsObj->markersID = $subadiq_mgr->getMarkers($argsObj->markerID);
+  $argsObj->projectsID = $subadiq_mgr->getProjects($argsObj->markerID);
   //$argsObj->release_date = $binfo['release_date'];
 
   /*if( $binfo['closed_on_date'] == '')
@@ -326,6 +333,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       $guiObj->tplan_name=$argsObj->tplan_name;
       $guiObj->subadiq_id = $argsObj->markerID;
       $guiObj->selectedMarkers = $argsObj->markersID;
+      $guiObj->selectedProjects = $argsObj->projectsID;var_dump($argsObj->projectsID);
       $guiObj->SelectedCategory = $argsObj->SelectedCategory;
       $guiObj->subadiq_name = $argsObj->subadiq_name;
       $guiObj->descText = $argsObj->descText;
@@ -359,7 +367,9 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op->buttonCfg = null;
   $targetDate=null;
     $user_feedback = lang_get("cannot_add_build");
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,($argsObj->user->globalRole->dbID === '13' || $argsObj->user->globalRole->dbID === '11'?'QA':($argsObj->user->globalRole->dbID === '12'?'sup':'analis') ),$argsObj->descText, $argsObj->markersID);
+    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,
+            ($argsObj->user->globalRole->dbID === '13' || $argsObj->user->globalRole->dbID === '11'?'QA':($argsObj->user->globalRole->dbID === '12'?'sup':'analis') ),
+            $argsObj->descText, $argsObj->markersID, $argsObj->projectsID);
     if ($buildID)
     {
       /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
@@ -409,7 +419,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr)
   //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
   //if($check->status_ok){
     $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->category,$argsObj->descText,$argsObj->markersID)) 
+    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->category,$argsObj->descText,$argsObj->markersID,$argsObj->projectsID)) 
     {
       //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
       //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');

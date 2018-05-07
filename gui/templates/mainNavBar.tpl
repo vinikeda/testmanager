@@ -430,7 +430,7 @@ display:block !important;
 	</ul>
 {/if}
 				
-{*if $gui->num_active_tplans > 0*}
+{if $gui->num_active_tplans > 0 and ($gui->grants.mgt_testplan_create == "yes" or $display_right_block_3)}
 <ul class="nav navbar-nav" >
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
@@ -484,7 +484,7 @@ display:block !important;
 		</ul>
 	</li>
 </ul>
-{*/if*}
+{/if}
 				
 {if $display_right_block_2}
 	<ul class="nav navbar-nav" >

@@ -1,19 +1,31 @@
 <?php
 class issues {
     public $db = null;
+    public $tproject_strings = '';
     function __construct(&$db){
-        $this->db = $db;	
+        $this->db = $db;
+        $tproject_mgr = new testproject($this->db);
+        $tprojects = $tproject_mgr->get_accessible_for_user($_SESSION['currentUser']->dbID,
+                                                        array('output' => 'map_name_with_inactive_mark',
+                                                                  'field_set' => null,
+                                                                  'order_by' => null));
+        $this->tproject_strings = implode(',',array_keys($tprojects));
     }
 
-    function create($description,$categoryId,$whoAccept,$descText,$markers = null){
+    function create($description,$categoryId,$whoAccept,$descText,$markers = null,$projects = null){
         if(!$this->verifyDuplicity($description,$markers)){
 
-            $author = ($whoAccept == "QA"?'qa':($whoAccept == "sup"?'super':'analis'));
+            $author = ($whoAccept == "QA"?'qa':($whoAccept == "sup"?'super':'analis'));//echo "insert into issues(description,category_id,".$author."_accept,text_description) values ('$description',$categoryId,1,'$descText')";
             $this->db->exec_query("insert into issues(description,category_id,".$author."_accept,text_description) values ('$description',$categoryId,1,'$descText')");
+            $lastId = $this->db->insert_Id();
             if($markers != null){
-                $lastId = $this->db->insert_Id();
                 foreach($markers as $marker){
                     $this->addmarker($lastId,$marker);				
+                }
+            }
+            if($projects != null){
+                foreach($projects as $marker){
+                    $this->addProject($lastId,$marker);				
                 }
             }
             return true;
@@ -23,17 +35,22 @@ class issues {
         }
     }
 
-    function update ($id ,$description,$category,$descText, $markers = null){
+    function update ($id ,$description,$category,$descText, $markers = null, $projects){
         $sql = "update issues set description = '$description', category_id = $category, text_description = '$descText' where id = $id";
         $this->db->exec_query($sql);
-        if($markers != null){			
-            /*var_dump($markers);
-            var_dump($this->getMarkers($id));*/
+        if($markers != null){
             foreach(array_diff($this->getMarkers($id),$markers) as $to_rmv)$this->rmvmarker($id,$to_rmv);
             foreach($markers as $marker){
                 $this->addmarker($id,$marker);				
             }
         }else $this->rmv_all_marker($id);
+        
+        if($projects != null){
+            foreach(array_diff($this->getProjects($id),$projects) as $to_rmv)$this->rmvProject($id,$to_rmv);
+            foreach($projects as $marker){
+                $this->addProject($id,$marker);
+            }
+        }else $this->rmv_all_tprojects($id);
     }
 
     function addmarker($idIssue,$idMarker){
@@ -42,13 +59,29 @@ class issues {
         $this->db->exec_query($sql);
     }
 
+    function addProject($idIssue,$idMarker){
+        $sql = "insert into issues_tprojects (id_tproject, id_issue) SELECT * FROM (SELECT $idMarker, $idIssue) AS tmp WHERE NOT EXISTS ( SELECT id_tproject,id_issue FROM issues_tprojects WHERE id_tproject = $idMarker and id_issue = $idIssue ) LIMIT 1; ";
+        //echo $sql;
+        $this->db->exec_query($sql);
+    }
+    
     function rmvmarker($idIssue,$idMarker){
         $sql = "delete from issues_markers where id_marker = $idMarker and id_issue= $idIssue";
         $this->db->exec_query($sql);
     }
 
+    function rmvProject($idIssue,$idMarker){
+        $sql = "delete from issues_tprojects where id_tproject = $idMarker and id_issue= $idIssue";
+        $this->db->exec_query($sql);
+    }
+    
     function rmv_all_marker($idCategory){
         $sql = "delete from issues_markers where id_issue=$idCategory";
+        $this->db->exec_query($sql);
+    }
+    
+    function rmv_all_tprojects($idCategory){
+        $sql = "delete from issues_tprojects where id_issue=$idCategory";
         $this->db->exec_query($sql);
     }
 
@@ -131,6 +164,8 @@ class issues {
     function delete($id){            
         $sql = "delete from issues_markers where id_issue = $id";
         $this->db->exec_query($sql);
+        $sql = "delete from issues_tprojects where id_issue = $id";
+        $this->db->exec_query($sql);
         $sql = "delete from issues_executions where id_issue = $id";
         $this->db->exec_query($sql);
         $sql = "delete from issues where id = $id";
@@ -164,10 +199,11 @@ class issues {
     }	
 
     function getIssues(){
-        return $this->db->get_recordset("select * from issues");
+        return $this->db->get_recordset("select issues.* from issues inner join issues_tprojects on (issues.id = id_issue) where id_tproject in ($this->tproject_strings) union select * from issues where id not in (select distinct id_issue from issues_tprojects)");
     }
     function getActiveIssues(){
-        return $this->db->get_recordset("select * from issues where active = 1");
+        
+        return $this->db->get_recordset("select issues.* from issues inner join issues_tprojects on (issues.id = id_issue) where active = 1 and id_tproject in ($this->tproject_strings) union select * from issues where id not in (select distinct id_issue from issues_tprojects)");
     }
     function get_by_id($id){
         return $this->db->exec_query("select * from issues where id = ".intval($id))->fields;
@@ -179,6 +215,14 @@ class issues {
         foreach ($temp as $value)$a[] = $value['id_marker'];
         return $a;
     }
+    
+    function getProjects($id){
+        $temp =  $this->db->fetchRowsIntoMap("select id_tproject from issues_tprojects where id_issue = ".intval($id),"id_tproject");
+        $a;
+        foreach ($temp as $value)$a[] = $value['id_tproject'];
+        return $a;
+    }
+    
     function assignIssue($idExecutions,$idIssues){
         if(count($idExecutions)==0||$idIssues==0)return;
         foreach($idExecutions as $exec){
