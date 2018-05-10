@@ -581,7 +581,8 @@ display:block !important;
 						<li><a href="{$gui->url.metrics_dashboard}" target="mainframe" method="post">{$labels.href_metrics_dashboard}</a></li>
 						-->
 						<li><a href="lib/results/metricsDashboard4.php" target="mainframe" method="post">Acompanhamento completo</a></li>
-						<li><a href="lib/results/metricsDashboard2.php" target="mainframe" method="post">Acompanhamento rápido</a></li>
+						<li><a href="lib/results/metricsDashboard3.php" target="mainframe" method="post">Acompanhamento rápido</a></li>
+						<li><a href="lib/results/metricsDashboard-3.php" target="mainframe" method="post">Histórico</a></li>
 					{/if}
 				</ul>
 			</li>

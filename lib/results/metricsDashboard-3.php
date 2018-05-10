@@ -32,9 +32,7 @@ $labels = init_labels(array('overall_progress' => null, 'blank' => null, 'progre
 						
 list($gui->tplan_metrics,$gui->show_platforms, $platforms) = getMetrics($db,$_SESSION['currentUser'],$args,$result_cfg, $labels);
   
-  /*$smarty = new TLSmarty;
-  $smarty->assign('gui', $gui);
-  $smarty->display($templateCfg->template_dir . $templateCfg->default_template);*/
+
 
 // new dBug($gui->tplan_metrics);
 if(count($gui->tplan_metrics) > 0) 
@@ -83,13 +81,11 @@ if(count($gui->tplan_metrics) > 0)
     }//fim do foreach
   }
   //new dBug($matrixData);
-  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard2');
+  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard-3');
   // if platforms are to be shown -> group by test plan
   // if no platforms are to be shown -> no grouping
-  /*if($gui->show_platforms) 
-  {	*/
+
     $table->setGroupByColumnName($labels['blank']);
-  //}
 
   $table->setSortByColumnName($labels['progress']);
   $table->sortDirection = 'DESC';
@@ -143,7 +139,7 @@ function getMetrics(&$db,$userObj,$args, $result_cfg, $labels)
     $metricsMgr = new tlTestPlanMetrics($db);
     //$show_platforms = false;
     
-    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id);
+    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id,0);
     $result_cfg['status_code'];
     //print_r($list);
     foreach($list as $sub_name=>$sub){
@@ -159,64 +155,6 @@ function getMetrics(&$db,$userObj,$args, $result_cfg, $labels)
             }
         }
     }
-    //print_r($execs);
-   /* $sublist = $metricsMgr->getSubList($args->tproject_id);
-    //var_dump($sublist);
-    foreach ($sublist as $sub) {
-        $buildlist = $metricsMgr->getExplainedBuildsBySub($args->tproject_id, $sub['name']);
-        if ($buildlist != null) {
-            //var_dump($sub,$buildlist);
-            $buildvalid = array();
-            $groupSolucao = array();
-            foreach ($buildlist as $build) {
-                $groupSolucao[$build['solucao']][] = $build;
-                //$buildvalid[$build['solucao']] .= '&buildvalid[]='.$build['id'];
-            }
-            //var_dump($buildvalid,$groupSolucao);
-        }
-    }
-  
-  
-  $metrics = array('testplans' => null, 'total' => null);
-  $mm = &$metrics['testplans'];
-  $metrics['total'] = array('active' => 0,'total' => 0, 'executed' => 0);
-  foreach($result_cfg['status_label_for_exec_ui'] as $status_code => &$dummy)
-  {
-    $metrics['total'][$status_code] = 0; 
-  } 
-  
-  $codeStatusVerbose = array_flip($result_cfg['status_code']);
-  foreach($test_plans as $key => &$dummy)
-  {
-    // We need to know if test plan has builds, if not we can not call any method 
-    // that try to get exec info, because you can only execute if you have builds.
-    //
-    // 20130909 - added active filter
-    $buildSet = $tplan_mgr->get_builds($key,testplan::ACTIVE_BUILDS);
-    if( is_null($buildSet) )
-    {
-      continue;
-    }
-
-    //colocando as builds como plataformas para que elas apareçam como devem
-	$show_platforms = true;
-	$buildmetrics[$key] = $metricsMgr->getExecStatusPerBuild($key);//executa a função que faz a busca no banco e faz a organização de  toda a métrica de uma vez.
-	if(count($buildmetrics[$key])){
-            $metrics['testplans'][$key]['platforms'] = array();
-            $metrics['testplans'][$key]['platforms'] = $metrics['testplans'][$key]['platforms']+$buildmetrics[$key];//array_merge($metrics['testplans'][$key]['platforms'],$buildmetrics[$key]);
-            $metrics['testplans'][$key]['overall']['total'] = count($buildmetrics[$key]);
-
-            foreach($buildmetrics[$key] as $chaves=>$build){
-                    $metrics['testplans'][$key]['overall']['failed'] =+ $build['failed'];
-                    $metrics['testplans'][$key]['overall']['passed'] =+ $build['passed'];
-                    $metrics['testplans'][$key]['overall']['executed'] =+ $build['executed'];
-                    $metrics['testplans'][$key]['overall']['blocked'] =+ $build['failed'];
-                    $metrics['testplans'][$key]['overall']['active'] =+ $build['active'];
-                    $metrics['testplans'][$key]['overall']['not_run'] =+ $build['not_run'];//echo "   ".$key." -".$build['satanas'];
-            }
-        }
-  }*///fim do foreach dos testplans
-    //print_r($metrics);
   return array($metrics, $show_platforms, $platformsUnique);
 }
 
@@ -248,10 +186,6 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
                       'filter' => 'list', 'filterOptions' => $platforms);
   }
 
-  //$colDef[] = array('title_key' => 'link_charts', 'width' => 40, 'type' => 'text', 'filter' => 'string');
-  //$colDef[] = array('title_key' => 'th_active_tc', 'width' => 40, 'sortType' => 'asInt', 'filter' => 'numeric');
-  //$colDef[] = array('title_key' => 'progress', 'width' => 40, 'sortType' => 'asFloat', 'filter' => 'numeric');
-  // create 2 columns for each defined status
   foreach($statusLbl as $lbl)
   {
     $colDef[] = array('title_key' => $lbl, 'width' => 40, 'hidden' => true, 'type' => 'int',
