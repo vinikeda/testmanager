@@ -333,7 +333,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       $guiObj->tplan_name=$argsObj->tplan_name;
       $guiObj->subadiq_id = $argsObj->markerID;
       $guiObj->selectedMarkers = $argsObj->markersID;
-      $guiObj->selectedProjects = $argsObj->projectsID;var_dump($argsObj->projectsID);
+      $guiObj->selectedProjects = $argsObj->projectsID;
       $guiObj->SelectedCategory = $argsObj->SelectedCategory;
       $guiObj->subadiq_name = $argsObj->subadiq_name;
       $guiObj->descText = $argsObj->descText;

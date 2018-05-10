@@ -24,7 +24,7 @@ $result_cfg = config_get('results');
 $show_all_status_details = config_get('metrics_dashboard')->show_test_plan_status;
 $round_precision = config_get('dashboard_precision');
 
-$labels = init_labels(array('overall_progress' => null, 'test_plan' => null, 'progress' => null,
+$labels = init_labels(array('overall_progress' => null, 'blank' => null, 'progress' => null,
     'href_metrics_dashboard' => null, 'progress_absolute' => null,
     'no_testplans_available' => null, 'not_aplicable' => null,
     'platform' => null, 'th_active_tc' => null, 'in_percent' => null));
@@ -124,11 +124,11 @@ VAR;
         }
     }
 }
-$table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard');
+$table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard4');
 //var_dump($columns);
 // if platforms are to be shown -> group by test plan
 // if no platforms are to be shown -> no grouping
-$table->setGroupByColumnName($labels['test_plan']);
+$table->setGroupByColumnName($labels['blank']);
 
 $table->setSortByColumnName($labels['progress']);
 $table->sortDirection = 'DESC';
@@ -154,7 +154,7 @@ $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
 function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms) {
     $colDef = array();
 
-    $colDef[] = array('title_key' => 'test_plan', 'width' => 60, 'type' => 'text', 'sortType' => 'asText',
+    $colDef[] = array('title_key' => 'blank', 'width' => 60, 'type' => 'text', 'sortType' => 'asText',
         'filter' => 'string');
 
     if ($showPlatforms) {

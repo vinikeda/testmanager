@@ -15,6 +15,7 @@
 require('../../config.inc.php');
 require_once('common.php');
 require_once('exttable.class.php');
+require_once('../functions/tlTestPlanMetrics.class.php');
 $templateCfg = templateConfiguration();
 
 //testlinkInitPage($db,false,false,"checkRights");
@@ -23,12 +24,12 @@ $result_cfg = config_get('results');
 $show_all_status_details = config_get('metrics_dashboard')->show_test_plan_status;
 $round_precision = config_get('dashboard_precision');
 
-$labels = init_labels(array('overall_progress' => null, 'test_plan' => null, 'progress' => null,
+$labels = init_labels(array('overall_progress' => null, 'blank' => null, 'progress' => null,
                             'href_metrics_dashboard' => null, 'progress_absolute' => null,
                             'no_testplans_available' => null, 'not_aplicable' => null,
                             'platform' => null, 'th_active_tc' => null, 'in_percent' => null));
 
-							
+						
 list($gui->tplan_metrics,$gui->show_platforms, $platforms) = getMetrics($db,$_SESSION['currentUser'],$args,$result_cfg, $labels);
   
   /*$smarty = new TLSmarty;
@@ -66,7 +67,7 @@ if(count($gui->tplan_metrics) > 0)
         
         // if test plan does not use platforms a overall status is not necessary
         $tplan_string = strip_tags($platform_metric['tplan_name']);
-        if ($show_all_status_details) 
+        /*if ($show_all_status_details) 
         {
           // add information for all exec statuses
           $tplan_string .= "<br>";
@@ -84,10 +85,10 @@ if(count($gui->tplan_metrics) > 0)
           $tplan_string .= " - ";
         }
         
-        $tplan_string .= $labels['overall_progress'] . ": " . 
+        /*$tplan_string .= $labels['overall_progress'] . ": " . 
                          /*getPercentage($tplan_metrics['overall']['executed'],comentei esse trecho pois essa conta da porcentagem média não estava funcional para o caso.
                                        $tplan_metrics['overall']['total'],
-                                       $round_precision) */$percentage_overall[$tplanid]. "%";
+                                       $round_precision) *///$percentage_overall[$tplanid]. "%";
         //$tplan_string .= $templateCfg->default_template;//não lembro. de verdade.
 		//$tplan_string .= '    -    <a href = "lib/results/charts.php?format=0&tplan_id='.$tplanid.'" target = "_blank">'.lang_get('link_charts').'</a>';
         $rowData[] = $tplan_string;// aqui ele tá passando o cabeçalho o "nome do plano de teste" e a porcentagem completa do plano de teste
@@ -121,12 +122,12 @@ if(count($gui->tplan_metrics) > 0)
     }//fim do foreach
   }
   //new dBug($matrixData);
-  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard');
+  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard2');
   // if platforms are to be shown -> group by test plan
   // if no platforms are to be shown -> no grouping
   if($gui->show_platforms) 
-  {
-    $table->setGroupByColumnName($labels['test_plan']);
+  {	
+    $table->setGroupByColumnName($labels['blank']);
   }
 
   $table->setSortByColumnName($labels['progress']);
@@ -138,7 +139,7 @@ if(count($gui->tplan_metrics) > 0)
   $table->toolbarResetFiltersButton = false;
   $table->title = $labels['href_metrics_dashboard'];
   $table->showGroupItemsCount = false;
-
+//var_dump($table->groupByColumn);
   $gui->tableSet = array($table);
   
   // get overall progress, collect test project metrics
@@ -244,7 +245,7 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
 {
   $colDef = array();
   
-  $colDef[] = array('title_key' => 'test_plan', 'width' => 60, 'type' => 'text', 'sortType' => 'asText',
+  $colDef[] = array('title_key' => 'blank', 'width' => 60, 'type' => 'text', 'sortType' => 'asText',
                     'filter' => 'string');
 
   if ($showPlatforms)
@@ -254,7 +255,7 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
   }
 
   //$colDef[] = array('title_key' => 'link_charts', 'width' => 40, 'type' => 'text', 'filter' => 'string');
-  $colDef[] = array('title_key' => 'th_active_tc', 'width' => 40, 'sortType' => 'asInt', 'filter' => 'numeric');
+  //$colDef[] = array('title_key' => 'th_active_tc', 'width' => 40, 'sortType' => 'asInt', 'filter' => 'numeric');
   //$colDef[] = array('title_key' => 'progress', 'width' => 40, 'sortType' => 'asFloat', 'filter' => 'numeric');
   // create 2 columns for each defined status
   foreach($statusLbl as $lbl)

@@ -66,7 +66,7 @@ function validateForm(f)
       <th style="background:none;">Nome</th>
       <td><input type="text" name="subadiq_name" id="subadiq_name" 
                  maxlength="{#subadiq_name_MAXLEN#}" 
-                 value="{$gui->subadiq_name|escape}" size="{#subadiq_name_SIZE#}" required />
+                 value="{$gui->subadiq_name|escape}" size="{#subadiq_name_SIZE#}" style ="width:35%" required />
                 {include file="error_icon.tpl" field="subadiq_name"}
       </td>
     </tr>
@@ -99,7 +99,7 @@ function validateForm(f)
    <tr>
 	  <th style="background:none;">Descrição</th>
       <td>
-          <textarea name="descText">{$gui->descText}</textarea>
+          <textarea name="descText" style="resize:both ;width:35%">{$gui->descText}</textarea>
       </td>
     </tr>
    

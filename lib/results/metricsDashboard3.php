@@ -15,6 +15,7 @@
 require('../../config.inc.php');
 require_once('common.php');
 require_once('exttable.class.php');
+require_once('../functions/tlTestPlanMetrics.class.php');
 $templateCfg = templateConfiguration();
 
 //testlinkInitPage($db,false,false,"checkRights");
@@ -23,13 +24,17 @@ $result_cfg = config_get('results');
 $show_all_status_details = config_get('metrics_dashboard')->show_test_plan_status;
 $round_precision = config_get('dashboard_precision');
 
-$labels = init_labels(array('overall_progress' => null, 'test_plan' => null, 'progress' => null,
+$labels = init_labels(array('overall_progress' => null, 'blank' => null, 'progress' => null,
                             'href_metrics_dashboard' => null, 'progress_absolute' => null,
                             'no_testplans_available' => null, 'not_aplicable' => null,
                             'platform' => null, 'th_active_tc' => null, 'in_percent' => null));
 
-							
+						
 list($gui->tplan_metrics,$gui->show_platforms, $platforms) = getMetrics($db,$_SESSION['currentUser'],$args,$result_cfg, $labels);
+  
+  /*$smarty = new TLSmarty;
+  $smarty->assign('gui', $gui);
+  $smarty->display($templateCfg->template_dir . $templateCfg->default_template);*/
 
 // new dBug($gui->tplan_metrics);
 if(count($gui->tplan_metrics) > 0) 
@@ -38,52 +43,52 @@ if(count($gui->tplan_metrics) > 0)
   $gui->warning_msg = '';
   //$columns = getColumnsDefinition($gui->show_platforms, $statusSetForDisplay, $labels, $platforms);//essa é a forma padrão de criar as colunas da tabela do painel. eu desativei pois assim eu poderia forçar a visualização como se houvessem plataformas.
   $testplannames = array();//variável criada por mim, por algum motivo isso não deu erro, mas tbm não funciona então deixei assim
-
+ 
  $columns = getColumnsDefinition(true, $statusSetForDisplay, $labels, $testplannames);//crido por mim para colocar os baselines como plataformas.
   $matrixData = array();
   if(isset($gui->tplan_metrics['testplans']))
-  {  
-		$percentage_overall;//print_r($gui->tplan_metrics);
+  {
     foreach ($gui->tplan_metrics['testplans'] as $tplanid => $tplan_metrics)
     {
-		$temp = 0;
-		$cont = 0;
-		foreach($tplan_metrics['platforms'] as $key => $platform_metric){
-				$temp += getPercentage($platform_metric['executed'], $platform_metric['active'],
-                                         $round_precision);
-			$cont++;
-		}
-		 $percentage_overall[$tplanid] = $temp/$cont;//print_r($tplan_metrics['platforms']);
+		
       foreach($tplan_metrics['platforms'] as $key => $platform_metric) 
       {
         //new dBug($platform_metric);
         
         $rowData = array();
-        
-        // if test plan does not use platforms a overall status is not necessary
         $tplan_string = strip_tags($platform_metric['tplan_name']);
-        
-        $tplan_string .= $labels['overall_progress'] . ": " .$percentage_overall[$tplanid]. "%";
-        //$tplan_string .= $templateCfg->default_template;//não lembro. de verdade.
-		$tplan_string .= '    -    <a href = "lib/results/charts.php?format=0&tplan_id='.$tplanid.'" target = "_blank">'.lang_get('link_charts').'</a>';
         $rowData[] = $tplan_string;// aqui ele tá passando o cabeçalho o "nome do plano de teste" e a porcentagem completa do plano de teste
-        if ($gui->show_platforms) 
+        /*if ($gui->show_platforms) 
+        {*/
+          $rowData[] = /*strip_tags(*/$platform_metric['platform_name']/*)*/;//foi necessário comentar o strip tags pois ele não me permitia obter o link que eu gerava.
+        //}
+        foreach ($statusSetForDisplay as $status_verbose => $status_label)
         {
-          $rowData[] = /*strip_tags(*/$platform_metric['platform_name'];//.'<br>'.'<img width = 400 height = 400 src="lib/results/overallPieChartPerBuild.php?apikey=&tplan_id='.$tplanid.'&build='.$key.'" >';/*)*///;//foi necessário comentar o strip tags pois ele não me permitia obter o link que eu gerava.
+          if( isset($platform_metric[$status_verbose]) )
+          {
+            $rowData[] = $platform_metric[$status_verbose];
+            $rowData[] = getPercentage($platform_metric[$status_verbose], $platform_metric['total'],
+                                         $round_precision);
+          }
+          else
+          {
+            $rowData[] = 0;
+            $rowData[] = 0;
+          }
         }
+
         
-        $rowData[] = '';//'<img width = 1000 height = 230 src="lib/results/LineChartHistoryBuild.php?build='.$key.'" >';
         $matrixData[] = $rowData;
       }
     }//fim do foreach
   }
   //new dBug($matrixData);
-  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard');
+  $table = new tlExtTable($columns, $matrixData, 'tl_table_metrics_dashboard2');
   // if platforms are to be shown -> group by test plan
   // if no platforms are to be shown -> no grouping
   if($gui->show_platforms) 
-  {
-    $table->setGroupByColumnName($labels['test_plan']);
+  {	
+    $table->setGroupByColumnName($labels['blank']);
   }
 
   $table->setSortByColumnName($labels['progress']);
@@ -95,7 +100,6 @@ if(count($gui->tplan_metrics) > 0)
   $table->toolbarResetFiltersButton = false;
   $table->title = $labels['href_metrics_dashboard'];
   $table->showGroupItemsCount = false;
-
   $gui->tableSet = array($table);
   
   // get overall progress, collect test project metrics
@@ -121,22 +125,57 @@ $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
  */
 function getMetrics(&$db,$userObj,$args, $result_cfg, $labels)
 {
-  //$user_id = $args->currentUserID;
-  $tproject_id = $args->tproject_id;
-  //$linked_tcversions = array();
-  $metrics = array();
-  $tplan_mgr = new testplan($db);
-  //$show_platforms = false;
-  $platforms = array();
-  $buildmetrics = array();//criado para coletar as metricas por build. o plano é substiruir o que está no metrics antes do return, colocando as builds no lugar das platforms
+    //$user_id = $args->currentUserID;
+    $tproject_id = $args->tproject_id;
+    //$linked_tcversions = array();
+    $metrics = array();
+    $tplan_mgr = new testplan($db);
+    //$show_platforms = false;
+    $platforms = array();
+    $buildmetrics = array();//criado para coletar as metricas por build. o plano é substiruir o que está no metrics antes do return, colocando as builds no lugar das platforms
+    // get all tesplans accessibles  for user, for $tproject_id
+    $options = array('output' => 'map');
+    $options['active'] = $args->show_only_active ? ACTIVE : TP_ALL_STATUS;
+    //foreach ($userObj->getAccessibleTestPlans($db,$tproject_id,null,$options) as $campo)print_r(array_keys($campo));
+    //pode ser utilizado em versões posteriores para controlar a vizualização apenas para os planos de teste que o user tem acesso. usando a key do vetor
+    $test_plans/*$tmp */= $userObj->getAccessibleTestPlans($db,$tproject_id,null,$options);
 
-  // get all tesplans accessibles  for user, for $tproject_id
-  $options = array('output' => 'map');
-  $options['active'] = $args->show_only_active ? ACTIVE : TP_ALL_STATUS;
-  //foreach ($userObj->getAccessibleTestPlans($db,$tproject_id,null,$options) as $campo)print_r(array_keys($campo));
-  $test_plans/*$tmp */= $userObj->getAccessibleTestPlans($db,$tproject_id,null,$options);//comentado para reduzir a qtd de testplans. assim melhorando a performamce.
-  $metricsMgr = new tlTestPlanMetrics($db);
-  //$show_platforms = false;
+    $metricsMgr = new tlTestPlanMetrics($db);
+    //$show_platforms = false;
+    
+    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id);
+    $result_cfg['status_code'];
+    //print_r($list);
+    foreach($list as $sub_name=>$sub){
+        foreach($sub as $solucao_name=>$solucao){
+            foreach ($solucao as $req_name=>$req){
+                $execs['tplan_name'] = $sub_name;
+                $execs['platform_name'] = $req['solucao'].' - '.$req['roteiro'].' - '.$req['ciclo'];
+                foreach($result_cfg['status_code'] as $key=>$stat){
+                    $execs[$key] = $req['status'][$stat];
+                }
+                $execs['total'] = $metricsMgr->getTotalexec($req['tplan_id']);
+                $metrics['testplans'][$req['tplan_id']]['platforms'][]= $execs;
+            }
+        }
+    }
+    //print_r($execs);
+   /* $sublist = $metricsMgr->getSubList($args->tproject_id);
+    //var_dump($sublist);
+    foreach ($sublist as $sub) {
+        $buildlist = $metricsMgr->getExplainedBuildsBySub($args->tproject_id, $sub['name']);
+        if ($buildlist != null) {
+            //var_dump($sub,$buildlist);
+            $buildvalid = array();
+            $groupSolucao = array();
+            foreach ($buildlist as $build) {
+                $groupSolucao[$build['solucao']][] = $build;
+                //$buildvalid[$build['solucao']] .= '&buildvalid[]='.$build['id'];
+            }
+            //var_dump($buildvalid,$groupSolucao);
+        }
+    }
+  
   
   $metrics = array('testplans' => null, 'total' => null);
   $mm = &$metrics['testplans'];
@@ -159,16 +198,25 @@ function getMetrics(&$db,$userObj,$args, $result_cfg, $labels)
       continue;
     }
 
-     //colocando as builds como plataformas para que elas apareçam como devem
+    //colocando as builds como plataformas para que elas apareçam como devem
 	$show_platforms = true;
 	$buildmetrics[$key] = $metricsMgr->getExecStatusPerBuild($key);//executa a função que faz a busca no banco e faz a organização de  toda a métrica de uma vez.
-	$metrics['testplans'][$key]['platforms'] = array();
-	$metrics['testplans'][$key]['platforms'] = $metrics['testplans'][$key]['platforms']+$buildmetrics[$key];//array_merge($metrics['testplans'][$key]['platforms'],$buildmetrics[$key]);
-	$metrics['testplans'][$key]['overall']['total'] = count($buildmetrics[$key]);
+	if(count($buildmetrics[$key])){
+            $metrics['testplans'][$key]['platforms'] = array();
+            $metrics['testplans'][$key]['platforms'] = $metrics['testplans'][$key]['platforms']+$buildmetrics[$key];//array_merge($metrics['testplans'][$key]['platforms'],$buildmetrics[$key]);
+            $metrics['testplans'][$key]['overall']['total'] = count($buildmetrics[$key]);
 
-  }//fim do foreach dos testplans
-    
-
+            foreach($buildmetrics[$key] as $chaves=>$build){
+                    $metrics['testplans'][$key]['overall']['failed'] =+ $build['failed'];
+                    $metrics['testplans'][$key]['overall']['passed'] =+ $build['passed'];
+                    $metrics['testplans'][$key]['overall']['executed'] =+ $build['executed'];
+                    $metrics['testplans'][$key]['overall']['blocked'] =+ $build['failed'];
+                    $metrics['testplans'][$key]['overall']['active'] =+ $build['active'];
+                    $metrics['testplans'][$key]['overall']['not_run'] =+ $build['not_run'];//echo "   ".$key." -".$build['satanas'];
+            }
+        }
+  }*///fim do foreach dos testplans
+    //print_r($metrics);
   return array($metrics, $show_platforms, $platformsUnique);
 }
 
@@ -191,7 +239,7 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
 {
   $colDef = array();
   
-  $colDef[] = array('title_key' => 'test_plan', 'width' => 60, 'type' => 'text', 'sortType' => 'asText',
+  $colDef[] = array('title_key' => 'blank', 'width' => 60, 'type' => 'text', 'sortType' => 'asText',
                     'filter' => 'string');
 
   if ($showPlatforms)
@@ -200,8 +248,21 @@ function getColumnsDefinition($showPlatforms, $statusLbl, $labels, $platforms)
                       'filter' => 'list', 'filterOptions' => $platforms);
   }
 
-  $colDef[] = array('title_key' => 'link_charts', 'width' => 200, /*'type' => 'text',*/ 'filter' => 'string');
-
+  //$colDef[] = array('title_key' => 'link_charts', 'width' => 40, 'type' => 'text', 'filter' => 'string');
+  //$colDef[] = array('title_key' => 'th_active_tc', 'width' => 40, 'sortType' => 'asInt', 'filter' => 'numeric');
+  //$colDef[] = array('title_key' => 'progress', 'width' => 40, 'sortType' => 'asFloat', 'filter' => 'numeric');
+  // create 2 columns for each defined status
+  foreach($statusLbl as $lbl)
+  {
+    $colDef[] = array('title_key' => $lbl, 'width' => 40, 'hidden' => true, 'type' => 'int',
+                      'sortType' => 'asInt', 'filter' => 'numeric');
+    
+    $colDef[] = array('title' => lang_get($lbl) . " " . $labels['in_percent'], 'width' => 40,
+                      'col_id' => 'id_'. $lbl .'_percent', 'type' => 'float', 'sortType' => 'asFloat',
+                      'filter' => 'numeric');
+  }
+  
+  //print_r($colDef);
 
   return $colDef;
 }

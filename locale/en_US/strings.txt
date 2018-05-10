@@ -39,6 +39,7 @@ $TLS_STRINGFILE_CHARSET = "UTF-8";
 $TLS_last_update = "Last localization update: 03/27/2011";
 
 // ----- General terms (used wide) ----------------------------
+$TLS_blank = "testudo";//" ";
 $TLS_type_not_configured = "system message: type not configured";
 $TLS_undefined = "undefined";
 $TLS_active = "Active";
