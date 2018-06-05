@@ -16,17 +16,17 @@
 
 require('../../config.inc.php');
 require_once("common.php");
-require_once("docs.class.php");
+require_once("macros.class.php");
 testlinkInitPage($db,false,false,"checkRights");
 
 $templateCfg = templateConfiguration();
 
-$docs = new docs($db);
+$obj = new macros($db);
 $gui = new StdClass();
-$gui->docs = $docs->getDocs();
+$gui->obj = $obj->getdata();
 //var_dump($gui->issues);
 $gui->user_feedback = null;
-
+$gui->isADM= ($_SESSION['currentUser']->globalRole->dbID ===  '8'?1:0);
 $smarty = new TLSmarty();
 $smarty->assign('gui', $gui);
 $smarty->display($templateCfg->template_dir . $templateCfg->default_template);

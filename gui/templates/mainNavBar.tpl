@@ -34,15 +34,17 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
                           href_print_tc,href_keywords_assign, href_req_overview,
                           href_print_req,title_plugins,title_documentation,href_issuetracker_management,
                           href_reqmgrsystem_management,href_req_monitor_overview,
-						  current_test_plan,ok,testplan_role,msg_no_rights_for_tp,
-						  title_test_execution,href_execute_test,href_rep_and_metrics,
-						  href_update_tplan,href_newest_tcversions,
-						  href_my_testcase_assignments,href_platform_assign,
-						  href_tc_exec_assignment,href_plan_assign_urgency,
-						  href_upd_mod_tc,title_test_plan_mgmt,title_test_case_suite,
-						  href_plan_management,
-						  href_build_new,href_plan_mstones,href_plan_define_priority,
-						  href_metrics_dashboard,th_user,title_results,href_add_remove_test_cases,title_edit_personal_data,th_user_rights'}
+                          current_test_plan,ok,testplan_role,msg_no_rights_for_tp,
+                          title_test_execution,href_execute_test,href_rep_and_metrics,
+                          href_update_tplan,href_newest_tcversions,
+                          href_my_testcase_assignments,href_platform_assign,
+                          href_tc_exec_assignment,href_plan_assign_urgency,
+                          href_upd_mod_tc,title_test_plan_mgmt,title_test_case_suite,
+                          href_plan_management,href_sub_aquire_management,
+                          href_build_new,href_plan_mstones,href_plan_define_priority,
+                          href_manage_issues,href_manage_issues_categories,href_manage_issues_markers,
+                          href_complete_monitoring_report,href_quick_monitoring_report,href_history_report,
+                          href_metrics_dashboard,th_user,title_results,href_add_remove_test_cases,title_edit_personal_data,th_user_rights'}
 
 {$menuLayout=$tlCfg->gui->layoutMainPageLeft}
 {* DO NOT GET CONFUSED this are SMARTY variables NOT JS *}
@@ -161,7 +163,9 @@ display:block !important;
 }
 </style>
 
-
+{*
+COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
+*}
 <div style="float:right;margin-top:-10px">
 	<style>
 		.spaced{
@@ -286,6 +290,19 @@ display:block !important;
 		</li>
 	</ul>
 {/if}
+{if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13}
+    <ul class="nav navbar-nav" >
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+                Quality Assurance
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="lib/macros/macrosView.php" target="mainframe">Gerenciar Macros de Requisições</a></li>
+            </ul>
+        </li>
+    </ul>
+{/if}
 {if $display_left_block_4}
 	<ul class="nav navbar-nav" >
 		<li class="dropdown">
@@ -343,7 +360,7 @@ display:block !important;
 			<ul class="dropdown-menu">
 				{if $gui->grants.project_edit == "yes"}
 					<li><a href="lib/project/projectView.php" target="mainframe">{$labels.href_tproject_management}</a></li>
-					<li><a href="lib/subadiq/subadiqView.php" target="mainframe">gerenciar sub-adquirente</a></li>
+					<li><a href="lib/subadiq/subadiqView.php" target="mainframe">{$labels.href_sub_aquire_management}</a></li>
 				{/if}
 
 				{if $gui->grants.tproject_user_role_assignment == "yes"}
@@ -508,17 +525,17 @@ display:block !important;
 				{/if} 
                                 <li>
                                     <a href="lib/issue/issuesView.php" target="mainframe">
-                                        Gerenciar Erros
+                                        {$labels.href_manage_issues}
                                     </a>
                                 </li>
-                                <li>
+								<li>
                                     <a href="lib/issue/CategoriesView.php" target="mainframe">
-                                        Gerenciar Categorias de Erros
+                                        {$labels.href_manage_issues_categories}
                                     </a>
                                 </li>
-                                <li>
+								<li>
                                     <a href="lib/issue/MarkersView.php" target="mainframe">
-                                        Gerenciar Marcadores de Erros
+                                        {$labels.href_manage_issues_markers}
                                     </a>
                                 </li>
 			</ul>
@@ -580,9 +597,9 @@ display:block !important;
                                                 <!-- CODIGO ORIGINAL 
 						<li><a href="{$gui->url.metrics_dashboard}" target="mainframe" method="post">{$labels.href_metrics_dashboard}</a></li>
 						-->
-						<li><a href="lib/results/metricsDashboard4.php" target="mainframe" method="post">Acompanhamento completo</a></li>
-						<li><a href="lib/results/metricsDashboard3.php" target="mainframe" method="post">Acompanhamento rápido</a></li>
-						<li><a href="lib/results/metricsDashboard-3.php" target="mainframe" method="post">Histórico</a></li>
+						<li><a href="lib/results/metricsDashboard4.php" target="mainframe" method="post">{$labels.href_complete_monitoring_report}</a></li>
+						<li><a href="lib/results/metricsDashboard3.php" target="mainframe" method="post">{$labels.href_quick_monitoring_report}</a></li>
+						<li><a href="lib/results/metricsDashboard-3.php" target="mainframe" method="post">{$labels.href_history_report}</a></li>
 					{/if}
 				</ul>
 			</li>

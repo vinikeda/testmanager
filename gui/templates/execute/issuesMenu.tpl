@@ -71,7 +71,6 @@
         function buildAJAX(){
             jQuery.ajax({
                 url:buildURL(), success: function(result){
-                    console.log(result)
                     jsonObj = JSON.parse(result);
                     jQuery('[id^="issr"]').each(function(i, elem) {
                         elem.style.display = 'none';
@@ -108,7 +107,7 @@
                 jQuery('[id^="issr"]').each(function(i, elem) {
                      //sem json de filtro
                     if (elem.getAttribute('data-reference').toUpperCase().indexOf(query.toUpperCase()) !== -1) {
-                        elem.style.display = 'inline-block';//console.log(elem);
+                        elem.style.display = 'inline-block';
                     }else{
                         elem.style.display = 'none';
                     }
@@ -125,7 +124,7 @@
                         //elem.style.display = 'none';
                         for(j=0;j< jsonObj.length;j++){
                             if('issr'+jsonObj[j].id == elem.getAttribute('id'))elem.style.display = 'inline-block';
-                        }//console.log(elem);
+                        }
                     }else{
                         elem.style.display = 'none';
                     }
@@ -136,7 +135,7 @@
                 /*for(i = 0;i< jsonObj.length;i++){
                     elem = jQuery("#issr"+jsonObj[i].id);
                     if (elem.getAttribute('data-reference').indexOf(query) != -1) {
-                        elem.style.display = 'inline-block';//console.log(elem);
+                        elem.style.display = 'inline-block';
                     }else{
                         elem.style.display = 'none';
                     }

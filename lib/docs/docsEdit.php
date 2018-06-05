@@ -28,14 +28,9 @@ $op->buttonCfg->name = "";
 $op->buttonCfg->value = "";
 
 $smarty = new TLSmarty();
-//$tplan_mgr = new testplan($db);
-$subadiq_mgr = new issues($db);
-$testers = new categories($db);
+$subadiq_mgr = new docs($db);
 $args = init_args($_REQUEST,$_SESSION);
 $gui = initializeGui($args);
-
-/*$of = web_editor('notes',$_SESSION['basehref'],$editorCfg);
-$of->Value = getItemTemplateContents('build_template', $of->InstanceName, $args->notes);*/
 
 
 $op = new stdClass();
@@ -48,8 +43,6 @@ switch($args->do_action)
 {
   case 'edit':
     $op = edit($args,$subadiq_mgr);
-    //$gui->closed_on_date = $args->closed_on_date;
-    //$of->Value = $op->notes;
   break;
 
   case 'create':
@@ -62,40 +55,18 @@ switch($args->do_action)
 
   case 'do_update':
     $op = doUpdate($args,$subadiq_mgr/*,$tplan_mgr*/);
-    //$of->Value = $op->notes;
     $templateCfg->template = $op->template;
   break;
 
   case 'do_create':
     $op = doCreate($args,$subadiq_mgr);
-    //$of->Value = $op->notes;
     $templateCfg->template = $op->template;
-  break;
-
-  case 'qaRejected':
-    $subadiq_mgr->qaReject($args->markerID);
-  break;
-
-  case 'qaAccepted':
-      echo 'foi pora'.$args->markerID;
-   $subadiq_mgr->qaAccept($args->markerID);
-  break;
-
-  case 'analistRejected':
-    $subadiq_mgr->analistReject($args->markerID);
-  break;
-
-  case 'analistAccepted':
-    $subadiq_mgr->analistAccept($args->markerID);
   break;
 
 }
 
 $dummy = null;
-/*$gui->release_date = (isset($op->status_ok) && $op->status_ok && $args->release_date != "") ? 
-                      localize_dateOrTimeStamp(null, $dummy, 'date_format',$args->release_date) : 
-                      $args->release_date_original;*/
-$gui->closed_on_date = $args->closed_on_date;
+
 $gui->operation_descr = $op->operation_descr;
 $gui->user_feedback = $op->user_feedback;
 $gui->buttonCfg = $op->buttonCfg;
@@ -124,18 +95,24 @@ function init_args($request_hash, $session_hash)
   $args = new stdClass();
   $request_hash = strings_stripSlashes($request_hash);
 
-  $nullable_keys = array('do_action','subadiq_name');
+  $nullable_keys = array('do_action','doc_name','release_date','is_active');
   foreach($nullable_keys as $value)
   {
     $args->$value = isset($request_hash[$value]) ? $request_hash[$value] : null;
   }
 
-  $intval_keys = array('markerID' => 0,'category' => 0);
+  $intval_keys = array('docID' => 0,'doc_type' => 0);
   foreach($intval_keys as $key => $value)
   {
     $args->$key = isset($request_hash[$key]) ? intval($request_hash[$key]) : $value;
   }
-  $args->markersID = $request_hash['markersID'];
+  
+  $boolean_keys = array('is_active');
+  foreach($boolean_keys as $value)
+  {
+    $args->$value = isset($request_hash[$value]) ? 1 : 0;
+  }
+
   $args->userID = intval($session_hash['userID']);
 
 
@@ -175,29 +152,18 @@ function initializeGui(&$argsObj/*,&$subadiq_mgr*/)
 */
 function edit(&$argsObj,&$subadiq_mgr)
 {
-  $binfo = $subadiq_mgr->get_by_id($argsObj->markerID);
+  $binfo = $subadiq_mgr->get_by_id($argsObj->docID);
   $op = new stdClass();
   $op->buttonCfg = new stdClass();
   $op->buttonCfg->name = "do_update";
   $op->buttonCfg->value = lang_get('btn_save');
-  //$op->notes = $binfo['notes'];
   $op->user_feedback = '';
-  $op->status_ok = 1;
 
-  $argsObj->subadiq_name = $binfo['description'];
-  $argsObj->SelectedCategory = $binfo['category_id'];
-  $argsObj->markersID = $subadiq_mgr->getMarkers($argsObj->markerID);
-  //$argsObj->release_date = $binfo['release_date'];
+  $argsObj->doc_name = $binfo['name'];
+  $argsObj->SelectedDocs_types = $binfo['id_type'];
+  $argsObj->release_date = $binfo['validity'];
+  $argsObj->is_active = $binfo['active'];
 
-  /*if( $binfo['closed_on_date'] == '')
-  {
-    $argsObj->closed_on_date = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
-  }    
-  else
-  {    
-    $datePieces = explode("-",$binfo['closed_on_date']);
-    $argsObj->closed_on_date = mktime(0,0,0,$datePieces[1],$datePieces[2],$datePieces[0]);
-  }*/
   
   $op->operation_descr=lang_get('title_build_edit') . TITLE_SEP_TYPE3 . $argsObj->build_name;
 
@@ -222,8 +188,6 @@ function create(&$argsObj)
   $op->buttonCfg->value = lang_get('btn_create');
   $op->user_feedback = '';
   $argsObj->is_active = 1;
-  $argsObj->is_open = 1;
-  //$argsObj->closed_on_date = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 
   return $op;
 }
@@ -242,18 +206,7 @@ function doDelete(/*&$dbHandler,*/&$argsObj,&$subadiq_mgr/*,&$tplanMgr*/)
   $op->user_feedback = '';
   $op->operation_descr = '';
   $op->buttonCfg = null;
-
-  
-
-  $subadiq_mgr->delete($argsObj->markerID);
-  /*{
-    $op->user_feedback = lang_get("cannot_delete_build");
-  }
-  else
-  {
-    logAuditEvent(TLS("audit_build_deleted",$argsObj->testprojectName,$argsObj->tplan_name,$build['name']),
-                  "DELETE",$argsObj->build_id,"builds");
-  }*/
+  $subadiq_mgr->delete($argsObj->docID);
   return $op;
 }
 
@@ -273,12 +226,8 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       case "do_create":
       case "do_delete":
       case "do_update":
-      case "qaRejected":
-      case "qaAccepted":
-      case "analistRejected":
-      case "analistAccepted":
         $doRender = true;
-        $tpl = is_null($templateCfg->template) ? 'issuesView.tpl' : $templateCfg->template;
+        $tpl = is_null($templateCfg->template) ? 'docsView.tpl' : $templateCfg->template;
       break;
 
       case "edit":
@@ -290,24 +239,17 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
 
     if($doRender)
     {
-      $categories = new categories($subadiq_mgr->db);
+      $docs_types = new docs_types($subadiq_mgr->db);
       // Attention this is affected by changes in templates
-      $guiObj->issues=$subadiq_mgr->getdocs();
-      $guiObj->Categories = $categories->getCategoriesForSelect();
-      $guiObj->enable_copy = ($argsObj->do_action == 'create' || $argsObj->do_action == 'do_create') ? 1 : 0;
-      $guiObj->isQA=($argsObj->user->globalRole->dbID === '13'?1:0 );
-      $guiObj->isADM = ($argsObj->user->globalRole->dbID === '8'?1:0 );
-      $guiObj->isAnalist = ($argsObj->user->globalRole->dbID === '9'?1:0 );
-      //$guiObj->notes = $owebeditor->CreateHTML();
-      $guiObj->source_build = init_source_build_selector($subadiq_mgr, $argsObj);
+      $guiObj->docs=$subadiq_mgr->getdocs();
+      $guiObj->docs_types = $docs_types->getDocs_typesForSelect();
       $guiObj->tplan_name=$argsObj->tplan_name;
-      $guiObj->subadiq_id = $argsObj->markerID;
-      $guiObj->selectedMarkers = $argsObj->markersID;
-      $guiObj->SelectedCategory = $argsObj->SelectedCategory;
-      $guiObj->subadiq_name = $argsObj->subadiq_name;
+      $guiObj->doc_id = $argsObj->docID;
+      $guiObj->validity = $argsObj->release_date;
+      $guiObj->SelectedDocs_types = $argsObj->SelectedDocs_types;
+      $guiObj->doc_name = $argsObj->doc_name;
       $guiObj->is_active = $argsObj->is_active;
       $guiObj->is_open = $argsObj->is_open;
-      $guiObj->copy_tester_assignments = $argsObj->copy_tester_assignments;
       $smartyObj->assign('gui',$guiObj);
       $smartyObj->display($templateCfg->template_dir . $tpl);
     }
@@ -329,21 +271,14 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "issuesEdit.tpl";
-  $op->notes = $argsObj->notes;
+  $op->template = "docsEdit.tpl";
   $op->status_ok = 0;
   $op->buttonCfg = null;
   $targetDate=null;
-    $user_feedback = lang_get("cannot_add_build");
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->category,($argsObj->user->globalRole->dbID === '13'?'QA':'analis' ), $argsObj->markersID);
+    $buildID = $subadiq_mgr->create($argsObj->doc_name,$argsObj->doc_type,$argsObj->release_date,$argsObj->is_active);
     if ($buildID)
     {
-      /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
-      $buildMgr->cfield_mgr->design_values_to_db($_REQUEST,$buildID,$cf_map,null,'build');*/
-
-                
       $op->user_feedback = '';
-      //$op->notes = '';
       $op->template = null;
       $op->status_ok = 1;
       logAuditEvent(TLS("audit_build_created",$argsObj->testprojectName,$argsObj->tplan_name,$argsObj->build_name),
@@ -374,84 +309,24 @@ function doUpdate(&$argsObj,&$subadiq_mgr)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "issuesEdit.tpl";
-  //$op->notes = $argsObj->notes;
-  $op->status_ok = 0;
-  $op->buttonCfg = null;
+  $op->template = "docsEdit.tpl";
+  $op->buttonCfg = new stdClass();
+  $op->buttonCfg->name = "do_update";
+  $op->buttonCfg->value = lang_get('btn_save');
+  $op->user_feedback = '';
 
-  $oldObjData = $subadiq_mgr->get_by_id($argsObj->markerID);
-  $oldname = $oldObjData['description'];
-
-  //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
-  //if($check->status_ok){
-    $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->category,$argsObj->markersID)) 
+    if ($subadiq_mgr->update($argsObj->docID,$argsObj->doc_name,$argsObj->doc_type,$argsObj->release_date,$argsObj->is_active)) //alterar a entrada de dados
     {
-      //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
-      //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');
       $op->user_feedback = '';
-      $op->notes = '';
       $op->template = null;
-      $op->status_ok = 1;
       logAuditEvent(TLS("audit_build_saved",$argsObj->testprojectName,$argsObj->tplan_name,$argsObj->build_name),
-                    "SAVE",$argsObj->markerID,"builds");
+                    "SAVE",$argsObj->docID,"builds");
     }
-  //}
-
-  if(!$op->status_ok)
-  {
-    $op->operation_descr = lang_get('title_build_edit') . TITLE_SEP_TYPE3 . $oldname;
-    $op->buttonCfg = new stdClass();
-    $op->buttonCfg->name = "do_update";
-    $op->buttonCfg->value = lang_get('btn_save');
-    $op->user_feedback = $check->user_feedback;
-  }
   return $op;
-}
-
-function doCopyToTestPlans(&$argsObj,&$buildMgr,&$tplanMgr)
-{
-    $tprojectMgr = new testproject($tplanMgr->db);
-
-    // exclude this testplan
-    $filters = array('tplan2exclude' => $argsObj->tplan_id);
-    $tplanset = $tprojectMgr->get_all_testplans($argsObj->testprojectID,$filters);
-
-    if(!is_null($tplanset))
-    {
-        foreach($tplanset as $id => $info)
-        {
-            if(!$tplanMgr->check_build_name_existence($id,$argsObj->build_name))
-            {
-                $buildMgr->create($id,$argsObj->build_name,$argsObj->notes,
-                                  $argsObj->is_active,$argsObj->is_open);
-            }
-        }
-    }
 }
 
 function checkRights(&$db,&$user)
 {
   return $user->hasRight($db,'testplan_create_build');
 }
-
-/**
- * Initialize the HTML select box for selection of a source build when
- * user wants to copy the user assignments on creation of a new build.
- * 
- * @author Andreas Simon
- * @param testplan $testplan_mgr reference to testplan manager object
- * @param object $argsObj reference to user input object
- * @return array $htmlMenu array structure with all information needed for the menu
- *
- * @internal revisions
- */
-function init_source_build_selector(&$testplan_mgr, &$argsObj) 
-{
-
-  $htmlMenu = array('items' => null, 'selected' => null, 'build_count' => 0);
-  $htmlMenu['items'] = $testplan_mgr->getdocs();
-
-  return $htmlMenu;
-} // end of method
 ?>

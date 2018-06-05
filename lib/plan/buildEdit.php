@@ -13,6 +13,8 @@ require('../../config.inc.php');
 require_once("common.php");
 require_once("web_editor.php");
 require_once("treeMenu.inc.php");
+require_once("../macros/macros.class.php");
+
 $editorCfg = getWebEditorCfg('build');
 require_once(require_web_editor($editorCfg['type']));//echo '<!--'.require_web_editor($editorCfg['type'])."-->";
 
@@ -210,14 +212,14 @@ function initializeGui(&$argsObj,&$buildMgr)
   $guiObj = new stdClass();
   $guiObj->main_descr = lang_get('title_build_2') . config_get('gui_title_separator_2') . 
                         lang_get('test_plan') . config_get('gui_title_separator_1') . 
-                        $argsObj->tplan_name;//print_r($buildMgr);
+                        $argsObj->tplan_name;
   $guiObj->cfields = $buildMgr->html_custom_field_inputs($argsObj->build_id,$argsObj->testprojectID,
                                                          'design','',$_REQUEST);
   $dummy = config_get('results');
   foreach($dummy['status_label_for_exec_ui'] as $kv => $vl)
   {
-    $guiObj->exec_status_filter['items'][$dummy['status_code'][$kv]] = lang_get($vl);  
-  }  
+    $guiObj->exec_status_filter['items'][$dummy['status_code'][$kv]] = lang_get($vl);
+  }
   return $guiObj;
 }
 
@@ -364,6 +366,9 @@ function renderGui(&$smartyObj,&$argsObj,&$tplanMgr,$templateCfg,$owebeditor,&$g
     {
       
       // Attention this is affected by changes in templates
+      $macros = new macros($tplanMgr->db);
+      $guiObj->macros = ($macros->getforselect());
+        
       $guiObj->buildSet=$tplanMgr->get_builds($argsObj->tplan_id);
 
       $guiObj->enable_copy = ($argsObj->do_action == 'create' || $argsObj->do_action == 'do_create') ? 1 : 0;

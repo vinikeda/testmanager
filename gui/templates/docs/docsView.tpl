@@ -3,8 +3,8 @@
 
 {* Configure Actions *}
 {$managerURL="lib/docs/docsEdit.php"}
-{$editAction="$managerURL?do_action=edit&amp;markerID="}
-{$deleteAction="$managerURL?do_action=do_delete&markerID="}
+{$editAction="$managerURL?do_action=edit&amp;docID="}
+{$deleteAction="$managerURL?do_action=do_delete&docID="}
 {$createAction="$managerURL?do_action=create"}
 
 
@@ -37,7 +37,7 @@
 
         {* ------------------------------------------------------------------------------------------- *}
         <div id="existing_subadiqs">
-            {if $gui->issues ne ""}
+            {if $gui->docs ne ""}
                 <form method="post" id="buildView" name="buildView" action="{$managerURL}">
                     <input type="hidden" name="do_action" id="do_action" value="">
                     <input type="hidden" name="markerID" id="markerID" value="">
@@ -52,7 +52,7 @@
                             <th class="{$noSortableColumnClass}">{$labels.th_active}</th>
                             <th class="{$noSortableColumnClass}">{$labels.th_delete}</th>
                         </tr>
-                        {foreach item=build from=$gui->issues}
+                        {foreach item=build from=$gui->docs}
                             <tr>
                                 <td><span class="api_info" style='display:none'>{$tlCfg->api->id_format|replace:"%s":$build.id}</span>
                                     <a href="{$editAction}{$build.id}" title="{$labels.alt_edit_build}">{$build.name|escape}

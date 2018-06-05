@@ -68,85 +68,85 @@ var del_action=fRoot+'{$deleteAction}';
                     <!--td>{$build.notes}</td>
                     <td>{if $build.release_date != ''}{localize_date d=$build.release_date}{/if}</td-->
 
-{if $gui->isQA == 1 or $gui->isADM == 1}
-                    <td class="clickable_icon">
-                        {if $build.qa_accept==1} 
-                            <input type="image" style="border:none" id="set_build_active"
-                                   title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
-                                    onClick = "do_action.value='qaRejected';markerID.value={$build.id};"
-                                   src="{$tlImages.on}"/>
-                        {else}
-                            <input type="image" style="border:none" id="set_build_inactive"
-                                 title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
-                                 onClick = "do_action.value='qaAccepted';markerID.value={$build.id};"
-                                 src="{$tlImages.off}"/>
-                        {/if}
-                    </td>
-{else}
-                        <td>
-                        <img src="{if $build.qa_accept==1}{$tlImages.on}{else}{$tlImages.off}{/if}">
+                    {if $gui->isQA == 1 or $gui->isADM == 1}
+                        <td class="clickable_icon">
+                            {if $build.qa_accept==1} 
+                                <input type="image" style="border:none" id="set_build_active"
+                                       title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
+                                        onClick = "do_action.value='qaRejected';markerID.value={$build.id};"
+                                       src="{$tlImages.on}"/>
+                            {else}
+                                <input type="image" style="border:none" id="set_build_inactive"
+                                     title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
+                                     onClick = "do_action.value='qaAccepted';markerID.value={$build.id};"
+                                     src="{$tlImages.off}"/>
+                            {/if}
                         </td>
-{/if}
-{if $gui->isAnalist == 1 or $gui->isADM == 1}
-                    <td class="clickable_icon">
-                        {if $build.analis_accept==1} 
-                            <input type="image" style="border:none" id="set_build_active"
-                                   title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
-                                   onClick = "do_action.value='analistRejected';markerID.value={$build.id};"
-                                   src="{$tlImages.on}"/>
-                        {else}
-                            <input type="image" style="border:none" id="set_build_inactive"
-                                 title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
-                                 onClick = "do_action.value='analistAccepted';markerID.value={$build.id};"
-                                 src="{$tlImages.off}"/>
-                        {/if}
-                    </td>
-{else}
+                    {else}
                         <td>
-                        <img src="{if $build.analis_accept==1}{$tlImages.on}{else}{$tlImages.off}{/if}">
+                            <img src="{if $build.qa_accept==1}{$tlImages.on}{else}{$tlImages.off}{/if}">
                         </td>
-{/if}
-{if $gui->isSUP == 1 or $gui->isADM == 1}
-                    <td class="clickable_icon">
-                        {if $build.super_accept==1} 
-                            <input type="image" style="border:none" id="set_build_active"
-                                   title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
-                                   onClick = "do_action.value='supRejected';markerID.value={$build.id};"
-                                   src="{$tlImages.on}"/>
-                        {else}
-                            <input type="image" style="border:none" id="set_build_inactive"
-                                 title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
-                                 onClick = "do_action.value='supAccepted';markerID.value={$build.id};"
-                                 src="{$tlImages.off}"/>
-                        {/if}
-                    </td>
-{else}
+                    {/if}
+                    {if $gui->isAnalist == 1 or $gui->isADM == 1}
+                        <td class="clickable_icon">
+                            {if $build.analis_accept==1} 
+                                <input type="image" style="border:none" id="set_build_active"
+                                       title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
+                                       onClick = "do_action.value='analistRejected';markerID.value={$build.id};"
+                                       src="{$tlImages.on}"/>
+                            {else}
+                                <input type="image" style="border:none" id="set_build_inactive"
+                                     title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
+                                     onClick = "do_action.value='analistAccepted';markerID.value={$build.id};"
+                                     src="{$tlImages.off}"/>
+                            {/if}
+                        </td>
+                    {else}
                         <td>
-                        <img src="{if $build.super_accept==1}{$tlImages.on}{else}{$tlImages.off}{/if}">
+                            <img src="{if $build.analis_accept==1}{$tlImages.on}{else}{$tlImages.off}{/if}">
                         </td>
-{/if}
-                    <td class="clickable_icon">
-                        {if $build.active==1} 
-                            <input type="image" style="border:none" id="set_build_active"
-                                   title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
-                                   onClick = "do_action.value='desactivate';markerID.value={$build.id};"
-                                   src="{$tlImages.checked}"/>
-                        {else}
-                            <input type="image" style="border:none" id="set_build_inactive"
-                                   title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
-                                   onClick = "do_action.value='activate';markerID.value={$build.id};"
-                                   src="{$tlImages.delete}"/>
-                        {/if}
-                    </td>
-{if $gui->isADM == 1}
-                    <td class="clickable_icon">
-                           <img style="border:none;cursor: pointer;"  title ="{$labels.alt_delete_build}" 
-                                alt="{$labels.alt_delete_build}" 
-                                        onclick="delete_confirmation({$build.id},'{$build.name|escape:'javascript'|escape}',
-                                                                     '{$del_msgbox_title}','{$warning_msg}');"
-                                src="{$tlImages.delete}"/>
-                    </td>
-{/if}
+                    {/if}
+                    {if $gui->isSUP == 1 or $gui->isADM == 1}
+                        <td class="clickable_icon">
+                            {if $build.super_accept==1} 
+                                <input type="image" style="border:none" id="set_build_active"
+                                       title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
+                                       onClick = "do_action.value='supRejected';markerID.value={$build.id};"
+                                       src="{$tlImages.on}"/>
+                            {else}
+                                <input type="image" style="border:none" id="set_build_inactive"
+                                     title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
+                                     onClick = "do_action.value='supAccepted';markerID.value={$build.id};"
+                                     src="{$tlImages.off}"/>
+                            {/if}
+                        </td>
+                    {else}
+                        <td>
+                            <img src="{if $build.super_accept==1}{$tlImages.on}{else}{$tlImages.off}{/if}">
+                        </td>
+                    {/if}
+                        <td class="clickable_icon">
+                            {if $build.active==1} 
+                                <input type="image" style="border:none" id="set_build_active"
+                                       title="{$labels.active_click_to_change}" alt="{$labels.active_click_to_change}" 
+                                       onClick = "do_action.value='desactivate';markerID.value={$build.id};"
+                                       src="{$tlImages.checked}"/>
+                            {else}
+                                <input type="image" style="border:none" id="set_build_inactive"
+                                       title="{$labels.inactive_click_to_change}" alt="{$labels.inactive_click_to_change}" 
+                                       onClick = "do_action.value='activate';markerID.value={$build.id};"
+                                       src="{$tlImages.delete}"/>
+                            {/if}
+                        </td>
+                    {if $gui->isADM == 1}
+                        <td class="clickable_icon">
+                               <img style="border:none;cursor: pointer;"  title ="{$labels.alt_delete_build}" 
+                                    alt="{$labels.alt_delete_build}" 
+                                            onclick="delete_confirmation({$build.id},'{$build.name|escape:'javascript'|escape}',
+                                                                         '{$del_msgbox_title}','{$warning_msg}');"
+                                    src="{$tlImages.delete}"/>
+                        </td>
+                    {/if}
                 </tr>
             {/foreach}
   	</table>

@@ -39,7 +39,14 @@ $TLS_STRINGFILE_CHARSET = "UTF-8";
 $TLS_last_update = "Last localization update: 03/27/2011";
 
 // ----- General terms (used wide) ----------------------------
-$TLS_blank = "testudo";//" ";
+$TLS_blank = ".";
+$TLS_docs = "Documents";
+$TLS_issues_categories = "Category";
+$TLS_issue_marker = "Markers";
+$TLS_search_issues_with= "Search issues with";
+$TLS_issues = "Issues";
+$TLS_standard_messages = "Standard Messages";
+$TLS_grant_permissions = "Grant Permissions";
 $TLS_type_not_configured = "system message: type not configured";
 $TLS_undefined = "undefined";
 $TLS_active = "Active";
@@ -59,6 +66,11 @@ $TLS_check_uncheck_all = "Toggle all";
 $TLS_check_uncheck_all_for_remove = "check/uncheck all for remove";
 $TLS_confirm = "Confirm";
 $TLS_days	= "days";
+$TLS_hours	= "hours";
+$TLS_groups	= "groups";
+$TLS_group_executions = "Group executuions by";
+$TLS_filter_executions = "Filter testcases by:";
+$TLS_cumulative_mode = "Cumulative mode:";
 $TLS_desc = "Descending";
 $TLS_description = "Description";
 $TLS_delete_confirm_question = "Are your sure you want to delete?";
@@ -2049,6 +2061,7 @@ $TLS_title_product_mgmt = "Test Project";
 $TLS_href_plan_define_priority = "Test Plan priority";
 $TLS_href_my_testcase_assignments="Test Cases Assigned to Me";
 $TLS_href_platform_management = "Platform Management";
+$TLS_href_sub_aquire_management = "Sub-Acquirer Management";
 
 
 $TLS_href_search_req = "Search Requirements";
@@ -2087,6 +2100,12 @@ $TLS_testplan_role = "Test Plan role ";
 $TLS_title_test_case_suite = "Test Plan contents";
 $TLS_title_test_execution = "Test Execution";
 $TLS_title_test_plan_mgmt = "Test Plan";
+$TLS_href_manage_issues = "Manage Issues";
+$TLS_href_manage_issues_categories = "Manage Issues Categories";
+$TLS_href_manage_issues_markers = "Manage Issues Markers";
+$TLS_href_complete_monitoring_report = "Complete Monitoring Report";
+$TLS_href_quick_monitoring_report = "Quick Monitoring Report";
+$TLS_href_history_report = "History Report";
 
 
 // ----- gui/templates/metricsDashboard.tpl -----

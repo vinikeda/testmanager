@@ -11,9 +11,9 @@ Purpose: smarty template - Add new build and show existing
 {assign var="cancelAction" value="lib/docs/docsView.php"}
 
 {lang_get var="labels"
-          s="warning,warning_empty_subadiq_name,enter_build,enter_build_notes,active,
-             open,builds_description,cancel,release_date,closure_date,closed_on_date,
-             copy_tester_assignments, assignment_source_build,show_event_history,
+          s="warning,warning_empty_doc_name,enter_build,enter_build_notes,active,
+             open,builds_description,cancel,release_date,closure_date,
+             copy_tester_assignments,show_event_history,
              show_calender,clear_date"}
 
 {include file="inc_head.tpl" openHead="yes" jsValidate="yes" editorType=$gui->editorType}
@@ -24,14 +24,14 @@ Purpose: smarty template - Add new build and show existing
     <script type="text/javascript">
     {/literal}
     var alert_box_title = "{$labels.warning|escape:'javascript'}";
-    var warning_empty_subadiq_name = "{$labels.warning_empty_subadiq_name|escape:'javascript'}";
+    var warning_empty_doc_name = "{$labels.warning_empty_doc_name|escape:'javascript'}";
     {literal}
     function validateForm(f)
     {
-        if (isWhitespace(f.subadiq_name.value))
+        if (isWhitespace(f.doc_name.value))
         {
-            alert_message(alert_box_title, warning_empty_subadiq_name);
-            selectField(f, 'subadiq_name');
+            alert_message(alert_box_title, warning_empty_doc_name);
+            selectField(f, 'doc_name');
             return false;
         }
         return true;
@@ -45,7 +45,7 @@ Purpose: smarty template - Add new build and show existing
     {assign var="cfg_section" value=$smarty.template|basename|replace:".tpl":""}
     {config_load file="input_dimensions.conf" section=$cfg_section}
 
-    <h1 class="title">Inconsistencias</h1>
+    <h1 class="title">Documentos</h1>
 
     <div class="workBack">
         {include file="inc_update.tpl" user_feedback=$gui->user_feedback 
@@ -64,29 +64,28 @@ Purpose: smarty template - Add new build and show existing
                 <table class="common" >
                     <tr>
                         <th style="background:none;">Nome</th>
-                        <td><input type="text" name="subadiq_name" id="subadiq_name" 
-                                   maxlength="{#subadiq_name_MAXLEN#}" 
-                                   value="{$gui->subadiq_name|escape}" size="{#subadiq_name_SIZE#}" required />
-                            {include file="error_icon.tpl" field="subadiq_name"}
+                        <td><input type="text" name="doc_name" id="doc_name"  
+                                   value="{$gui->doc_name|escape}" required />
+                            {include file="error_icon.tpl" field="doc_name"}
                         </td>
                     </tr>
 
                     <tr>
                         <th style="background:none;">Tipo de documento</th>
                         <td>
-                            <select name="category" class = "chosen-bulk-select" id="bulk_tester_div">
-                                {html_options options=$gui->Categories selected=$gui->SelectedCategory}
+                            <select name="doc_type" class = "chosen-bulk-select" id="bulk_tester_div">
+                                {html_options options=$gui->docs_types selected=$gui->SelectedDocs_types}
                             </select>
                         </td>
                     </tr>
 
                     <tr>
-                        <th style="background:none;">{$labels.release_date}</th>
+                        <th style="background:none;">Validade</th>
                         <td>
                             {* BUGID 3716, BUGID 3930 *}
                             <input type="text" class="date" 
                                    name="release_date" id="release_date" 
-                                   value="{$gui->release_date}" />
+                                   value="{$gui->validity}" />
                             <img title="{$labels.show_calender}" src="{$smarty.const.TL_THEME_IMG_DIR}/calendar.gif"
                                  onclick="showCal('release_date-cal', 'release_date', '{$gsmarty_datepicker_format}');" >
                             <img title="{$labels.clear_date}" src="{$smarty.const.TL_THEME_IMG_DIR}/trash.png"
@@ -107,7 +106,7 @@ Purpose: smarty template - Add new build and show existing
 
                     {* BUGID 628: Name edit Invalid action parameter/other behaviours if Enter pressed. *}
                     <input type="hidden" name="do_action" value="{$gui->buttonCfg->name}" />
-                    <input type="hidden" name="markerID" value="{$gui->subadiq_id}" />
+                    <input type="hidden" name="docID" value="{$gui->doc_id}" />
 
                     <input type="submit" name="{$gui->buttonCfg->name}" value="{$gui->buttonCfg->value|escape}"
                            onclick="do_action.value = '{$gui->buttonCfg->name}'"/>
@@ -118,7 +117,6 @@ Purpose: smarty template - Add new build and show existing
             </form>
         </div>
     </div>
-</form>
 <script>
     jQuery(document).ready(function () {
         jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });

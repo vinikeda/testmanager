@@ -69,9 +69,10 @@ if($redir2login)
 // navBar.php is called via main.tpl
 // testlinkInitPage($db,('initProject' == 'initProject'));
 
-$gui2 = initNavBar();/*print_r($_SESSION['currentUser']);*///echo '<!--gui1 = ';print_r($gui);echo 'gui2 = ';print_r($gui2);echo "-->";
+$gui2 = initNavBar();
 $gui = (object) array_merge((array) $gui, (array) $gui2);
 $gui->launcher = 'lib/general/frmWorkArea.php';
+$gui->role = $_SESSION['currentUser']->globalRoleID;
 $gui->url = array('metrics_dashboard' => 'lib/results/metricsDashboard.php',
                   'testcase_assignments' => 'lib/testcases/tcAssignedToUser.php');
 $tplEngine = new TLSmarty();//print_r($_SESSION);

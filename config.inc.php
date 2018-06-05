@@ -178,7 +178,7 @@ error_reporting(E_ALL);
 $tlCfg->log_level = 'ERROR';
 
 /** @var boolean show smarty debug window */
-$tlCfg->smarty_debug = true;
+$tlCfg->smarty_debug = false;
 
 /** 
  *  @var string Path to store logs - 

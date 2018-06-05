@@ -48,59 +48,53 @@ function validateForm(f)
 <h1 class="title">alterar tipos de documentos</h1>
 
 <div class="workBack">
-{include file="inc_update.tpl" user_feedback=$gui->user_feedback 
-         result=$sqlResult item="build"}
+    {include file="inc_update.tpl" user_feedback=$gui->user_feedback 
+             result=$sqlResult item="build"}
 
-<div> 
-  <h2>{$gui->operation_descr|escape}
-    {if $gui->mgt_view_events eq "yes" && $gui->build_id > 0}
-        <img style="margin-left:5px;" class="clickable" 
-             src="{$smarty.const.TL_THEME_IMG_DIR}/question.gif" onclick="showEventHistoryFor('{$gui->build_id}','builds')" 
-             alt="{$labels.show_event_history}" title="{$labels.show_event_history}"/>
-    {/if}
-  </h2>
-  <form method="post" id="create_build" name="create_build" 
-        action="{$managerURL}" onSubmit="javascript:return validateForm(this);">
-  <table class="common" >
-    <tr>
-      <th style="background:none;">Nome</th>
-      <td><input type="text" name="subadiq_name" id="subadiq_name" 
-                 maxlength="{#subadiq_name_MAXLEN#}" 
-                 value="{$gui->subadiq_name|escape}" size="{#subadiq_name_SIZE#}" required />
-                {include file="error_icon.tpl" field="subadiq_name"}
-      </td>
-    </tr>
-   
-   <!--tr>
-	  <th style="background:none;">Marcadores</th>
-      <td>
-			<select name="markersID[]" class = "chosen-bulk-select" multiple = multiple id="bulk_tester_div">
-				{html_options options=$gui->testers selected=$gui->selectedMarkers}
-			</select>
-      </td>
-    </tr>
-   </tr-->
-   
-   
-   
-   
-  </table>
-  <div class="groupBtn">  
+    <div> 
+        <h2>{$gui->operation_descr|escape}
+            {if $gui->mgt_view_events eq "yes" && $gui->build_id > 0}
+                <img style="margin-left:5px;" class="clickable" 
+                     src="{$smarty.const.TL_THEME_IMG_DIR}/question.gif" onclick="showEventHistoryFor('{$gui->build_id}','builds')" 
+                     alt="{$labels.show_event_history}" title="{$labels.show_event_history}"/>
+            {/if}
+        </h2>
+        <form method="post" id="create_build" name="create_build" 
+              action="{$managerURL}" onSubmit="javascript:return validateForm(this);">
+            <table class="common" >
+                <tr>
+                    <th style="background:none;">Nome</th>
+                    <td><input type="text" name="subadiq_name" id="subadiq_name" 
+                             maxlength="{#subadiq_name_MAXLEN#}" 
+                             value="{$gui->subadiq_name|escape}" size="{#subadiq_name_SIZE#}" required />
+                            {include file="error_icon.tpl" field="subadiq_name"}
+                    </td>
+                </tr>
+                <tr>
+                   <th style="background:none;">Campo Relacionado</th>
+                   <td>
+                        <select class="chosen-bulk-select"
+                                name="relat" id="bulk_tester_div" >
+                            {html_options options=$gui->cflist selected=$gui->selectedCF}
+                        </select>
+                   </td>
+                </tr>
+            </table>
+            <div class="groupBtn">  
 
-    {* BUGID 628: Name edit Invalid action parameter/other behaviours if Enter pressed. *}
-    <input type="hidden" name="do_action" value="{$gui->buttonCfg->name}" />
-    <input type="hidden" name="markerID" value="{$gui->subadiq_id}" />
-    
-    <input type="submit" name="{$gui->buttonCfg->name}" value="{$gui->buttonCfg->value|escape}"
-           onclick="do_action.value='{$gui->buttonCfg->name}'"/>
-    <input type="button" name="go_back" value="{$labels.cancel}" 
-           onclick="javascript: location.href=fRoot+'{$cancelAction}';"/>
+                {* BUGID 628: Name edit Invalid action parameter/other behaviours if Enter pressed. *}
+                <input type="hidden" name="do_action" value="{$gui->buttonCfg->name}" />
+                <input type="hidden" name="markerID" value="{$gui->subadiq_id}" />
 
-  </div>
-  </form>
+                <input type="submit" name="{$gui->buttonCfg->name}" value="{$gui->buttonCfg->value|escape}"
+                       onclick="do_action.value='{$gui->buttonCfg->name}'"/>
+                <input type="button" name="go_back" value="{$labels.cancel}" 
+                       onclick="javascript: location.href=fRoot+'{$cancelAction}';"/>
+
+            </div>
+        </form>
+    </div>
 </div>
-</div>
-</form>
 <script>
 jQuery( document ).ready(function() {
 jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });

@@ -11,8 +11,8 @@
  */
 require('../../config.inc.php');
 require_once("common.php");
-require_once("docs_type.class.php");
 require_once("web_editor.php");
+require_once("macros.class.php");
 //$editorCfg = getWebEditorCfg('build');
 //require_once(require_web_editor($editorCfg['type']));
 
@@ -29,7 +29,7 @@ $op->buttonCfg->value = "";
 
 $smarty = new TLSmarty();
 //$tplan_mgr = new testplan($db);
-$subadiq_mgr = new docs_types($db);
+$subadiq_mgr = new Macros($db);
 $args = init_args($_REQUEST,$_SESSION);
 $gui = initializeGui($args);
 
@@ -104,7 +104,6 @@ function init_args($request_hash, $session_hash)
 {
   $args = new stdClass();
   $request_hash = strings_stripSlashes($request_hash);
-
   $nullable_keys = array('do_action','subadiq_name');
   foreach($nullable_keys as $value)
   {
@@ -116,8 +115,9 @@ function init_args($request_hash, $session_hash)
   {
     $args->$key = isset($request_hash[$key]) ? intval($request_hash[$key]) : $value;
   }
-  $args->markersID = $request_hash['markersID'];
-  $args->cf_id = $request_hash['relat'];
+  $args->markersID = $request_hash['cfSelected'];
+  $args->cfvalues = $request_hash['cfValue'];
+  
   $args->userID = intval($session_hash['userID']);
 
 
@@ -167,7 +167,11 @@ function edit(&$argsObj,&$subadiq_mgr)
   $op->status_ok = 1;
 
   $argsObj->subadiq_name = $binfo['name'];
-  $argsObj->cf_id = $binfo['id_related_cf'];
+  
+  foreach($binfo['cf'] as $cf){
+        $argsObj->markersID[] = $cf['id_cf'];
+        $argsObj->cfValue[] = $cf['value'];
+  }
   //$argsObj->release_date = $binfo['release_date'];
 
   /*if( $binfo['closed_on_date'] == '')
@@ -203,7 +207,6 @@ function create(&$argsObj)
   $op->buttonCfg->value = lang_get('btn_create');
   $op->user_feedback = '';
   $argsObj->is_active = 1;
-  $argsObj->is_open = 1;
   //$argsObj->closed_on_date = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 
   return $op;
@@ -259,7 +262,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       case "open":
       case "close":
         $doRender = true;
-        $tpl = is_null($templateCfg->template) ? 'docs_typeView.tpl' : $templateCfg->template;
+        $tpl = is_null($templateCfg->template) ? 'macrosView.tpl' : $templateCfg->template;
       break;
 
       case "edit":
@@ -273,22 +276,27 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
     {
       
       // Attention this is affected by changes in templates
-      $guiObj->categories=$subadiq_mgr->getCategories();
-      $guiObj->cflist=$subadiq_mgr->getCFieldList();
-
-      $guiObj->enable_copy = ($argsObj->do_action == 'create' || $argsObj->do_action == 'do_create') ? 1 : 0;
-      //$guiObj->notes = $owebeditor->CreateHTML();
-      $guiObj->source_build = init_source_build_selector($subadiq_mgr, $argsObj);
-      $guiObj->tplan_name=$argsObj->tplan_name;
-      $guiObj->selectedCF=$argsObj->cf_id;
-      $guiObj->subadiq_id = $argsObj->markerID;
-      $guiObj->selectedMarkers = $argsObj->markersID;
-      $guiObj->subadiq_name = $argsObj->subadiq_name;
-      $guiObj->is_active = $argsObj->is_active;
-      $guiObj->is_open = $argsObj->is_open;
-      $guiObj->copy_tester_assignments = $argsObj->copy_tester_assignments;
-      $smartyObj->assign('gui',$guiObj);
-      $smartyObj->display($templateCfg->template_dir . $tpl);
+        $guiObj->doc_type = $subadiq_mgr->getCFieldList();
+        $guiObj->obj = $subadiq_mgr->getdata();
+        $guiObj->isADM= ($_SESSION['currentUser']->globalRole->dbID ===  '8'?1:0);
+        $guiObj->enable_copy = ($argsObj->do_action == 'create' || $argsObj->do_action == 'do_create') ? 1 : 0;
+        //$guiObj->notes = $owebeditor->CreateHTML();
+        //$guiObj->source_build = init_source_build_selector($subadiq_mgr, $argsObj);
+        $guiObj->tplan_name=$argsObj->tplan_name;
+        $guiObj->subadiq_id = $argsObj->markerID;
+        $guiObj->selectedMarkers = $argsObj->markersID;
+        foreach($argsObj->markersID as $chave=>$valor){
+            $temp = $subadiq_mgr->getBlankField($valor);
+            $guiObj->inputs[$chave] = $temp[0]['input'];
+            $guiObj->ids[$chave] = $temp[0]['label_id'];
+        }
+        $guiObj->Values = $argsObj->cfValue;
+        $guiObj->subadiq_name = $argsObj->subadiq_name;
+        $guiObj->is_active = $argsObj->is_active;
+        $guiObj->is_open = $argsObj->is_open;
+        $guiObj->copy_tester_assignments = $argsObj->copy_tester_assignments;
+        $smartyObj->assign('gui',$guiObj);
+        $smartyObj->display($templateCfg->template_dir . $tpl);
     }
 
 }
@@ -308,13 +316,13 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "docs_typeEdit.tpl";
+  $op->template = "macrosView.tpl";
   $op->notes = $argsObj->notes;
   $op->status_ok = 0;
   $op->buttonCfg = null;
   $targetDate=null;
     $user_feedback = lang_get("cannot_add_build");
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->cf_id);
+    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,1,$argsObj->markersID,$argsObj->cfvalues);
     if ($buildID)
     {
       /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
@@ -353,7 +361,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr/*,&$tplanMgr,$dateFormat*/)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "docs_typeEdit.tpl";
+  $op->template = "macrosView.tpl";
   //$op->notes = $argsObj->notes;
   $op->status_ok = 0;
   $op->buttonCfg = null;
@@ -364,7 +372,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr/*,&$tplanMgr,$dateFormat*/)
   //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
   //if($check->status_ok){
     $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->cf_id)) 
+    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->markersID,$argsObj->cfvalues)/*false/**/) 
     {
       //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
       //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');
@@ -413,24 +421,4 @@ function checkRights(&$db,&$user)
 {
   return $user->hasRight($db,'testplan_create_build');
 }
-
-/**
- * Initialize the HTML select box for selection of a source build when
- * user wants to copy the user assignments on creation of a new build.
- * 
- * @author Andreas Simon
- * @param testplan $testplan_mgr reference to testplan manager object
- * @param object $argsObj reference to user input object
- * @return array $htmlMenu array structure with all information needed for the menu
- *
- * @internal revisions
- */
-function init_source_build_selector(&$testplan_mgr, &$argsObj) 
-{
-
-  $htmlMenu = array('items' => null, 'selected' => null, 'build_count' => 0);
-  $htmlMenu['items'] = $testplan_mgr->getCategories();
-
-  return $htmlMenu;
-} // end of method
 ?>

@@ -37,6 +37,13 @@ $TLS_last_update = "Last localization update: 13/03/2013 (TestLink 1.9.6)";
 
 // ----- General terms (used wide) ----------------------------
 $TLS_blank = ".";
+$TLS_docs = "Documentos";
+$TLS_issues_categories = "Categoria";
+$TLS_issue_marker = "Marcadores";
+$TLS_search_issues_with= "Buscar erros com";
+$TLS_issues = "Erros";
+$TLS_standard_messages = "Mensagens Padrão";
+$TLS_grant_permissions = "Conceder Permissões";
 $TLS_type_not_configured = "mensagem do sistema: tipo não configurado";
 $TLS_undefined = "não definido";
 $TLS_active = "Ativo";
@@ -60,6 +67,11 @@ $TLS_check_uncheck_all_for_remove = "Marcar/Desmarcar todos para remover";
 $TLS_confirm = "Confirmar";
 $TLS_config= "Configuração";
 $TLS_days	= "dias";
+$TLS_hours	= "horas";
+$TLS_groups	= "agrupamentos";
+$TLS_group_executions = "Agrupar execuções em";
+$TLS_filter_executions = "Filtrar casos de teste:";
+$TLS_cumulative_mode = "Modo acumulativo:";
 $TLS_desc = "Descendente";
 $TLS_description = "Descrição";
 $TLS_delete_confirm_question = "Tem certeza que deseja apagar?";
@@ -2229,6 +2241,13 @@ $TLS_testplan_role = "Perfil do Plano de Teste";
 $TLS_title_test_case_suite = "Conteúdo do Plano de Teste";
 $TLS_title_test_execution = "Executar Testes";
 $TLS_title_test_plan_mgmt = "Gerenciar Plano de Teste";
+$TLS_href_manage_issues = "Gerenciar Erros";
+$TLS_href_manage_issues_categories = "Gerenciar Categorias de Erros";
+$TLS_href_manage_issues_markers = "Gerenciar Marcadores de Erros";
+$TLS_href_complete_monitoring_report = "Acompanhamento Complpleto";
+$TLS_href_quick_monitoring_report = "Acompanhamento Rápido";
+$TLS_href_history_report = "Histórico";
+$TLS_href_sub_aquire_management = "Gerenciar Sub-Adquirente";
 
 
 // ----- gui/templates/metricsDashboard.tpl -----

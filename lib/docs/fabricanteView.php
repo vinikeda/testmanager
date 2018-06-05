@@ -1,12 +1,12 @@
 <?php
 require('../../config.inc.php');
 require_once("common.php");
-require_once("docs_type.class.php");
+require_once("fabricante.class.php");
 testlinkInitPage($db,false,false,"checkRights");
 
 $templateCfg = templateConfiguration();
 
-$categories = new docs_types($db);
+$categories = new fabricantes($db);
 $gui = new StdClass();
 $gui->categories = $categories->getCategories();
 $gui->user_feedback = null;

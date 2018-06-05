@@ -11,7 +11,7 @@
  */
 require('../../config.inc.php');
 require_once("common.php");
-require_once("docs_type.class.php");
+require_once("fabricante.class.php");
 require_once("web_editor.php");
 //$editorCfg = getWebEditorCfg('build');
 //require_once(require_web_editor($editorCfg['type']));
@@ -29,7 +29,7 @@ $op->buttonCfg->value = "";
 
 $smarty = new TLSmarty();
 //$tplan_mgr = new testplan($db);
-$subadiq_mgr = new docs_types($db);
+$subadiq_mgr = new fabricantes($db);
 $args = init_args($_REQUEST,$_SESSION);
 $gui = initializeGui($args);
 
@@ -117,7 +117,6 @@ function init_args($request_hash, $session_hash)
     $args->$key = isset($request_hash[$key]) ? intval($request_hash[$key]) : $value;
   }
   $args->markersID = $request_hash['markersID'];
-  $args->cf_id = $request_hash['relat'];
   $args->userID = intval($session_hash['userID']);
 
 
@@ -167,7 +166,6 @@ function edit(&$argsObj,&$subadiq_mgr)
   $op->status_ok = 1;
 
   $argsObj->subadiq_name = $binfo['name'];
-  $argsObj->cf_id = $binfo['id_related_cf'];
   //$argsObj->release_date = $binfo['release_date'];
 
   /*if( $binfo['closed_on_date'] == '')
@@ -259,7 +257,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       case "open":
       case "close":
         $doRender = true;
-        $tpl = is_null($templateCfg->template) ? 'docs_typeView.tpl' : $templateCfg->template;
+        $tpl = is_null($templateCfg->template) ? 'fabricanteView.tpl' : $templateCfg->template;
       break;
 
       case "edit":
@@ -274,13 +272,11 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
       
       // Attention this is affected by changes in templates
       $guiObj->categories=$subadiq_mgr->getCategories();
-      $guiObj->cflist=$subadiq_mgr->getCFieldList();
 
       $guiObj->enable_copy = ($argsObj->do_action == 'create' || $argsObj->do_action == 'do_create') ? 1 : 0;
       //$guiObj->notes = $owebeditor->CreateHTML();
       $guiObj->source_build = init_source_build_selector($subadiq_mgr, $argsObj);
       $guiObj->tplan_name=$argsObj->tplan_name;
-      $guiObj->selectedCF=$argsObj->cf_id;
       $guiObj->subadiq_id = $argsObj->markerID;
       $guiObj->selectedMarkers = $argsObj->markersID;
       $guiObj->subadiq_name = $argsObj->subadiq_name;
@@ -308,13 +304,13 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "docs_typeEdit.tpl";
+  $op->template = "fabricanteEdit.tpl";
   $op->notes = $argsObj->notes;
   $op->status_ok = 0;
   $op->buttonCfg = null;
   $targetDate=null;
     $user_feedback = lang_get("cannot_add_build");
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->cf_id);
+    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,$argsObj->markersID);
     if ($buildID)
     {
       /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
@@ -353,7 +349,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr/*,&$tplanMgr,$dateFormat*/)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "docs_typeEdit.tpl";
+  $op->template = "fabricanteEdit.tpl";
   //$op->notes = $argsObj->notes;
   $op->status_ok = 0;
   $op->buttonCfg = null;
@@ -364,7 +360,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr/*,&$tplanMgr,$dateFormat*/)
   //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
   //if($check->status_ok){
     $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->cf_id)) 
+    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->markersID)) 
     {
       //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
       //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');

@@ -23,7 +23,7 @@ editorType: used to understand if code for tinymce need to be loaded
 	
 	
 	<base href="{$basehref}"/>
-	<title>{$pageTitle|default:"TestLink"}</title>
+	<title>TestManager</title>
 	<link rel="icon" href="{$basehref}{$smarty.const.TL_THEME_IMG_DIR}favicon.ico" type="image/x-icon" />
 	
 {* ----- load CSS ------------------------------------------------------------------- *} 
