@@ -40,6 +40,8 @@ $TLS_last_update = "Last localization update: 03/27/2011";
 
 // ----- General terms (used wide) ----------------------------
 $TLS_blank = ".";
+$TLS_select_macro = "Select a Macro";
+$TLS_macros_mgmt = "Build Macros Management";
 $TLS_docs = "Documents";
 $TLS_issues_categories = "Category";
 $TLS_issue_marker = "Markers";

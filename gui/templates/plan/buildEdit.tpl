@@ -13,7 +13,7 @@ Purpose: smarty template - Add new build and show existing
 {lang_get var="labels"
           s="warning,warning_empty_build_name,enter_build,enter_build_notes,active,
              open,builds_description,cancel,release_date,closure_date,closed_on_date,
-             copy_tester_assignments, assignment_source_build,show_event_history,
+             copy_tester_assignments, assignment_source_build,show_event_history,select_macro,
              show_calender,clear_date"}
 
 {include file="inc_head.tpl" openHead="yes" jsValidate="yes" editorType=$gui->editorType}
@@ -86,7 +86,7 @@ function validateForm(f)
     {/if}
     *}
     <tr>
-        <th style="background:none;">Selecione uma Macro</th>
+        <th style="background:none;">{$labels.select_macro}</th>
         <td>
             <select id ="macro">
                 <option value = 0>
@@ -117,7 +117,52 @@ function validateForm(f)
       </tr>
       {/foreach}
     {/if}
+    {if $gui->cfields != ''}
+        {foreach key=accessKey item=cf from=$gui->labels}
+            {if count($gui->groupfields[$accessKey]) > 0}
+            <tr >
+                <th style="background:none;"></th>
+                <td><input type="checkbox" class = "collapsible" target="{$accessKey}">   {$cf}</td>
+            </tr>
+            {foreach key=chave item=val from=$gui->groupfields[$accessKey]}
+                <tr class = "content" group="{$accessKey}">
+                    <th style="background:none;">{$val['label']}</th>
+                    <td>{$val.input}</td>
+                </tr>
+            {/foreach}
+            {/if}
+        {/foreach}
+    {/if}
+    <style>
+        .content {
+    overflow: hidden;
+    display:none;
+}
+    </style>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+var i;
 
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var group = document.querySelectorAll('[group="'+this.getAttribute("target")+'"]');
+    for(j = 0;j<group.length;j++){
+        if (group[j].style.display === "table-row") {
+            group[j].style.display = "none";
+        } else {
+            group[j].style.display = "table-row";
+        }
+    }
+    /*var content = this.nextElementSibling;
+    if (content.style.display === "table-row") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "table-row";
+    }*/
+  });
+}
+    </script>
 
     <tr><th style="background:none;">{$labels.active}</th>
         <td><input type="checkbox"  name="is_active" id="is_active"  

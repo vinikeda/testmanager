@@ -1245,6 +1245,7 @@ class cfield_mgr extends tlObject
 	  }
 
 	  $safe['type'] = intval((int)$cf['type']);
+	  $safe['group'] = intval((int)$cf['group']);
     $safe['node_type_id'] = intval((int)$cf['node_type_id']);
 		return $safe;
 	}	
@@ -1286,17 +1287,16 @@ class cfield_mgr extends tlObject
       $safecf['enable_on_design'] = 1;
       $safecf['enable_on_execution'] = 0;
     }  
-		
 	  $sql="/* $debugMsg */ INSERT INTO {$this->object_table} " .
 	       " (name,label,type,possible_values, " .
 	       "  show_on_design,enable_on_design, " .
 	       "  show_on_testplan_design,enable_on_testplan_design, " .
-	       "  show_on_execution,enable_on_execution) " .
+	       "  show_on_execution,cf_group_id,enable_on_execution) " .
 	       " VALUES('" . $safecf['name'] . "','" . $safecf['label'] . "'," . 
 	   		 intval($safecf['type']) . ",'" . $safecf['possible_values'] . "', " .
 	       "		{$safecf['show_on_design']},{$safecf['enable_on_design']}," .
 	       "		{$safecf['show_on_testplan_design']},{$safecf['enable_on_testplan_design']}," .
-	       "		{$safecf['show_on_execution']},{$safecf['enable_on_execution']})";
+	       "		{$safecf['show_on_execution']},{$safecf['group']},{$safecf['enable_on_execution']})";
 	  $result=$this->db->exec_query($sql);
 
 	  if ($result)
@@ -1362,6 +1362,7 @@ class cfield_mgr extends tlObject
     			 	"     show_on_testplan_design={$safecf['show_on_testplan_design']}," .
     			 	"     enable_on_testplan_design={$safecf['enable_on_testplan_design']}," .
     			 	"     show_on_execution={$safecf['show_on_execution']}," .
+    			 	"     cf_group_id={$safecf['group']}," .
     			 	"     enable_on_execution={$safecf['enable_on_execution']}" .
     			 	" WHERE id={$safecf['id']}";
 		$result = $this->db->exec_query($sql);
@@ -2800,7 +2801,7 @@ function getValuesFromUserInput($cf_map,$name_suffix='',$input_values=null)
     if(!is_null($cfields_map))
     {
       $cf_map = $this->getValuesFromUserInput($cfields_map,$name_suffix,$input_values);
-      $NO_WARNING_IF_MISSING=true;
+      $NO_WARNING_IF_MISSING=true;//var_dump($cf_map);
       foreach($cf_map as $cf_id => $cf_info)
       {
         $label=str_replace(TL_LOCALIZE_TAG,'',
@@ -2820,7 +2821,9 @@ function getValuesFromUserInput($cf_map,$name_suffix='',$input_values=null)
 
         $inputSet[] = array('label' => htmlspecialchars($label) ,
                             'label_id' => $label_id,
-                            'input' => $this->string_custom_field_input($cf_info,$getOpt));
+                            'input' => $this->string_custom_field_input($cf_info,$getOpt),
+                            'group' => $cf_info['cf_group_id']
+            );
       }
     }
     return $inputSet;
@@ -2852,7 +2855,25 @@ function getValuesFromUserInput($cf_map,$name_suffix='',$input_values=null)
     return($this->db->fetchRowsIntoMap($sql,'id'));
   }
 
-
+    function get_groups(){
+        $sql = "SELECT * from `cf_groups`";
+        $temp = ($this->db->fetchRowsIntoMap($sql,'id'));
+        $a = array();
+        foreach($temp as $tmp){
+           $a[$tmp['id']] = $tmp['name'];
+        }
+        $a[0] = 'none';
+        return $a;
+    }
+    function get_groupLabels(){
+        $sql = "SELECT * from `cf_groups`";
+        $temp = ($this->db->fetchRowsIntoMap($sql,'id'));
+        $a = array();
+        foreach($temp as $tmp){
+           $a[$tmp['id']] = $tmp['label'];
+        }
+        return $a;
+    }
 
     
 } // end class

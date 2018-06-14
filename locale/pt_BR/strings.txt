@@ -37,6 +37,8 @@ $TLS_last_update = "Last localization update: 13/03/2013 (TestLink 1.9.6)";
 
 // ----- General terms (used wide) ----------------------------
 $TLS_blank = ".";
+$TLS_select_macro = "Selecione uma Macro";
+$TLS_macros_mgmt = "Gerenciar Macros de Requisições";
 $TLS_docs = "Documentos";
 $TLS_issues_categories = "Categoria";
 $TLS_issue_marker = "Marcadores";

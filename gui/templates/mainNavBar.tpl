@@ -43,7 +43,7 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
                           href_plan_management,href_sub_aquire_management,
                           href_build_new,href_plan_mstones,href_plan_define_priority,
                           href_manage_issues,href_manage_issues_categories,href_manage_issues_markers,
-                          href_complete_monitoring_report,href_quick_monitoring_report,href_history_report,
+                          href_complete_monitoring_report,href_quick_monitoring_report,href_history_report,macros_mgmt,
                           href_metrics_dashboard,th_user,title_results,href_add_remove_test_cases,title_edit_personal_data,th_user_rights'}
 
 {$menuLayout=$tlCfg->gui->layoutMainPageLeft}
@@ -298,7 +298,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="lib/macros/macrosView.php" target="mainframe">Gerenciar Macros de Requisições</a></li>
+                <li><a href="lib/macros/macrosView.php" target="mainframe">{$labels.macros_mgmt}</a></li>
             </ul>
         </li>
     </ul>

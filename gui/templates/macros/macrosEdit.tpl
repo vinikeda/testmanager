@@ -83,7 +83,7 @@ function validateForm(f)
                     </div>
                     <script>
                         element = document.getElementById("docs{$count}").querySelector("#{$gui->ids[$key]}");
-                        element.value = "{$gui->Values[$key]}"
+                        element.value = "{$gui->Values[$key]}";
                         element.setAttribute("name","cfValue[]") = "{$gui->Values[$key]}"
                     </script>
     {*<input id="docs{$count}" name="cfValue[]" type="text" value="{$gui->Values[$key]}">*} <input type="button" id="rmv{$count}" value="Remove" onclick="cleanField({$count})">
@@ -155,23 +155,12 @@ function getField(id,target){
             temp = jQuery('#'+target);
             temp.empty();
             temp.append(jsonObj[0]['input']);
-            document.getElementById(target).querySelector('#'+jsonObj[0]['label_id']).setAttribute('name','name="cfValue[]"');
+            document.getElementById(target).querySelector('#'+jsonObj[0]['label_id']).setAttribute('name','cfValue[]');
             
         }
     });
 }
 
-function setFields(target){
-    jQuery.ajax({
-        url:'lib/macros/getFields.php?macro_id='+target, success: function(result){
-            jsonObj = JSON.parse(result);
-            for(i=0;i<jsonObj['ids'].length;i++){
-                field = document.getElementById(jsonObj['ids'][i]);
-                if(field != null)field.value = jsonObj['value'][i];
-            }
-        }
-    });
-}
 {/literal}
 </script>
 </body>

@@ -117,7 +117,7 @@ function init_args($request_hash, $session_hash)
   }
   $args->markersID = $request_hash['cfSelected'];
   $args->cfvalues = $request_hash['cfValue'];
-  
+  //var_dump($request_hash);
   $args->userID = intval($session_hash['userID']);
 
 
@@ -321,7 +321,7 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op->status_ok = 0;
   $op->buttonCfg = null;
   $targetDate=null;
-    $user_feedback = lang_get("cannot_add_build");
+    $user_feedback = lang_get("cannot_add_build");    //var_dump($argsObj->cfvalues);
     $buildID = $subadiq_mgr->create($argsObj->subadiq_name,1,$argsObj->markersID,$argsObj->cfvalues);
     if ($buildID)
     {

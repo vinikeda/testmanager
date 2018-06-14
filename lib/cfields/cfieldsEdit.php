@@ -31,10 +31,10 @@ $cfieldCfg=cfieldCfgInit($cfield_mgr);
 // Changed default values
 $emptyCF = array('id' => $args->cfield_id,
 		             'name' => '','label' => '',
-				     'type' => 0,'possible_values' => '',
+                             'type' => 0,'possible_values' => '',
 		             'show_on_design' => 1,'enable_on_design' => 1,
 		             'show_on_execution' => 0,'enable_on_execution' => 0,
-		             'show_on_testplan_design' => 0,'enable_on_testplan_design' => 0,
+		             'show_on_testplan_design' => 0,'enable_on_testplan_design' => 0,'cf_group'=>0,
 		             'node_type_id' => $cfieldCfg->allowed_nodes['testcase']);
 
 $gui->cfield = $emptyCF;
@@ -229,6 +229,7 @@ function init_args()
     $args->do_action = isset($_REQUEST['do_action']) ? $_REQUEST['do_action'] : null;
     $args->cfield_id = isset($_REQUEST['cfield_id']) ? intval($_REQUEST['cfield_id']) : 0;
     $args->cf_name = isset($_REQUEST['cf_name']) ? $_REQUEST['cf_name'] : null;
+    $args->cf_group = isset($_REQUEST['cf_group']) ? $_REQUEST['cf_group'] : null;
 
     $args->tproject_id = isset($_REQUEST['tproject_id']) ? intval($_REQUEST['tproject_id']) : 0;
     if( $args->tproject_id == 0 )
@@ -286,13 +287,14 @@ function doCreate(&$hash_request,&$cfieldMgr,&$argsObj)
   $op = new stdClass();
   $op->template = "cfieldsEdit.tpl";
   $op->user_feedback='';
-	$op->cf = request2cf($hash_request);
+    $op->cf = request2cf($hash_request);
+    $op->cf['group'] = $argsObj->cf_group;
 
-	$keys2trim=array('name','label','possible_values');
-	foreach($keys2trim as $key)
-	{
-	  $op->cf[$key]=trim($op->cf[$key]);
-	}
+    $keys2trim=array('name','label','possible_values');
+    foreach($keys2trim as $key)
+    {
+      $op->cf[$key]=trim($op->cf[$key]);
+    }
   
   // Check if name exists
   $dupcf = $cfieldMgr->get_by_name($op->cf['name']);
@@ -339,6 +341,7 @@ function doUpdate(&$hash_request,&$argsObj,&$cfieldMgr)
   $op->user_feedback='';
 	$op->cf = request2cf($hash_request);
 	$op->cf['id'] = $argsObj->cfield_id;
+	$op->cf['group'] = $argsObj->cf_group;
 
   $oldObjData=$cfieldMgr->get_by_id($argsObj->cfield_id);
   $oldname=$oldObjData[$argsObj->cfield_id]['name'];
@@ -420,8 +423,8 @@ function cfieldCfgInit($cfieldMgr)
       $cfg->cf_enable_on[$area]['label']=lang_get($area);
       $cfg->cf_enable_on[$area]['value']=0;
              
-    	$cfg->enable_on_cfg[$area] = $cfieldMgr->get_enable_on_cfg($area);
-    	$cfg->show_on_cfg[$area] = $cfieldMgr->get_show_on_cfg($area);
+      $cfg->enable_on_cfg[$area] = $cfieldMgr->get_enable_on_cfg($area);
+      $cfg->show_on_cfg[$area] = $cfieldMgr->get_show_on_cfg($area);
     }
 
     $cfg->possible_values_cfg = $cfieldMgr->get_possible_values_cfg();
@@ -470,6 +473,7 @@ function renderGui(&$smartyObj,&$argsObj,&$guiObj,&$cfieldMgr,$templateCfg)
   {
    $guiObj->cf_map = $cfieldMgr->get_all(null,'transform');
    $guiObj->cf_types=$cfieldMgr->get_available_types();
+   $guiObj->cfgroup=$cfieldMgr->get_groups();
    $smartyObj->assign('gui',$guiObj);
    $smartyObj->display($templateCfg->template_dir . $tpl);
   }

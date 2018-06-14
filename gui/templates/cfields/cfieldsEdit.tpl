@@ -451,7 +451,14 @@ function initShowOnExec(id_master,show_on_cfg)
 				</select>
 			</td>
 		</tr>
-
+                <tr>
+			<th style="background:none;">Grupo de Campos</th>
+			<td>
+				<select id="cf_show_on_execution"  name="cf_group">
+				{html_options options=$gui->cfgroup selected=$gui->cfield.cf_group_id}
+				</select>
+			</td>
+		</tr>
 	</table>
 
   {* BUGID *}

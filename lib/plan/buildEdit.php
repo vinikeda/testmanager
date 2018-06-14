@@ -213,8 +213,15 @@ function initializeGui(&$argsObj,&$buildMgr)
   $guiObj->main_descr = lang_get('title_build_2') . config_get('gui_title_separator_2') . 
                         lang_get('test_plan') . config_get('gui_title_separator_1') . 
                         $argsObj->tplan_name;
-  $guiObj->cfields = $buildMgr->html_custom_field_inputs($argsObj->build_id,$argsObj->testprojectID,
+  $temp = $buildMgr->html_custom_field_inputs($argsObj->build_id,$argsObj->testprojectID,
                                                          'design','',$_REQUEST);
+  $grouplist;
+  foreach($temp as $tmp){
+      $grouplist[$tmp['group']][] = $tmp;
+  }
+  $guiObj->cfields = $grouplist['0'];
+  $guiObj->groupfields = $grouplist;//var_dump($guiObj->groupfields);
+  $guiObj->labels = $buildMgr->cfield_mgr->get_groupLabels();
   $dummy = config_get('results');
   foreach($dummy['status_label_for_exec_ui'] as $kv => $vl)
   {

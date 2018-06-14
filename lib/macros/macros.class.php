@@ -7,6 +7,8 @@ class macros {
     function create($name, $active, $fields, $values){
         $this->db->exec_query("insert into macro(name,active) values ('".$name."',$active)");
         $lastId = $this->db->insert_Id();
+        var_dump($fields);
+        var_dump($values);
         foreach ($fields as $key=>$field){
             $sql = "insert into macro_values (id_cf,id_macro,value) values($field,$lastId,'$values[$key]')";
             $this->db->exec_query($sql);
