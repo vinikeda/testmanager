@@ -36,6 +36,9 @@ $TLS_STRINGFILE_CHARSET = "UTF-8";
 $TLS_last_update = "Last localization update: 13/03/2013 (TestLink 1.9.6)";
 
 // ----- General terms (used wide) ----------------------------
+$TLS_addtestplan = "Adicionar Plano de Teste";
+$TLS_reallocate = "Realocar";
+$TLS_addbuilds = "Requisições Adicionais";
 $TLS_blank = ".";
 $TLS_select_macro = "Selecione uma Macro";
 $TLS_macros_mgmt = "Gerenciar Macros de Requisições";

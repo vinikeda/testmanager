@@ -39,6 +39,9 @@ $TLS_STRINGFILE_CHARSET = "UTF-8";
 $TLS_last_update = "Last localization update: 03/27/2011";
 
 // ----- General terms (used wide) ----------------------------
+$TLS_addtestplan = "Add Testplan";
+$TLS_reallocate = "Reallocate";
+$TLS_addbuilds = "Additional Requisitions";
 $TLS_blank = ".";
 $TLS_select_macro = "Select a Macro";
 $TLS_macros_mgmt = "Build Macros Management";

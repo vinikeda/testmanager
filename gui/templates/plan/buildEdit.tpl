@@ -11,10 +11,10 @@ Purpose: smarty template - Add new build and show existing
 {assign var="cancelAction" value="lib/plan/buildView.php"}
 
 {lang_get var="labels"
-          s="warning,warning_empty_build_name,enter_build,enter_build_notes,active,
-             open,builds_description,cancel,release_date,closure_date,closed_on_date,
+          s="warning,warning_empty_build_name,enter_build,enter_build_notes,active,addbuilds,name,
+             open,builds_description,cancel,release_date,closure_date,closed_on_date,reallocate,
              copy_tester_assignments, assignment_source_build,show_event_history,select_macro,
-             show_calender,clear_date"}
+             addtestplan,remove,show_calender,clear_date"}
 
 {include file="inc_head.tpl" openHead="yes" jsValidate="yes" editorType=$gui->editorType}
 {include file="inc_ext_js.tpl" bResetEXTCss=1}
@@ -108,6 +108,44 @@ function validateForm(f)
         </script>
         </td>
     </tr>
+    {*if $gui->creating*}
+    <tr>
+        <th style="background:none;">{$labels.addbuilds}</th>
+        <td>
+            <div id = "to_clone" style="display: none">
+                {html_options options = $gui->plans}
+            </div>
+            <div id ="fieldarea">
+                
+            </div>
+            <input type="button" value="{$labels.addtestplan}" onclick="addtestplan()">
+            <script>
+                var planlist = jQuery('#to_clone').html();
+                var count = 0;
+                function addtestplan(){
+                    appendString = '<select id="plan'+count+'" name="planSelected[]">'+planlist+'</select>\
+                    <input name="reqName[]" id="req'+count+'" placeholder="{$labels.name}">  <input type="button" id="rmv'+count+'" value="{$labels.remove}" onclick="cleanField('+count+')">\
+    <br id="br'+count+'">';
+                    jQuery('#fieldarea').append(appendString);
+                    jQuery("#plan"+count).chosen({ width: "300px", allow_single_deselect: true });
+                    count++;
+                }
+                function cleanField(number){
+                    jQuery('#rmv'+number).remove();
+                    jQuery('#req'+number).remove();
+                    jQuery('#plan'+number).chosen("destroy");
+                    jQuery('#plan'+number).remove();
+                    jQuery('#br'+number).remove();
+                }
+                jQuery( document ).ready(function() {
+                    macro = jQuery("#clone");
+                    macro.chosen({ width: "300px", allow_single_deselect: true });
+                });
+            
+        </script>
+        </td>
+    </tr>
+    {*/if*}
 <!--camada 2-->
     {if $gui->cfields != ''}
       {foreach key=accessKey item=cf from=$gui->cfields}

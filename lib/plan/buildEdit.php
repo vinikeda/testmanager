@@ -54,7 +54,7 @@ $arrplans = $currentUser->getAccessibleTestPlans($db,$_SESSION['testprojectID'])
 foreach ($arrplans as $key=>$value){
     $gui->arrplans[$value['id']] = $value['name'];
 }
-
+$gui->creating = false;
 switch($args->do_action)
 {
   case 'edit':
@@ -70,6 +70,7 @@ switch($args->do_action)
   case 'create':
     $op = create($args);
     $gui->closed_on_date = $args->closed_on_date;
+    $gui->creating = true;
   break;
 
   case 'do_delete':
@@ -128,7 +129,11 @@ foreach ($teste as $userid=>$usr)if($usr['effective_role_id'] == 11) $filteredQA
 $gui->QA = buildUserMap($filteredQA,true,null);/*$gui->QA[] = $gui->QA[0];$gui->QA[0] = '';*///var_dump($gui->QA);
 $gui->mgt_view_events = $args->user->hasRight($db,"mgt_view_events");
 $gui->editorType = $editorCfg['type'];
-
+$arrplans = $currentUser->getAccessibleTestPlans($db,$_SESSION['testprojectID']);
+//var_dump($gui->arrplans);
+foreach ($arrplans as $key=>$value){
+    $gui->plans[$value['id']] = $value['name'];
+}
 renderGui($smarty,$args,$tplan_mgr,$templateCfg,$of,$gui);
 
 /*
@@ -195,7 +200,8 @@ function init_args($request_hash, $session_hash,$date_format)
   $args->testprojectID = intval($session_hash['testprojectID']);
   $args->testprojectName = $session_hash['testprojectName'];
   $args->userID = intval($session_hash['userID']);
-
+  $args->plans = $request_hash['planSelected'];
+  $args->names = $request_hash['reqName'];
   $args->exec_status_filter = isset($request_hash['exec_status_filter']) ?
                                     $request_hash['exec_status_filter'] : null;
 
@@ -423,6 +429,7 @@ function doCreate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat) //,&$smartyObj)
                                  $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);*/
     $buildID = $buildMgr->create($argsObj->tplan_id,$argsObj->build_name,/*$argsObj->usr,*/$argsObj->notes,
                                  $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);
+
     if ($buildID)
     {
       $cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
@@ -518,6 +525,28 @@ function doCreate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat) //,&$smartyObj)
   {
     doCopyToTestPlans($argsObj,$buildMgr,$tplanMgr);
   }
+  
+  foreach($argsObj->plans as $index=>$id){
+    
+        $buildID = $buildMgr->create($id,$argsObj->names[$index],/*$argsObj->usr,*/$argsObj->notes,
+                                     $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);
+
+        if ($buildID)
+        {
+          $cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
+          $buildMgr->cfield_mgr->design_values_to_db($_REQUEST,$buildID,$cf_map,null,'build');
+
+          if($argsObj->is_open == 1)
+          {
+            $targetDate=null;
+          } 
+          else
+          {
+            $targetDate=date("Y-m-d",$argsObj->closed_on_date);    
+          }
+          $buildMgr->setClosedOnDate($buildID,$targetDate); 
+        }
+    }
   return $op;
 }
 
@@ -575,6 +604,27 @@ function doUpdate(&$argsObj,&$buildMgr,&$tplanMgr,$dateFormat)
       $op->status_ok = 1;
       logAuditEvent(TLS("audit_build_saved",$argsObj->testprojectName,$argsObj->tplan_name,$argsObj->build_name),
                     "SAVE",$argsObj->build_id,"builds");
+    }
+    foreach($argsObj->plans as $index=>$id){
+    
+        $buildID = $buildMgr->create($id,$argsObj->names[$index],$argsObj->notes,
+                                     $argsObj->is_active,$argsObj->is_open,$argsObj->release_date);
+
+        if ($buildID)
+        {
+            $cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
+            $buildMgr->cfield_mgr->design_values_to_db($_REQUEST,$buildID,$cf_map,null,'build');
+
+            if($argsObj->is_open == 1)
+            {
+              $targetDate=null;
+            } 
+            else
+            {
+              $targetDate=date("Y-m-d",$argsObj->closed_on_date);
+            }
+            $buildMgr->setClosedOnDate($buildID,$targetDate); 
+        }
     }
   }
 

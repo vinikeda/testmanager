@@ -22,9 +22,9 @@ Purpose: smarty template - Show existing builds
 
 {lang_get var="labels" 
           s='title_build_2,test_plan,th_title,th_description,th_active,
-             th_open,th_delete,alt_edit_build,alt_active_build,
+             th_open,th_delete,alt_edit_build,alt_active_build,reallocate,
              alt_open_build,alt_delete_build,no_builds,btn_build_create,
-             builds_description,sort_table_by_column,th_id,release_date,
+             builds_description,sort_table_by_column,th_id,release_date,btn_change,
              inactive_click_to_change,active_click_to_change,click_to_set_open,click_to_set_closed'}
 
 {include file="inc_head.tpl" openHead="yes" jsValidate="yes" enableTableSorting="yes"}
@@ -57,7 +57,7 @@ var del_action=fRoot+'{$deleteAction}';
   	<table id="item_view" class="simple_tableruler sortable">
   		<tr>
   			<th>{$tlImages.toggle_api_info}{$tlImages.sort_hint}{$labels.th_title}</th>
-  			<th class="{$noSortableColumnClass}">Realocar{*$labels.th_description*}</th>
+  			<th class="{$noSortableColumnClass}">{$labels.reallocate}{*$labels.th_description*}</th>
   			<th class="{$noSortableColumnClass}" style="width:90px;">{$labels.release_date}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_active}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_open}</th>
@@ -74,9 +74,10 @@ var del_action=fRoot+'{$deleteAction}';
   					  </a>   
   				</td>
   				<td>{*$build.notes*}
-                                    <select onchange="move(this.value,this,{$build.id})">
+                                    <select id="{$build.id}">
                                         {html_options options=$gui->arrplans selected=$gui->tplan_id}
                                     </select>
+                                    <input value ="{$labels.btn_change}" type ="button" onclick="move(document.getElementById('{$build.id}').value,this,{$build.id})">
                                 </td>
   				<td>{if $build.release_date != ''}{localize_date d=$build.release_date}{/if}</td>
 
