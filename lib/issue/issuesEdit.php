@@ -361,7 +361,7 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "issuesEdit.tpl";
+  $op->template = "issuesView.tpl";
   $op->notes = $argsObj->notes;
   $op->status_ok = 0;
   $op->buttonCfg = null;
@@ -408,7 +408,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr)
   $op = new stdClass();
   $op->operation_descr = '';
   $op->user_feedback = '';
-  $op->template = "issuesEdit.tpl";
+  $op->template = "issuesView.tpl";
   //$op->notes = $argsObj->notes;
   $op->status_ok = 0;
   $op->buttonCfg = null;
@@ -419,7 +419,9 @@ function doUpdate(&$argsObj,&$subadiq_mgr)
   //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
   //if($check->status_ok){
     $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->category,$argsObj->descText,$argsObj->markersID,$argsObj->projectsID)) 
+    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,
+            ($argsObj->user->globalRole->dbID === '13' || $argsObj->user->globalRole->dbID === '11'?'QA':($argsObj->user->globalRole->dbID === '12'?'sup':'analis') ),
+            $argsObj->category,$argsObj->descText,$argsObj->markersID,$argsObj->projectsID)) 
     {
       //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
       //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');

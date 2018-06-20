@@ -68,7 +68,7 @@ function validateForm(f)
                 {include file="error_icon.tpl" field="subadiq_name"}
       </td>
     </tr>
-    <tr>
+    <!--tr>
         <th style="background:none;">
             {$labels.docs}
         </th>
@@ -84,16 +84,33 @@ function validateForm(f)
                     <script>
                         element = document.getElementById("docs{$count}").querySelector("#{$gui->ids[$key]}");
                         element.value = "{$gui->Values[$key]}";
-                        element.setAttribute("name","cfValue[]") = "{$gui->Values[$key]}"
+                        element.setAttribute("name","cfValue[]");
                     </script>
-    {*<input id="docs{$count}" name="cfValue[]" type="text" value="{$gui->Values[$key]}">*} <input type="button" id="rmv{$count}" value="Remove" onclick="cleanField({$count})">
-<br id="br{$count++}">
+    <input type="button" id="rmv{$count}" value="Remove" onclick="cleanField({$count})">
+<br id="br{*$count++*}">
                 {/foreach}
             </div>
             <button type="button" onclick = "addDocSelector()">Adicionar Documento</button>
         </td>
-    </tr>
-   
+    </tr-->
+            {foreach item=selected key=key from=$gui->selectedMarkers}
+                <tr>
+                    <th style="background:none;">
+                        {$gui->doc_type[$selected]}
+                    </th>
+                    <td>
+                        <div id="docs{$count}">
+                        {$gui->inputs[$key]}
+                        </div>
+                        <input type="hidden" name="cfSelected[]" value="{$selected}">
+                <script>
+                    element = document.getElementById("docs{$count++}").querySelector("#{$gui->ids[$selected]}");{*element = document.getElementById("docs{$count}").querySelector("#{$gui->ids[$key]}");*}
+                    element.value = "{$gui->Values[$key]}";
+                    element.setAttribute("name","cfValue[]");
+                </script>
+                    </td>
+                </tr>
+            {/foreach}
    
    
    

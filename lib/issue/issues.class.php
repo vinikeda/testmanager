@@ -35,7 +35,7 @@ class issues {
         }
     }
 
-    function update ($id ,$description,$category,$descText, $markers = null, $projects){
+    function update ($id ,$description,$whoAccept,$category,$descText, $markers = null, $projects){
         $sql = "update issues set description = '$description', category_id = $category, text_description = '$descText' where id = $id";
         $this->db->exec_query($sql);
         if($markers != null){
@@ -51,6 +51,14 @@ class issues {
                 $this->addProject($id,$marker);
             }
         }else $this->rmv_all_tprojects($id);
+        $this->qaReject($id);
+        $this->analistReject($id);
+        $this->superReject($id);
+        switch ($whoAccept){
+            case 'QA':$this->qaAccept($id);
+            case 'analis':$this->analistAccept($id);
+            case 'sup':$this->superAccept($id);
+        }
     }
 
     function addmarker($idIssue,$idMarker){

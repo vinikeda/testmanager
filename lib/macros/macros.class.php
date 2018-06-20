@@ -54,6 +54,14 @@ class macros {
         $fields[0]['label_id'] = substr($fields[0]['label_id'],10,-1);
         return($fields);
     }
+    /*function getAllBlankField(){
+        $sql = "select * from custom_fields";
+        $temp = $this->db->get_recordset($sql);
+        $cfmgr= new cfield_mgr($this->db);
+        $fields = $cfmgr->html_inputs($temp);
+        $fields[0]['label_id'] = substr($fields[0]['label_id'],10,-1);
+        return($fields);
+    }*/
     function getFields($id) {
         $sql = "select * from macro_values inner join custom_fields cf on (id_cf = cf.id) where id_macro = $id";
         $temp = $this->db->get_recordset($sql);
@@ -67,7 +75,7 @@ class macros {
         return $a;
     }
     function getCFieldList(){
-        $sql = "select id, label from custom_fields inner join cfield_node_types on (id = field_id) where node_type_id = 12 and name not like('abc%')";
+        $sql = "select id, label from custom_fields inner join cfield_node_types on (id = field_id) where node_type_id = 12 and name not like('abc%') and type not in (9)";
         $temp = $this->db->fetchRowsIntoMap($sql,"id");
         $a;
         foreach ($temp as $b){

@@ -283,14 +283,24 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
         //$guiObj->notes = $owebeditor->CreateHTML();
         //$guiObj->source_build = init_source_build_selector($subadiq_mgr, $argsObj);
         $guiObj->tplan_name=$argsObj->tplan_name;
-        $guiObj->subadiq_id = $argsObj->markerID;
-        $guiObj->selectedMarkers = $argsObj->markersID;
-        foreach($argsObj->markersID as $chave=>$valor){
-            $temp = $subadiq_mgr->getBlankField($valor);
+        $guiObj->subadiq_id = $argsObj->markerID;//var_dump($argsObj->markersID);
+        //$guiObj->selectedMarkers = $argsObj->markersID;//var_dump($guiObj->selectedMarkers);
+        foreach($argsObj->markersID as $chave=>$mks){
+            $guiObj->selectedMarkers[$mks] = $mks;
+            $guiObj->Values[$mks] = $argsObj->cfValue[$chave];
+        }//var_dump($argsObj->markersID);
+        //foreach($argsObj->markersID as $chave=>$valor){
+        foreach($guiObj->doc_type as $chave=>$valor){
+            //$temp = $subadiq_mgr->getBlankField($valor);
+            $temp = $subadiq_mgr->getBlankField($chave);
+            $guiObj->selectedMarkers[$chave]  = $chave;
             $guiObj->inputs[$chave] = $temp[0]['input'];
-            $guiObj->ids[$chave] = $temp[0]['label_id'];
+            $guiObj->ids[$chave] = $temp[0]['label_id'];            
         }
-        $guiObj->Values = $argsObj->cfValue;
+        //var_dump($guiObj->doc_type);
+        //var_dump($subadiq_mgr->getBlankField());
+        //var_dump($guiObj->ids);
+        //$guiObj->Values = $argsObj->cfValue;var_dump($guiObj->Values);
         $guiObj->subadiq_name = $argsObj->subadiq_name;
         $guiObj->is_active = $argsObj->is_active;
         $guiObj->is_open = $argsObj->is_open;
