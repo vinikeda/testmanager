@@ -36,8 +36,8 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 		observe(text, 'drop',    delayedResize);
 		observe(text, 'keydown', delayedResize);
 
-		text.focus();
-		text.select();
+		//text.focus();
+		//text.select();
 		resize();
 	}
 </script> 

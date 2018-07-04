@@ -2661,7 +2661,8 @@ class tlTestPlanMetrics extends testplan
     (SELECT max(id) as id, status, build_id , tcversion_id, testplan_id FROM `executions` where testplan_id = ".$id." group by build_id, tcversion_id)
     
     c on (b.id = c.build_id and a.tcversion_id = c.tcversion_id and a.testplan_id = c.testplan_id) inner join tcversions d on (a.tcversion_id = d.id) inner join nodes_hierarchy f on ( a.tcversion_id = f.id) inner join nodes_hierarchy g on (g.id = f.parent_id) inner join nodes_hierarchy h on (h.id = g.parent_id)
-    WHERE a.testplan_id =".$id." GROUP BY b.id,c.status";
+    WHERE a.testplan_id =".$id." and b.active = 1 and b.is_open = 1 and d.active = 1"
+            . " GROUP BY b.id,c.status";
 	$dummy = (array)$this->db->get_recordset($sql,'build_id');
 	$sql = "SELECT e.name as testplan_name FROM nodes_hierarchy e WHERE e.id = ".$id;
 	$testplan_name = (array)$this->db->get_recordset($sql,'testplan_name');
@@ -2673,13 +2674,51 @@ class tlTestPlanMetrics extends testplan
 		$total[$elem['build_id']] =0;//+=$elem['exec_qty'];tinha criado esse loop para evitar problemas com nulos no $total[$elem['build_id']]+=$elem['exec_qty']; mas acabei não precisando o que inclusive melhorou bastante a performance
 	}*/
 	//print_r($total);
-	$conversion['satanas'] = "falso";
 	foreach($dummy as $code => $elem){
 		$conversion[$elem['build_id']]['platform_name'] ='<a href = "/testlink/lib/results/printDocument.php?level=testsuite&id='.$elem['testsuite_id'].'&type=testreport_onbuild&docTestPlanId='.$id.'&header=y&summary=y&toc=y&body=y&passfail=y&cfields=y&metrics=y&author=y&keyword=y&notes=y&headerNumbering=y&build_cfields=y&step_exec_notes=y&step_exec_status=y&format=0&build_id='.$elem['build_id'].'&with_user_assignment=0" target="_blank">'.$elem['name']."</a>";
 		$status = array();
 		if ($elem['status'] == ''){
 			$conversion[$elem['build_id']]['not_run']=$elem['exec_qty'];
-			$conversion['satanas'] = "foi";
+		}else if($elem['status']== "not_run")$conversion[$elem['build_id']]['not_run2']=$elem['exec_qty'];
+		else{
+			$conversion[$elem['build_id']][$stat[$elem['status']]]=$elem['exec_qty'];
+		}
+		$total[$elem['build_id']]+=$elem['exec_qty'];
+		$conversion[$elem['build_id']]['total'] = $total[$elem['build_id']];
+		$conversion[$elem['build_id']]['active'] = $total[$elem['build_id']];//como a métrica é apenas dos casos de teste ativos e até a querie filtra apenas por eles. isso não está errado. seria melhor não ter que apresentar esse campo. mas por hora vou deixar desse jeito mesmo.
+		$conversion[$elem['build_id']]['executed'] = $conversion[$elem['build_id']]['total']-$conversion[$elem['build_id']]['not_run'];//isso eu fiz só porque o campo é necessário no metricsdashboard2.php. por mim deixava ser calculado na hora desse mesmo jeito.
+		$conversion[$elem['build_id']]['tplan_name'] = $testplan_name[0]['testplan_name'];//$elem['testplan_name'];
+		$conversion[$elem['build_id']]['testsuite'] = $elem['testsuite_id'];
+	}//echo $id." - ";//print_r($conversion);
+	return $conversion;
+  }
+  
+    function getExecStatusPerBuildPast($id, $filters=null, $opt=null){
+    $sql = "
+	SELECT a.tcversion_id as testcase, b.id as build_id, c.id,c.status as status , b.name as name ,count(a.tcversion_id)AS exec_qty, h.id as testsuite_id
+    FROM testplan_tcversions a inner join builds b on (a.testplan_id = b.testplan_id)  left join 
+    
+    (SELECT max(id) as id, status, build_id , tcversion_id, testplan_id FROM `executions` where testplan_id = ".$id." group by build_id, tcversion_id)
+    
+    c on (b.id = c.build_id and a.tcversion_id = c.tcversion_id and a.testplan_id = c.testplan_id) inner join tcversions d on (a.tcversion_id = d.id) inner join nodes_hierarchy f on ( a.tcversion_id = f.id) inner join nodes_hierarchy g on (g.id = f.parent_id) inner join nodes_hierarchy h on (h.id = g.parent_id)
+    WHERE a.testplan_id =".$id.""
+            . " GROUP BY b.id,c.status";
+	$dummy = (array)$this->db->get_recordset($sql,'build_id');
+	$sql = "SELECT e.name as testplan_name FROM nodes_hierarchy e WHERE e.id = ".$id;
+	$testplan_name = (array)$this->db->get_recordset($sql,'testplan_name');
+	$conversion;
+	$total;
+	$stat = array_flip($this->map_tc_status);
+	/*foreach($dummy as $code => $elem){
+		//if(!isset($conversion[$elem['build_id']]['status']))$status[$elem['build_id']] = $this->createEmptyStatusArray();
+		$total[$elem['build_id']] =0;//+=$elem['exec_qty'];tinha criado esse loop para evitar problemas com nulos no $total[$elem['build_id']]+=$elem['exec_qty']; mas acabei não precisando o que inclusive melhorou bastante a performance
+	}*/
+	//print_r($total);
+	foreach($dummy as $code => $elem){
+		$conversion[$elem['build_id']]['platform_name'] ='<a href = "/testlink/lib/results/printDocument.php?level=testsuite&id='.$elem['testsuite_id'].'&type=testreport_onbuild&docTestPlanId='.$id.'&header=y&summary=y&toc=y&body=y&passfail=y&cfields=y&metrics=y&author=y&keyword=y&notes=y&headerNumbering=y&build_cfields=y&step_exec_notes=y&step_exec_status=y&format=0&build_id='.$elem['build_id'].'&with_user_assignment=0" target="_blank">'.$elem['name']."</a>";
+		$status = array();
+		if ($elem['status'] == ''){
+			$conversion[$elem['build_id']]['not_run']=$elem['exec_qty'];
 		}else if($elem['status']== "not_run")$conversion[$elem['build_id']]['not_run2']=$elem['exec_qty'];
 		else{
 			$conversion[$elem['build_id']][$stat[$elem['status']]]=$elem['exec_qty'];
@@ -2812,7 +2851,7 @@ class tlTestPlanMetrics extends testplan
     
     function getExplainedBuildsBySub($id,$subName){
       $sql ="select id, cname, SUBSTRING_INDEX(cname,'-',1) sub_adquirente, SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1) solucao, trim(BOTH '-' FROM substring_index(SUBSTRING_INDEX(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1),-1)) roteiro, substring_index (cname,substring_index(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),-1)ciclo, testplan_id from ( select id, replace(replace(name,'–','-'),'PRÉ-CICLO','PRÉ CICLO')cname, creation_ts,testplan_id from ( SELECT * FROM `builds` where testplan_id in ( SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id))conts where /*filtrando pela whitelist dos projetos de testes. testplan_id in (SELECT id FROM `nodes_hierarchy` where parent_id in(1,2252,34704,17972,24546,32883)) and*//*filtrando os ultimos 6 meses*/ date(creation_ts) > '2017-6-1' /*blacklist dos casos inválidos*/ and ( upper(name) not like('%DUMMY%') AND UPPER(name)not like('%DEBUG%') AND UPPER(name) not like('%N/A%'))) clean_build order by sub_adquirente,1 desc";
-      $dummy = (array)$this->db->get_recordset($sql);
+      $dummy = (array)$this->db->get_recordset($sql);//echo $sql;
       return($dummy);
   }
   
@@ -2821,5 +2860,71 @@ class tlTestPlanMetrics extends testplan
 	$stat = array_flip($this->map_tc_status);
 	foreach($stat as $code => $elem)$stat[$code]= 0;
 	return $stat;
+  }
+  //nem sei se essa funação realmente deveria estar aqui. mas vou deixa-la aqui por comodidade no uso.
+  function getAllExplainedBuildsPerProject($id,$getActive = 1){
+      $sql = "SELECT distinct
+        builds.id build_id,
+        @cname :=replace(replace(builds.name,'–','-'),'PRÉ-CICLO','PRÉ CICLO') cname,
+        SUBSTRING_INDEX(@cname,'-',1) sub_adquirente ,
+        SUBSTRING_INDEX(SUBSTRING_INDEX(@cname,'-',2),'-',-1) solucao, 
+        trim(BOTH '-' FROM substring_index(SUBSTRING_INDEX(@cname,SUBSTRING_INDEX(substring(@cname,1,instr(@cname,'CICLO')),'-',-1),1),SUBSTRING_INDEX(SUBSTRING_INDEX(@cname,'-',2),'-',-1),-1)) roteiro,
+        substring_index (@cname,substring_index(@cname,SUBSTRING_INDEX(substring(@cname,1,instr(@cname,'CICLO')),'-',-1),1),-1)ciclo,
+        a.id tplan_id, b.parent_id tproject_id
+        FROM 
+                `builds` 
+                inner join `testplans` a on (builds.testplan_id = a.id)
+                inner join nodes_hierarchy b on (a.id = b.id)
+            inner join testplans c on( SUBSTRING_INDEX(b.name,'-',1) = SUBSTRING_INDEX(replace(builds.name,'–','-'),'-',1))
+        where 
+                b.parent_id = $id  and builds.active = $getActive and builds.is_open = $getActive
+      and ( upper(builds.name) not like('%DUMMY%') AND UPPER(builds.name)not like('%DEBUG%') AND UPPER(builds.name) not like('%N/A%'))";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return($dummy);
+  }
+  
+  function getOrganizedBuilds($id, $getActive = 1){
+      $list = $this->getAllExplainedBuildsPerProject($id, $getActive);
+      $oList;
+      foreach($list as $build){
+          $oList[$build['sub_adquirente']][$build['solucao']][] = $build;
+      }
+      return $oList;
+  }
+  function getExecutionsByOrganizedBuilds($tprojectID, $getActive = 1){
+      $list = $this->getAllExplainedBuildsPerProject($tprojectID,$getActive);
+      $oList;
+      foreach($list as $build){
+          $build['status'] = $this->getExecutionsStatus($build['build_id']);
+          $oList[$build['sub_adquirente']][$build['solucao']][$build['roteiro']] = $build;
+          
+      }//var_dump(array_flip($this->map_tc_status));
+      return $oList;
+  }
+  function getExecutionsStatus($idBuild){
+      $sql ="select testplan_id from builds where id = $idBuild";
+      $tplan = (array)$this->db->get_recordset($sql);//var_dump($tplan);
+      $idtplan = $tplan[0]['testplan_id'];
+      $sql = "select status, count(tt.id) qtd from testplan_tcversions tt left join (
+    select * from executions exei where 
+        exei.id in (
+            SELECT max(id) FROM `executions` group by build_id,tcversion_id 
+        ) and exei.build_id = $idBuild
+)exe on (tt.testplan_id = exe.testplan_id and tt.tcversion_id = exe.tcversion_id)
+where tt.testplan_id = $idtplan
+group by status";
+      $dummy = (array)$this->db->get_recordset($sql);
+      
+      $temp = $this->createEmptyStatusArray();
+      foreach($dummy as $exec){
+          $temp[$exec['status'] == ''? 'n' : $exec['status']] = $exec['qtd'];
+      }
+      //var_dump($temp);
+      return($temp);
+  }
+  function getTotalexec ($id){
+      $sql = "select count(id) qtd from testplan_tcversions where testplan_id = $id";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return $dummy[0]['qtd'];
   }
 }
