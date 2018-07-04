@@ -25,7 +25,7 @@ $gsmarty_attachments
 
 {lang_get var='labels'
           s='title_upload_attachment,enter_attachment_title,btn_upload_file,warning,attachment_title,
-             display_inline,local_file,attachment_upload_ok,title_choose_local_file,btn_cancel,max_size_file_upload'}
+             display_inline,local_file,attachment_upload_ok,title_choose_local_file,btn_cancel,max_size_file_upload,attachments'}
 
 {lang_get s='warning_delete_attachment' var="warning_msg"}
 {lang_get s='delete' var="del_msgbox_title"}
@@ -58,8 +58,12 @@ var warning_delete_attachment = "{lang_get s='warning_delete_attachment'}";
 {if $gsmarty_attachments->enabled && $attach_show_upload_btn}
   {if $attach_show_upload_btn && !$attach_downloadOnly}
   <div  class="importArchives">
+	<h4 style="color: #5C1111;"><b>{$labels.attachments}</b></h4>
+	<br>
       <label for="uploadedFile_[{$attach_id}]" class="labelHolder">{$labels.local_file} </label>
       <img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+	  <br>
+	  <br>
         <input type="file" name="uploadedFile[{$attach_id}][]" id="uploadedFile_{$attach_id}" multiple 
                size="{#UPLOAD_FILENAME_SIZE#}" />
         &nbsp;&nbsp;&nbsp;&nbsp;

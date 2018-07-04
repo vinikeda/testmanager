@@ -16,26 +16,33 @@ Author : franciscom
         {$radio_id_prefix = "statusSingle"}
       {/if}
 
-<table class="">
+
+<div id="notes" style="font-size: 15px; color: #5C1111; margin: 17px;">{$args_labels.test_exec_notes} <br>{$args_webeditor} </div>           
+<br>			
+<table class="" style="margin: 17px; width: 99%;">
     <tr>
-        <td style="text-align: center;">
-            <div class="title">{$args_labels.test_exec_notes}</div>
-            {$args_webeditor} 
+	<form>
+        <td valign="top" style="width: 33%;">
+            <div class="resultBox" style="height: 350px;">
+				{include file="attachments_simple.inc.tpl"}		
+				
+			</div>
+             
         </td>
-        <td>
+        <td valign="top" style="width: 33%;">
             
                 {include file="execute/issuesMenu.tpl"}
             
         </td>
-  	<td valign="top" style="width: 30%;">
+		<td valign="top" style="width: 33%;">
             {* status of test *}
             <div class="title" style="text-align: center;">
                 {if $args_save_type == 'bulk'} {$args_labels.test_exec_result} {else} {/if}
             </div>
 
-            <div class="resultBox">
+            <div class="resultBox" style="height: 350px;line-height: 1.5;">
                 {if $args_save_type == 'bulk'}
-                    {foreach key=verbose_status item=locale_status from=$tlCfg->results.status_label_for_exec_ui}
+                    {foreach key=verbose_status item=locale_status from=$tlCfg->results.status_label_for_exec_ui}<br/>
                         <input type="radio" {$args_input_enable_mgmt} name="{$radio_id_prefix}[{$args_tcversion_id}]" 
                             id="{$radio_id_prefix}_{$args_tcversion_id}_{$ResultsStatusCode.$verbose_status}" 
                             value="{$ResultsStatusCode.$verbose_status}"
@@ -103,25 +110,27 @@ Author : franciscom
                         <input type="checkbox" name="copyIssues[{$args_tcversion_id}]" id="copyIssues" 
                         {if $tlCfg->exec_cfg->copyLatestExecIssues->default} checked {/if}>
                     {/if}
-
-
-                    <input type="submit" name="save_results[{$args_tcversion_id}]" 
+					<p></p>
+				    
+            </div>
+			<button type="submit" name="save_results[{$args_tcversion_id}]" 					
     		 	{$args_input_enable_mgmt}
                         onclick="document.getElementById('save_button_clicked').value={$args_tcversion_id};return checkSubmitForStatusCombo('statusSingle_{$tcversion_id}','{$ResultsStatusCode.not_run}')"
-    		 	value="{$args_labels.btn_save_tc_exec_results}" />
+    		 	value="{$args_labels.btn_save_tc_exec_results}"> {$args_labels.btn_save_tc_exec_results}</button>
     		 			         
-                    <input type="submit" name="save_and_next[{$args_tcversion_id}]" 
+                    <button type="submit" name="save_and_next[{$args_tcversion_id}]" 
     		 	{$args_input_enable_mgmt}
                         onclick="document.getElementById('save_button_clicked').value={$args_tcversion_id};return checkSubmitForStatusCombo('{$ResultsStatusCode.not_run}')"
-    		 	value="{$args_labels.btn_save_exec_and_movetonext}" />
+    		 	value="{$args_labels.btn_save_exec_and_movetonext}"> {$args_labels.btn_save_exec_and_movetonext}</button>
 
     		{else}
-     	    	    <input type="submit" id="do_bulk_save" name="do_bulk_save"
-      	    	             value="{$args_labels.btn_save_tc_exec_results}"/>
+     	    	    <button type="submit" id="do_bulk_save" name="do_bulk_save"
+      	    	             value="{$args_labels.btn_save_tc_exec_results}">{$args_labels.btn_save_tc_exec_results}</button>
 
-    		{/if}       
-            </div>
+    		{/if}  
+			
     	</td>
+		
     </tr>
     {if $args_save_type == 'bulk' && $args_execution_time_cfields != ''}
         <tr>
@@ -168,7 +177,7 @@ Author : franciscom
 
     <tr>
         <td colspan="2">
-            {if $gui->issueTrackerMetaData != ''}
+            {if $gui->issueTrackerMetaData != ''} 
                 <p>
                     {if $gui->issueTrackerMetaData.issueTypes != ''}
                         <label for="issueType">{$labels.issueType}</label>
@@ -216,7 +225,7 @@ Author : franciscom
                        <select class="chosen-select-artifact" data-placeholder=" " id="artifactComponent" 
                                {if $gui->issueTrackerMetaData.components.isMultiSelect}
                                  name="artifactComponent[]" size="2" multiple
-                               {else}
+								 {else}
                                  name="artifactComponent"
                                {/if} 
                                >
@@ -241,7 +250,7 @@ Author : franciscom
 </table>
       
 <br>
-<div class="messages" style="align:center;">
+<div class="messages" style="align:center; margin: 17px; text-align: center;">
     {$args_labels.exec_not_run_result_note}
 </div>
 

@@ -17,6 +17,12 @@ tradução dos hexadecimais das cores:
 
 *//*NUM VAI*/
 
+#notes > textarea{
+	width: 100%; 
+	height: 150px;
+	color: black;
+}
+	
 table.exec_history>tbody>tr{
 	background: #f9ecdb !important;
 }
@@ -41,6 +47,8 @@ div.x-tl-panel-header{
 }
 div.messages{
 	background:#5C1111;
+	align: center;
+	text-align: center;
 }
 div.exec_tc_title{
 	background:#f9ecdb;
@@ -124,6 +132,7 @@ table.smallGrey{
 }
 /*table.exec_history td,*/table.exec_history{
 	background:#f9ecdb;
+	border: 1px solid black;
 	
 }
 table.exec_history th, div.x-tl-panel-header,table.mainTable-x th{
@@ -172,10 +181,7 @@ table.x-btn-over{
 .importArchives{
 	text-align:left;
 	margin:3px;
-	background:#f9ecdb;
 	padding: 3px 3px 3px 3px;
-	border-style: groove;
-	border-width: thin;
 }
 #selectTestplan{
 	width:100%;

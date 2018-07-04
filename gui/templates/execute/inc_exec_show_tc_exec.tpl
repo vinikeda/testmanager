@@ -501,7 +501,7 @@ var getExecTime = function(){
     {if $tc_exec.active eq 0}
      <h1 class="title"><center>{$labels.testcase_version_is_inactive_on_exec}</center></h1>
     {/if}
-  <hr />
+  <hr style="border: 1px solid #666666"/>
   </div>
   {* ----------------------------------------------------------------------------------- *}
 

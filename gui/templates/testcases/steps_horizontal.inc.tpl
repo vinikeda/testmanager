@@ -206,7 +206,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
     {/if}
    
   </tr>
-  {if $inExec && $gui->tlCanCreateIssue} 
+{*  {if $inExec && $gui->tlCanCreateIssue} 
     <tr>
       <td colspan=6>
       {include file="execute/issue_inputs_on_step.inc.tpl"
@@ -215,11 +215,11 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
       </td>
     </tr> 
   {/if}
-
+*}
   {if $gui->allowStepAttachments && $att_ena}
     <tr>
       <td colspan=6>
-      {include file="attachments_simple.inc.tpl" attach_id=$step_info.id}
+	  <hr style="border: 1px solid #666666"/>
       </td>
     </tr> 
   {/if} 
@@ -229,18 +229,18 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
   {/if}
 
     {$rCount=$row+$step_info.step_number}
-    {if ($rCount < $rowCount) && ($rowCount>=1)}
+{*    {if ($rCount < $rowCount) && ($rowCount>=1)}
       <tr width="100%">
         {if $session['testprojectOptions']->automationEnabled}
         <td colspan=6>
         {else}
         <td colspan=5>
         {/if}
-        <hr align="center" width="100%" color="grey" size="1">
-        </td>
+		</tr>
+		</td>
       </tr>
     {/if}
-
+*}
   {/foreach}  {* ----- show Test Suite data --------------------------------------------- *}
 
 <!-- termina aqui o steps_horizontal.inc.tpl -->
