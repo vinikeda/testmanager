@@ -830,9 +830,15 @@ function templateConfiguration($template2get=null)
   }
   
   $path_parts=explode("/",dirname($_SERVER['SCRIPT_NAME']));
-    $last_part=array_pop($path_parts);
+  $last_part="";
+  $dir = array_pop($path_parts);
+  while($dir!="lib" && $dir!="testlink"){
+      //var_dump($dir);
+      $last_part=$dir.'/'.$last_part;
+      $dir = array_pop($path_parts);
+  }
     $tcfg = new stdClass();
-    $tcfg->template_dir = "{$last_part}/";
+    $tcfg->template_dir = $last_part;//"{$last_part}/";
     $tcfg->default_template = isset($custom_templates[$access_key]) ? $custom_templates[$access_key] : ($access_key . '.tpl');
     $tcfg->template = null;
     return $tcfg;

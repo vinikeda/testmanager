@@ -331,15 +331,16 @@ else
   }  
   initWebEditors($gui,$cfg,$_SESSION['basehref']);
   setupIssues($gui,$db);
+  $gui->projectLists = $args->projectLists;
+  //$gui->projectsList = $_SESSION['projectsID'];
   // To silence smarty errors
   //  future must be initialized in a right way
   $smarty->assign('test_automation_enabled',0);
   $smarty->assign('gui',$gui);
   $smarty->assign('cfg',$cfg);
-  $smarty->assign('users',tlUser::getByIDs($db,$userSet,'id'));//echo $templateCfg->template_dir . $templateCfg->default_template;
+  $smarty->assign('users',tlUser::getByIDs($db,$userSet,'id'));//echo $templateCfg->template_dir . $templateCfg->default_templ ate;
   $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
-} 
-
+}
 /*
   function: 
 
@@ -489,6 +490,11 @@ function init_args(&$dbHandler,$cfgObj)
 
   $tproject_mgr = new testproject($dbHandler);
   $info = $tproject_mgr->get_by_id($args->tproject_id);
+  $args->projectLists = $tproject_mgr->get_accessible_for_user($args->user->dbID,
+                                                        array('output' => 'map_name_with_inactive_mark',
+                                                                  'field_set' => null,
+                                                                 'order_by' => null));
+   
   unset($tproject_mgr);  
   $bug_summary['minLengh'] = 1; 
   $bug_summary['maxLengh'] = 1; 

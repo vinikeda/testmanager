@@ -1,5 +1,4 @@
 <?php
-function batata() {var_dump('troslei');}
 class categories {
 	public $db = null;
 	function __construct(&$db){
@@ -69,7 +68,6 @@ class categories {
             foreach ($temp as $b){
                     $a[$b['id']] = $b['name'];
             }
-            $a[0]='todos';
             return $a;
         }
 }

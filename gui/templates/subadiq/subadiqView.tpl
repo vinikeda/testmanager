@@ -12,7 +12,7 @@ Purpose: smarty template - Show existing builds
 
 {* Configure Actions *}
 {$managerURL="lib/subadiq/subadiqEdit.php"}
-{$editAction="$managerURL?do_action=edit&amp;sub_adquirenteID="}
+{$editAction="$managerURL?do_action=edit&sub_adquirenteID="}
 {$deleteAction="$managerURL?do_action=do_delete&sub_adquirenteID="}
 {$createAction="$managerURL?do_action=create"}
 

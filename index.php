@@ -90,7 +90,8 @@ function initEnv()
   $pParams = G_PARAMS($iParams);
   
   $args = new stdClass();
-  $args->reqURI = ($pParams["reqURI"] != '') ? $pParams["reqURI"] : 'lib/general/mainPage.php';
+  //$args->reqURI = ($pParams["reqURI"] != '') ? $pParams["reqURI"] : 'lib/general/mainPage.php';
+  $args->reqURI = '../portal.php';
   $args->tproject_id = isset($_REQUEST['tproject_id']) ? intval($_REQUEST['tproject_id']) : 0;
   $args->tplan_id = isset($_REQUEST['tplan_id']) ? intval($_REQUEST['tplan_id']) : 0;
 
@@ -102,3 +103,5 @@ function initEnv()
 
   return array($args,$gui);
 }
+
+echo "<script> console.log('".strlen( serialize( $_SESSION ) )."');</script>";
