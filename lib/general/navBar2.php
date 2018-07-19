@@ -43,9 +43,9 @@ function initNavBar(){
 		$gui->searchSize = tlStringLen($gui->tcasePrefix) + $gui_cfg->dynamic_quick_tcase_search_input_size;
 	}
 	$gui->TestProjects = $tproject_mgr->get_accessible_for_user($args->user->dbID,
-																array('output' => 'map_name_with_inactive_mark',
-																	  'field_set' => $tlCfg->gui->tprojects_combo_format,
-																	  'order_by' => ' order by name'));//$tlCfg->gui->tprojects_combo_order_by
+                                                                    array('output' => 'map_name_with_inactive_mark',
+                                                                              'field_set' => $tlCfg->gui->tprojects_combo_format,
+                                                                              'order_by' => ' order by name'));
 
 
 
@@ -146,9 +146,9 @@ function initNavBar(){
 	//echo $_SESSION['sub_adquirenteID'];
 	$gui->subadiqID = $_SESSION['sub_adquirenteID'];
 	$_SESSION['sub_adquirenteID']= ($_SESSION['sub_adquirenteID']==null)?0:$_SESSION['sub_adquirenteID'];
-	//$arrPlans = $currentUser->getAccessibleTestPlans($db,$testprojectID);//var_dump($currentUser);
+	$arrPlans = $currentUser->getAccessibleTestPlans($db,$testprojectID);//var_dump($currentUser);
         //var_dump($currentUser->getAccessibleTestPlans($db,$testprojectID),$testprojectID);
-	$arrPlans = $currentUser->getAccessibleTestPlansFilteringBySubadiq($db,$testprojectID,$_SESSION['sub_adquirenteID']);//var_dump($currentUser);
+	//$arrPlans = $currentUser->getAccessibleTestPlansFilteringBySubadiq($db,$testprojectID,$_SESSION['sub_adquirenteID']);//var_dump($currentUser);
 	if($currentUser->getEffectiveRole($testprojectID)->dbID == 8){//se for admin pode ver os sub_adquirentes vazios
 		$subadiq_mgr = new subadiq_mgr($db);//echo $testprojectID;
 		$temp = $subadiq_mgr->get_empty_subadiqs($testprojectID);

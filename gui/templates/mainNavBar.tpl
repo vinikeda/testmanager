@@ -191,7 +191,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 			</form>
 		{/if}
 		
-		{if $gui->subadiq != ""}
+		{*if $gui->subadiq != ""}
 			<form class="form-inline" name="productForm" action="index.php?viewer={$gui->viewer}" method="get">
 				<select id="sub_adquirenteID" class="form-control" name="sub_adquirenteID" onchange="this.form.submit();" style="width:100%;">
 					{foreach key=tproject_id item=tproject_name from=$gui->subadiq}
@@ -202,7 +202,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 					{/foreach}
 				</select>
 			</form>
-		{/if}
+		{/if*}
 		
 		{if $gui->num_active_tplans > 0}		
 			{lang_get s='help' var='common_prefix'}

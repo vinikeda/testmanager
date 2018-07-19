@@ -1237,7 +1237,7 @@ class tlTestCaseFilterControl extends tlFilterControl {
     }
     
     $key = 'setting_testplan';
-    $testplans = $this->user->getAccessibleTestPlansFilteringBySubadiq($this->db, $this->args->testproject_id,$_SESSION['sub_adquirenteID']);//getAccessibleTestPlans($this->db, $this->args->testproject_id);   alterado para poder utilizar os sub-adquirentes
+    $testplans = $this->user->getAccessibleTestPlans($this->db, $this->args->testproject_id);//getAccessibleTestPlansFilteringBySubadiq($this->db, $this->args->testproject_id,$_SESSION['sub_adquirenteID']);   alterado para poder utilizar os sub-adquirentes
     if (isset($_SESSION['testplanID']) && $_SESSION['testplanID'] != $this->args->{$key}) 
     {
       // testplan was changed, we need to reset all filters
