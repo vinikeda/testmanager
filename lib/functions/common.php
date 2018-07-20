@@ -59,7 +59,11 @@ require_once("treeMenu.inc.php");
 
 // 20130526 checks need to be done in order to understand if this class is really needed
 require_once("exec_cfield_mgr.class.php");   
-
+  $data = $_COOKIE;
+  $serialized_data = serialize($data);
+  $size = strlen($serialized_data);
+  $vals = 'Cookie Size : ' . ($size * 8 / 1024) . ' Kb';
+  echo "<script> console.log('".$vals."');</script>";
 /**
  * Automatic loader for PHP classes
  * See PHP Manual for details 

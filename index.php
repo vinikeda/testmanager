@@ -104,4 +104,4 @@ function initEnv()
   return array($args,$gui);
 }
 
-echo "<script> console.log('".strlen( serialize( $_SESSION ) )."');</script>";
+//echo "<script> console.log('".strlen( serialize( $_SESSION ) )."');</script>";

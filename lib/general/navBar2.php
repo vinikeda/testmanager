@@ -30,7 +30,7 @@ function initNavBar(){
 	$gui_cfg = config_get("gui");
 	//print_r(config_get('guiTopMenu'));
 	$gui->tprojectID = intval(isset($_SESSION['testprojectID']) ? $_SESSION['testprojectID'] : 0);
-	if(isset($args->sub_adquirenteID)) $_SESSION['sub_adquirenteID'] = intval($args->sub_adquirenteID);
+	//if(isset($args->sub_adquirenteID)) $_SESSION['sub_adquirenteID'] = intval($args->sub_adquirenteID);
 	
 	//$gui->subadiqID = $_SESSION['sub_adquirenteID'];
 	$testprojectID = $gui->tprojectID;
@@ -131,9 +131,9 @@ function initNavBar(){
 	$gui->num_active_tplans = $tproject_mgr->getActiveTestPlansCount($testprojectID);
 	$currentUser = $_SESSION['currentUser'];
 	
-	$subadiq = $currentUser->getAccessibleSub_adquirentes($db,$testprojectID);
+	//$subadiq = $currentUser->getAccessibleSub_adquirentes($db,$testprojectID);
 //var_dump($subadiq);
-	if(!isset($_SESSION['sub_adquirenteID']) || $_SESSION['sub_adquirenteID'] == null){//uma gambiarra para selecionar o primeiro sub adquirente caso não exista um definido na sessão ou se o definido na sessão não está presente na lista.
+	/*if(!isset($_SESSION['sub_adquirenteID']) || $_SESSION['sub_adquirenteID'] == null){//uma gambiarra para selecionar o primeiro sub adquirente caso não exista um definido na sessão ou se o definido na sessão não está presente na lista.
 		foreach($subadiq as $chave=>&$valor){
 			$_SESSION['sub_adquirenteID'] = $chave;break;
 		}
@@ -142,20 +142,18 @@ function initNavBar(){
 		foreach($subadiq as $chave=>&$valor){
 			$_SESSION['sub_adquirenteID'] = $chave;break;
 		}		
-	}//var_dump($subadiq);
+	}*///var_dump($subadiq);
 	//echo $_SESSION['sub_adquirenteID'];
-	$gui->subadiqID = $_SESSION['sub_adquirenteID'];
-	$_SESSION['sub_adquirenteID']= ($_SESSION['sub_adquirenteID']==null)?0:$_SESSION['sub_adquirenteID'];
+	/*$gui->subadiqID = $_SESSION['sub_adquirenteID'];
+	$_SESSION['sub_adquirenteID']= ($_SESSION['sub_adquirenteID']==null)?0:$_SESSION['sub_adquirenteID'];*/
 	$arrPlans = $currentUser->getAccessibleTestPlans($db,$testprojectID);//var_dump($currentUser);
         //var_dump($currentUser->getAccessibleTestPlans($db,$testprojectID),$testprojectID);
 	//$arrPlans = $currentUser->getAccessibleTestPlansFilteringBySubadiq($db,$testprojectID,$_SESSION['sub_adquirenteID']);//var_dump($currentUser);
-	if($currentUser->getEffectiveRole($testprojectID)->dbID == 8){//se for admin pode ver os sub_adquirentes vazios
+	/*if($currentUser->getEffectiveRole($testprojectID)->dbID == 8){//se for admin pode ver os sub_adquirentes vazios
 		$subadiq_mgr = new subadiq_mgr($db);//echo $testprojectID;
 		$temp = $subadiq_mgr->get_empty_subadiqs($testprojectID);
 		if($temp != null) foreach($temp as $key=>$value)$subadiq[$key]= $value;
-		/*var_dump($temp);
-		var_dump($subadiq);*/
-	}//echo ;
+	}*///echo ;
 	if($testplanID > 0)
 	{
 		// if this test plan is present on $arrPlans
@@ -184,7 +182,7 @@ function initNavBar(){
 	  $arrPlans[$index]['selected']=1;
 	}
 	//echo $currentUser->getSub_adquirentesID($testplanID);//'tplID: '.$testplanID;//if($testplanID)$gui->subadiqID = $currentUser->getSub_adquirentesID($testplanID);
-	$gui->subadiq = $subadiq;
+	//$gui->subadiq = $subadiq;
 	$gui->arrPlans = $arrPlans;                   
 	$gui->countPlans = count($gui->arrPlans);
 	$gui->testplanRole = null;
