@@ -380,7 +380,7 @@ function renderGui(&$smartyObj,&$argsObj,&$tplanMgr,$templateCfg,$owebeditor,&$g
       
       // Attention this is affected by changes in templates
       $macros = new macros($tplanMgr->db);
-      $guiObj->macros = ($macros->getforselect());
+      $guiObj->macros = ($macros->getforselect($_SESSION['currentUser']->dbID));
         
       $guiObj->buildSet=$tplanMgr->get_builds($argsObj->tplan_id);
 

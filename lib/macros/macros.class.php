@@ -4,7 +4,7 @@ class macros {
     function __construct(&$db){
         $this->db = $db;	
     }
-    function create($name, $active, $fields, $values){
+    function create($name, $active, $fields, $values,$projects = null){
         $this->db->exec_query("insert into macro(name,active) values ('".$name."',$active)");
         $lastId = $this->db->insert_Id();
         var_dump($fields);
@@ -13,21 +13,42 @@ class macros {
             $sql = "insert into macro_values (id_cf,id_macro,value) values($field,$lastId,'$values[$key]')";
             $this->db->exec_query($sql);
         }
+        if($projects != null){
+            foreach($projects as $marker){
+                $this->addProject($lastId,$marker);				
+            }
+        }
     }
-    function update($id, $name, $fields, $values) {
+    function addProject($idIssue,$idMarker){
+        $sql = "insert into macro_project (id_tproject, id_macro) SELECT * FROM (SELECT $idMarker id_tproject, $idIssue id_macro) AS tmp WHERE NOT EXISTS ( SELECT id_tproject,id_macro FROM macro_project WHERE id_tproject = $idMarker and id_macro = $idIssue ) LIMIT 1; ";
+        $this->db->exec_query($sql);
+    }
+    function rmvProject($idIssue,$idMarker){
+        $sql = "delete from macro_project where id_tproject = $idMarker and id_macro= $idIssue";
+        $this->db->exec_query($sql);
+    }
+    function update($id, $name, $fields, $values,$projects) {
         $this->db->exec_query("update macro set name = '$name' where id = $id");
         $this->db->exec_query("delete from macro_values where id_macro = $id");
         foreach ($fields as $key=>$field){
             $sql = "insert into macro_values (id_cf,id_macro,value) values($field,$id,'$values[$key]')";
             $this->db->exec_query($sql);
         }
+        if($projects != null){
+            foreach(array_diff($this->getProjects($id),$projects) as $to_rmv)$this->rmvProject($id,$to_rmv);
+            foreach($projects as $marker){
+                $this->addProject($id,$marker);
+            }
+        }else $this->rmv_all_tprojects($id);
     }
     function delete($id) {
         $this->db->exec_query("delete from macro where id = $id");
         $this->db->exec_query("delete from macro_values where id_macro = $id");
+        $sql = "delete from macro_project where id_macro = $id";
+        $this->db->exec_query($sql);
     }
     function getdata() {
-        return $this->db->get_recordset("select id,name from macro");
+        return $this->db->get_recordset("select id,name from macro order by name");
     }
     
     function get_by_id($id) {
@@ -37,8 +58,8 @@ class macros {
         return $array;
     }
     
-    function getforselect(){
-        $sql = "select * from macro";
+    function getforselect($tproject){
+        $sql = "select m.* from macro m inner join macro_project mp on(m.id = mp.id_macro) where mp.id_tproject = $tproject";
         $temp = $this->db->get_recordset($sql);
         $a;
         foreach ($temp as $b){
@@ -81,6 +102,12 @@ class macros {
         foreach ($temp as $b){
             $a[$b['id']] = $b['label'];
         }
+        return $a;
+    }
+    function getProjects($id){
+        $temp =  $this->db->fetchRowsIntoMap("select id_tproject from macro_project where id_macro = ".intval($id),"id_tproject");
+        $a;
+        foreach ($temp as $value)$a[] = $value['id_tproject'];
         return $a;
     }
 }

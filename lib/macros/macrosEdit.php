@@ -32,7 +32,11 @@ $smarty = new TLSmarty();
 $subadiq_mgr = new Macros($db);
 $args = init_args($_REQUEST,$_SESSION);
 $gui = initializeGui($args);
-
+$tproject_mgr = new testproject($db);
+$gui->projects = $tproject_mgr->get_accessible_for_user($args->user->dbID,
+                                                        array('output' => 'map_name_with_inactive_mark',
+                                                                  'field_set' => null,
+                                                                  'order_by' => null));
 /*$of = web_editor('notes',$_SESSION['basehref'],$editorCfg);
 $of->Value = getItemTemplateContents('build_template', $of->InstanceName, $args->notes);*/
 
@@ -117,6 +121,7 @@ function init_args($request_hash, $session_hash)
   }
   $args->markersID = $request_hash['cfSelected'];
   $args->cfvalues = $request_hash['cfValue'];
+  $args->projectsID = $request_hash['projectsID'];
   //var_dump($request_hash);
   $args->userID = intval($session_hash['userID']);
 
@@ -172,6 +177,8 @@ function edit(&$argsObj,&$subadiq_mgr)
         $argsObj->markersID[] = $cf['id_cf'];
         $argsObj->cfValue[] = $cf['value'];
   }
+  
+  $argsObj->projectsID = $subadiq_mgr->getProjects($argsObj->markerID);
   //$argsObj->release_date = $binfo['release_date'];
 
   /*if( $binfo['closed_on_date'] == '')
@@ -301,6 +308,7 @@ function renderGui(&$smartyObj,&$argsObj,&$subadiq_mgr,$templateCfg/*,$owebedito
         //var_dump($subadiq_mgr->getBlankField());
         //var_dump($guiObj->ids);
         //$guiObj->Values = $argsObj->cfValue;var_dump($guiObj->Values);
+      $guiObj->selectedProjects = $argsObj->projectsID;
         $guiObj->subadiq_name = $argsObj->subadiq_name;
         $guiObj->is_active = $argsObj->is_active;
         $guiObj->is_open = $argsObj->is_open;
@@ -332,7 +340,7 @@ function doCreate(&$argsObj,&$subadiq_mgr)
   $op->buttonCfg = null;
   $targetDate=null;
     $user_feedback = lang_get("cannot_add_build");    //var_dump($argsObj->cfvalues);
-    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,1,$argsObj->markersID,$argsObj->cfvalues);
+    $buildID = $subadiq_mgr->create($argsObj->subadiq_name,1,$argsObj->markersID,$argsObj->cfvalues, $argsObj->projectsID);
     if ($buildID)
     {
       /*$cf_map = $buildMgr->get_linked_cfields_at_design($buildID,$argsObj->testprojectID);
@@ -382,7 +390,7 @@ function doUpdate(&$argsObj,&$subadiq_mgr/*,&$tplanMgr,$dateFormat*/)
   //$check = crossChecks($argsObj,$tplanMgr,$dateFormat);
   //if($check->status_ok){
     $user_feedback = lang_get("cannot_update_build");
-    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->markersID,$argsObj->cfvalues)/*false/**/) 
+    if ($subadiq_mgr->update($argsObj->markerID,$argsObj->subadiq_name,$argsObj->markersID,$argsObj->cfvalues, $argsObj->projectsID)/*false/**/) 
     {
       //$cf_map = $subadiq_mgr->get_linked_cfields_at_design($argsObj->markerID,$argsObj->testprojectID);
       //$subadiq_mgr->cfield_mgr->design_values_to_db($_REQUEST,$argsObj->markerID,$cf_map,null,'build');
