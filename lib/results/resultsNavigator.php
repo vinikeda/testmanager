@@ -126,7 +126,7 @@ function initializeGui(&$dbHandler,$argsObj)
   // get Accessible Test Plans for combobox
   $activeAttr = $argsObj->show_only_active_tplans ? 1 : null;
   $gui->tplans = $argsObj->user->getAccessibleTestPlans($dbHandler,$argsObj->tproject_id,null,array('output' =>'combo', 'active' => $activeAttr));//getAccessibleTestPlansFilteringBySubadiq($dbHandler,$argsObj->tproject_id,$_SESSION['sub_adquirenteID'],array('output' =>'combo', 'active' => $activeAttr));
- //print_r ($gui->tplans);
+ //var_dump($activeAttr);//print_r ($gui->tplans);
   return $gui;
 }
 

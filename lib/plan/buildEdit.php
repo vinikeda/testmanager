@@ -28,7 +28,6 @@ $op->user_feedback = '';
 $op->buttonCfg = new stdClass();
 $op->buttonCfg->name = "";
 $op->buttonCfg->value = "";
-
 $smarty = new TLSmarty();
 $tplan_mgr = new testplan($db);
 $build_mgr = new build_mgr($db);
@@ -380,7 +379,7 @@ function renderGui(&$smartyObj,&$argsObj,&$tplanMgr,$templateCfg,$owebeditor,&$g
       
       // Attention this is affected by changes in templates
       $macros = new macros($tplanMgr->db);
-      $guiObj->macros = ($macros->getforselect($_SESSION['currentUser']->dbID));
+      $guiObj->macros = ($macros->getforselect($_SESSION['testprojectID']));
         
       $guiObj->buildSet=$tplanMgr->get_builds($argsObj->tplan_id);
 

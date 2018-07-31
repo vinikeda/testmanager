@@ -2664,8 +2664,8 @@ function renderExecutionForPrinting(&$dbHandler, $baseHref, $id, $userObj = null
     $context['user'] = $userObj;
     $out .= renderTestCaseForPrinting($dbHandler,$tcase,$renderOptions,$env,$context,$indentLevel); 
 
-    $out .= '<br>' . lang_get('direct_link') . ':' .
-            $env->base_href . 'lnl.php?type=exec&id=' . intval($id) . '<br>';
+    /*$out .= '<br>' . lang_get('direct_link') . ':' .
+            $env->base_href . 'lnl.php?type=exec&id=' . intval($id) . '<br>';/**/
     $exec_info = null;    
   }  
 

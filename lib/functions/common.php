@@ -63,7 +63,7 @@ require_once("exec_cfield_mgr.class.php");
   $serialized_data = serialize($data);
   $size = strlen($serialized_data);
   $vals = 'Cookie Size : ' . ($size * 8 / 1024) . ' Kb';
-  echo "<script> console.log('".$vals."');</script>";
+  //echo "<script> console.log('".$vals."');</script>";
 /**
  * Automatic loader for PHP classes
  * See PHP Manual for details 

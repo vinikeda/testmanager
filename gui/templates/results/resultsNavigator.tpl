@@ -54,7 +54,7 @@ function pre_submit()
     <input type="checkbox" {$gui->checked_show_inactive_tplans} onclick="this.form.submit();" 
            id="show_inactive_tplans" name="show_inactive_tplans" >
     </span>
-    
+     
   </div>
 </form>
 </div>

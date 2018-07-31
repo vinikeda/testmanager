@@ -41,7 +41,7 @@ TreePanelState.prototype.init = function()
 {
     this.cp = new Ext.state.CookieProvider();
     // this.state = this.cp.get('TLExecTreePanelState_' + this.mytree.id, new Array() );
-    this.state = this.cp.get(this.cookiePrefix + this.mytree.id, new Array() );
+    //this.state = this.cp.get(this.cookiePrefix + this.mytree.id, new Array() );
 
 }
 

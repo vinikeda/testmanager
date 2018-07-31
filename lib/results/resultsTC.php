@@ -104,7 +104,7 @@ else
 $timerOff = microtime(true);
 $gui->elapsed_time = round($timerOff - $timerOn,2);
 
-$smarty->assign('gui',$gui);
+$smarty->assign('gui',$gui);//echo $templateCfg->template_dir . $tpl, $smarty, $args->format, $mailCfg;
 displayReport($templateCfg->template_dir . $tpl, $smarty, $args->format, $mailCfg);
 
 /**
@@ -173,7 +173,8 @@ function init_args(&$dbHandler)
 
   $args->user = $_SESSION['currentUser'];
   $args->basehref = $_SESSION['basehref'];
-  
+  $args->tplanIDS = $args->user->getAccessibleTestPlans($dbHandler,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));
+  //var_dump($args->tplanIDS);
   return $args;
 }
 
@@ -239,7 +240,7 @@ function buildMatrix(&$guiObj,&$argsObj)
 
   if( $guiObj->matrixCfg->buildColumns['showStatusLastExecuted'] )
   {
-    $buildSet[] = array('name' => $lbl['result_on_last_build'] . ' ' . $latestBuild->name);
+    //$buildSet[] = array('name' => $lbl['result_on_last_build'] . ' ' . $latestBuild->name);
   }
   
   foreach($buildSet as $build) 
@@ -249,9 +250,9 @@ function buildMatrix(&$guiObj,&$argsObj)
   // --------------------------------------------------------------------
   
   
-  $columns[] = array('title_key' => 'last_execution', 'type' => 'status', 'width' => 100);
+  $columns[] = array('title_key' => 'last_execution', 'type' => 'status', 'width' => 100, 'hidden' => true);
   if ($argsObj->format == FORMAT_HTML) 
-  {
+  {//var_dump($guiObj->matrix);
     $matrix = new tlExtTable($columns, $guiObj->matrix, 'tl_table_results_tc');
     
     //if platforms feature is enabled group by platform otherwise group by test suite
@@ -320,8 +321,8 @@ function initializeGui(&$dbHandler,&$argsObj,$imgSet,&$tplanMgr)
   $guiObj->platforms = $tplanMgr->getPlatforms($argsObj->tplan_id,array('outputFormat' => 'map'));
   $guiObj->show_platforms = !is_null($guiObj->platforms);
 
-  $guiObj->img = new stdClass();
-  $guiObj->img->exec = $imgSet['exec_icon'];
+  $guiObj->img = new stdClass();//var_dump($imgSet);
+  $guiObj->img->exec = $imgSet['steps'];//$imgSet['exec_icon'];
   $guiObj->img->edit = $imgSet['edit_icon'];
   $guiObj->img->history = $imgSet['history_small'];
 
@@ -329,7 +330,7 @@ function initializeGui(&$dbHandler,&$argsObj,$imgSet,&$tplanMgr)
   $guiObj->tplan_id = $argsObj->tplan_id;
 
   $guiObj->apikey = $argsObj->apikey;
-
+  $guiObj->tplans = $argsObj->tplanIDS;//var_dump($args->tplanIDS);
 
   $tproject_mgr = new testproject($dbHandler);
   $tproject_info = $tproject_mgr->get_by_id($argsObj->tproject_id);
@@ -593,8 +594,8 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
   $dlink = '<a href="' . str_replace(" ", "%20", $args->basehref) . 
            'linkto.php?tprojectPrefix=' . urlencode($args->prefix) . '&item=testcase&id=';  
 
-  $hist_img_tag = '<img title="' . $labels['history'] . '"' . ' src="' . $gui->img->history . '" /></a> ';
-  $edit_img_tag = '<img title="' . $labels['design'] . '"' . ' src="' . $gui->img->edit . '" /></a> ';
+  //$hist_img_tag = '<img title="' . $labels['history'] . '"' . ' src="' . $gui->img->history . '" /></a> ';
+  //$edit_img_tag = '<img title="' . $labels['design'] . '"' . ' src="' . $gui->img->edit . '" /></a> ';
 
   $metrics = $exec['metrics'];
   $latestExecution = $exec['latestExec'];
@@ -689,17 +690,21 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
           }
           else
           {
-            $r4build['text'] = "";
+            $r4build['text'] = "";//var_dump($gui->img);
           }  
           if ($args->format == FORMAT_HTML && $args->addOpAccess) 
           {
-            $r4build['text'] = "<a href=\"javascript:openExecutionWindow(" .
+              $execID = $rf[$buildID]['executions_id'];
+              $r4build['text'] = $labels[$rf[$buildID]['status']] .
+                                sprintf($labels['versionTag'],$rf[$buildID]['version']);
+              if($rf[$buildID]['status'] != 'n')
+             $r4build['text'] .= "    <a  onclick=\"jQuery('#Nissues').modal('show');document.getElementById('execprint').src = 'http://localhost/testlink/lib/execute/execPrint.php?id=$execID'\" ><img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a>";//data-toggle=\"modal\" data-target=\"#Nissues\"
+            /*$r4build['text'] .= "<a href=\"javascript:openExecutionWindow(" .
                                "{$tcaseID}, {$rf[$buildID]['tcversion_id']}, {$buildID}, " .
                                "{$args->tplan_id}, {$platformID});\">" .
-                                "<img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a> ";
+                                "<img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a> ";*/
 
-            $r4build['text'] .= $labels[$rf[$buildID]['status']] .
-                                sprintf($labels['versionTag'],$rf[$buildID]['version']);
+            
     
             $r4build['value'] = $rf[$buildID]['status'];
             $r4build['cssClass'] = $gui->map_status_css[$rf[$buildID]['status']];

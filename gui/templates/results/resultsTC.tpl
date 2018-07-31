@@ -53,9 +53,39 @@ show Test Results and Metrics
 {/if}
 
 <div class="workBack">
-{include file="inc_result_tproject_tplan.tpl" 
-         arg_tproject_name=$gui->tproject_name arg_tplan_name=$gui->tplan_name arg_build_set=$gui->filterFeedback}	
+{*include file="inc_result_tproject_tplan.tpl" 
+         arg_tproject_name=$gui->tproject_name arg_tplan_name=$gui->tplan_name arg_build_set=$gui->filterFeedback*}
+         <table>
+	<tr>
+		<td>{lang_get s="testproject"}</td><td>{$smarty.const.TITLE_SEP}</td>
+		<td>
+			<span style="color:black; font-weight:bold; text-decoration: underline;">{$gui->tproject_name|escape}</span>
+		</td>
+	</tr>
+  {if $gui->tplan_name != ''}
+	<tr>
+		<td>{lang_get s="testplan"}</td><td>{$smarty.const.TITLE_SEP}</td>
+		<td> 
+                    <span style="color:black; font-weight:bold; text-decoration:underline;">
+                        <form method="get">
+                            <input type="hidden" value="0" name="format">
+                            <select name="tplan_id" id="selectTestplan" onchange="this.form.submit()">
+                                {html_options options=$gui->tplans selected=$gui->tplan_id}
+                            </select>
+                        </form>
+                    </span>
+		</td>
+	</tr>
+  {/if}
 
+
+</table>
+         <form method="get">
+             <input type="hidden" value="0" name="format">
+<select name="tplan_id" id="selectTestplan" onchange="this.form.submit()">
+      {html_options options=$gui->tplans selected=$gui->tplan_id}
+    </select>
+         </form>
 {foreach from=$gui->tableSet key=idx item=matrix}
   {$tableID="table_$idx"}
   {if $idx != 0}
@@ -71,6 +101,27 @@ show Test Results and Metrics
 {$labels.generated_by_TestLink_on} {$smarty.now|date_format:$gsmarty_timestamp_format}
 <p>{$labels.elapsed_seconds} {$gui->elapsed_time}</p>
 </div>
-
+<div class="modal fade " id="Nissues">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Relatório de Execução</h4>
+            </div>
+            <div class="modal-body" >
+                <div class = "row">
+                        <iframe id="execprint" class="col-md-12" frameborder="0" scrolling="horizontal" onload="resizeIframe(this)"></iframe>
+                </div>
+                <script>
+                    function resizeIframe(obj) {
+                        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
