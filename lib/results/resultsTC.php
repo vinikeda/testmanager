@@ -224,7 +224,7 @@ function buildMatrix(&$guiObj,&$argsObj)
   }
   if($guiObj->options->testPriorityEnabled) 
   {
-    $columns[] = array('title_key' => 'priority', 'type' => 'priority', 'width' => 40);
+    $columns[] = array('title_key' => 'priority', 'type' => 'priority', 'width' => 40, 'hidden' => true);
   }
   
   // --------------------------------------------------------------------
