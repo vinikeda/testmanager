@@ -27,6 +27,8 @@ $args = init_args($db);
 $metricsMgr = new tlTestPlanMetrics($db);
 $tplan_mgr  = &$metricsMgr; // displayMemUsage('START' . __FILE__);
 
+var_dump();
+
 list($gui,$tproject_info,$labels,$cfg) = initializeGui($db,$args,$smarty->getImages(),$tplan_mgr);
 $args->cfg = $cfg;
 $mailCfg = buildMailCfg($gui); 
@@ -55,8 +57,8 @@ if( ($gui->activeBuildsQty <= $gui->matrixCfg->buildQtyLimit) || $args->do_actio
                  'getUserAssignment' => true, 
                  'getExecutionTimestamp' => true, 'getExecutionDuration' => true);
   }    
-  $execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
-
+  if(count($tplan_mgr->get_builds($args->tplan_id, 1)) >0)$execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
+  
   $metrics = $execStatus['metrics'];
   $latestExecution = $execStatus['latestExec']; 
 
@@ -753,3 +755,5 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
     }  // $tcaseSet
   } // $tsuiteSet
 }
+if(count($tplan_mgr->get_builds($args->tplan_id, 1)) <=0)
+echo '<script>alert("Sem requisições ativas");</script>';

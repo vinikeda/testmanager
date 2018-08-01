@@ -98,8 +98,8 @@ show Test Results and Metrics
 <p class="italic">{$labels.info_resultsTC_report}</p>
 <br />
 
-{$labels.generated_by_TestLink_on} {$smarty.now|date_format:$gsmarty_timestamp_format}
-<p>{$labels.elapsed_seconds} {$gui->elapsed_time}</p>
+{*{$labels.generated_by_TestLink_on} {$smarty.now|date_format:$gsmarty_timestamp_format}
+<p>{$labels.elapsed_seconds} {$gui->elapsed_time}</p>*}
 </div>
 <div class="modal fade " id="Nissues">
     <div class="modal-dialog modal-lg">

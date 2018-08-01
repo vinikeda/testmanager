@@ -1728,18 +1728,18 @@ $TLS_info_bugs_per_tc_report = "Este relatório exibe todos os bugs linkados aos
 
 // ----- gui/templates/resultsTC.tpl -----
 $TLS_info_resultsTC_report = "Esse relatório exibe os últimos resultados da execução dos testes para cada requisição. " .
-               "considerando <b> casos de teste com e sem atribuição de testador.</b> <br />" .
-                             "<br /><b>Examplo:</b><br />Os casos de teste foram executados nesta ordem: " .
-                             "<br />Requisição 1.0 - Passou; Requisição 1.0 - Falhou<br />-> Último Resultado para a Requisição 1.0 " .
-                             "é Falha porque a segunda execução sobrescreve os resultdos mais antigos.<br /><br />" .
-                             "\"[Última requisição]\" e \"Última execução\" mostra a coluna de dados de acordo " .
-                             "com este <b>examplo:</b><br />Os casos de teste foram executados nesta ordem:<br />" .
-                             "Requisição 1.0 - Passou; Requisição 1.0 - Falhou; Requisição 2.0 - Bloqueada; " .
-                             "Requisição 1.0 - Passou<br>-> [Última requisição] : Bloqueada porque a Requisição 2.0 é " .
-                             "a última Requisição criada para a qual o resultado foi definido.<br />-> \"Última Execução\" : " .
-                             "Passou porque a Requisição 1.0 foi executada por último.<br /><br />A prioridade ".
-                             "apresentada é calculada com base na importância da versão atualmente associada ".
-                             "ao caso de teste.";
+               "considerando <b> casos de teste com e sem atribuição de testador.</b> <br />" ;
+//                             ."<br /><b>Examplo:</b><br />Os casos de teste foram executados nesta ordem: " .
+//                             "<br />Requisição 1.0 - Passou; Requisição 1.0 - Falhou<br />-> Último Resultado para a Requisição 1.0 " .
+ //                            "é Falha porque a segunda execução sobrescreve os resultdos mais antigos.<br /><br />" .
+   //                          "\"[Última requisição]\" e \"Última execução\" mostra a coluna de dados de acordo " .
+     //                        "com este <b>examplo:</b><br />Os casos de teste foram executados nesta ordem:<br />" .
+       //                      "Requisição 1.0 - Passou; Requisição 1.0 - Falhou; Requisição 2.0 - Bloqueada; " .
+         //                    "Requisição 1.0 - Passou<br>-> [Última requisição] : Bloqueada porque a Requisição 2.0 é " .
+           //                  "a última Requisição criada para a qual o resultado foi definido.<br />-> \"Última Execução\" : " .
+             //                "Passou porque a Requisição 1.0 foi executada por último.<br /><br />A prioridade ".
+               //              "apresentada é calculada com base na importância da versão atualmente associada ".
+                 //            "ao caso de teste.";
 
 
 
