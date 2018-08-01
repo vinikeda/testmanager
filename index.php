@@ -76,7 +76,7 @@ $gui->role = $_SESSION['currentUser']->globalRoleID;
 $gui->url = array('metrics_dashboard' => 'lib/results/metricsDashboard.php',
                   'testcase_assignments' => 'lib/testcases/tcAssignedToUser.php');
 $tplEngine = new TLSmarty();//print_r($_SESSION);
-$tplEngine->assign('gui', $gui);
+$tplEngine->assign('gui', $gui);//print_r($gui);
 $tplEngine->display('main.tpl');
 
 

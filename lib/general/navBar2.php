@@ -186,6 +186,7 @@ function initNavBar(){
 	$gui->arrPlans = $arrPlans;                   
 	$gui->countPlans = count($gui->arrPlans);
 	$gui->testplanRole = null;
+        $gui->tplanID = $testplanID;
 	if ($testplanID && isset($currentUser->tplanRoles[$testplanID]))
 	{
 		$role = $currentUser->tplanRoles[$testplanID];

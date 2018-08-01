@@ -76,16 +76,16 @@ show Test Results and Metrics
                     </span>
 		</td>
 	</tr>
+        <tr>
+            <td>
+                <br>
+            </td>
+        </tr>
   {/if}
 
 
 </table>
-         <form method="get">
-             <input type="hidden" value="0" name="format">
-<select name="tplan_id" id="selectTestplan" onchange="this.form.submit()">
-      {html_options options=$gui->tplans selected=$gui->tplan_id}
-    </select>
-         </form>
+         
 {foreach from=$gui->tableSet key=idx item=matrix}
   {$tableID="table_$idx"}
   {if $idx != 0}

@@ -623,15 +623,15 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
         $name = htmlspecialchars("{$external_id}:{$rf[$top]['name']}",ENT_QUOTES);
         if($args->format == FORMAT_HTML)
         {
-          $rows[$cols['link']] = "<!-- " . sprintf("%010d", $rf[$top]['external_id']) . " -->";
+          /*$rows[$cols['link']] = "<!-- " . sprintf("%010d", $rf[$top]['external_id']) . " -->";
           if($args->addOpAccess)
           {  
             $rows[$cols['link']] .= "<a href=\"javascript:openExecHistoryWindow({$tcaseID});\">" .
                                     $hist_img_tag .
                                     "<a href=\"javascript:openTCEditWindow({$tcaseID});\">" .
                                     $edit_img_tag; 
-          }                       
-          $rows[$cols['link']] .= $name;
+          }      */                 
+          $rows[$cols['link']] .= $name;//var_dump($edit_img_tag);
         }
         else
         {
@@ -695,8 +695,8 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
           if ($args->format == FORMAT_HTML && $args->addOpAccess) 
           {
               $execID = $rf[$buildID]['executions_id'];
-              $r4build['text'] = $labels[$rf[$buildID]['status']] .
-                                sprintf($labels['versionTag'],$rf[$buildID]['version']);
+              $r4build['text'] = $labels[$rf[$buildID]['status']];/* .
+                                sprintf($labels['versionTag'],$rf[$buildID]['version']);*/
               if($rf[$buildID]['status'] != 'n')
              $r4build['text'] .= "    <a  onclick=\"jQuery('#Nissues').modal('show');document.getElementById('execprint').src = 'http://localhost/testlink/lib/execute/execPrint.php?id=$execID'\" ><img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a>";//data-toggle=\"modal\" data-target=\"#Nissues\"
             /*$r4build['text'] .= "<a href=\"javascript:openExecutionWindow(" .
