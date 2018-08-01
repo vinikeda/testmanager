@@ -39,8 +39,8 @@ show Test Results and Metrics
   {if $gui->apikey != ''}
   <input type="hidden" name="apikey" id="apikey" value="{$gui->apikey}">
   {/if}
-  <input type="image" name="exportSpreadSheet" id="exportSpreadSheet" 
-         src="{$tlImages.export_excel}" title="{$labels.export_as_spreadsheet}">
+  <!--input type="image" name="exportSpreadSheet" id="exportSpreadSheet" 
+         src="{$tlImages.export_excel}" title="{$labels.export_as_spreadsheet}"-->
 </form>
 </h1>
 
