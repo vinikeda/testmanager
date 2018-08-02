@@ -1037,7 +1037,7 @@ class tlUser extends tlDBObject
     return $testPlanSet;
   }
 
-  function getAccessibleSub_adquirentes (&$db,$testprojectID){
+  /*function getAccessibleSub_adquirentes (&$db,$testprojectID){
 	  $sql = "SELECT distinct  TPLAN.id_subadiquirentes, sub_adquirente.name FROM nodes_hierarchy NH JOIN testplans TPLAN ON NH.id=TPLAN.id
 	  LEFT OUTER JOIN user_testplan_roles USER_TPLAN_ROLES ON TPLAN.id = USER_TPLAN_ROLES.testplan_id
 	  AND USER_TPLAN_ROLES.user_id = ".intval($this->dbID)." left join builds on (nh.id = builds.testplan_id) inner join sub_adquirente on TPLAN.id_subadiquirentes = sub_adquirente.id
@@ -1045,11 +1045,31 @@ class tlUser extends tlDBObject
 	  //$sub_adquirenteSet = $db->get_recordset($sql)
 	  $sub_adquirenteSet2 = $db->fetchRowsIntoMap($sql,'id_subadiquirentes');//echo $sql;//print_r($sub_adquirenteSet2);
 	  return $sub_adquirenteSet2;
+}*/
+  
+function getAccessibleTestplansBySubaquirer(&$db,$acquirer){
+    $sql = "select id,name from nodes_hierarchy where node_type_id = 5 and SUBSTRING_INDEX(name,'-',1) = '$acquirer'";
+     $testPlanSet = $db->fetchRowsIntoMap($sql,'id');
+     $tmp;
+     foreach($testPlanSet as $tplk=>$tplv){
+         $tmp[$tplk] = $tplv['name'];
+     }
+     return $tmp;
+}
+  
+function getAccessibleSub_adquirentes (&$db,$testprojectID){//var_dump($testprojectID);
+    $sql="SELECT distinct SUBSTRING_INDEX(name,'-',1) sub_adquirente FROM `nodes_hierarchy` where node_type_id = 5 and parent_id = $testprojectID";
+    $sub_adquirenteSet2 = $db->fetchRowsIntoMap($sql,'sub_adquirente');
+    $tmp;
+    foreach($sub_adquirenteSet2 as $subk=>$subv){
+        $tmp[$subk] = $subk;
+    }
+    return $tmp;
 }
 function getSub_adquirentesID (&$db, $IDtestplan){
-	$sql = "SELECT id_subadiquirentes val from testplans where id =".$IDtestplan;//echo $sql;
-	//$temp = $db->get_recordset($sql);print_r($temp);
-	return $temp[0]['val'];
+	$sql = "SELECT SUBSTRING_INDEX(name,'-',1) sub_adquirente from nodes_hierarchy where id =".$IDtestplan;//echo $sql;
+	$temp = $db->get_recordset($sql);//print_r($temp);
+	return $temp[0]['sub_adquirente'];
 }
 
 function getAccessibleTestPlansFilteringBySubadiq(&$db,$testprojectID,$subadiq,$options=null)

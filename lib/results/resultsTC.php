@@ -121,13 +121,16 @@ function init_args(&$dbHandler)
                    "do_action" => array(tlInputParameter::STRING_N,5,10),
                    "build_set" => array(tlInputParameter::ARRAY_INT),
                    "buildListForExcel" => array(tlInputParameter::STRING_N,0,100),
+                   "sub" => array(tlInputParameter::STRING_N,0,100),
                    "format" => array(tlInputParameter::INT_N));
 
-  
+               
   $args = new stdClass();
   R_PARAMS($iParams,$args);
 
+  
   $args->addOpAccess = true;
+  
   if( !is_null($args->apikey) )
   {
     //var_dump($args);
@@ -171,18 +174,25 @@ function init_args(&$dbHandler)
       }  
     break;
   }  
-  
-
-  $args->user = $_SESSION['currentUser'];
+  var_dump(isset($args->tplan_id));
+ $args->user = $_SESSION['currentUser'];
   $args->basehref = $_SESSION['basehref'];
-  $args->tplanIDS = $args->user->getAccessibleTestPlans($dbHandler,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));
-  //var_dump($args->tplanIDS);
+  $args->subs =  $args->user->getAccessibleSub_adquirentes($dbHandler,$args->tproject_id);
+  if(isset($args->tplan_id)){
+        $args->sub =  $args->user->getSub_adquirentesID($dbHandler,$args->tplan_id);
+        //$args->tplanIDS = $args->user->getAccessibleTestPlans($dbHandler,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));
+        
+  }else{
+      
+      $args->tplan_id = (end(array_keys($args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->sub))));
+  }
+$args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->sub);
   return $args;
 }
 
 /**
  * 
- *
+ * 
  */
 function checkRights(&$db,&$user,$context = null)
 {
@@ -332,7 +342,9 @@ function initializeGui(&$dbHandler,&$argsObj,$imgSet,&$tplanMgr)
   $guiObj->tplan_id = $argsObj->tplan_id;
 
   $guiObj->apikey = $argsObj->apikey;
-  $guiObj->tplans = $argsObj->tplanIDS;//var_dump($args->tplanIDS);
+  $guiObj->tplans = $argsObj->tplanIDS;
+  $guiObj->subs = $argsObj->subs;
+  $guiObj->sub = $argsObj->sub.' ';//var_dump($guiObj->subs);
 
   $tproject_mgr = new testproject($dbHandler);
   $tproject_info = $tproject_mgr->get_by_id($argsObj->tproject_id);

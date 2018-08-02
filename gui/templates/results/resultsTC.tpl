@@ -55,37 +55,49 @@ show Test Results and Metrics
 <div class="workBack">
 {*include file="inc_result_tproject_tplan.tpl" 
          arg_tproject_name=$gui->tproject_name arg_tplan_name=$gui->tplan_name arg_build_set=$gui->filterFeedback*}
-         <table>
+
+    <table>
 	<tr>
-		<td>{lang_get s="testproject"}</td><td>{$smarty.const.TITLE_SEP}</td>
-		<td>
-			<span style="color:black; font-weight:bold; text-decoration: underline;">{$gui->tproject_name|escape}</span>
-		</td>
+            <td>{lang_get s="testproject"}</td><td>{$smarty.const.TITLE_SEP}</td>
+            <td>
+                    <span style="color:black; font-weight:bold; text-decoration: underline;">{$gui->tproject_name|escape}</span>
+            </td>
 	</tr>
-  {if $gui->tplan_name != ''}
+        {if $gui->tplan_name != ''}
+        <tr>
+            <td>Sub-Adquirente</td><td>{$smarty.const.TITLE_SEP}</td>
+            <td>
+                <span style="color:black; font-weight:bold; text-decoration:underline;">
+                    <form method="get">
+                        <input type="hidden" value="0" name="format">
+                    <select name="sub" id="selectSubs" onchange="this.form.submit()">
+                        {html_options options=$gui->subs selected=$gui->sub}
+                    </select>
+                    </form> 
+                </span>
+            </td>
+        </tr>
 	<tr>
-		<td>{lang_get s="testplan"}</td><td>{$smarty.const.TITLE_SEP}</td>
-		<td> 
-                    <span style="color:black; font-weight:bold; text-decoration:underline;">
-                        <form method="get">
-                            <input type="hidden" value="0" name="format">
-                            <select name="tplan_id" id="selectTestplan" onchange="this.form.submit()">
-                                {html_options options=$gui->tplans selected=$gui->tplan_id}
-                            </select>
-                        </form>
-                    </span>
-		</td>
+            <td>{lang_get s="testplan"}</td><td>{$smarty.const.TITLE_SEP}</td>
+            <td> 
+                <span style="color:black; font-weight:bold; text-decoration:underline;">
+                    <form method="get">
+                        <input type="hidden" value="0" name="format">
+                        <select name="tplan_id" id="selectTestplan" onchange="this.form.submit()">
+                            {html_options options=$gui->tplans selected=$gui->tplan_id}
+                        </select>
+                    </form> 
+
+                </span>
+            </td>
 	</tr>
         <tr>
             <td>
                 <br>
             </td>
         </tr>
-  {/if}
-
-
-</table>
-         
+        {/if}
+    </table>
 {foreach from=$gui->tableSet key=idx item=matrix}
   {$tableID="table_$idx"}
   {if $idx != 0}
