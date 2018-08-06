@@ -27,7 +27,7 @@ $args = init_args($db);
 $metricsMgr = new tlTestPlanMetrics($db);
 $tplan_mgr  = &$metricsMgr; // displayMemUsage('START' . __FILE__);
 
-var_dump();
+//var_dump();
 
 list($gui,$tproject_info,$labels,$cfg) = initializeGui($db,$args,$smarty->getImages(),$tplan_mgr);
 $args->cfg = $cfg;
@@ -58,7 +58,7 @@ if( ($gui->activeBuildsQty <= $gui->matrixCfg->buildQtyLimit) || $args->do_actio
                  'getExecutionTimestamp' => true, 'getExecutionDuration' => true);
   }    
   if(count($tplan_mgr->get_builds($args->tplan_id, 1)) >0)$execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
-  
+  else $gui->message = "Sem requisições ativas";
   $metrics = $execStatus['metrics'];
   $latestExecution = $execStatus['latestExec']; 
 
@@ -174,7 +174,7 @@ function init_args(&$dbHandler)
       }  
     break;
   }  
-  var_dump(isset($args->tplan_id));
+  //var_dump(isset($args->tplan_id));
  $args->user = $_SESSION['currentUser'];
   $args->basehref = $_SESSION['basehref'];
   $args->subs =  $args->user->getAccessibleSub_adquirentes($dbHandler,$args->tproject_id);
@@ -185,6 +185,7 @@ function init_args(&$dbHandler)
   }else{
       
       $args->tplan_id = (end(array_keys($args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->sub))));
+      $args->sub .=' '; 
   }
 $args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->sub);
   return $args;
@@ -344,7 +345,7 @@ function initializeGui(&$dbHandler,&$argsObj,$imgSet,&$tplanMgr)
   $guiObj->apikey = $argsObj->apikey;
   $guiObj->tplans = $argsObj->tplanIDS;
   $guiObj->subs = $argsObj->subs;
-  $guiObj->sub = $argsObj->sub.' ';//var_dump($guiObj->subs);
+  $guiObj->sub = $argsObj->sub;//var_dump($guiObj->subs);
 
   $tproject_mgr = new testproject($dbHandler);
   $tproject_info = $tproject_mgr->get_by_id($argsObj->tproject_id);
@@ -767,5 +768,5 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
     }  // $tcaseSet
   } // $tsuiteSet
 }
-if(count($tplan_mgr->get_builds($args->tplan_id, 1)) <=0)
-echo '<script>alert("Sem requisições ativas");</script>';
+/*if(count($tplan_mgr->get_builds($args->tplan_id, 1)) <=0)
+echo '<script>alert("Sem requisições ativas");</script>';*/

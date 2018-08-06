@@ -106,6 +106,10 @@ show Test Results and Metrics
   {$matrix->renderBodySection()}
 {/foreach}
 
+
+{if isset($gui->message)}
+    <h2><b>{$gui->message}</b></h2> 
+{/if}
 <br />
 <p class="italic">{$labels.info_resultsTC_report}</p>
 <br />
