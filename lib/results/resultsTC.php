@@ -177,17 +177,17 @@ function init_args(&$dbHandler)
   //var_dump(isset($args->tplan_id));
  $args->user = $_SESSION['currentUser'];
   $args->basehref = $_SESSION['basehref'];
-  $args->subs =  $args->user->getAccessibleSub_adquirentes($dbHandler,$args->tproject_id);
+  $args->subs =  $args->user->getAccessibleSub_adquirentes($dbHandler,$args->tproject_id);//var_dump($args->subs);
   if(isset($args->tplan_id)){
         $args->sub =  $args->user->getSub_adquirentesID($dbHandler,$args->tplan_id);
         //$args->tplanIDS = $args->user->getAccessibleTestPlans($dbHandler,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));
         
   }else{
       
-      $args->tplan_id = (end(array_keys($args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->sub))));
+      $args->tplan_id = (end(array_keys($args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->tproject_id,$args->sub))));
       $args->sub .=' '; 
-  }
-$args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->sub);
+  }//var_dump($args->tproject_id);
+$args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->tproject_id,$args->sub);
   return $args;
 }
 
