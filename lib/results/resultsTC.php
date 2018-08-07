@@ -28,8 +28,9 @@ $metricsMgr = new tlTestPlanMetrics($db);
 $tplan_mgr  = &$metricsMgr; // displayMemUsage('START' . __FILE__);
 
 //var_dump();
-
 list($gui,$tproject_info,$labels,$cfg) = initializeGui($db,$args,$smarty->getImages(),$tplan_mgr);
+
+//var_dump($gui);
 $args->cfg = $cfg;
 $mailCfg = buildMailCfg($gui); 
 
@@ -85,7 +86,8 @@ if( ($gui->activeBuildsQty <= $gui->matrixCfg->buildQtyLimit) || $args->do_actio
     break;  
 
     default:
-     $gui->tableSet[] = buildMatrix($gui, $args);
+     $tmp = buildMatrix($gui, $args);//var_dump($tmp->renderBodySection());
+        $gui->tableSet[] = $tmp;
     break;
   }
 
@@ -372,6 +374,13 @@ function initializeGui(&$dbHandler,&$argsObj,$imgSet,&$tplanMgr)
   $guiObj->buildInfoSet = $tplanMgr->get_builds($argsObj->tplan_id, testplan::ACTIVE_BUILDS,null,
                                                 array('orderBy' => $guiObj->matrixCfg->buildOrderByClause)); 
   $guiObj->activeBuildsQty = count($guiObj->buildInfoSet);
+  foreach($guiObj->buildInfoSet as $key=>$val){
+      if($guiObj->activeBuildsQty > $guiObj->matrixCfg->buildQtyLimit){
+          $guiObj->activeBuildsQty--;//var_dump( $guiObj->activeBuildsQty);
+          unset($guiObj->buildInfoSet[$key]);
+          $guiObj->message = "Há mais de 6 builds ativas nesse plano de teste, apenas as ultimas 6 estão  visíveis";
+      }
+  }
 
 
   // hmm need to understand if this can be removed

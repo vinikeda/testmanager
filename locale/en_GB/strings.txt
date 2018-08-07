@@ -1928,18 +1928,18 @@ $TLS_info_bugs_per_tc_report = "This report shows all bugs linked to test cases 
 
 // ----- gui/templates/resultsTC.tpl -----
 $TLS_info_resultsTC_report = "This report shows the last test case execution result for each build, " .
-                             "analizing test cases <b>with and without tester assignment.</b> <br />" .
-                             "<br /><b>Example:</b><br />Test Case has been executed in this order: " .
-                             "<br />Build 1.0 - Passed; Build 1.0 - Failed<br />-> Last Result  for Build 1.0 " .
-                             "is Failed because second execution overrides older results.<br /><br />" .
-                             "\"[Latest (created) Build]\" and \"Latest execution\" column show data according " .
-                             "to this <b>example:</b><br />Test Case has been executed in this order:<br />" .
-                             "Build 1.0 - Passed; Build 1.0 - Failed; Build 2.0 - Blocked; " .
-                             "Build 1.0 - Passed<br>-> [Latest (created) Build] : Blocked because Build 2.0 is " .
-                             "the last build created for which a result has been set.<br />-> \"Latest Execution\" : " .
-                             "Passed because Build 1.0 has been executed at last.<br /><br />The shown ".
-                             "priority is calculated based on the importance of the currently linked test case ".
-                             "version.";
+                             "analizing test cases <b>with and without tester assignment.</b> <br />" ;
+//                            ."<br /><b>Example:</b><br />Test Case has been executed in this order: " .
+  //                           "<br />Build 1.0 - Passed; Build 1.0 - Failed<br />-> Last Result  for Build 1.0 " .
+    //                         "is Failed because second execution overrides older results.<br /><br />" .
+      //                       "\"[Latest (created) Build]\" and \"Latest execution\" column show data according " .
+        //                     "to this <b>example:</b><br />Test Case has been executed in this order:<br />" .
+          //                   "Build 1.0 - Passed; Build 1.0 - Failed; Build 2.0 - Blocked; " .
+            //                 "Build 1.0 - Passed<br>-> [Latest (created) Build] : Blocked because Build 2.0 is " .
+              //               "the last build created for which a result has been set.<br />-> \"Latest Execution\" : " .
+                //             "Passed because Build 1.0 has been executed at last.<br /><br />The shown ".
+                  //           "priority is calculated based on the importance of the currently linked test case ".
+                    //         "version.";
 
 
 

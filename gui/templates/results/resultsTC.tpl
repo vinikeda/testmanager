@@ -108,7 +108,7 @@ show Test Results and Metrics
 
 
 {if isset($gui->message)}
-    <h2><b>{$gui->message}</b></h2> 
+    <br><h2><b>{$gui->message}</b></h2> 
 {/if}
 <br />
 <p class="italic">{$labels.info_resultsTC_report}</p>
