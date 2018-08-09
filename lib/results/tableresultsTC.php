@@ -107,7 +107,7 @@ else
 
 $timerOff = microtime(true);
 $gui->elapsed_time = round($timerOff - $timerOn,2);
-
+//var_dump($gui);
 $smarty->assign('gui',$gui);//echo $templateCfg->template_dir . $tpl, $smarty, $args->format, $mailCfg;
 displayReport($templateCfg->template_dir . $tpl, $smarty, $args->format, $mailCfg);
 
@@ -246,7 +246,7 @@ function buildMatrix(&$guiObj,&$argsObj)
   $guiObj->filterFeedback = null;
   foreach($buildIDSet as $iix)
   {
-    $buildSet[] = $guiObj->buildInfoSet[$iix];
+    $buildSet[] = $guiObj->buildInfoSet[$iix];//var_dump($guiObj->buildInfoSet[$iix]);
     if($guiObj->filterApplied)
     {
       $guiObj->filterFeedback[] = $guiObj->buildInfoSet[$iix]['name'];
@@ -655,7 +655,7 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
                                     "<a href=\"javascript:openTCEditWindow({$tcaseID});\">" .
                                     $edit_img_tag; 
           }      */                 
-          $rows[$cols['link']] .= $name;//var_dump($edit_img_tag);
+          $rows[$cols['link']] .= "<img src onerror=\"abab();\">".$name;//var_dump($edit_img_tag);
         }
         else
         {

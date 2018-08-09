@@ -70,7 +70,8 @@ show Test Results and Metrics
                 <span style="color:black; font-weight:bold; text-decoration:underline;">
                     <form method="get">
                         <input type="hidden" value="0" name="format">
-                    <select name="sub" id="selectSubs" onchange="this.form.submit()">
+                    <select name="sub" id="selectSubs" onchange="this.form.action = this.selectedIndex == 0?'lib/results/resultsTCgroup.php?sub=0':'lib/results/resultsTC.php';this.form.submit()">
+                        <option value = "0" select >Todos</option>
                         {html_options options=$gui->subs selected=$gui->sub}
                     </select>
                     </form> 
@@ -83,7 +84,8 @@ show Test Results and Metrics
                 <span style="color:black; font-weight:bold; text-decoration:underline;">
                     <form method="get">
                         <input type="hidden" value="0" name="format">
-                        <select name="tplan_id" id="selectTestplan" onchange="this.form.submit()">
+                        <select name="tplan_id" id="selectTestplan" onchange="this.form.action = this.selectedIndex == 0?'lib/results/resultsTCgroup.php':'lib/results/resultsTC.php';this.form.submit()"  >
+                            <option value = "0" >Todos</option>
                             {html_options options=$gui->tplans selected=$gui->tplan_id}
                         </select>
                     </form> 

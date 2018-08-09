@@ -762,12 +762,12 @@ span.light_unknown {
 }
 
 .warning_text{
-	color:			#FBFF11;
+	color:			#f1ab00;/*#FBFF11;*/
 	font-weight: bold;
 }
 
 .analise_text{
-	color:			#FF8C11;
+	color:			/*#FF8C11;*/#f18100;
 	font-weight: bold;
 }
 
