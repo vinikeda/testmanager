@@ -7,7 +7,7 @@ class sub extends GenericCrud{
         parent::__construct($db,'subadquirentes');
     }
     function getPerTproject($id){/*precisa arrumar para que a querie busque por projeto de teste, assim, ficará correto*/
-        $sql = "select * from $this->table where tesproject_id"
+        $sql = "select * from $this->table where tesproject_id";
         return $this->db->get_recordset($sql);
     }
 }
