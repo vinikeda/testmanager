@@ -53,7 +53,7 @@ function load_notes(panel,exec_id)
              style="font-size: 90%;" onclick="this.form.submit()"/>
     </form>
 
-    <table cellspacing="0" class="exec_history">
+    <table cellspacing="0" style="width: 500px;" class="exec_history">
       <tr>
         <th style="text-align:left">{$labels.date_time_run}</th>
         <th style="text-align:left">{$labels.testplan}</th>
@@ -150,13 +150,16 @@ function load_notes(panel,exec_id)
             {/if} 
           </td>
           </tr>
-    
+		
           {* Attachments *}
           <tr style="background-color: {$bg_color}">
             <td colspan="{$my_colspan}">
+			
+		
             {if isset($gui->attachments[$tcv_exec.execution_id])}
+		
               {assign var="attach_info" value=$gui->attachments[$tcv_exec.execution_id]}
-              {include file="inc_attachments.tpl"
+              {include file="attachments.inc.tpl"
                        attach_attachmentInfos=$attach_info
                        attach_id=$tcv_exec.execution_id
                        attach_tableName="executions"
@@ -167,6 +170,8 @@ function load_notes(panel,exec_id)
                        attach_inheritStyle=0
                        attach_tableStyles=null}
             {/if}
+			
+			
           </td>
           </tr>
     

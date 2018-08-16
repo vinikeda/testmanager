@@ -5,7 +5,7 @@ Purpose: smarty template - template for attachment upload dialog
 *}
 {lang_get var='labels'
           s='title_upload_attachment,enter_attachment_title,btn_upload_file,warning,enter_attachment_title,
-             local_file,attachment_upload_ok,title_choose_local_file,btn_cancel,max_size_file_upload'}
+             local_file,attachment_upload_ok,title_choose_local_file,btn_cancel,max_size_file_upload,attachments,logs,receipts,cardspy,others'}
 
 {include file="inc_head.tpl" jsValidate="yes" openHead="yes"}
 {include file="inc_del_onclick.tpl"}
@@ -27,10 +27,31 @@ var warning_empty_title = "{$labels.enter_attachment_title|escape:'javascript'}"
 	<h2>{$labels.title_choose_local_file}</h2>
 	
 	<form action="lib/attachments/attachmentupload.php" method="post" enctype="multipart/form-data" id="aForm">
-		<p>{$labels.local_file}
-			<input type="hidden" name="MAX_FILE_SIZE" value="{$gui->import_limit}" /> {* restrict file size *}
-			<input type="file" name="uploadedFile[]" size="{#UPLOAD_FILENAME_SIZE#}" multiple />
-		</p>
+
+
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.logs}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[log][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+		<br/>	   
+		
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.receipts}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[receipt][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+		<br/>	
+	
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.cardspy}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[cardspy][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+		<br/>	
+		
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.others}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[others][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+			   </br>
 		{* 
 		<p>
 			{$labels.enter_attachment_title}:

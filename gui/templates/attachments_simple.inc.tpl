@@ -25,10 +25,11 @@ $gsmarty_attachments
 
 {lang_get var='labels'
           s='title_upload_attachment,enter_attachment_title,btn_upload_file,warning,attachment_title,
-             display_inline,local_file,attachment_upload_ok,title_choose_local_file,btn_cancel,max_size_file_upload,attachments'}
+             display_inline,local_file,attachment_upload_ok,title_choose_local_file,btn_cancel,max_size_file_upload,attachments,logs,receipts,cardspy,others'}
 
 {lang_get s='warning_delete_attachment' var="warning_msg"}
 {lang_get s='delete' var="del_msgbox_title"}
+
 
 <script type="text/javascript">
 function checkFileSize()
@@ -58,13 +59,29 @@ var warning_delete_attachment = "{lang_get s='warning_delete_attachment'}";
 {if $gsmarty_attachments->enabled && $attach_show_upload_btn}
   {if $attach_show_upload_btn && !$attach_downloadOnly}
   <div  class="importArchives">
-	<h4 style="color: #5C1111;"><b>{$labels.attachments}</b></h4>
-	<br>
-      <label for="uploadedFile_[{$attach_id}]" class="labelHolder">{$labels.local_file} </label>
-      <img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
-	  <br>
-	  <br>
-        <input type="file" name="uploadedFile[{$attach_id}][]" id="uploadedFile_{$attach_id}" multiple 
+		<h4 style="color: #5C1111;"><b>{$labels.attachments}</b></h4>
+		<br>
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.logs}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[log][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+		<br/>	   
+		
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.receipts}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[receipt][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+		<br/>	
+	
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.cardspy}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[cardspy][]" id="uploadedFile" multiple 
+               size="{#UPLOAD_FILENAME_SIZE#}" />
+		<br/>	
+		
+		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.others}: </label>
+		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+        <input type="file" name="uploadedFile[others][]" id="uploadedFile" multiple 
                size="{#UPLOAD_FILENAME_SIZE#}" />
         &nbsp;&nbsp;&nbsp;&nbsp;
   </div>

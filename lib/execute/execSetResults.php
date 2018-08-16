@@ -29,6 +29,9 @@ require_once("attachments.inc.php");
 require_once("specview.php");
 require_once("web_editor.php");
 
+
+
+
 $cfg=getCfg();
 require_once(require_web_editor($cfg->editorCfg['type']));
 
@@ -41,32 +44,45 @@ if( $cfg->exec_cfg->enable_test_automation )
 // If call to testlinkInitPage() is done AFTER require_once for BTS
 // log to event viewer fails, but log to file works ok
 testlinkInitPage($db);
+
 $templateCfg = templateConfiguration();
+
 //var_dump($_SESSION['banana']);
 $tcversion_id = null;
+
 $submitResult = null;
+
 list($args,$its) = init_args($db,$cfg);
 
 $smarty = new TLSmarty();
+
 $tree_mgr = new tree($db);
 $tplan_mgr = new testplan($db);
 $tcase_mgr = new testcase($db);
+
 $exec_cfield_mgr = new exec_cfield_mgr($db,$args->tproject_id);
+
 $attachmentRepository = tlAttachmentRepository::create($db);
+
 $req_mgr = new requirement_mgr($db);
+
+
 
 $gui = initializeGui($db,$args,$cfg,$tplan_mgr,$tcase_mgr,$its);
 
+
 $_SESSION['history_on'] = $gui->history_on;
+
 $attachmentInfos = null;
 
-$do_show_instructions = ($args->level == "" || $args->level == 'testproject') ? 1 : 0;
+
+$do_show_instructions = 0;//($args->level == "" || $args->level == 'testproject') ? 1 : 0;
+
 if ($do_show_instructions)
 {
   show_instructions('executeTest');
   exit();
 }
-
 // Testplan executions and result archiving. 
 // Checks whether execute cases button was clicked
 if($args->doExec == 1 && !is_null($args->tc_versions) && count($args->tc_versions))
@@ -74,15 +90,20 @@ if($args->doExec == 1 && !is_null($args->tc_versions) && count($args->tc_version
   $gui->remoteExecFeedback = launchRemoteExec($db,$args,$gui->tcasePrefix,$tplan_mgr,$tcase_mgr);
 }  
 
+
 list($linked_tcversions,$itemSet) = getLinkedItems($args,$gui->history_on,$cfg,$tcase_mgr,$tplan_mgr);
+
 $tcase_id = 0;
 $userid_array = null;
+
 if(!is_null($linked_tcversions))
 {
+
   $items_to_exec = array();
   $_SESSION['s_lastAttachmentInfos'] = null;
   if($args->level == 'testcase')
   {
+	 
     // Warning!!! - $gui is passed by reference to be updated inside function
     $tcase = null;
     list($tcase_id,$tcversion_id) = processTestCase($tcase,$gui,$args,$cfg,$linked_tcversions,
@@ -123,6 +144,7 @@ if(!is_null($linked_tcversions))
       $args->save_and_exit || 
       $args->doMoveNext || $args->doMovePrevious)
   {
+
     // this has to be done to do not break logic present on write_execution()
     $args->save_results = $args->save_and_next ? $args->save_and_next : 
                           ($args->save_results ? $args->save_results : $args->save_and_exit);
@@ -136,9 +158,10 @@ if(!is_null($linked_tcversions))
         $lexid = $tcase_mgr->getSystemWideLastestExecutionID($args->version_id);
       }  
 
-
-      $_REQUEST['save_results'] = $args->save_results;//echo "requset = ";//var_dump($_REQUEST);
+	 
+      $_REQUEST['save_results'] = $args->save_results;
       list($execSet,$gui->addIssueOp) = write_execution($db,$args,$_REQUEST,$its);
+	
       require_once("../issue/issues.class.php");
       $issue = new issues($db);
       $issue->assignIssue($execSet,$args->issue);
@@ -331,16 +354,15 @@ else
   }  
   initWebEditors($gui,$cfg,$_SESSION['basehref']);
   setupIssues($gui,$db);
-  $gui->projectLists = $args->projectLists;
-  //$gui->projectsList = $_SESSION['projectsID'];
   // To silence smarty errors
   //  future must be initialized in a right way
   $smarty->assign('test_automation_enabled',0);
   $smarty->assign('gui',$gui);
   $smarty->assign('cfg',$cfg);
-  $smarty->assign('users',tlUser::getByIDs($db,$userSet,'id'));//echo $templateCfg->template_dir . $templateCfg->default_templ ate;
+  $smarty->assign('users',tlUser::getByIDs($db,$userSet,'id')); //echo $templateCfg->template_dir . $templateCfg->default_template;
   $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
-}
+} 
+
 /*
   function: 
 
@@ -376,7 +398,6 @@ function init_args(&$dbHandler,$cfgObj)
   {
     $args->refreshTree = isset($_REQUEST['refresh_tree']) ? intval($_REQUEST['refresh_tree']) : 0;  
   }  
-
   $args->assignTask = isset($_REQUEST['assignTask']) ? 1: 0;
   $args->createIssue = isset($_REQUEST['createIssue']) ? 1: 0;
   $args->copyIssues = isset($_REQUEST['copyIssues']) ? 1: 0;
@@ -490,11 +511,6 @@ function init_args(&$dbHandler,$cfgObj)
 
   $tproject_mgr = new testproject($dbHandler);
   $info = $tproject_mgr->get_by_id($args->tproject_id);
-  $args->projectLists = $tproject_mgr->get_accessible_for_user($args->user->dbID,
-                                                        array('output' => 'map_name_with_inactive_mark',
-                                                                  'field_set' => null,
-                                                                 'order_by' => null));
-   
   unset($tproject_mgr);  
   $bug_summary['minLengh'] = 1; 
   $bug_summary['maxLengh'] = 1; 
@@ -1358,6 +1374,7 @@ function processTestCase($tcase,&$guiObj,&$argsObj,&$cfgObj,$tcv,&$treeMgr,&$tca
   $guiObj->testplan_design_time_cfields='';
   
   $tcase_id = isset($tcase['tcase_id']) ? $tcase['tcase_id'] : $argsObj->id;
+ 
 
   // Development Notice:
   // accessing a FIXED index like in:
@@ -1647,7 +1664,7 @@ function launchRemoteExec(&$dbHandler,&$argsObj,$tcasePrefix,&$tplanMgr,&$tcaseM
  */
 function getLinkedItems($argsObj,$historyOn,$cfgObj,$tcaseMgr,$tplanMgr,$identity=null)
 {          
-  
+
   $ltcv = null;
   $idCard = null;
   $itemSet = null;
@@ -1660,7 +1677,7 @@ function getLinkedItems($argsObj,$historyOn,$cfgObj,$tcaseMgr,$tplanMgr,$identit
   {
     $idCard = array('id' => $argsObj->tc_id, 'version_id' => $argsObj->version_id);
   }
-  
+
   if( !is_null($idCard) )
   {
     // CRITIC see for key names - testcases.class.php -> getExecutionSet() 
@@ -1774,6 +1791,7 @@ function getLinkedItems($argsObj,$historyOn,$cfgObj,$tcaseMgr,$tplanMgr,$identit
     // in order to allow use how he / she wants to work.
     //
     $filters = array_merge($basic_filters,$bulk_filters);
+
 
     if( !is_null($sql2do = $tplanMgr->getLinkedForExecTree($argsObj->tplan_id,$filters,$options)) )
     {
@@ -1979,3 +1997,5 @@ function manageCookies(&$argsObj,$cfgObj)
     }
   }
 }
+
+

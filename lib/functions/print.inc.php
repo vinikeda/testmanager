@@ -44,6 +44,7 @@ require_once("lang_api.php");
  */
 function renderReqForPrinting(&$db,$node, &$options, $tocPrefix, $reqLevel, $tprojectID) 
 {
+	
   
   static $tableColspan;
   static $firstColWidth;
@@ -275,6 +276,7 @@ function renderReqForPrinting(&$db,$node, &$options, $tocPrefix, $reqLevel, $tpr
 
   // Display Images Inline (Always)
   $attachSet =  $req_mgr->getAttachmentInfos($req['id']);
+  
   if (count($attachSet))
   {
     $output .= "<tr><td width=\"$firstColWidth\"><span class=\"label\">" .
@@ -321,6 +323,7 @@ function renderReqForPrinting(&$db,$node, &$options, $tocPrefix, $reqLevel, $tpr
  */
 function renderReqSpecNodeForPrinting(&$db, &$node, &$options, $tocPrefix, $rsLevel, $tprojectID) 
 {
+	
   static $tableColspan;
   static $firstColWidth;
   static $labels;
@@ -512,7 +515,7 @@ function renderReqSpecNodeForPrinting(&$db, &$node, &$options, $tocPrefix, $rsLe
 function renderReqSpecTreeForPrinting(&$db, &$node, &$options,$tocPrefix, $rsCnt, $rstLevel, $user_id,
                                       $tplan_id = 0, $tprojectID = 0) 
 {
-  
+ 
   static $tree_mgr;
   static $map_id_descr;
   static $tplan_mgr;
@@ -593,6 +596,7 @@ function renderReqSpecTreeForPrinting(&$db, &$node, &$options,$tocPrefix, $rsCnt
  */
 function renderHTMLHeader($title,$base_href,$doc_type,$jsSet=null)
 {
+	
   $themeDir = config_get('theme_dir');
   $docCfg = config_get('document_generator');
   
@@ -694,6 +698,7 @@ function renderHTMLHeader($title,$base_href,$doc_type,$jsSet=null)
  */
 function renderFirstPage($doc_info)
 {
+	
   $docCfg = config_get('document_generator');
   $date_format_cfg = config_get('date_format');
   $output = "<body>\n<div class='Section1'>\n";
@@ -860,6 +865,7 @@ function renderFirstPage($doc_info)
  */
 function renderSimpleChapter($title, $content, $addToStyle=null)
 {
+	
   $output = '';
   if ($content != "")
   {
@@ -1014,6 +1020,7 @@ context['prefix']
 
 function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocPrefix,$indentLevel)
 {
+	
   static $tree_mgr;
   static $id_descr;
   static $tplan_mgr;
@@ -1299,6 +1306,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
  */
 function gendocGetUserName(&$db, $userId)
 {
+	
   $authorName = null;
         
   if(isset($_SESSION['userNamePool'][$userId]))
@@ -1335,7 +1343,19 @@ function gendocGetUserName(&$db, $userId)
  */
 function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLevel)
 {
-  
+	echo '<script src="//code.jquery.com/jquery-1.11.1.min.js" </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" </script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+     $("a#link_attach.bold").each(function() {
+         if($(this).text().length > 30) {
+           $(this).text($(this).text().substr(0,30)+"...");
+         }
+     });
+});	
+</script>';
+
   static $req_mgr;
   static $tc_mgr;
   static $build_mgr;
@@ -1772,12 +1792,12 @@ PASS_ONLY_TEST_CASE_RENDER:
               {
                 $attachInfo = getAttachmentInfos($docRepo,$sxni[$tcInfo[$key][$ydx]['id']]['id'],
                                                  $tables['execution_tcsteps'],true,1);
-
+				
                 if( !is_null($attachInfo) )
                 {
                   $code .= '<tr><td colspan="' . $td_colspan . '">';
                   $code .= '<b>' . $labels['exec_attachments'] . '</b><br>';
-
+					
                   foreach($attachInfo as $fitem)
                   {
                     $code .= '<form method="POST" name="fda' . $fitem['id'] . '" ' .
@@ -1970,7 +1990,7 @@ PASS_ONLY_TEST_CASE_RENDER:
   {
     $code .= '<tr><td> <span class="label">' . $labels['attached_files'] . '</span></td>';
     $code .= '<td colspan="' . ($cfg['tableColspan']-2) . '"><ul>';
-
+	
     foreach($attachSet as $item)
     {
       $fname = "";
@@ -2044,13 +2064,253 @@ PASS_ONLY_TEST_CASE_RENDER:
 
       // Get Execution Attachments
       $execAttachInfo = getAttachmentInfos($docRepo,$exec_info[0]['execution_id'],$tables['executions'],true,1);
-
+		
       if( !is_null($execAttachInfo) )
       {
-        $code .= '<tr><td colspan="' . $cfg['tableColspan'] . '">';
-        $code .= '<b>' . $labels['exec_attachments'] . '</b><br>';
-        foreach($execAttachInfo as $fitem)
-        {
+		
+        $code .= '<td colspan="' . $cfg['tableColspan'] . '">';
+        $code .= '<b>' . $labels['exec_attachments'] . '</b>';
+		$code .= '<table style="width:100%;">';
+		$titles = array();
+		$max_Titles = array();
+		$last = ".";
+		$max = 0;
+		$min = 1;	
+		$log = 0;
+		$rec = 0;
+		$oth = 0;
+		$car = 0;
+		$col = 0;		
+		$max_String= ".";
+		$cur_String;
+		$code .= '<tr>';
+		foreach($execAttachInfo as $cont){
+			if($cont['title']){
+				$cur_String = $cont['title'];
+				if (!in_array($cur_String , $max_Titles)){
+					if ($cur_String == "Log"){
+						$log = 1;
+					}else if ($cur_String == "Receipt"){
+						$rec = 1;
+					}else if ($cur_String == "Cardspy"){
+						$car = 1;
+					}else if ($cur_String == "Others"){
+						$oth = 1;
+					}				
+					if($cur_String != $max_String){
+						$min = 1;
+						$max_String = $cur_String;
+						$max_String[$cur_String] = $cur_String;
+					}
+					else{
+						$min += 1;
+					}					
+				}
+				if($min > $max){
+					$max = $min;
+				}
+				
+			}
+		}
+        foreach($execAttachInfo as $array){
+			if($array['title']){
+				$my_link = $array['title'];				
+			} else{
+				$my_link = "";
+			}
+			if (!(in_array("Log", $titles)) && ($log == 0)){
+				$titles["Log"] = "Log";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Log</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}
+			if ((in_array("Log", $titles)) && !(in_array("Receipt", $titles)) &&  ($rec == 0)){
+				$titles["Receipt"] = "Receipt";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Receipt</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}
+			if ((in_array("Log", $titles)) && (in_array("Receipt", $titles)) && !(in_array("Cardspy", $titles)) &&  ($car == 0)){
+				$titles["Cardspy"] = "Cardspy";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Cardspy</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}			
+			if ((in_array("Log", $titles)) && (in_array("Receipt", $titles)) && (in_array("Cardspy", $titles)) && !(in_array("Others", $titles)) &&  ($oth == 0)){
+				$titles["Others"] = "Others";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Others</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}
+			if (!in_array($my_link , $titles)){
+				$rowcur = 0;
+				if ($last != $my_link){
+					$last = $my_link;
+					$titles[$my_link] = $my_link;
+					$code .= '<td>					
+										<table width="100%" style="table-layout:fixed; height:100%" id="table_"'. $array['title'] .'"">
+											<tr>
+												<th>'.$last.'</th>				
+											</tr>';
+											
+					foreach($execAttachInfo as $item){						
+						if ($last == $item['title']){
+							$rowcur += 1; 
+							$code .= '<tr>	
+										<td style="vertical-align:middle;">
+											<form method="POST" action="'. $env->base_href .'lib/attachments/attachmentdownload.php" enctype="multipart/form-data" target="_blank" id="'. $item['id'] .'">
+												
+													<input type="hidden" value="'. $item['id'] .'" name="id"/>
+													<input type="hidden" value="1" name="skip"/>
+													<input type="hidden" value="" name="key"/>
+													<a id="link_attach" href="javascript:document.getElementById('. $item['id'] .').submit();" class="bold" target="_blank" data-toggle="tooltip" title="'. $item['file_name'] .'"> '. $item['file_name'] .' </a> 
+												
+											</form>
+											</td>
+										</tr>';	
+						}
+					}
+					 while ($rowcur < $max){
+						 $code .= '<tr>
+									 <td style="vertical-align:middle; color:white"><form>null</form></td>
+								   </tr>';
+						 $rowcur += 1;		  
+					 }			  
+
+					$code .= '		</table>
+								</td>';
+					
+				}
+			}
+		}
+		if (!(in_array("Log", $titles)) && ($log == 0)){
+				$titles["Log"] = "Log";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Log</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}
+			if ((in_array("Log", $titles)) && !(in_array("Receipt", $titles)) &&  ($rec == 0)){
+				$titles["Receipt"] = "Receipt";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Receipt</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}
+			if ((in_array("Log", $titles)) && (in_array("Receipt", $titles)) && !(in_array("Cardspy", $titles)) &&  ($car == 0)){
+				$titles["Cardspy"] = "Cardspy";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Cardspy</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}			
+			if ((in_array("Log", $titles)) && (in_array("Receipt", $titles)) && (in_array("Cardspy", $titles)) && !(in_array("Others", $titles)) &&  ($oth == 0)){
+				$titles["Others"] = "Others";
+				$rowcur = 0;
+				$code .= '			<td width="25%">
+								<table style="width:100%; font-size: 13px;">
+									<tr>
+										<th>Others</th>				
+									</tr>';
+				while ($rowcur < $max){
+					$rowcur += 1;
+					$code .= '
+										<tr>
+											<td style="vertical-align:middle;"><form> - </form></td>
+										</tr> ';
+										
+				}
+				$code .= '				</table>
+							</td>';
+			}
           //if($fitem['is_image']) // && $options['outputFormat'] == FORMAT_HTML)
           //{
           //  $code .= "<li>" . htmlspecialchars($fitem['file_name']) . "</li>";
@@ -2059,12 +2319,14 @@ PASS_ONLY_TEST_CASE_RENDER:
           //}  
           //else
           //{
-            $code .= '<li>' . '<a href="' . $env->base_href . 
-                              'lib/attachments/attachmentdownload.php?skipCheck=1&id=' . $fitem['id'] . 
-                              '" ' . ' target="#blank" > ' . htmlspecialchars($fitem['file_name']) . '</a></li>';
+            // $code .= '<li>' . '<a href="' . $env->base_href . 
+                              // 'lib/attachments/attachmentdownload.php?skipCheck=1&id=' . $fitem['id'] . 
+                              // '" ' . ' target="#blank" > ' . htmlspecialchars($fitem['file_name']) . '</a></li>';
           //}  
-        }  
-        $code .= '</td></tr>';
+        // }  
+        $code .= '</tr>';
+		$code .='</table></td>';
+	 // $code .='';
       }
     }
     else
@@ -2094,6 +2356,7 @@ PASS_ONLY_TEST_CASE_SKIPER:
  */
 function renderTOC(&$options)
 {
+	
   $code = '';
   $options['toc_numbers'][1] = 0;
   if ($options['toc'])
@@ -2120,6 +2383,7 @@ function renderTOC(&$options)
 */
 function renderTestSuiteNodeForPrinting(&$db,&$node,$env,&$options,$context,$tocPrefix,$indentLevel)
 {
+	
   static $tsuite_mgr;
   static $l10n;
   static $title_separator;
@@ -2245,6 +2509,7 @@ function renderTestSuiteNodeForPrinting(&$db,&$node,$env,&$options,$context,$toc
 function renderTestPlanForPrinting(&$db,&$node,&$options,$env,$context)
 
 {
+
   $tProjectMgr = new testproject($db);
   $context['prefix'] = $tProjectMgr->getTestCasePrefix($context['tproject_id']);
   $code =  renderTestSpecTreeForPrinting($db,$node,$options,$env,$context,$env->tocPrefix,$context['level']);
@@ -2260,6 +2525,7 @@ function renderTestPlanForPrinting(&$db,&$node,&$options,$env,$context)
  */
 function renderTestDuration($statistics,$platform_id=0)
 {
+	
   $output = '';
   $hasOutput = false;
   $estimatedTimeAvailable = isset($statistics['estimated_execution']) && !is_null($statistics['estimated_execution']);
@@ -2324,6 +2590,7 @@ function renderTestDuration($statistics,$platform_id=0)
  **/
 function renderEOF()
 {
+
   return "</div>\n</body>\n</html>";
 }
 
@@ -2335,6 +2602,7 @@ function renderEOF()
  */
 function buildTestPlanMetrics($statistics,$platform_id = 0)
 {
+	
   static $lbl;
   if(!$lbl)
   {
@@ -2362,6 +2630,7 @@ function buildTestPlanMetrics($statistics,$platform_id = 0)
  */
 function initRenderTestCaseCfg(&$tcaseMgr,$options)
 {
+	
   $config = null;
   $config['firstColWidth'] = '20%';
   $config['doc'] = config_get('document_generator');
@@ -2429,6 +2698,7 @@ function initRenderTestCaseCfg(&$tcaseMgr,$options)
  */
 function buildTestExecResults(&$dbHandler,&$its,$exec_info,$opt,$buildCF=null)
 {
+	
   static $testerNameCache;
   $out='';
   $my['opt'] = array('show_notes' => true);
@@ -2525,6 +2795,7 @@ function buildTestExecResults(&$dbHandler,&$its,$exec_info,$opt,$buildCF=null)
  */
 function renderPlatformHeading($tocPrefix, $platform,&$options)
 {
+
   $lbl = lang_get('platform');
   $name = htmlspecialchars($platform['name']);
   $options['tocCode'] .= '<b><p><a href="#' . prefixToHTMLID($tocPrefix) . '">' . $name . '</a></p></b>';
@@ -2545,11 +2816,13 @@ function renderPlatformHeading($tocPrefix, $platform,&$options)
  */
 function prefixToHTMLID($string2convert,$anchor_prefix='toc_')
 {
+	
   return $anchor_prefix . str_replace('.', '_', $string2convert);
 }
 
 function renderTestProjectItem($info)
 {
+	
   $lbl = init_labels(array('testproject' => null, 'context' => null, 'scope' => null));
   $out = '';
    $out .= renderSimpleChapter($lbl['testproject'] . ': ' . htmlspecialchars($info->tproject_name),$info->tproject_scope);
@@ -2561,6 +2834,7 @@ function renderTestProjectItem($info)
  */
 function renderTestPlanItem($info)
 {
+
   $lbl = init_labels(array('testplan' => null, 'scope' => null));
   $out = '';
   $out .= renderSimpleChapter($lbl['testplan'] . ': ' . htmlspecialchars($info->testplan_name),
@@ -2575,6 +2849,7 @@ function renderTestPlanItem($info)
  */
 function renderExecutionForPrinting(&$dbHandler, $baseHref, $id, $userObj = null)
 {
+
   static $tprojectMgr;
   static $tcaseMgr;
   static $st;
@@ -2664,8 +2939,8 @@ function renderExecutionForPrinting(&$dbHandler, $baseHref, $id, $userObj = null
     $context['user'] = $userObj;
     $out .= renderTestCaseForPrinting($dbHandler,$tcase,$renderOptions,$env,$context,$indentLevel); 
 
-    /*$out .= '<br>' . lang_get('direct_link') . ':' .
-            $env->base_href . 'lnl.php?type=exec&id=' . intval($id) . '<br>';/**/
+    $out .= '<br>' . lang_get('direct_link') . ':' .
+            $env->base_href . 'lnl.php?type=exec&id=' . intval($id) . '<br>';
     $exec_info = null;    
   }  
 

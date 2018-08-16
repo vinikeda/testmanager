@@ -29,6 +29,7 @@ $node['specific'] = $tcase_mgr->getExternalID($args->tcase_id);
 $idCard = $node['specific'][0] . ' : ' . $node['basic']['name'];
 
 
+
 $gui->tproject_id = isset($_SESSION['testprojectID']) ? $_SESSION['testprojectID'] : 0;
 
 // IMPORTANT NOTICE:
