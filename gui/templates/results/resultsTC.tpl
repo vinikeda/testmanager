@@ -101,11 +101,11 @@ show Test Results and Metrics
         {/if}
     </table>
 {foreach from=$gui->tableSet key=idx item=matrix}
-  {$tableID="table_$idx"}
-  {if $idx != 0}
-  <h2>{$labels.platform}: {$gui->platforms[$idx]|escape}</h2>
-  {/if}
-  {$matrix->renderBodySection()}
+    {$tableID="table_$idx"}
+    {if $idx != 0}
+    <h2>{$labels.platform}: {$gui->platforms[$idx]|escape}</h2>
+    {/if}
+    {$matrix->renderBodySection()}
 {/foreach}
 
 
