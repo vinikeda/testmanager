@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * ♔ TestLink Open Source Project - http://testlink.sourceforge.net/
  * This script is distributed under the GNU General Public License 2 or later.
@@ -1729,17 +1729,17 @@ $TLS_info_bugs_per_tc_report = "Este relatório exibe todos os bugs linkados aos
 // ----- gui/templates/resultsTC.tpl -----
 $TLS_info_resultsTC_report = "Esse relatório exibe os últimos resultados da execução dos testes para cada requisição. " .
                "considerando <b> casos de teste com e sem atribuição de testador.</b> <br />" ;
-//                             ."<br /><b>Examplo:</b><br />Os casos de teste foram executados nesta ordem: " .
-//                             "<br />Requisição 1.0 - Passou; Requisição 1.0 - Falhou<br />-> Último Resultado para a Requisição 1.0 " .
- //                            "é Falha porque a segunda execução sobrescreve os resultdos mais antigos.<br /><br />" .
-   //                          "\"[Última requisição]\" e \"Última execução\" mostra a coluna de dados de acordo " .
-     //                        "com este <b>examplo:</b><br />Os casos de teste foram executados nesta ordem:<br />" .
-       //                      "Requisição 1.0 - Passou; Requisição 1.0 - Falhou; Requisição 2.0 - Bloqueada; " .
-         //                    "Requisição 1.0 - Passou<br>-> [Última requisição] : Bloqueada porque a Requisição 2.0 é " .
-           //                  "a última Requisição criada para a qual o resultado foi definido.<br />-> \"Última Execução\" : " .
-             //                "Passou porque a Requisição 1.0 foi executada por último.<br /><br />A prioridade ".
-               //              "apresentada é calculada com base na importância da versão atualmente associada ".
-                 //            "ao caso de teste.";
+//                            ."<br /><b>Examplo:</b><br />Os casos de teste foram executados nesta ordem: " .
+  //                           "<br />Requisição 1.0 - Passou; Requisição 1.0 - Falhou<br />-> Último Resultado para a Requisição 1.0 " .
+    //                         "é Falha porque a segunda execução sobrescreve os resultdos mais antigos.<br /><br />" .
+      //                       "\"[Última requisição]\" e \"Última execução\" mostra a coluna de dados de acordo " .
+        //                     "com este <b>examplo:</b><br />Os casos de teste foram executados nesta ordem:<br />" .
+          //                   "Requisição 1.0 - Passou; Requisição 1.0 - Falhou; Requisição 2.0 - Bloqueada; " .
+            //                 "Requisição 1.0 - Passou<br>-> [Última requisição] : Bloqueada porque a Requisição 2.0 é " .
+              //               "a última Requisição criada para a qual o resultado foi definido.<br />-> \"Última Execução\" : " .
+                //             "Passou porque a Requisição 1.0 foi executada por último.<br /><br />A prioridade ".
+                  //           "apresentada é calculada com base na importância da versão atualmente associada ".
+                    //         "ao caso de teste.";
 
 
 
@@ -2250,7 +2250,7 @@ $TLS_title_test_plan_mgmt = "Gerenciar Plano de Teste";
 $TLS_href_manage_issues = "Gerenciar Erros";
 $TLS_href_manage_issues_categories = "Gerenciar Categorias de Erros";
 $TLS_href_manage_issues_markers = "Gerenciar Marcadores de Erros";
-$TLS_href_complete_monitoring_report = "Acompanhamento Complpleto";
+$TLS_href_complete_monitoring_report = "Acompanhamento Completo";
 $TLS_href_quick_monitoring_report = "Acompanhamento Rápido";
 $TLS_href_history_report = "Histórico";
 $TLS_href_sub_aquire_management = "Gerenciar Sub-Adquirente";

@@ -17,8 +17,8 @@
 
 $TLS_test_status_warning = "Warning";
 $TLS_test_status_analise = "Em analise";
-$TLS_test_status_nao_aplicavel = "Nao aplicavel";
-$TLS_test_status_aprovado_restricao = "Aprovado com restricao";
+$TLS_test_status_nao_aplicavel = "Não aplicavel";
+$TLS_test_status_aprovado_restricao = "Aprovado com restrição";
 $TLS_link_fail_only_report_test_report_on_build = "Relatório de falhas";
 $TLS_report_fail_only_test_plan_execution_on_build = "Relatório de falhas";
 $TLS_link_pass_only_report_test_report_on_build = "Relatório de aprovações";

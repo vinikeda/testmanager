@@ -6,8 +6,8 @@ Testlink: smarty template -
 @since 1.9.14
 *}
 {lang_get var="labels" 
-          s='TestProject,TestPlan,btn_change,title_user_mgmt,set_roles_to,show_only_authorized_users,
-             warn_demo,User,btn_upd_user_data,btn_do,title_assign_roles'}
+          s='TestProject,TestPlan,btn_change,title_user_mgmt,set_roles_to,show_only_authorized_users,all,
+             warn_demo,User,btn_upd_user_data,btn_do,title_assign_roles,grant_permissions'}
 
 {include file="inc_head.tpl" jsValidate="yes" openHead="yes" enableTableSorting="yes"}
 {include file="inc_ext_js.tpl" css_only=1}
@@ -163,7 +163,7 @@ during refresh feature, and then we have a bad refresh on page getting a bug.
     		<th>{$tlImages.sort_hint}{lang_get s="th_roles_$featureVerbose"} ({$my_feature_name|escape})</th>
                 {if $gui->featureType == 'testproject'}
                 <th>
-                    Conceder Permissões
+                    {$labels.grant_permissions}
                 </th>
                 {/if}
     	</tr>

@@ -2850,8 +2850,9 @@ class tlTestPlanMetrics extends testplan
     }
     
     function getExplainedBuildsBySub($id,$subName){
-      $sql ="select id, cname, SUBSTRING_INDEX(cname,'-',1) sub_adquirente, SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1) solucao, trim(BOTH '-' FROM substring_index(SUBSTRING_INDEX(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1),-1)) roteiro, substring_index (cname,substring_index(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),-1)ciclo, testplan_id from ( select id, replace(replace(name,'–','-'),'PRÉ-CICLO','PRÉ CICLO')cname, creation_ts,testplan_id from ( SELECT * FROM `builds` where testplan_id in ( SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id))conts where /*filtrando pela whitelist dos projetos de testes. testplan_id in (SELECT id FROM `nodes_hierarchy` where parent_id in(1,2252,34704,17972,24546,32883)) and*//*filtrando os ultimos 6 meses*/ date(creation_ts) > '2017-6-1' /*blacklist dos casos inválidos*/ and ( upper(name) not like('%DUMMY%') AND UPPER(name)not like('%DEBUG%') AND UPPER(name) not like('%N/A%'))) clean_build order by sub_adquirente,1 desc";
-      $dummy = (array)$this->db->get_recordset($sql);//echo $sql;
+      $sql ="select id, cname, SUBSTRING_INDEX(cname,'-',1) sub_adquirente, SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1) solucao, trim(BOTH '-' FROM substring_index(SUBSTRING_INDEX(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),SUBSTRING_INDEX(SUBSTRING_INDEX(cname,'-',2),'-',-1),-1)) roteiro, substring_index (cname,substring_index(cname,SUBSTRING_INDEX(substring(cname,1,instr(cname,'CICLO')),'-',-1),1),-1)ciclo, testplan_id from ( select id, replace(replace(name,'–','-'),'PRÉ-CICLO','PRÉ CICLO')cname, creation_ts,testplan_id from ( SELECT * FROM `builds` where active = 1 and testplan_id in ( SELECT a.id FROM `testplans` a inner join nodes_hierarchy b on (a.id = b.id) where active = 1 and SUBSTRING_INDEX(b.name,'-',1) like('%$subName%') and b.parent_id = $id))conts where active = 1 and /*filtrando pela whitelist dos projetos de testes. testplan_id in (SELECT id FROM `nodes_hierarchy` where parent_id in(1,2252,34704,17972,24546,32883)) and*//*filtrando os ultimos 6 meses*/ date(creation_ts) > '2017-6-1' /*blacklist dos casos inválidos*/ and ( upper(name) not like('%DUMMY%') /*desativado por ordem do edu AND UPPER(name)not like('%DEBUG%')*/ AND UPPER(name) not like('%N/A%'))) clean_build order by sub_adquirente,1 desc";
+      echo "<!--$sql-->";
+	  $dummy = (array)$this->db->get_recordset($sql);//echo $sql;
       return($dummy);
   }
   
@@ -2877,8 +2878,8 @@ class tlTestPlanMetrics extends testplan
                 inner join nodes_hierarchy b on (a.id = b.id)
             inner join testplans c on( SUBSTRING_INDEX(b.name,'-',1) = SUBSTRING_INDEX(replace(builds.name,'–','-'),'-',1))
         where 
-                b.parent_id = $id  and builds.active = $getActive and builds.is_open = $getActive
-      and ( upper(builds.name) not like('%DUMMY%') AND UPPER(builds.name)not like('%DEBUG%') AND UPPER(builds.name) not like('%N/A%'))";
+                b.parent_id = $id  and builds.active = $getActive /*and builds.is_open = $getActive*/
+      and ( upper(builds.name) not like('%DUMMY%') AND UPPER(builds.name) not like('%N/A%'))";
       $dummy = (array)$this->db->get_recordset($sql);
       return($dummy);
   }
@@ -2896,7 +2897,7 @@ class tlTestPlanMetrics extends testplan
       $oList;
       foreach($list as $build){
           $build['status'] = $this->getExecutionsStatus($build['build_id']);
-          $oList[$build['sub_adquirente']][$build['solucao']][$build['roteiro']] = $build;
+          $oList[$build['sub_adquirente']][$build['solucao']][$build['roteiro'].$build['ciclo']] = $build;
           
       }//var_dump(array_flip($this->map_tc_status));
       return $oList;

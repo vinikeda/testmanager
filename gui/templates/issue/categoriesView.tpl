@@ -80,7 +80,7 @@ var del_action=fRoot+'{$deleteAction}';
   	</table>
    </form> 
   {else}
-  	<p>{$labels.no_builds}</p>
+  	<p>Nenhuma Categoria de Erro foi Definida!</p>
   {/if}
 </div>
 {* ------------------------------------------------------------------------------------------- *}

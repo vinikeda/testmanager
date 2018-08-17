@@ -1,4 +1,0 @@
-AuthName "Area Segura"
-AuthType Basic
-AuthUserFile "C:/wamp64/www/testlink/cfg/.htpasswd"
-Require valid-user

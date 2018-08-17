@@ -1835,7 +1835,7 @@ function setPublicStatus($id,$status)
 
   /**
    * Inserts a testproject related role for a given user
-   *http://200.204.163.104:5601/app/kibana#/dashboard/3c2d2020-2d3f-11e8-b4ad-11ecc9bb7740?embed=true&_g=(refreshInterval%3A(display%3A'30%20seconds'%2Cpause%3A!f%2Csection%3A1%2Cvalue%3A30000)%2Ctime%3A(from%3Anow%2FM%2Cmode%3Aquick%2Cto%3Anow%2FM))
+   *
    * @param integer $userID the id of the user
    * @param integer $tproject_id
    * @param integer $roleID the role id

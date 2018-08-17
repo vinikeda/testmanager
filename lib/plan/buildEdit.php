@@ -28,6 +28,7 @@ $op->user_feedback = '';
 $op->buttonCfg = new stdClass();
 $op->buttonCfg->name = "";
 $op->buttonCfg->value = "";
+
 $smarty = new TLSmarty();
 $tplan_mgr = new testplan($db);
 $build_mgr = new build_mgr($db);

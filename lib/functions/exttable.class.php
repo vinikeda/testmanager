@@ -225,7 +225,7 @@ class tlExtTable extends tlTable
       $isGroupable = isset($column['groupable']) ? $column['groupable'] : false;
 	    if( (isset($column['hidden']) && $column['hidden']) && !$isGroupable )
       {
-      	//continue;  // just an experiment
+      	continue;  // just an experiment
       }
       
 

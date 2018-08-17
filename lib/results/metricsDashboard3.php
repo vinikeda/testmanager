@@ -143,7 +143,7 @@ function getMetrics(&$db,$userObj,$args, $result_cfg, $labels)
     $metricsMgr = new tlTestPlanMetrics($db);
     //$show_platforms = false;
     
-    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id);
+    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id);//var_dump($list);
     $result_cfg['status_code'];
     //print_r($list);
     foreach($list as $sub_name=>$sub){
@@ -304,7 +304,7 @@ function initEnv(&$dbHandler)
   else
   {
     testlinkInitPage($dbHandler,false,false,"checkRights");  
-    $args->tproject_id = isset($_SESSION['testprojectID']) ? intval($_SESSION['testprojectID']) : 0;
+    $args->tproject_id = isset($_SESSION['testprojectID']) ? intval($_SESSION['testprojectID']) : 0;//var_dump($args->tproject_id);
   }
   
   if($args->tproject_id <= 0)

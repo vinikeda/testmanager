@@ -59,6 +59,7 @@ class macros {
     }
     
     function getforselect($tproject){
+		//echo "<!--$tproject-->";
         $sql = "select m.* from macro m inner join macro_project mp on(m.id = mp.id_macro) where mp.id_tproject = $tproject";
         $temp = $this->db->get_recordset($sql);
         $a;

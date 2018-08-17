@@ -25,7 +25,7 @@ $markersID =  $_REQUEST['markersID'];
 
 if(isset($markersID)) {//com marcadores
     if($categoryID != 0) /*com categoria*/ $isslist =($issues->getIssuesByMarksAndCategories($categoryID, $markersID));
-    else /*sem categoria*/ $isslist =($issues->getIssuesByMarks( $markersID));
+    else /*sem categoria*/ $isslist =($issues->getIssuesByMarks( $markersID));;
     
 }else if($categoryID != 0) /*com categoria*/ $isslist =($issues->getIssuesByCategory($categoryID));
 else /*sem marcador nem categoria*/ $isslist =($issues->getIssues());
@@ -36,11 +36,11 @@ else /*sem marcador nem categoria*/ $isslist =($issues->getIssues());
     //$gui->issues = $isslist;
 $iss = '';
 echo json_encode($isslist);
-/*foreach($isslist as $issue){
+foreach($isslist as $issue){
     $description = $issue[description];
     $id = $issue[id];
     $iss .= "<div id=\"issr$description\"><input id=\"issr2$description\" type=\"checkbox\" name=\"issue['$id']\" >$description</div><br id = \"issr$description\">";
-}*/
+}
 //print_r($isslist);
 //echo $iss;
 /*
@@ -52,5 +52,5 @@ $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
 
 function checkRights(&$db,&$user)
 {
-    return $user->hasRight($db,'testplan_create_build');
+	return $user->hasRight($db,'testplan_create_build');
 }

@@ -352,9 +352,9 @@ function initializeGui(&$dbHandler,$argsObj,&$tplanMgr,&$tcaseMgr)
     $tproject_mgr = new testproject($dbHandler);
     $tproject_info = $tproject_mgr->get_by_id($argsObj->tproject_id);
 
-    $gui->all_users = tlUser::getAll($dbHandler,null,"id",null);   
+    $gui->all_users = tlUser::getAll($dbHandler,null,"id",null);
     $gui->users = getUsersForHtmlOptions($dbHandler,null,null,null,$gui->all_users);
-    $gui->testers = getTestersForHtmlOptions($dbHandler,$argsObj->tplan_id,$tproject_info,$gui->all_users); //var_dump($gui->testers);
+    $gui->testers = getTestersForHtmlOptions($dbHandler,$argsObj->tplan_id,$tproject_info,$gui->all_users);
   }
 
   return $gui;

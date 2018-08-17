@@ -85,7 +85,7 @@ $gui->user_feedback = $op->user_feedback;
 $gui->buttonCfg = $op->buttonCfg;
 
 $gui->mgt_view_events = $args->user->hasRight($db,"mgt_view_events");
-//$gui->editorType = $editorCfg['type'];
+$gui->editorType = $editorCfg['type'];
 
 renderGui($smarty,$args,$subadiq_mgr,$templateCfg,/*$of,*/$gui);
 

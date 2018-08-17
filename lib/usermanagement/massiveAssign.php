@@ -23,7 +23,7 @@ switch($type){
     break;
     case 'plan':
         $sql = "delete from `user_testplan_roles` where user_id = $userID and role_id = 3 and testplan_id in(select id from testplans where testproject_id = $projectID)";
-        $db->exec_query($sql);//echo $sql;
+        $db->exec_query($sql);
         $sql = "insert into `user_testplan_roles` SELECT '$userID' as `user_id` ,id 'testplan_id',$roleID as 'role_id' FROM (select * from `user_testplan_roles` where user_id = $userID)b right join testplans on (id = b.testplan_id) where isnull(role_id) and testplans.testproject_id = $projectID";
         $db->exec_query($sql);
     break;

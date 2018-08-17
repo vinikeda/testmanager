@@ -16,5 +16,15 @@
  **/
 
 $TLS_test_status_warning = "Warning";
+$TLS_test_status_analise = "In Analysis";
+$TLS_test_status_nao_aplicavel = "Not applicable";
+$TLS_test_status_aprovado_restricao = "Approved with Restrictions";
+$TLS_link_fail_only_report_test_report_on_build = "Failures Report";
+$TLS_report_fail_only_test_plan_execution_on_build = "Failures Report";
+$TLS_link_pass_only_report_test_report_on_build = "Approval Report";
+$TLS_pass_only_report_test_report_on_build = "Approval Report";
+$TLS_link_report_test_report_on_build = "Complete Report";
+$TLS_report_test_report_on_build = "Complete Report";
+$TLS_home = "home";
 
 ?>
