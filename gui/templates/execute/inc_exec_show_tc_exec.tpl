@@ -203,10 +203,10 @@ var getExecTime = function(){
   			 </div>
 		  {/if}
 
-		  <table cellspacing="0" class="exec_history">
+		  <table cellspacing="0" style="border: 1px solid black; width:1260px;" class="exec_history">
 			 <tr>
 				<th style="text-align:left">{$labels.date_time_run}</th>
-        
+				{$my_colspan=$my_colspan+1}
 				{if $gui->history_on == 0 || $cfg->exec_cfg->show_history_all_builds}
 				  <th style="text-align:left">{$labels.build}</th>
 				{/if}
@@ -249,7 +249,9 @@ var getExecTime = function(){
 			{foreach item=tc_old_exec from=$gui->other_execs.$tcversion_id}
   	     {$tc_status_code=$tc_old_exec.status}
 			{cycle values='#eeeeee,#d0d0d0' assign="bg_color"}
-			<tr style="border-top:1px solid black; background-color: {$bg_color}">
+  			  <td>
+			<tr style="border-top:2.5px solid black; background-color: {$bg_color}">			
+			</td>
   			  <td>
           {* Check also that Build is Open *}
   			  {if $can_edit_exec_notes && $tc_old_exec.build_is_open}

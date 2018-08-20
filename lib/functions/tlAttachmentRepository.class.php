@@ -338,18 +338,24 @@ class tlAttachmentRepository extends tlObjectWithDB
    */
   public function getAttachmentContent($id,$attachmentInfo = null)
   {
+	//echo "<script>console.log( 'id: ".json_encode($id)."' );</script>";
     $content = null;
     if (!$attachmentInfo)
     {
       $attachmentInfo = $this->getAttachmentInfo($id);
     }
-    
+    //echo "<script>console.log( 'attachmentInfo: ".json_encode($attachmentInfo)."' );</script>";
+    //echo "<script>console.log( 'this: ".json_encode($this)."' );</script>";
     if ($attachmentInfo)
     {
       $fname = 'getAttachmentContentFrom';
+	  //echo "<script>console.log( 'fname1: ".json_encode($fname)."' );</script>";
       $fname .= ($this->repositoryType == TL_REPOSITORY_TYPE_FS) ? 'FS' : 'DB';
+	  //echo "<script>console.log( 'fname2: ".json_encode($fname)."' );</script>";
       $content = $this->$fname($id);
+	// echo "<script>console.log( 'content: ".json_encode($content)."' );</script>";
     }
+	//echo "<script>console.log( 'content: ".json_encode($content)."' );</script>";
     return $content;
   }
   

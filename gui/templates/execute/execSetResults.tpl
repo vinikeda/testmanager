@@ -246,6 +246,11 @@ IMPORTANT: if you change value, you need to chang init_args() logic on execSetRe
   <br />
   {/if}
 
+	<form method="POST" action="lib/attachments/attachmentdownload.php" enctype="multipart/form-data" target="_blank" id="attachment_form">
+		<input type="hidden" name="id"/>
+		<input type="hidden" value="1" name="skip"/>
+		<input type="hidden" value="" name="key"/>
+	</form> 
 
 <form method="post" id="execSetResults" name="execSetResults" 
       enctype="multipart/form-data"

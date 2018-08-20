@@ -1,0 +1,187 @@
+<html>
+    <head>
+        <title>Test Charts</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <script type="text/javascript" src="jquery.js"></script>  
+ <script type="text/javascript" src="i18n.js"></script>
+ <script type="text/javascript" src="VanBase.js"></script>
+ <script type="text/javascript" src="VanCharts.js"></script>
+  <script type="text/javascript">
+function draw(){ 
+     var text =$("#code").val(); 
+	 var options=eval("("+text+")")
+     var dom = $("#chartContainer");
+	 dom.empty();
+     var charts = new VanCharts(options, dom);
+}
+</script>
+    </head>
+    <body>
+        <div id="hs-component">
+            <div class="col-md-4" style="float:right">						 
+ <textarea id="code" name="code" style="width: 378px; height: 500px;">{
+  "chartType": "Pie","title": { "text": "Test overall execution per build", "font": { "fontName": "Microsoft YaHei UI", "size": 18.666666666666668 } }, "legend": {"font": {"fontName": "Meiryo UI"}}, "data": [["not_run",165],["failed",2],["analise",5],["warning",51]],"label": { "textAttr": { "rotation": 0, "font": { "fontName": "Meiryo UI", "style": "", "color": "rgb(0,0,0)", "size": 12 }, "alignText": 0 }, "position": "outside", "isShowMutiSeries": false, "labelContent": "${SERIES},${VALUE}", "leadLine": true }, "tooltip": { "percentFormat": "#.##%", "isShowMutiSeries": false, "valueFormat": "#.##", "labelContent": "${SERIES}${BR}${CATEGORY}${BR}${VALUE}${BR}${PERCENT}" }, "plot": {"color": { "colorStyle": "fill", "colorList": [ "#808080", "#B22222", "#FF8C11", "#FBFF11","#FFFFFF" ] }} }
+                    </textarea>
+ <!--textarea id="code" name="code" style="width: 378px; height: 500px;">{
+  "series": {
+    "lineStyle": 5,
+    "markerType": "RoundFilledMarker"
+  },
+  "chartType": "Line",
+  "title": {
+    "text": "sales in 2013&2014",
+    "font": {}
+  },
+  "data": {
+    "series": [
+      {
+        "seriesName": "2013",
+        "value": [
+          1100,
+          2400,
+          3100,
+          2500,
+          1500,
+          1600,
+          2500,
+          3102,
+          3204,
+          4000,
+          2300,
+          1100
+        ],
+        "seriesIndex": 0
+      },
+      {
+        "seriesName": "2014",
+        "value": [
+          500,
+          600,
+          100,
+          1000,
+          2100,
+          500,
+          400,
+          2000,
+          1200,
+          2200,
+          1500,
+          3000
+        ],
+        "seriesIndex": 1
+      }
+    ],
+    "category": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
+  },
+  "interaction": {"draggable": true},
+  "tooltip": {
+    "isShowMutiSeries": false,
+    "valueFormat": "#.##",
+    "labelContent": "${VALUE}"
+  },
+  "plot": {
+    "yAxis": {
+      "position": "left",
+      "mainGridStyle": 1,
+      "axisType": "ValueAxis",
+      "font": {"fontName": "Century Gothic"},
+      "gap": 0
+    },
+    "color": {
+      "colorStyle": "fill",
+      "definedColors": "bright"
+    },
+    "xAxis": {
+      "position": "bottom",
+      "axisType": "CategoryAxis",
+      "drawBetweenTick": true
+    }
+  }
+}
+                    
+                    </textarea-->
+</div>
+
+
+            <div class="col-md-2" style="float:right">
+<button class="btn btn-primary"  type="button" onclick="javascript:draw()">Refresh</button>
+
+					</div>
+            <iframe>
+            <table style="margin-top: 300px">
+                <tr>
+                    <td id="chartContainer" style="width: 378px; height: 200px;">
+                        
+                    </td>
+                </tr>
+            </table>
+            </iframe>			<!--div id="chartContainer" class="col-md-6" style="width: 378px; height: 200px;">
+					</div-->
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        draw();
+    });
+</script>
+        </div>
+    </body>
+    
+
+</html>
+
+<!--
+massa de teste piechart
+
+[
+      "Chrome",
+      45.71
+    ],
+    [
+      "IE",
+      21.07
+    ],
+    [
+      "Firefox",
+      17.85
+    ],
+    [
+      "Safari",
+      10.32
+    ],
+    [
+      "Opera",
+      1.39
+    ],
+    [
+      "Android",
+      1.34
+    ],
+    [
+      "360 Safe Browser",
+      0.58
+    ],
+    [
+      "Yandex Browser",
+      0.32
+    ],
+    [
+      "Others",
+      1.41
+    ]
+
+
+-->

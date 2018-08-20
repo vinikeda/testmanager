@@ -130,7 +130,7 @@ Author : franciscom
     		{/if}  
 			
     	</td>
-		
+	</form>	
     </tr>
     {if $args_save_type == 'bulk' && $args_execution_time_cfields != ''}
         <tr>

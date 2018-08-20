@@ -60,7 +60,9 @@ $gui = initializeGui($db,$args,$cfg,$tplan_mgr,$tcase_mgr,$its);
 $_SESSION['history_on'] = $gui->history_on;
 $attachmentInfos = null;
 
-$do_show_instructions = ($args->level == "" || $args->level == 'testproject') ? 1 : 0;
+
+$do_show_instructions = 0;//($args->level == "" || $args->level == 'testproject') ? 1 : 0;
+
 if ($do_show_instructions)
 {
   show_instructions('executeTest');
@@ -137,7 +139,7 @@ if(!is_null($linked_tcversions))
       }  
 
 
-      $_REQUEST['save_results'] = $args->save_results;//echo "requset = ";//var_dump($_REQUEST);
+      $_REQUEST['save_results'] = $args->save_results;
       list($execSet,$gui->addIssueOp) = write_execution($db,$args,$_REQUEST,$its);
       require_once("../issue/issues.class.php");
       $issue = new issues($db);
