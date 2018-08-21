@@ -1343,18 +1343,18 @@ function gendocGetUserName(&$db, $userId)
  */
 function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLevel)
 {
-	echo '<script src="//code.jquery.com/jquery-1.11.1.min.js" </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" </script>
-<script type="text/javascript">
+	echo //'<script src="//code.jquery.com/jquery-1.11.1.min.js" </script>
+//'<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" </script>
+'<script type="text/javascript">
 jQuery(document).ready(function(){
 
-     $("a#link_attach.bold").each(function() {
-         if($(this).text().length > 30) {
-           $(this).text($(this).text().substr(0,30)+"...");
+     jQuery("a#link_attach.bold").each(function() {
+         if(jQuery(this).text().length > 30) {
+           jQuery(this).text(jQuery(this).text().substr(0,30)+"...");
          }
      });
 });	
-</script>';
+</script>';/**/
 
   static $req_mgr;
   static $tc_mgr;

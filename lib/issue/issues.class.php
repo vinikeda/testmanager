@@ -13,6 +13,8 @@ class issues {
     }
 
     function create($description,$categoryId,$whoAccept,$descText,$markers = null,$projects = null){
+        $description = mysql_real_escape_string($description);
+        $descText = mysql_real_escape_string($descText);
         if(!$this->verifyDuplicity($description,$markers)){
 
             $author = ($whoAccept == "QA"?'qa':($whoAccept == "sup"?'super':'analis'));//echo "insert into issues(description,category_id,".$author."_accept,text_description) values ('$description',$categoryId,1,'$descText')";
@@ -36,7 +38,9 @@ class issues {
     }
 
     function update ($id ,$description,$whoAccept,$category,$descText, $markers = null, $projects){
-        $sql = "update issues set description = '$description', category_id = $category, text_description = '$descText' where id = $id";
+        $safe_description = mysql_real_escape_string($description);
+        $safe_desctext = mysql_real_escape_string($descText);
+        $sql = "update issues set description = '$safe_description', category_id = $category, text_description = '$safe_desctext' where id = $id";
         $this->db->exec_query($sql);
         if($markers != null){
             foreach(array_diff($this->getMarkers($id),$markers) as $to_rmv)$this->rmvmarker($id,$to_rmv);
