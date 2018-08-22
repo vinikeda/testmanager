@@ -74,7 +74,7 @@ show Test Results and Metrics
     </table>
 {foreach from = $gui->tplanIDS key=idx item=value}
     <b>{$value}</b><br>
-    <iframe onscroll =" iframeLoaded(this)" id='idIframe{$idx}' src = "http://localhost/testlink/lib/results/tableresultsTC.php?format=0&tplan_id={$idx}" width="100%">
+    {*<iframe onscroll =" iframeLoaded(this)" id='idIframe{$idx}' src = "lib/results/tableresultsTC.php?format=0&tplan_id={$idx}" width="100%">*}
         
     </iframe><br>
 
