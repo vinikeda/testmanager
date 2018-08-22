@@ -722,7 +722,7 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
               $r4build['text'] = $labels[$rf[$buildID]['status']];/* .
                                 sprintf($labels['versionTag'],$rf[$buildID]['version']);*/
               if($rf[$buildID]['status'] != 'n')
-             $r4build['text'] .= "    <a  onclick=\"jQuery('#Nissues').modal('show');document.getElementById('execprint').src = 'testlink/lib/execute/execPrint.php?id=$execID'\" ><img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a>";//data-toggle=\"modal\" data-target=\"#Nissues\"
+             $r4build['text'] .= "    <a  onclick=\"jQuery('#Nissues').modal('show');document.getElementById('execprint').src = 'http://localhost/testlink/lib/execute/execPrint.php?id=$execID'\" ><img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a>";//data-toggle=\"modal\" data-target=\"#Nissues\"
             /*$r4build['text'] .= "<a href=\"javascript:openExecutionWindow(" .
                                "{$tcaseID}, {$rf[$buildID]['tcversion_id']}, {$buildID}, " .
                                "{$args->tplan_id}, {$platformID});\">" .
