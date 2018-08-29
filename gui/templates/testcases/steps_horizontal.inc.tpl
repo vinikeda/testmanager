@@ -88,9 +88,9 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                     display:inline-block !important;/*eu sei que isso não deveria existir, mas se tirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
                 }
             </style>
-            <div class = "dropdown" id = 'fixed{$step_info.id}' >
+            <div class = "dropdown" id = 'fixed{$step_info.id}'  >
                 <button class='btn btn-default' type='button' id="dropdownMenu{$step_info.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >Mensagens Padrão</button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu{$step_info.id}">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu{$step_info.id}" >
                     <table>
                     <tr style="/*display:none*/">
                         <td>
@@ -153,7 +153,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                                     <div id="step{$step_info.id}" data-reference="{$issue.description|escape}" errID="{$issue.id}" style="width:100%">
                                         <a data-toggle="tooltip" title="{$issue.text_description} ">
                                             <script>/*step{$step_info.id}{$chave} =  '{$issue.text_description|escape} ';*/</script>
-                                            <input  type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('issx{$issue.id}').checked = true"  value = "{$issue.description|escape}">
+                                            <input  type="button" style="width:500px" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('issx{$issue.id}').checked = true"  value = "{$issue.description|escape}">
                                         </a>        
                                     </div><br errID="{$issue.id}" data-reference="{$issue.description|escape}">
                                         
