@@ -53,7 +53,10 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 
 
   </tr>
-  
+  <script>
+      var jsonObj2 = [];
+      
+  </script>
   {$rowCount=$steps|@count} 
   {$row=0}
 
@@ -81,38 +84,55 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
         <td {if $edit_enabled} style="cursor:pointer;" onclick="launchEditStep({$step_info.id})" {/if}>{$gui->execution_types[$step_info.execution_type]}
             <!--a onClick="C = window.open('lib/issue/searchIssue.php','janela teste','width = 800,height=600,resizable=yes,scrollbars=yes,dependent=yes');"> link torto</a-->
             <style>
-                #fixed{
+                #fixed{$step_info.id}{
                     display:inline-block !important;/*eu sei que isso não deveria existir, mas se tirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
                 }
             </style>
-            <div class = "dropdown" id = 'fixed'>
-                <button class='btn btn-default' type='button' id="dropdownMenu{$step_info.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Mensagens Padrão</button>
+            <div class = "dropdown" id = 'fixed{$step_info.id}' >
+                <button class='btn btn-default' type='button' id="dropdownMenu{$step_info.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >Mensagens Padrão</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu{$step_info.id}">
                     <table>
-                    <tr style="display:none">
+                    <tr style="/*display:none*/">
                         <td>
                             Categoria
                         </td>
                         <td>
-                            <select name="category" class = "chosen-select" id="bulk_tester_div">
-                                {html_options options=$gui->Categories selected=$gui->SelectedCategory}
+                            <select name="category" class = "chosen-select" id="bulk_tester_div{$step_info.id}">
+                                <option value ="0" selected>todos</option>
+                                {html_options options=$gui->Categories}
                             </select>
                         </td>
                     </tr>
-                    <tr style="display:none">
+                    <tr style="/*display:none*/">
                         <td>
                             Marcadores
                         </td>
                         <td>
-                            <select name="markersID[]" class = "chosen-bulk-select" multiple = multiple id="bulk_tester_div">
-                                {html_options options=$gui->markers selected=$gui->selectedMarkers}
+                            <select name="markersID[]" class = "chosen-bulk-select" multiple = multiple id="marker-select{$step_info.id}">
+                                {html_options options=$gui->markers}
                             </select>
                         </td>
                     </tr>
                     <script>
+                        jsonObj2[{$step_info.id}] = 0;
                         jQuery( document ).ready(function() {
-                        jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });
-                        jQuery(".chosen-bulk-select").chosen({ width: "100%", allow_single_deselect: true });
+                            jQuery("#bulk_tester_div{$step_info.id} , #marker-select{$step_info.id}").chosen({ width: "85%", allow_single_deselect: true }).change(
+                                function(desc, selected){
+                                    url = buildURL2(jQuery("#bulk_tester_div{$step_info.id}"),jQuery("#marker-select{$step_info.id}"));
+                                    buildAJAX2(url,jQuery("#errlist{$step_info.id} > *"),{$step_info.id});
+                                    //jQuery('#chkfilter{$step_info.id}').trigger("keyup");
+                                }
+                            );
+                            //
+                        //jQuery(".chosen-select-drop").chosen({ width: "85%", allow_single_deselect: true });
+                        //jQuery(".chosen-bulk-select").chosen({ width: "85%", allow_single_deselect: true });
+                            /*jQuery("#bulk_tester_div{$step_info.id} #marker-select{$step_info.id}").chosen().change(
+                                function(desc, selected){
+                                    jQuery("#fixed{$step_info.id}").dropdown('toggle');
+                                    selectedCategory = selected.selected;
+                                    buildAJAX();
+                                }
+                            );*/
                         });
                     </script>
                     <tr>
@@ -128,14 +148,14 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                             Erros
                         </td>
                         <td>
-                            <div style="overflow-y: scroll;height:180px">
+                            <div id="errlist{$step_info.id}" style="overflow-y: scroll;height:180px">
                                 {foreach key=chave item=issue from=$gui->issues}
-                                    <div id="step{$step_info.id}{$issue.description}" style="width:100%">
+                                    <div id="step{$step_info.id}" data-reference="{$issue.description|escape}" errID="{$issue.id}" style="width:100%">
                                         <a data-toggle="tooltip" title="{$issue.text_description} ">
-                                            <script>/*step{$step_info.id}{$chave} =  '{$issue.text_description} ';*/</script>
-                                            <input  type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('step2{$issue.description}').checked = true"  value = "{$issue.description}">
+                                            <script>/*step{$step_info.id}{$chave} =  '{$issue.text_description|escape} ';*/</script>
+                                            <input  type="button" style="width:100%" class="btn btn-default" onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} ';document.getElementById('issx{$issue.id}').checked = true"  value = "{$issue.description|escape}">
                                         </a>        
-                                    </div><br id = "step{$step_info.id}{$issue.description}">
+                                    </div><br errID="{$issue.id}" data-reference="{$issue.description|escape}">
                                         
                                 {/foreach}
                             </div>
@@ -150,14 +170,28 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                     <script>
                         jQuery('#chkfilter{$step_info.id}').on('keyup', function() {
                             var query = this.value;
-
-                            jQuery('[id^="step{$step_info.id}"]').each(function(i, elem) {
-                                
-                                  if (elem.id.toUpperCase().substring("step{$step_info.id}".length).indexOf(query.toUpperCase()) !== -1) {
-                                      elem.style.display = 'inline-block';//console.log(elem);
-                                  }else{
-                                      elem.style.display = 'none';
-                                  }
+                              //if(typeof jsonObj2[{$step_info.id}] !== 'undefined'){
+                            jQuery('#errlist{$step_info.id} > *').each(function(i, elem) {
+                                //console.log(elem);
+                                if(jsonObj2[{$step_info.id}] == 0){
+                                    if(elem.getAttribute('data-reference').toUpperCase().indexOf(query.toUpperCase()) !== -1){
+                                        elem.style.display = 'inline-block';
+                                    }else{
+                                        elem.style.display = 'none';
+                                    } 
+                                }else if (jsonObj2[{$step_info.id}] == null){
+                                    /*do nothing*/
+                                }else{
+                                    for(i = 0;i<jsonObj2[{$step_info.id}].length;i++){
+                                        if(elem.getAttribute('errID') == jsonObj2[{$step_info.id}][i].id){
+                                            if(elem.getAttribute('data-reference').toUpperCase().indexOf(query.toUpperCase()) !== -1){
+                                                elem.style.display = 'inline-block';
+                                            }else{
+                                                elem.style.display = 'none';
+                                            }
+                                        }
+                                    }
+                                }
                             });
                         });
                     </script>

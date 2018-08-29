@@ -5,7 +5,7 @@
             Categoria
         </td>
         <td>
-            <select class = "chosen-select" id="bulk_tester_div">
+            <select class = "chosen-select" id="category-bulk_tester_div">
                 <option value ="0" selected>todos</option>
                 {html_options options=$gui->Categories}{*selected=$gui->SelectedCategory*}
             </select>
@@ -37,7 +37,7 @@
         <td>
             <div id="errorlist"  style="overflow-y: scroll;height:180px;border-style:solid;border-width:0.5px;border-color:#a6a6a6;">
                 {foreach key=chave item=issue from=$gui->issues}
-                    <div id="issr{$issue.id}" data-reference="{$issue.description}"><input type="checkbox" name="issue[{$issue.id}]" {if $gui->selectedIssues[$issue.id] == 1}checked{/if}>{$issue.description}</div><br id = "issr{$issue.id}" data-reference="{$issue.description}">
+                    <div id="issr{$issue.id}" data-reference="{$issue.description}"><input type="checkbox"  name="issue[{$issue.id}]" id="issx{$issue.id}" {if $gui->selectedIssues[$issue.id] == 1}checked{/if}>{$issue.description}</div><br id = "issr{$issue.id}" data-reference="{$issue.description}">
                 {/foreach}
             </div>
             <style>
@@ -63,6 +63,33 @@
     </tr>
     <script>
         
+        function buildURL2(category,marker){
+            selectedMarkers = marker.chosen().val();
+            selectedCategory2 = category.chosen().val(); //não funciona como deveria
+            markerstrings = "";;
+            for(var i = 0;i < selectedMarkers.length; i++){
+                markerstrings += "&markersID[]="+selectedMarkers[i];
+            }
+            return "lib/issue/searchIssue.php?category="+selectedCategory2+markerstrings;
+        }
+        function buildAJAX2(url,list,id){   
+            jQuery.ajax({
+                url:url, success: function(result){
+                    //console.log(result)
+                    jsonObj2[id] = JSON.parse(result); //console.log(list.length);
+                    list.each(function(i, elem) {   
+                        elem.style.display = 'none';
+                        //console.log(elem);
+                        if(jsonObj2[id] != null){
+                            for(j=0;j< jsonObj2[id].length;j++){
+                                if(elem.getAttribute('errID')== jsonObj2[id][j].id)elem.style.display = 'inline-block';
+                            }
+                        }
+                    });
+                    jQuery('#chkfilter'+id).trigger("keyup");
+                }
+            });
+        }
         selectedCategory = 0;
         jsonObj = 0;
         function buildURL(){
@@ -94,7 +121,7 @@
         jQuery( document ).ready(function() {
             jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });
             jQuery(".modal-chosen-select").chosen({ width: "100%", allow_single_deselect: true });
-            jQuery(".chosen-select").chosen().change(
+            jQuery("#category-bulk_tester_div").chosen().change(
                 function(desc, selected){
                     selectedCategory = selected.selected;
                     buildAJAX();
@@ -154,7 +181,8 @@
             var query = this.value;
             chkfilter(query)
         });
-        
+        jQuery(".dropdown-menu").on("click",function (e) {
+    e.stopPropagation();});
     </script>
 </table>
 </div>
