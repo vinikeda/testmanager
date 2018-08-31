@@ -83,6 +83,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
     {if $session['testprojectOptions']->automationEnabled}
         <td {if $edit_enabled} style="cursor:pointer;" onclick="launchEditStep({$step_info.id})" {/if}>{$gui->execution_types[$step_info.execution_type]}
             <!--a onClick="C = window.open('lib/issue/searchIssue.php','janela teste','width = 800,height=600,resizable=yes,scrollbars=yes,dependent=yes');"> link torto</a-->
+            {if $inExec}
             <style>
                 #fixed{$step_info.id}{
                     display:inline-block !important;/*eu sei que isso não deveria existir, mas se tirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
@@ -198,6 +199,8 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
                 </table>
                 </div>
             </div>
+            <button class="btn btn-default " type="button" onclick="document.getElementById('step_notes_{$step_info.id}').value = ''"> limpar</button>
+            {/if}
         </td>
     {/if}
     {if $edit_enabled}
@@ -220,7 +223,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 
     {if $inExec}
       <td class="exec_tcstep_note">
-        <textarea class="step_note_textarea" name="step_notes[{$step_info.id}]" id="step_notes_{$step_info.id}" 
+        <textarea class="step_note_textarea" disabled name="step_notes[{$step_info.id}]" id="step_notes_{$step_info.id}" 
                   cols="40" rows="5">{$step_info.execution_notes|escape}</textarea>
       </td>
 
