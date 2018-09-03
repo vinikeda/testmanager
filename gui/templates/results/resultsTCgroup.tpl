@@ -17,22 +17,6 @@ show Test Results and Metrics
 {include file="inc_head.tpl" openHead="yes"}
 
 
-{foreach from = $gui->tplanIDS key=idx2 item=value}
-    <b>{$value}</b><br>
-    
-    {foreach from=$gui->tableSet[$idx2] key=idx item=matrix}
-        {$tableID="table_$idx"}
-        {if $idx != 0}
-        <h2>{$labels.platform}: {$gui->platforms[$idx]|escape}</h2>
-        {/if}
-        {$matrix->renderBodySection()}
-    {/foreach}
-    {*<iframe onscroll =" iframeLoaded(this)" id='idIframe{$idx}' src = "lib/results/tableresultsTC.php?format=0&tplan_id={$idx}" width="100%">
-        
-    </iframe>*}<br>
-
-{/foreach}
-
 </head>
 <body>
 <script type="text/javascript">
@@ -77,7 +61,7 @@ show Test Results and Metrics
                             <option value = "0" select >Todos</option>
                             {html_options options=$gui->tplanIDS}
                         </select>
-                    </form>
+                    </form> 
 
                 </span>
             </td>
@@ -88,23 +72,13 @@ show Test Results and Metrics
             </td>
         </tr>
     </table>
-{foreach from = $gui->tplanIDS key=idx2 item=value}
+{foreach from = $gui->tplanIDS key=idx item=value}
     <b>{$value}</b><br>
-    
-    {foreach from=$gui->tableSet[$idx2] key=idx item=matrix}
-        {$tableID="table_$idx"}
-        {if $idx != 0}
-        <h2>{$labels.platform}: {$gui->platforms[$idx]|escape}</h2>
-        {/if}
-        {$matrix->renderBodySection()}
-    {/foreach}
-    {*<iframe onscroll =" iframeLoaded(this)" id='idIframe{$idx}' src = "lib/results/tableresultsTC.php?format=0&tplan_id={$idx}" width="100%">
+    <iframe onscroll =" iframeLoaded(this)" id='idIframe{$idx}' src = "http://localhost/testlink/lib/results/tableresultsTC.php?format=0&tplan_id={$idx}" width="100%">
         
-    </iframe>*}<br>
+    </iframe><br>
 
 {/foreach}
-
-
 
 </body>
 </html>
