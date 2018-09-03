@@ -109,7 +109,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 
     {if $inExec}
       <td class="exec_tcstep_note">
-        <textarea class="step_note_textarea" disabled name="step_notes[{$step_info.id}]" id="step_notes_{$step_info.id}" 
+        <textarea class="step_note_textarea" readonly name="step_notes[{$step_info.id}]" id="step_notes_{$step_info.id}" 
                   cols="40" rows="5">{$step_info.execution_notes|escape}</textarea>
       </td>
 

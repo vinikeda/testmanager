@@ -184,7 +184,7 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
             $sql = " INSERT INTO {$target} (execution_id,tcstep_id,notes";
             $values = " VALUES ( {$execution_id}, {$step_id}," . 
                       "'" . $db->prepare_string($exec_data['step_notes'][$step_id]) . "'";
-
+$exec_data['step_notes'][$step_id] = mysql_real_escape_string($exec_data['step_notes'][$step_id]);
             $status = strtolower(trim($exec_data['step_status'][$step_id]));
             $status = $status[0];
             if( $status != $resultsCfg['status_code']['not_run'] )
