@@ -61,7 +61,7 @@
                             <div id="errlist{$step_info.id}" style="overflow-y: scroll;height:500px;width:100%">
                                 {foreach key=chave item=issue from=$gui->issues}
                                     <div id="step{$step_info.id}" data-reference="{$issue.description|escape}" errID="{$issue.id}" style="width:100%">
-                                        <a data-toggle="tooltip" title="{$issue.text_description} ">
+                                        <a data-toggle="tooltip" title="{$issue.text_description|escape} ">
                                             <button type="button" class="btn btn-default" style="width:100%;white-space: normal;"
                                                     onclick="document.getElementById('step_notes_{$step_info.id}').value+='{$issue.adjusted_text_description|escape} \n';
                                                         document.getElementById('issx{$issue.id}').checked = true">
