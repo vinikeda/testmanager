@@ -203,10 +203,10 @@ var getExecTime = function(){
   			 </div>
 		  {/if}
 
-		  <table cellspacing="0" class="exec_history">
+		  <table cellspacing="0" style="border: 1px solid black; width:1260px;" class="exec_history">
 			 <tr>
 				<th style="text-align:left">{$labels.date_time_run}</th>
-        
+				{$my_colspan=$my_colspan+1}
 				{if $gui->history_on == 0 || $cfg->exec_cfg->show_history_all_builds}
 				  <th style="text-align:left">{$labels.build}</th>
 				{/if}
@@ -249,9 +249,12 @@ var getExecTime = function(){
 			{foreach item=tc_old_exec from=$gui->other_execs.$tcversion_id}
   	     {$tc_status_code=$tc_old_exec.status}
 			{cycle values='#eeeeee,#d0d0d0' assign="bg_color"}
-			<tr style="border-top:1px solid black; background-color: {$bg_color}">
+			<td>			
+			<tr style="border-top:2.5px solid black; background-color: {$bg_color}">			
+			</td>
   			  <td>
           {* Check also that Build is Open *}
+		  
   			  {if $can_edit_exec_notes && $tc_old_exec.build_is_open}
   		      <img src="{$tlImages.note_edit}" style="vertical-align:middle" 
   		           title="{$labels.edit_execution}" onclick="javascript: openExecEditWindow(
@@ -265,7 +268,7 @@ var getExecTime = function(){
   			  {localize_timestamp ts=$tc_old_exec.execution_ts}
   			  </td>
 				  {if $gui->history_on == 0 || $cfg->exec_cfg->show_history_all_builds}
-  				<td>{if !$tc_old_exec.build_is_open}
+  				<td>  {if !$tc_old_exec.build_is_open}
   				    <img src="{$tlImages.lock}" title="{$labels.closed_build}">{/if}
   				    {$tc_old_exec.build_name|escape}
   				</td>
@@ -273,12 +276,12 @@ var getExecTime = function(){
 
 				  {if $gui->has_platforms && 
 				      ($gui->history_on == 0 || $cfg->exec_cfg->show_history_all_platforms)}
-  				  <td>
+  				  <td> 
 					  {$tc_old_exec.platform_name}
   				  </td>
   				{/if}
 
-  				<td>
+  				<td> 
   				{if isset($users[$tc_old_exec.tester_id])}
   				  {$users[$tc_old_exec.tester_id]->getDisplayName()|escape}
   				{else}
@@ -287,8 +290,8 @@ var getExecTime = function(){
             {$deletedUserString}
   				{/if}  
   				</td>
-  				<td class="{$tlCfg->results.code_status.$tc_status_code}" 
-              style="text-align:center" title="(ID:{$tc_old_exec.execution_id})">
+  				<td style="text-align:center;" class="{$tlCfg->results.code_status.$tc_status_code}" 
+               title="(ID:{$tc_old_exec.execution_id})"> 
   				    {localize_tc_status s=$tc_old_exec.status}
   				</td>
   				
@@ -297,30 +300,30 @@ var getExecTime = function(){
 	               version number used when this execution was recorded.
       	  *}
 
-          <td style="text-align:right">{$tc_old_exec.execution_duration}</td>
+          <td style="text-align:right"> {$tc_old_exec.execution_duration}</td>
 
-  				<td  style="text-align:center">{$tc_old_exec.tcversion_number}</td>
+  				<td  style="text-align:center"> {$tc_old_exec.tcversion_number}</td>
 
 		  {* adjusted if statement to show executions properly if execution history was configured *}
           {if ($attachment_model->show_upload_column && !$att_download_only && 
           	   $tc_old_exec.build_is_open && $can_manage_attachments) || 
           	   ($attachment_model->show_upload_column && $gui->history_on == 1 && 
           	    $tc_old_exec.build_is_open && $can_manage_attachments)}
-      			  <td align="center"><a href="javascript:openFileUploadWindow({$tc_old_exec.execution_id},'executions')">
+      			  <td align="center"> <a href="javascript:openFileUploadWindow({$tc_old_exec.execution_id},'executions')">
       			    <img src="{$tlImages.upload}" title="{$labels.alt_attachment_mgmt}"
       			         alt="{$labels.alt_attachment_mgmt}"
       			         style="border:none" /></a>
               </td>
 			  {else}
 			  	{if $attachment_model->show_upload_column && $can_manage_attachments}
-					<td align="center">
+					<td align="center"> 
 						<img src="{$tlImages.upload_greyed}" title="{$labels.closed_build}">
 					</td>
 				{/if}
   	      	  {/if}
 				
     			{if $gui->issueTrackerIntegrationOn}
-       		  <td align="center">
+       		  <td align="center"> 
        		  {if $tc_old_exec.build_is_open}
        		    <a href="javascript:open_bug_add_window({$gui->tproject_id},
               {$gui->tplan_id},{$tc_old_exec.id},{$tc_old_exec.execution_id},0,'link')">
@@ -342,7 +345,7 @@ var getExecTime = function(){
 
     			{* if $gui->grants->delete_execution && $tc_old_exec.build_is_open *}
     			{if $can_delete_exec && $tc_old_exec.build_is_open}
-	       		  	<td align="center">
+	       		  	<td align="center"> 
     	         	<a href="javascript:confirm_and_submit(msg,'execSetResults','exec_to_delete',
              	                                       {$tc_old_exec.execution_id},'do_delete',1);">
       			    <img src="{$tlImages.delete}" title="{$labels.img_title_delete_execution}"
@@ -350,13 +353,13 @@ var getExecTime = function(){
       			 </td>
       			{else}
       				{if $can_delete_exec}
-      					<td align="center">
+      					<td align="center"> 
       						<img src="{$tlImages.delete_disabled}" title="{$labels.closed_build}">
       					</td>
       				{/if}
           		{/if}
 
-       		<td class="icon_cell" align="center">
+       		<td class="icon_cell" align="center"> 
        		  {if $tc_old_exec.execution_run_type == $smarty.const.TESTCASE_EXECUTION_TYPE_MANUAL}
       		    <img src="{$tlImages.testcase_execution_type_manual}" title="{$labels.execution_type_manual}"
       		            style="border:none" />
@@ -368,7 +371,7 @@ var getExecTime = function(){
 
           {* CORTADO *}
           {if $tlCfg->exec_cfg->steps_exec }
-            <td class="icon_cell" align="center">
+            <td class="icon_cell" align="center"> 
               <img src="{$tlImages.steps}" title="{$labels.access_test_steps_exec}"  
                    onclick="javascript:openPrintPreview('exec',{$tc_old_exec.execution_id},
                                                         null,null,'{$printExecutionAction}');"/>
@@ -440,7 +443,7 @@ var getExecTime = function(){
         {* Execution Bugs (if any) *}
         {if isset($gui->bugs[$execID])}
 		<tr style="background-color: {$bg_color}">
-   			<td colspan="{$my_colspan}">
+   			<td colspan="{$my_colspan}"> 
    				{include file="inc_show_bug_table.tpl"
    			         	 bugs_map=$gui->bugs[$execID]
    			         	 can_delete=$tc_old_exec.build_is_open
@@ -451,7 +454,7 @@ var getExecTime = function(){
 		{/foreach}
 			{* ----------------------------------------------------------------------------------- *}
 
-			</table>
+	</table>
 		{/if}
   </div>
 

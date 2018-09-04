@@ -94,15 +94,17 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
   
   if( isset($exec_data['do_bulk_save']) )
   {
+
     // create structure to use common algoritm
     $item2loop= $exec_data['status'];
     $is_bulk_save=1;
     $bulk_notes = $db->prepare_string(trim($exec_data['bulk_exec_notes']));   
     $execStatusKey = 'status';
 
-  } 
+  }
   else
   {
+
     $item2loop= $exec_data['save_results'];
     $is_bulk_save=0;
     $execStatusKey = 'statusSingle';
@@ -115,6 +117,7 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
     $current_status = $exec_data[$execStatusKey][$tcversion_id];
     $version_number=$exec_data['version_number'][$tcversion_id];;
     $has_been_executed = ($current_status != $resultsCfg['status_code']['not_run'] ? TRUE : FALSE);
+
     if($has_been_executed)
     { 
       
@@ -143,6 +146,7 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
       
       // at least for Postgres DBMS table name is needed. 
       $execution_id = $db->insert_id($executions_table);
+
       if(isset($exec_data['do_bulk_save'])) generateBlankSteps($db,$val,$tcversion_id,$execution_id);
       $execSet[$tcversion_id] = $execution_id;
       
@@ -161,7 +165,178 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
           }  
         }                          
         $cfield_mgr->execution_values_to_db($hash_cf,$tcversion_id, $execution_id, $exec_signature->tplan_id,$cf_map);
-      }               
+      }
+	  if( isset($_FILES['uploadedFile']['name']['log']) && !is_null($_FILES['uploadedFile']['name']['log'])) 
+       {
+        // May be we have enabled MULTIPLE on file upload
+        if( is_array($_FILES['uploadedFile']['name']['log'])) 
+            {
+                $curly = count($_FILES['uploadedFile']['name']['log']);
+                for($moe=0; $moe < $curly; $moe++)
+                {
+                  $fSize = isset($_FILES['uploadedFile']['size']['log'][$moe]) ? 
+                           $_FILES['uploadedFile']['size']['log'][$moe] : 0;
+
+                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['log'][$moe]) ? 
+                              $_FILES['uploadedFile']['tmp_name']['log'][$moe] : '';
+
+                  if ($fSize && $fTmpName != "")
+                  {
+                    $fk2loop = array_keys($_FILES['uploadedFile']);
+                    foreach($fk2loop as $tk)
+                    {
+                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['log'][$moe];
+                    }  
+                    $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Log',$fInfo);
+                  }
+                }  
+            } 
+        else
+            {
+                $fSize = isset($_FILES['uploadedFile']['size']['log']) ? $_FILES['uploadedFile']['size']['log'] : 0;
+                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['log']) ? 
+                            $_FILES['uploadedFile']['tmp_name']['log'] : '';
+
+                if ($fSize && $fTmpName != "")
+                {
+                  $fk2loop = array_keys($_FILES['uploadedFile']);
+                  foreach($fk2loop as $tk)
+                  {
+                    $fInfo[$tk] = $_FILES['uploadedFile']['log'][$tk];
+                  }  
+                  $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Log',$fInfo);
+                }
+            } 
+              
+        }
+		if( isset($_FILES['uploadedFile']['name']['receipt']) && !is_null($_FILES['uploadedFile']['name']['receipt'])) 
+			{
+              // May be we have enabled MULTIPLE on file upload
+              if( is_array($_FILES['uploadedFile']['name']['receipt'])) 
+              {
+                $curly = count($_FILES['uploadedFile']['name']['receipt']);
+                for($moe=0; $moe < $curly; $moe++)
+                {
+                  $fSize = isset($_FILES['uploadedFile']['size']['receipt'][$moe]) ? 
+                           $_FILES['uploadedFile']['size']['receipt'][$moe] : 0;
+
+                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['receipt'][$moe]) ? 
+                              $_FILES['uploadedFile']['tmp_name']['receipt'][$moe] : '';
+
+                  if ($fSize && $fTmpName != "")
+                  {
+                    $fk2loop = array_keys($_FILES['uploadedFile']);
+                    foreach($fk2loop as $tk)
+                    {
+                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['receipt'][$moe];
+                    }  
+                    $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Receipt',$fInfo);
+                  }
+                }  
+              } 
+        else
+            {
+                $fSize = isset($_FILES['uploadedFile']['size']['receipt']) ? $_FILES['uploadedFile']['size']['receipt'] : 0;
+                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['receipt']) ? 
+                            $_FILES['uploadedFile']['tmp_name']['receipt'] : '';
+
+                if ($fSize && $fTmpName != "")
+                {
+                  $fk2loop = array_keys($_FILES['uploadedFile']);
+                  foreach($fk2loop as $tk)
+                  {
+                    $fInfo[$tk] = $_FILES['uploadedFile']['receipt'][$tk];
+                  }  
+                  $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Receipt',$fInfo);
+                }
+            } 
+              
+        }
+		if( isset($_FILES['uploadedFile']['name']['cardspy']) && !is_null($_FILES['uploadedFile']['name']['cardspy'])) 
+			{
+              // May be we have enabled MULTIPLE on file upload
+              if( is_array($_FILES['uploadedFile']['name']['cardspy'])) 
+              {
+                $curly = count($_FILES['uploadedFile']['name']['cardspy']);
+                for($moe=0; $moe < $curly; $moe++)
+                {
+                  $fSize = isset($_FILES['uploadedFile']['size']['cardspy'][$moe]) ? 
+                           $_FILES['uploadedFile']['size']['cardspy'][$moe] : 0;
+
+                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['cardspy'][$moe]) ? 
+                              $_FILES['uploadedFile']['tmp_name']['cardspy'][$moe] : '';
+
+                  if ($fSize && $fTmpName != "")
+                  {
+                    $fk2loop = array_keys($_FILES['uploadedFile']);
+                    foreach($fk2loop as $tk)
+                    {
+                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['cardspy'][$moe];
+                    }  
+                    $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Cardspy',$fInfo);
+                  }
+                }  
+              } 
+        else
+            {
+                $fSize = isset($_FILES['uploadedFile']['size']['cardspy']) ? $_FILES['uploadedFile']['size']['cardspy'] : 0;
+                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['cardspy']) ? 
+                            $_FILES['uploadedFile']['tmp_name']['cardspy'] : '';
+
+                if ($fSize && $fTmpName != "")
+                {
+                  $fk2loop = array_keys($_FILES['uploadedFile']);
+                  foreach($fk2loop as $tk)
+                  {
+                    $fInfo[$tk] = $_FILES['uploadedFile']['cardspy'][$tk];
+                  }  
+                  $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Cardspy',$fInfo);
+                }
+            } 
+              
+        }
+		if( isset($_FILES['uploadedFile']['name']['others']) && !is_null($_FILES['uploadedFile']['name']['others'])) 
+			{
+              // May be we have enabled MULTIPLE on file upload
+              if( is_array($_FILES['uploadedFile']['name']['others'])) 
+              {
+                $curly = count($_FILES['uploadedFile']['name']['others']);
+                for($moe=0; $moe < $curly; $moe++)
+                {
+                  $fSize = isset($_FILES['uploadedFile']['size']['others'][$moe]) ? 
+                           $_FILES['uploadedFile']['size']['others'][$moe] : 0;
+
+                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['others'][$moe]) ? 
+                              $_FILES['uploadedFile']['tmp_name']['others'][$moe] : '';
+
+                  if ($fSize && $fTmpName != "")
+                  {
+                    $fk2loop = array_keys($_FILES['uploadedFile']);
+                    foreach($fk2loop as $tk)
+                    {
+                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['others'][$moe];
+                    }  
+                    $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Others',$fInfo);
+                  }
+                }  
+              } 
+        else
+            {
+                $fSize = isset($_FILES['uploadedFile']['size']['others']) ? $_FILES['uploadedFile']['size']['others'] : 0;
+                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['others']) ? 
+                            $_FILES['uploadedFile']['tmp_name']['others'] : '';
+
+                if ($fSize && $fTmpName != "")
+                {
+                  $fk2loop = array_keys($_FILES['uploadedFile']);
+                  foreach($fk2loop as $tk)
+                  {
+                    $fInfo[$tk] = $_FILES['uploadedFile']['others'][$tk];
+                  }  
+                  $uploaded = $docRepo->insertAttachment($execution_id,$executions_table,'Others',$fInfo);
+                }
+            }               
+        }
 
       $hasMoreData = new stdClass();
       $hasMoreData->step_notes = isset($exec_data['step_notes']);
@@ -184,7 +359,7 @@ function write_execution(&$db,&$exec_signature,&$exec_data,&$issueTracker)
             $sql = " INSERT INTO {$target} (execution_id,tcstep_id,notes";
             $values = " VALUES ( {$execution_id}, {$step_id}," . 
                       "'" . $db->prepare_string($exec_data['step_notes'][$step_id]) . "'";
-$exec_data['step_notes'][$step_id] = mysql_real_escape_string($exec_data['step_notes'][$step_id]);
+
             $status = strtolower(trim($exec_data['step_status'][$step_id]));
             $status = $status[0];
             if( $status != $resultsCfg['status_code']['not_run'] )
@@ -196,52 +371,6 @@ $exec_data['step_notes'][$step_id] = mysql_real_escape_string($exec_data['step_n
             $db->exec_query($sql);
 
             $execution_tcsteps_id = $db->insert_id($target);
-
-            // NOW MANAGE attachments
-            if( isset($_FILES['uploadedFile']['name'][$step_id]) && 
-                !is_null($_FILES['uploadedFile']['name'][$step_id])) 
-            {
-              // May be we have enabled MULTIPLE on file upload
-              if( is_array($_FILES['uploadedFile']['name'][$step_id])) 
-              {
-                $curly = count($_FILES['uploadedFile']['name'][$step_id]);
-                for($moe=0; $moe < $curly; $moe++)
-                {
-                  $fSize = isset($_FILES['uploadedFile']['size'][$step_id][$moe]) ? 
-                           $_FILES['uploadedFile']['size'][$step_id][$moe] : 0;
-
-                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name'][$step_id][$moe]) ? 
-                              $_FILES['uploadedFile']['tmp_name'][$step_id][$moe] : '';
-
-                  if ($fSize && $fTmpName != "")
-                  {
-                    $fk2loop = array_keys($_FILES['uploadedFile']);
-                    foreach($fk2loop as $tk)
-                    {
-                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk][$step_id][$moe];
-                    }  
-                    $uploaded = $docRepo->insertAttachment($execution_tcsteps_id,$target,'',$fInfo);
-                  }
-                }  
-              } 
-              else
-              {
-                $fSize = isset($_FILES['uploadedFile']['size'][$step_id]) ? $_FILES['uploadedFile']['size'][$step_id] : 0;
-                $fTmpName = isset($_FILES['uploadedFile']['tmp_name'][$step_id]) ? 
-                            $_FILES['uploadedFile']['tmp_name'][$step_id] : '';
-
-                if ($fSize && $fTmpName != "")
-                {
-                  $fk2loop = array_keys($_FILES['uploadedFile']);
-                  foreach($fk2loop as $tk)
-                  {
-                    $fInfo[$tk] = $_FILES['uploadedFile'][$tk][$step_id];
-                  }  
-                  $uploaded = $docRepo->insertAttachment($execution_tcsteps_id,$target,'',$fInfo);
-                }
-              } 
-              
-            }
           }         
         }  
       }  
@@ -283,7 +412,8 @@ $exec_data['step_notes'][$step_id] = mysql_real_escape_string($exec_data['step_n
         }          
 
         $addIssueOp = addIssue($db,$execContext,$issueTracker);
-      }  
+      } 
+	  
     }
   }
 

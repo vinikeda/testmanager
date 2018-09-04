@@ -15,21 +15,25 @@
 require_once('../../config.inc.php');
 require_once('../functions/common.php');
 require_once('../functions/attachments.inc.php');
+testlinkInitPage($db,false,true);
+$args = init_args($db);
+$anexo = $_POST['id'];
+$args->id = $anexo;
+$check = $_POST['skip'];
+$args->skipCheck = $check;
+$api = $_POST['key'];
+$args->apikey = $api;
 
 // This way can be called without _SESSION, this is useful for reports
-testlinkInitPage($db,false,true);
-
-$args = init_args($db);
 if ($args->id)
 {
-  $attachmentRepository = tlAttachmentRepository::create($db);
-  $attachmentInfo = $attachmentRepository->getAttachmentInfo($args->id);
 
-  
+  $attachmentRepository = tlAttachmentRepository::create($db);
+  $attachmentInfo = $attachmentRepository->getAttachmentInfo($args->id);  
   if ($attachmentInfo && 
       ($args->skipCheck || checkAttachmentID($db,$args->id,$attachmentInfo)) )
   {
-    switch ($args->opmode) 
+     switch ($args->opmode) 
     {
       case 'API':
         // want to check if apikey provided is right for attachment context
@@ -77,8 +81,6 @@ if ($args->id)
         $doIt = true;
       break;
     }
-
-
     if( $doIt )
     {
       $content = $attachmentRepository->getAttachmentContent($args->id,$attachmentInfo);
