@@ -34,7 +34,7 @@ $gsmarty_attachments
 <script type="text/javascript">
 jQuery(document).ready(function(){
 
-     jQuery("a#link_attach.bold").each(function() { console.log('batatã');
+     jQuery("a#link_attach.bold").each(function() {
          if(jQuery(this).text().length > 45) {
            jQuery(this).text(jQuery(this).text().substr(0,45)+"...");
          }
