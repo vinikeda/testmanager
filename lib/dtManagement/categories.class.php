@@ -51,8 +51,8 @@ class categories {
 		return $this->db->get_recordset("select * from kibana_links");
 	}
 	
-        function getDashboardByTestproject($tproject){
-		return $this->db->get_recordset("select * from kibana_links where tproject_id = $tproject");
+        function getDashboardByTestproject($tproject,$sub){
+		return $this->db->get_recordset("select * from kibana_links where tproject_id = $tproject and sub = SUBSTRING_INDEX('$sub','-',1)");
 	}
         
 	function get_by_id($id){

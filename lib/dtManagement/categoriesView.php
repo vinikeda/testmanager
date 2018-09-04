@@ -23,9 +23,9 @@ $templateCfg = templateConfiguration();
 
 $categories = new categories($db);
 $gui = new StdClass();
-$gui->categories = $categories->getDashboardByTestproject($_SESSION['testprojectID']);
+$gui->categories = $categories->getDashboardByTestproject($_SESSION['testprojectID'],$_SESSION['testplanName']);
 $gui->user_feedback = null;
-
+var_dump($_SESSION['testplanName']);
 $smarty = new TLSmarty();
 $smarty->assign('gui', $gui);
 $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
