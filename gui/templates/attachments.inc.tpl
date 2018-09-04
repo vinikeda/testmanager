@@ -30,14 +30,13 @@ $gsmarty_attachments
 
 {lang_get s='warning_delete_attachment' var="warning_msg"}
 {lang_get s='delete' var="del_msgbox_title"}
-<script src="//code.jquery.com/jquery-1.11.1.min.js" </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"> </script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
 
-     $("a#link_attach.bold").each(function() {
-         if($(this).text().length > 45) {
-           $(this).text($(this).text().substr(0,45)+"...");
+     jQuery("a#link_attach.bold").each(function() { console.log('batatã');
+         if(jQuery(this).text().length > 45) {
+           jQuery(this).text(jQuery(this).text().substr(0,45)+"...");
          }
      });
 });	
