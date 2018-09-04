@@ -186,6 +186,11 @@ $TLS_unfreeze = "Descongelar";
 $TLS_low  = "Baixo";
 $TLS_high = "Alto";
 $TLS_medium = "Médio";
+$TLS_attachments = "Anexos";
+$TLS_logs = "Logs";
+$TLS_receipts= "Comprovantes";
+$TLS_cardspy = "Cardspy";
+$TLS_others = "Outros";
 
 // Actions (used wide)
 $TLS_add = "Adicionar";
@@ -2250,7 +2255,7 @@ $TLS_title_test_plan_mgmt = "Gerenciar Plano de Teste";
 $TLS_href_manage_issues = "Gerenciar Erros";
 $TLS_href_manage_issues_categories = "Gerenciar Categorias de Erros";
 $TLS_href_manage_issues_markers = "Gerenciar Marcadores de Erros";
-$TLS_href_complete_monitoring_report = "Acompanhamento Complpleto";
+$TLS_href_complete_monitoring_report = "Acompanhamento Completo";
 $TLS_href_quick_monitoring_report = "Acompanhamento Rápido";
 $TLS_href_history_report = "Histórico";
 $TLS_href_sub_aquire_management = "Gerenciar Sub-Adquirente";

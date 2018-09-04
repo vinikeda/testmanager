@@ -162,6 +162,11 @@ $TLS_container = "container";
 $TLS_platform = "Platform";
 $TLS_show_calender = "Show Calender";
 $TLS_clear_date = "Clear Date";
+$TLS_attachments = "Attachments";
+$TLS_logs = "Logs";
+$TLS_receipts= "Receipts";
+$TLS_cardspy = "Cardspy";
+$TLS_others = "Others";
 
 // Actions (used wide)
 $TLS_add = "add";
