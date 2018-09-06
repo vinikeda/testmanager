@@ -48,6 +48,7 @@ $TLS_issues_categories = "Categoria";
 $TLS_issue_marker = "Marcadores";
 $TLS_search_issues_with= "Buscar erros com";
 $TLS_issues = "Erros";
+$TLS_href_issue_manager = "Síntese";
 $TLS_standard_messages = "Mensagens Padrão";
 $TLS_grant_permissions = "Conceder Permissões";
 $TLS_type_not_configured = "mensagem do sistema: tipo não configurado";

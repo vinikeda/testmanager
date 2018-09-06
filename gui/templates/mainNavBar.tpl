@@ -40,7 +40,7 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
                           href_my_testcase_assignments,href_platform_assign,
                           href_tc_exec_assignment,href_plan_assign_urgency,
                           href_upd_mod_tc,title_test_plan_mgmt,title_test_case_suite,
-                          href_plan_management,href_sub_aquire_management,
+                          href_plan_management,href_sub_aquire_management,href_issue_manager,
                           href_build_new,href_plan_mstones,href_plan_define_priority,
                           href_manage_issues,href_manage_issues_categories,href_manage_issues_markers,
                           href_complete_monitoring_report,href_quick_monitoring_report,href_history_report,macros_mgmt,
@@ -326,7 +326,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
     <ul class="nav navbar-nav" >
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-                Issue Manager
+                {$labels.href_issue_manager}
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
