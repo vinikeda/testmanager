@@ -191,19 +191,6 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 			</form>
 		{/if}
 		
-		{*if $gui->subadiq != ""}
-			<form class="form-inline" name="productForm" action="index.php?viewer={$gui->viewer}" method="get">
-				<select id="sub_adquirenteID" class="form-control" name="sub_adquirenteID" onchange="this.form.submit();" style="width:100%;">
-					{foreach key=tproject_id item=tproject_name from=$gui->subadiq}
-						<option  value="{$tproject_id}" title="{$tproject_name.name|escape}"
-							{if $tproject_id == $gui->subadiqID} selected="selected" {/if}>
-							{$tproject_name.name|truncate:#TESTPROJECT_TRUNCATE_SIZE#|escape}
-						</option>
-					{/foreach}
-				</select>
-			</form>
-		{/if*}
-		
 		{if $gui->num_active_tplans > 0}		
 			{lang_get s='help' var='common_prefix'}
 			{lang_get s='test_plan' var="xx_alt"}
@@ -255,6 +242,13 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				<a>{$gui->userRole}</a>
 			</li>
 			<li role="separator" class="divider"></li>
+                        {if $display_right_block_2}
+                            {if $gui->grants.testplan_execute == "yes"}
+                                {if $gui->grants.exec_testcases_assigned_to_me == "yes"}
+                                    <li><a href="{$gui->url.testcase_assignments}" target="mainframe">{$labels.href_my_testcase_assignments}</a></li>
+                                {/if}
+                            {/if}
+                        {/if}
 			<li>
 				<a href='lib/usermanagement/userInfo.php' target="mainframe" accesskey="i" tabindex="6">
 					{$labels.title_edit_personal_data}
@@ -263,14 +257,14 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 			</li>
 			<li>
 				<a href="logout.php?viewer={$gui->viewer}" target="_parent" accesskey="q" >
-					logout
+					Logout
 				</a>
 			</li>
 		</ul>
 	</li>
 </ul>
 	
-{if $display_left_block_2}
+{if $display_left_block_2 || $display_left_block_1}
 	<ul class="nav navbar-nav" >
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
@@ -278,19 +272,36 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
+                            {if $display_left_block_2}
 				{if $gui->grants.cfield_management == "yes"}
 					<li><a href="lib/cfields/cfieldsView.php" target="mainframe">{$labels.href_cfields_management}</a></li>
 				{/if}
+                            {/if}
+                                {if $display_left_block_1}
+                                    {if $gui->grants.cfield_management == "yes"}
+                                            <li><a href="lib/cfields/cfieldsTprojectAssign.php" target="mainframe">{$labels.href_cfields_tproject_assign}</a></li>
+                                    {/if}
+
+                                    {if $gui->grants.keywords_view == "yes"}
+                                            <li><a href="lib/keywords/keywordsView.php?tproject_id={$gui->testprojectID}" target="mainframe">{$labels.href_keywords_manage}</a></li>
+                                    {/if}
+
+                                    {if $gui->grants.platform_management == "yes"}
+                                            <li><a href="lib/platforms/platformsView.php" target="mainframe">{$labels.href_platform_management}</a></li>
+                                    {/if}
+                                {/if}
+                            {if $display_left_block_2}
 				{if $gui->grants.issuetracker_management || $gui->grants.issuetracker_view}
 					<li><a href="lib/issuetrackers/issueTrackerView.php" target="mainframe">{$labels.href_issuetracker_management}</a></li>
 				{/if}
 					{if isset($session.testprojectTopMenu2.title_admin)}{$session.testprojectTopMenu2.title_admin}{/if}
 					{if isset($session.testprojectTopMenu2.title_events)}{$session.testprojectTopMenu2.title_events}{/if}
+                            {/if}
 			</ul>
 		</li>
 	</ul>
 {/if}
-{if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13}
+{if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13 || $gui->grants.tproject_user_role_assignment == "yes" || ($gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0)}
     <ul class="nav navbar-nav" >
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
@@ -298,12 +309,47 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="lib/macros/macrosView.php" target="mainframe">{$labels.macros_mgmt}</a></li>
+                {if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13}
+                    <li><a href="lib/macros/macrosView.php" target="mainframe">{$labels.macros_mgmt}</a></li>
+                {/if}
+                {if $gui->grants.tproject_user_role_assignment == "yes"}
+                    <li><a href="lib/usermanagement/usersAssign.php?featureType=testproject&amp;featureID={$gui->testprojectID}" target="mainframe">{$labels.href_assign_user_roles}</a></li>
+                {/if}
+                {if $gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0}
+					<li><a href="lib/plan/planMilestonesView.php" target="mainframe">{$labels.href_plan_mstones}</a></li>
+		{/if}
             </ul>
         </li>
     </ul>
 {/if}
-{if $display_left_block_4}
+{if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13 || $gui->role == 9|| $gui->role == 14}
+    <ul class="nav navbar-nav" >
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+                Issue Manager
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="lib/issue/issuesView.php" target="mainframe">
+                        {$labels.href_manage_issues}
+                    </a>
+                </li>
+                <li>
+                    <a href="lib/issue/CategoriesView.php" target="mainframe">
+                        {$labels.href_manage_issues_categories}
+                    </a>
+                </li>
+                <li>
+                    <a href="lib/issue/MarkersView.php" target="mainframe">
+                        {$labels.href_manage_issues_markers}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+{/if}
+{if $display_left_block_4 || $gui->grants.testplan_update_linked_testcase_versions == "yes" || $gui->grants.testplan_show_testcases_newest_versions == "yes"}
 	<ul class="nav navbar-nav" >
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
@@ -311,6 +357,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
+                            {if $display_left_block_4}
 				<li>
 					<a href="{$gui->launcher}?feature=editTc" target="mainframe">
 						{if $gui->grants.modify_tc eq "yes"}
@@ -328,15 +375,15 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				</li>
 				{/if*}    
 				{if $gui->hasKeywords}  
-					{if $gui->grants.keywords_view == "yes"}
-						{if $gui->grants.keywords_edit == "yes"}
-							<li>
-								<a href="{$gui->launcher}?feature=keywordsAssign" target="mainframe">
-									{$labels.href_keywords_assign}
-								</a>
-							</li>
-						{/if}
-					{/if}
+                                    {if $gui->grants.keywords_view == "yes"}
+                                        {if $gui->grants.keywords_edit == "yes"}
+                                            <li>
+                                                <a href="{$gui->launcher}?feature=keywordsAssign" target="mainframe">
+                                                    {$labels.href_keywords_assign}
+                                                </a>
+                                            </li>
+                                        {/if}
+                                    {/if}
 				{/if}
 					  
 				{if $gui->grants.modify_tc eq "yes"}
@@ -345,6 +392,13 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 							{$labels.link_report_test_cases_created_per_user}
 						</a>
 					</li>
+				{/if}
+                                {/if}
+                                {if $gui->grants.testplan_update_linked_testcase_versions == "yes"}
+					<li><a href="{$gui->launcher}?feature=planUpdateTC" target="mainframe">{$labels.href_update_tplan}</a></li>
+				{/if}
+                                {if $gui->grants.testplan_show_testcases_newest_versions == "yes"}
+					<li><a href="{$gui->launcher}?feature=newest_tcversions" target="mainframe">{$labels.href_newest_tcversions}</a></li>
 				{/if}
 			</ul>
 		</li>
@@ -363,7 +417,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 					<li><a href="lib/subadiq/subadiqView.php" target="mainframe">{$labels.href_sub_aquire_management}</a></li>
 				{/if}
 
-				{if $gui->grants.tproject_user_role_assignment == "yes"}
+				{*if $gui->grants.tproject_user_role_assignment == "yes"}
 					<li><a href="lib/usermanagement/usersAssign.php?featureType=testproject&amp;featureID={$gui->testprojectID}" target="mainframe">{$labels.href_assign_user_roles}</a></li>
 				{/if}
 
@@ -381,7 +435,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 
 				{if $gui->grants.project_inventory_view}
 					<li><a href="lib/inventory/inventoryView.php" target="mainframe">{$labels.href_inventory}</a></li>
-				{/if}
+				{/if*}
 			</ul>
 		</li>
 	</ul>
@@ -463,9 +517,9 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				{/if}
 				
 					
-				{if $gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0}
+				{*if $gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0}
 					<li><a href="lib/plan/planMilestonesView.php" target="mainframe">{$labels.href_plan_mstones}</a></li>
-				{/if}
+				{/if*}
 			{/if}
 			
 			{if $display_right_block_3}
@@ -488,13 +542,13 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 					<li><a href="{$gui->launcher}?feature=test_urgency" target="mainframe">{$labels.href_plan_assign_urgency}</a></li>
 				{/if}
 
-				{if $gui->grants.testplan_update_linked_testcase_versions == "yes"}
+				{*if $gui->grants.testplan_update_linked_testcase_versions == "yes"}
 					<li><a href="{$gui->launcher}?feature=planUpdateTC" target="mainframe">{$labels.href_update_tplan}</a></li>
 				{/if} 
 
 				{if $gui->grants.testplan_show_testcases_newest_versions == "yes"}
 					<li><a href="{$gui->launcher}?feature=newest_tcversions" target="mainframe">{$labels.href_newest_tcversions}</a></li>
-				{/if}
+				{/if*}
 					<!--/ul>
 				</li-->
 			{/if}
@@ -502,7 +556,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 	</li>
 </ul>
 {/if}
-				
+	
 {if $display_right_block_2}
 	<ul class="nav navbar-nav" >
 		<li class="dropdown">
@@ -519,25 +573,10 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				{if $gui->grants.testplan_execute == "yes"}
 					<li><a href="{$gui->launcher}?feature=executeTest" target="mainframe">{$labels.href_execute_test}</a></li>
 
-					{if $gui->grants.exec_testcases_assigned_to_me == "yes"}
+					{*if $gui->grants.exec_testcases_assigned_to_me == "yes"}
 						<li><a href="{$gui->url.testcase_assignments}" target="mainframe">{$labels.href_my_testcase_assignments}</a></li>
-					{/if} 
-				{/if} 
-                                <li>
-                                    <a href="lib/issue/issuesView.php" target="mainframe">
-                                        {$labels.href_manage_issues}
-                                    </a>
-                                </li>
-								<li>
-                                    <a href="lib/issue/CategoriesView.php" target="mainframe">
-                                        {$labels.href_manage_issues_categories}
-                                    </a>
-                                </li>
-								<li>
-                                    <a href="lib/issue/MarkersView.php" target="mainframe">
-                                        {$labels.href_manage_issues_markers}
-                                    </a>
-                                </li>
+					{/if*} 
+				{/if}
 			</ul>
 		</li>
 	</ul>
