@@ -2,7 +2,10 @@
 
 require('../../config.inc.php');
 require_once('common.php');
-
+require_once('displayMgr.php');
+require_once('exttable.class.php');
+ini_set('memory_limit', '-1');
+set_time_limit(600);/**/
 
 $templateCfg = templateConfiguration();
 
@@ -10,7 +13,6 @@ $smarty = new TLSmarty;
 
 
 testlinkInitPage($db,false,false,"checkRights"); 
-
 $metricsMgr = new tlTestPlanMetrics($db);
 $columns = array();
 $args->user = $_SESSION['currentUser'];
@@ -23,13 +25,19 @@ if(isset($_GET['sub'])){
 }
 $args->subs =  $args->user->getAccessibleSub_adquirentes($db,$args->tproject_id);
 if($args->sub == '0'){
-    $args->tplanIDS = $args->user->getAccessibleTestPlans($db,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));//$args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
+    //$args->tplanIDS = $args->user->getAccessibleTestPlans($db,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));//$args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
+    $args->tplanIDS = $args->user->getAccessibleTestplansWithActiveBuilds($db);
 }else{
     $args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
 }
     
 //$args->tplanIDS[0] = 'todos';
 $gui = $args;
+$imgSet = $smarty->getImages();
+$gui->img = new stdClass();
+$gui->img->exec = $imgSet['steps'];//$imgSet['exec_icon'];
+$gui->img->edit = $imgSet['edit_icon'];
+$gui->img->history = $imgSet['history_small'];
 $cfg['results'] = config_get('results');
 $lbl = init_labels(array('title_test_suite_name' => null,'platform' => null,'priority' => null,
                            'result_on_last_build' => null, 'title_test_case_title' => null));
@@ -63,88 +71,120 @@ $buildSet/*$args->builds->idSet*/ = array_keys($gui->buildInfoSet);
 $args->builds->latest->id = end($buildSet);
     if(!is_null($buildSet))$execStatus = $metricsMgr->getExecStatusMatrix($ids,$buildSet,$opt);//print_r($execStatus['metrics']);
     $latestExecution = $execStatus['latestExec'];
+    $gui->matrix = array();
     foreach($execStatus['metrics'] as $tsuiteID=>$tsuite){
         foreach($tsuite as $tcaseID=>$tcase){
-            foreach($tcase as $platformID=>$platform){
-                $top = current(array_keys($execStatus['metrics'][$tsuiteID][$tcaseID][$platformID]));
-                $rows[$cols['tsuite']] = $platform[$top]['suiteName'];
-                $external_id = $args->tcPrefix . $platform[$top]['external_id'];
-                $rows[$cols['link']] .= "{$external_id}:{$platform[$top]['name']}";//htmlspecialchars("{$external_id}:{$rf[$top]['name']}",ENT_QUOTES);
-                $rows[$cols['priority']] = $platform[$top]['priority_level'];
-                foreach($platform as $buildID=>$build){
-                    $r4build['text'] = "";
-                    $execID = $build['executions_id'];//var_dump($labels);
-                    $r4build['text'] = $labels[$build['status']];
-                    if($build['status'] != 'n')
-                        $r4build['text'] .= "    <a  onclick=\"jQuery('#Nissues').modal('show');document.getElementById('execprint').src = 'lib/execute/execPrint.php?id=$execID'\" ><img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a>";
-                    $r4build['value'] = $build['status'];
-                    $r4build['cssClass'] = $gui->map_status_css[$build['status']];
-                    $buildExecStatus[] = $r4build;
-                    if($args->builds->latest->id == $buildID) $execOnLastBuild = $r4build; 
-                    //var_dump($latestExecution);
-                    if(
-                        ($latestExecution[$platformID][$tcaseID]['status'] == 
-                        $cfg['results']['status_code']['not_run']) ||
-                        ( ($latestExecution[$platformID][$tcaseID]['build_id'] == $buildID) &&                             
-                        ($latestExecution[$platformID][$tcaseID]['id'] == $build['executions_id']) )
-                    )                  
-                    {
-                      $lexec = $r4build;
-                    }
-                    
-                }
-                
-                if ($gui->matrixCfg->buildColumns['showStatusLastExecuted'])
+            $top = current(array_keys($execStatus['metrics'][$tsuiteID][$tcaseID][0]));
+            $rows[$cols['tsuite']] = $tcase[0][$top]['suiteName'];
+            $external_id = $args->tcPrefix . $tcase[0][$top]['external_id'];
+            $rows[$cols['link']] .= "{$external_id}:{$tcase[0][$top]['name']}";//htmlspecialchars("{$external_id}:{$rf[$top]['name']}",ENT_QUOTES);
+            //$rows[$cols['priority']] = $tcase[0][$top]['priority_level'];
+            foreach($tcase[0] as $buildID=>$build){
+                $r4build['text'] = "";
+                $execID = $build['executions_id'];
+                $r4build['text'] = $labels[$build['status']];
+                if($build['status'] != 'n')
+                    $r4build['text'] .= "    <a  onclick=\"jQuery('#Nissues').modal('show');document.getElementById('execprint').src = 'lib/execute/execPrint.php?id=$execID'\" ><img title=\"{$labels['execution']}\" src=\"{$gui->img->exec}\" /></a>";
+                $r4build['value'] = $build['status'];
+                $r4build['cssClass'] = $gui->map_status_css[$build['status']];
+                $buildExecStatus[] = $r4build;
+                if($args->builds->latest->id == $buildID) $execOnLastBuild = $r4build;
+                if(
+                    ($latestExecution[0][$tcaseID]['status'] == 
+                    $cfg['results']['status_code']['not_run']) ||
+                    ( ($latestExecution[0][$tcaseID]['build_id'] == $buildID) &&                             
+                    ($latestExecution[0][$tcaseID]['id'] == $build['executions_id']) )
+                )                  
                 {
-                    $buildExecStatus[] = $execOnLastBuild;
-                }//var_dump($gui->matrixCfg->buildColumns['latestBuildOnLeft']);
-                if ($gui->matrixCfg->buildColumns['latestBuildOnLeft']) 
-                {
-                  $buildExecStatus = array_reverse($buildExecStatus);
+                  $lexec = $r4build;
                 }
 
-                $rows = array_merge($rows, $buildExecStatus);
-                $rows[] = $lexec;
-                $gui->matrix[] = $rows;var_dump($gui->matrix);
-                unset($r4build);
-                unset($rows);
-                unset($buildExecStatus);
-                
-                /**
-                 * gerar as colunas para cada tabelinha
-                 */
-                
-                $columns[$ids] = array(array('title_key' => 'title_test_suite_name', 'width' => 100),
+            }
+
+            if ($gui->matrixCfg->buildColumns['showStatusLastExecuted'])
+            {
+                $buildExecStatus[] = $execOnLastBuild;
+            }
+            if ($gui->matrixCfg->buildColumns['latestBuildOnLeft']) 
+            {
+              $buildExecStatus = array_reverse($buildExecStatus);
+            }
+
+            $rows = array_merge($rows, $buildExecStatus);
+            $rows[] = $lexec;
+            $gui->matrix[] = $rows;
+            unset($r4build);
+            unset($rows);
+            unset($buildExecStatus);
+        }
+    }
+    $columns[$ids] = array(array('title_key' => 'title_test_suite_name', 'width' => 100),
                                        array('title_key' => 'title_test_case_title', 'width' => 150));
-                $group_name = $lbl['title_test_suite_name'];
-                $gui->options->testPriorityEnabled = $tproject_info['opt']->testPriorityEnabled;
-                if($gui->options->testPriorityEnabled) 
-                {
-                  $columns[$ids][] = array('title_key' => 'priority', 'type' => 'priority', 'width' => 40, 'hidden' => true);
-                }
-                $guiObj->filterFeedback = null;
-                
-                /**
-                 * parei na adaptação desse cara: foreach($buildIDSet as $iix)
-                 */
-                
-                
-                
-                
-                
-                if($cont >10) break;
-                $cont++;
-            }if($cont >10) break;
-        }if($cont >10) break;
-    }if($cont >10) break;
+    $group_name = $lbl['title_test_suite_name'];
+    $gui->options->testPriorityEnabled = $tproject_info['opt']->testPriorityEnabled;
+    if($gui->options->testPriorityEnabled) 
+    {
+      $columns[$ids][] = array('title_key' => 'priority', 'type' => 'priority', 'width' => 40, 'hidden' => true);
+    }
+    $guiObj->filterFeedback = null;
+
+    /**
+     * parei na adaptação desse cara: foreach($buildIDSet as $iix)
+     */
+    $buildIDSet = array_keys($tcase[0]);
+    $buildSet = array();
+    foreach($buildIDSet as $iix)
+    {
+        $buildSet[] = $gui->buildInfoSet[$iix];
+        if($gui->filterApplied)
+        {
+            $gui->filterFeedback[] = $gui->buildInfoSet[$iix]['name'];
+        }
+    }
+    foreach($buildSet as $build) 
+    {
+        $columns[$ids][] = array('title' => $build['name'], 'type' => 'status', 'width' => 100);
+    }
+    $columns[$ids][] = array('title_key' => 'last_execution', 'type' => 'status', 'width' => 100, 'hidden' => true);//if($ids == 159552)var_dump($ids,$gui->matrix);//var_dump($columns[$ids]);
+    $matrix = new tlExtTable($columns[$ids], $gui->matrix, "tl_table_results_tc$ids");
+    //if platforms feature is enabled group by platform otherwise group by test suite
+    $matrix->setGroupByColumnName($group_name);
+    $matrix->sortDirection = 'DESC';
+
+    if($gui->options->testPriorityEnabled) 
+    {
+      // Developer Note:
+      // To understand 'filter' => 'Priority' => see exttable.class.php => buildColumns()
+      $matrix->addCustomBehaviour('priority', array('render' => 'priorityRenderer', 'filter' => 'Priority'));
+      $matrix->setSortByColumnName($lbl['priority']);
+    } 
+    else 
+    {
+      //$matrix->setSortByColumnName($lbl['title_test_case_title']);
+    }
+
+    // define table toolbar
+    $matrix->showToolbar = true;
+    $matrix->toolbarExpandCollapseGroupsButton = true;
+    $matrix->toolbarShowAllColumnsButton = true;
+    unset($columns[$ids]);
+    $gui->tableSet[$ids] = $matrix;
 }
 //$execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
 
+$timerOff = microtime(true);
+$gui->elapsed_time = round($timerOff - $timerOn,2);
+$smarty->assign('gui',$gui);//echo $templateCfg->template_dir . $tpl, $smarty, $args->format, $mailCfg;
+
+/*foreach ($gui->tableSet as $set){
+    echo($set->renderHeadSection().'
+             ');
+}/**/
+$smarty->display($templateCfg->template_dir . $templateCfg->default_template);
 
 
-
-$smarty->assign('gui',$gui);
-$smarty->display($templateCfg->template_dir .$templateCfg->default_template);
+/*$smarty->assign('gui',$gui);
+$smarty->display($templateCfg->template_dir .$templateCfg->default_template);*/
 function checkRights(&$db,&$user,$context = null)
 {
   if(is_null($context))

@@ -88,8 +88,7 @@ if( ($gui->activeBuildsQty <= $gui->matrixCfg->buildQtyLimit) || $args->do_actio
         $gui->tableSet[] = $tmp;
     break;
   }
-
-}  
+}
 else
 {
   // We need to ask user to do a choice
@@ -225,7 +224,6 @@ function buildMatrix(&$guiObj,&$argsObj)
 
   $lbl = init_labels(array('title_test_suite_name' => null,'platform' => null,'priority' => null,
                            'result_on_last_build' => null, 'title_test_case_title' => null));
-  var_dump($guiObj->options->testPriorityEnabled);
   $group_name = $lbl['title_test_suite_name'];
 
   if(!is_null($guiObj->platforms))
@@ -765,7 +763,7 @@ function buildDataSet(&$db,&$args,&$gui,&$exec,$labels)
             // Always righmost column will display lastest execution result
             $rows[] = $lexec;
 
-            $gui->matrix[] = $rows;
+            $gui->matrix[] = $rows;//var_dump($rows);
             unset($r4build);
             unset($rows);
             unset($buildExecStatus);

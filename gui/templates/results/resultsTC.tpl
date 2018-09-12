@@ -15,6 +15,7 @@ show Test Results and Metrics
              info_resultsTC_report,elapsed_seconds,export_as_spreadsheet"}
 
 {include file="inc_head.tpl" openHead="yes"}
+<!--mark1-->
 {foreach from=$gui->tableSet key=idx item=matrix name="initializer"}
   {assign var=tableID value=$matrix->tableID}
   {if $smarty.foreach.initializer.first}
