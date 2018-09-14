@@ -15,6 +15,7 @@ show Test Results and Metrics
              info_resultsTC_report,elapsed_seconds,export_as_spreadsheet"}
 
 {include file="inc_head.tpl" openHead="yes"}
+<!--mark1-->
 {foreach from=$gui->tableSet key=idx item=matrix name="initializer"}
   {assign var=tableID value=$matrix->tableID}
   {if $smarty.foreach.initializer.first}
@@ -70,6 +71,7 @@ show Test Results and Metrics
                 <span style="color:black; font-weight:bold; text-decoration:underline;">
                     <form method="get">
                         <input type="hidden" value="0" name="format">
+                        <input type ="hidden" name="active" value="{$gui->active}">
                     <select name="sub" id="selectSubs" onchange="this.form.action = this.selectedIndex == 0?'lib/results/resultsTCgroup.php?sub=0':'lib/results/resultsTC.php';this.form.submit()">
                         <option value = "0" select >Todos</option>
                         {html_options options=$gui->subs selected=$gui->sub}
@@ -84,6 +86,7 @@ show Test Results and Metrics
                 <span style="color:black; font-weight:bold; text-decoration:underline;">
                     <form method="get">
                         <input type="hidden" value="0" name="format">
+                        <input type ="hidden" name="active" value="{$gui->active}">
                         <select name="tplan_id" id="selectTestplan" onchange="this.form.action = this.selectedIndex == 0?'lib/results/resultsTCgroup.php':'lib/results/resultsTC.php';this.form.submit()"  >
                             <option value = "0" >Todos</option>
                             {html_options options=$gui->tplans selected=$gui->tplan_id}
@@ -101,11 +104,11 @@ show Test Results and Metrics
         {/if}
     </table>
 {foreach from=$gui->tableSet key=idx item=matrix}
-  {$tableID="table_$idx"}
-  {if $idx != 0}
-  <h2>{$labels.platform}: {$gui->platforms[$idx]|escape}</h2>
-  {/if}
-  {$matrix->renderBodySection()}
+    {$tableID="table_$idx"}
+    {if $idx != 0}
+    <h2>{$labels.platform}: {$gui->platforms[$idx]|escape}</h2>
+    {/if}
+    {$matrix->renderBodySection()}
 {/foreach}
 
 

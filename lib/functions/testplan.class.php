@@ -7672,12 +7672,21 @@ class build_mgr extends tlObject
 
     rev :
   */
+<<<<<<< HEAD
   function create($tplan_id,$name,$notes = '',$active=1,$open=1,$release_date='')
   {
     $targetDate=trim($release_date);
     $sql = " INSERT INTO {$this->tables['builds']} " .
            " (testplan_id,name,notes,release_date,active,is_open,creation_ts) " .
            " VALUES ('". $tplan_id . "','" . $this->db->prepare_string($name) . "','" . $this->db->prepare_string($notes) . "',";
+=======
+  function create($tplan_id,$name,$tid_41,$mid_42,$notes = '',$active=1,$open=1,$release_date='',$tid_41,$mid_42)
+  {
+    $targetDate=trim($release_date);
+    $sql = " INSERT INTO {$this->tables['builds']} " .
+           " (testplan_id,name,tid_41,mid_42,notes,release_date,active,is_open,creation_ts) " .
+           " VALUES ('". $tplan_id . "','" . $this->db->prepare_string($name) . "','" . $this->db->prepare_string($tid_41) . "','" . $this->db->prepare_string($mid_42) . "','" . $this->db->prepare_string($notes) . "',";
+>>>>>>> tcg
 
     if($targetDate == '')
     {
@@ -7690,7 +7699,12 @@ class build_mgr extends tlObject
     
     // Important: MySQL do not support default values on datetime columns that are functions
     // that's why we are using db_now().
+<<<<<<< HEAD
     $sql .= "{$active},{$open},{$this->db->db_now()})";
+=======
+    $sql .= "{$active},{$open},{$this->db->db_now()})";                        
+    var_dump($sql);
+>>>>>>> tcg
     $new_build_id = 0;
     $result = $this->db->exec_query($sql);
     if ($result)
@@ -7718,13 +7732,23 @@ class build_mgr extends tlObject
 
     rev :
   */
+<<<<<<< HEAD
   function update($id,$name,$notes,$active=null,$open=null,$release_date='',$closed_on_date='')
+=======
+  function update($id,$name,$tid_41,$mid_42,$notes,$active=null,$open=null,$release_date='',$closed_on_date='')
+>>>>>>> tcg
   {
     $closure_date = '';
     $targetDate=trim($release_date);
     $sql = " UPDATE {$this->tables['builds']} " .
            " SET name='" . $this->db->prepare_string($name) . "'," .
+<<<<<<< HEAD
            "     notes='" . $this->db->prepare_string($notes) . "'";
+=======
+           "     notes='" . $this->db->prepare_string($notes) . "'," .
+           "     tid_41='" . $this->db->prepare_string($tid_41) . "'," .
+           "     mid_42='" . $this->db->prepare_string($mid_42) . "'";
+>>>>>>> tcg
     
     if($targetDate == '')
     {

@@ -1047,8 +1047,18 @@ class tlUser extends tlDBObject
 	  return $sub_adquirenteSet2;
 }*/
   
-function getAccessibleTestplansBySubaquirer(&$db,$id,$acquirer){
-    $sql = "select distinct n.id,n.name from nodes_hierarchy n inner join builds b on (n.id = b.testplan_id) where n.node_type_id = 5 and b.active = 1 and n.parent_id = $id and SUBSTRING_INDEX(n.name,'-',1) = '$acquirer'";
+function getAccessibleTestplansBySubaquirer(&$db,$id,$acquirer,$active = 1){
+    $sql = "select distinct n.id,n.name from nodes_hierarchy n inner join builds b on (n.id = b.testplan_id) where n.node_type_id = 5 and b.active = $active and n.parent_id = $id and SUBSTRING_INDEX(n.name,'-',1) = '$acquirer'";
+    
+     $testPlanSet = $db->fetchRowsIntoMap($sql,'id');
+     $tmp;
+     foreach($testPlanSet as $tplk=>$tplv){
+         $tmp[$tplk] = $tplv['name'];
+     }
+     return $tmp;
+}
+function getAccessibleTestplansWithActiveBuilds(&$db,$acquirer,$active = 1){
+    $sql = "select distinct n.id,n.name from nodes_hierarchy n inner join builds b on (n.id = b.testplan_id) where n.node_type_id = 5 and n.parent_id = $acquirer and b.active = $active";
     
      $testPlanSet = $db->fetchRowsIntoMap($sql,'id');
      $tmp;
@@ -1058,9 +1068,9 @@ function getAccessibleTestplansBySubaquirer(&$db,$id,$acquirer){
      return $tmp;
 }
   
-function getAccessibleSub_adquirentes (&$db,$testprojectID){//var_dump($testprojectID);
-    $sql="SELECT distinct SUBSTRING_INDEX(n.name,'-',1) sub_adquirente FROM `nodes_hierarchy` n inner join builds b on (n.id = b.testplan_id) where b.active = 1 and node_type_id = 5 and parent_id = $testprojectID";
-    //var_dump($sql);
+function getAccessibleSub_adquirentes (&$db,$testprojectID,$active = 1){
+    $sql="SELECT distinct SUBSTRING_INDEX(n.name,'-',1) sub_adquirente FROM `nodes_hierarchy` n inner join builds b on (n.id = b.testplan_id) where b.active = $active and node_type_id = 5 and parent_id = $testprojectID";
+    
     $sub_adquirenteSet2 = $db->fetchRowsIntoMap($sql,'sub_adquirente');
     $tmp;
     foreach($sub_adquirenteSet2 as $subk=>$subv){

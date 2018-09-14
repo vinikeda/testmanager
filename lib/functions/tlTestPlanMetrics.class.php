@@ -1577,7 +1577,9 @@ class tlTestPlanMetrics extends testplan
     if( is_null($bi->idSet) )
     {
       $openStatus = $my['opt']['processClosedBuilds'] ? null : 1;
-      $bi->idSet = array_keys($bi->infoSet = $this->get_builds($id,testplan::ACTIVE_BUILDS,$openStatus));
+      if(isset($my['opt']['inactiveBuilds'] ))$activeStatus = $my['opt']['inactiveBuilds'] ? 1 : 0;
+      else $activeStatus = 1;
+      $bi->idSet = array_keys($bi->infoSet = $this->get_builds($id,$activeStatus,$openStatus));
     }
     
     // ==========================================================================
@@ -2898,12 +2900,12 @@ class tlTestPlanMetrics extends testplan
           $build['status'] = $this->getExecutionsStatus($build['build_id']);
           $oList[$build['sub_adquirente']][$build['solucao']][$build['roteiro']] = $build;
           
-      }//var_dump(array_flip($this->map_tc_status));
+      }
       return $oList;
   }
   function getExecutionsStatus($idBuild){
       $sql ="select testplan_id from builds where id = $idBuild";
-      $tplan = (array)$this->db->get_recordset($sql);//var_dump($tplan);
+      $tplan = (array)$this->db->get_recordset($sql);
       $idtplan = $tplan[0]['testplan_id'];
       $sql = "select status, count(tt.id) qtd from testplan_tcversions tt left join (
     select * from executions exei where 
@@ -2919,7 +2921,7 @@ group by status";
       foreach($dummy as $exec){
           $temp[$exec['status'] == ''? 'n' : $exec['status']] = $exec['qtd'];
       }
-      //var_dump($temp);
+      
       return($temp);
   }
   function getTotalexec ($id){
