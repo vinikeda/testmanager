@@ -56,10 +56,10 @@ if( ($gui->activeBuildsQty <= $gui->matrixCfg->buildQtyLimit) || $args->do_actio
                  'getUserAssignment' => true, 
                  'getExecutionTimestamp' => true, 'getExecutionDuration' => true);
   }    
-  if(count($tplan_mgr->get_builds($args->tplan_id, 1)) >0)$execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
+  if(count($tplan_mgr->get_builds($args->tplan_id, $argsObj->active/*testplan::ACTIVE_BUILDS*/)) >0)$execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
   else $gui->message = "Sem requisições ativas";
   $metrics = $execStatus['metrics'];
-  $latestExecution = $execStatus['latestExec']; 
+  $latestExecution = $execStatus['latestExec'];
 
   // Every Test suite a row on matrix to display will be created
   // One matrix will be created for every platform that has testcases
@@ -101,7 +101,7 @@ else
   }
 }  
 
-
+$gui->active=$args->active;
 $timerOff = microtime(true);
 $gui->elapsed_time = round($timerOff - $timerOn,2);
 
@@ -121,12 +121,13 @@ function init_args(&$dbHandler)
                    "build_set" => array(tlInputParameter::ARRAY_INT),
                    "buildListForExcel" => array(tlInputParameter::STRING_N,0,100),
                    "sub" => array(tlInputParameter::STRING_N,0,100),
-                   "format" => array(tlInputParameter::INT_N));
+                   "format" => array(tlInputParameter::INT_N),
+                   "active"=>array(tlInputParameter::INT_N));
 
                
   $args = new stdClass();
   R_PARAMS($iParams,$args);
-
+  
   
   $args->addOpAccess = true;
   
@@ -175,17 +176,17 @@ function init_args(&$dbHandler)
   
  $args->user = $_SESSION['currentUser'];
   $args->basehref = $_SESSION['basehref'];
-  $args->subs =  $args->user->getAccessibleSub_adquirentes($dbHandler,$args->tproject_id);
+  $args->subs =  $args->user->getAccessibleSub_adquirentes($dbHandler,$args->tproject_id,$args->active);
   if(isset($args->tplan_id)){
         $args->sub =  $args->user->getSub_adquirentesID($dbHandler,$args->tplan_id);
         //$args->tplanIDS = $args->user->getAccessibleTestPlans($dbHandler,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));
         
   }else{
       
-      $args->tplan_id = (end(array_keys($args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->tproject_id,$args->sub))));
+      $args->tplan_id = (end(array_keys($args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->tproject_id,$args->sub,$args->active))));
       $args->sub .=' '; 
   }
-$args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->tproject_id,$args->sub);
+$args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($dbHandler,$args->tproject_id,$args->sub,$args->active);
   return $args;
 }
 
@@ -366,7 +367,7 @@ function initializeGui(&$dbHandler,&$argsObj,$imgSet,&$tplanMgr)
 
 
   $guiObj->matrixCfg  = config_get('resultMatrixReport');
-  $guiObj->buildInfoSet = $tplanMgr->get_builds($argsObj->tplan_id, testplan::ACTIVE_BUILDS,null,
+  $guiObj->buildInfoSet = $tplanMgr->get_builds($argsObj->tplan_id, $argsObj->active/*testplan::ACTIVE_BUILDS*/,null,
                                                 array('orderBy' => $guiObj->matrixCfg->buildOrderByClause)); 
   $guiObj->activeBuildsQty = count($guiObj->buildInfoSet);
   foreach($guiObj->buildInfoSet as $key=>$val){

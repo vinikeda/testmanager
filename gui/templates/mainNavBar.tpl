@@ -597,10 +597,10 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
                                                 <!-- CODIGO ORIGINAL 
 						<li><a href="{$gui->url.metrics_dashboard}" target="mainframe" method="post">{$labels.href_metrics_dashboard}</a></li>
 						-->
-						<li><a href="lib/results/resultsTCgroup.php?sub=0" target="mainframe" method="post">{$labels.href_complete_monitoring_report}</a></li>
+						<li><a href="lib/results/resultsTCgroup.php?sub=0&active=1" target="mainframe" method="post">{$labels.href_complete_monitoring_report}</a></li>
 						{*<li><a href="lib/results/metricsDashboard5.php" target="mainframe" method="post">{$labels.href_complete_monitoring_report}</a></li>*}
 						<li><a href="lib/results/metricsDashboard3.php" target="mainframe" method="post">{$labels.href_quick_monitoring_report}</a></li>
-						<li><a href="lib/results/metricsDashboard-3.php" target="mainframe" method="post">{$labels.href_history_report}</a></li>
+						<li><a href="lib/results/resultsTCgroup.php?sub=0&active=0" target="mainframe" method="post">{$labels.href_history_report}</a></li>
 					{/if}
 				</ul>
 			</li>

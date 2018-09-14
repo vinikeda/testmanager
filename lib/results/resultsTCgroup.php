@@ -5,7 +5,7 @@ require_once('common.php');
 require_once('displayMgr.php');
 require_once('exttable.class.php');
 ini_set('memory_limit', '-1');
-set_time_limit(600);/**/
+/*set_time_limit(600);/**/
 
 $templateCfg = templateConfiguration();
 
@@ -18,17 +18,18 @@ $columns = array();
 $args->user = $_SESSION['currentUser'];
 $args->tplan_id = $_SESSION['testplanID'];
 $args->tproject_id = $_SESSION['testprojectID'];
+$args->active = $_REQUEST['active'];
 if(isset($_GET['sub'])){
     $args->sub = $_GET['sub'];
 }else{
     $args->sub =  $args->user->getSub_adquirentesID($db,$args->tplan_id);
 }
-$args->subs =  $args->user->getAccessibleSub_adquirentes($db,$args->tproject_id);
+$args->subs =  $args->user->getAccessibleSub_adquirentes($db,$args->tproject_id,$args->active);
 if($args->sub == '0'){
     //$args->tplanIDS = $args->user->getAccessibleTestPlans($db,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));//$args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
-    $args->tplanIDS = $args->user->getAccessibleTestplansWithActiveBuilds($db);
+    $args->tplanIDS = $args->user->getAccessibleTestplansWithActiveBuilds($db,$args->tproject_id,$args->active);
 }else{
-    $args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
+    $args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub,$args->active);
 }
     
 //$args->tplanIDS[0] = 'todos';
@@ -63,15 +64,17 @@ $tcols = array('tsuite','link','priority');
 $cols = array_flip($tcols);
 
 $tplanMgr = new tlTestPlanMetrics($db);
-$gui->matrixCfg  = config_get('resultMatrixReport');$cont =0;
+$gui->matrixCfg  = config_get('resultMatrixReport');
 foreach($args->tplanIDS as $ids=>$names){
-    $gui->buildInfoSet = $tplanMgr->get_builds($ids, testplan::ACTIVE_BUILDS,null,
+    $gui->buildInfoSet = $tplanMgr->get_builds($ids, $args->active,null,
                                                 array('orderBy' => $gui->matrixCfg->buildOrderByClause));
-$buildSet/*$args->builds->idSet*/ = array_keys($gui->buildInfoSet);
-$args->builds->latest->id = end($buildSet);
+    if($gui->buildInfoSet != null){
+    $buildSet/*$args->builds->idSet*/ = array_keys($gui->buildInfoSet);
+    $args->builds->latest->id = end($buildSet);
+    $opt['inactiveBuilds'] = $args->active == 1?true:false;
     if(!is_null($buildSet))$execStatus = $metricsMgr->getExecStatusMatrix($ids,$buildSet,$opt);//print_r($execStatus['metrics']);
     $latestExecution = $execStatus['latestExec'];
-    $gui->matrix = array();
+    $gui->matrix = array();//print_r($execStatus['metrics']);
     foreach($execStatus['metrics'] as $tsuiteID=>$tsuite){
         foreach($tsuite as $tcaseID=>$tcase){
             $top = current(array_keys($execStatus['metrics'][$tsuiteID][$tcaseID][0]));
@@ -169,6 +172,7 @@ $args->builds->latest->id = end($buildSet);
     $matrix->toolbarShowAllColumnsButton = true;
     unset($columns[$ids]);
     $gui->tableSet[$ids] = $matrix;
+    }
 }
 //$execStatus = $metricsMgr->getExecStatusMatrix($args->tplan_id,$buildSet,$opt);
 
