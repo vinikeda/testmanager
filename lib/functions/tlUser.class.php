@@ -1078,6 +1078,25 @@ function getAccessibleSub_adquirentes (&$db,$testprojectID,$active = 1){
     }
     return $tmp;
 }
+
+function getAccessibleSub_adquirentesV2 (&$db,$testprojectID,$active = 1){
+    $tmp = $this->getAccessibleTestPlans($db,$testprojectID,null,array('output' =>'combo', 'active' => $active));
+    $subs = array();
+    foreach($tmp as $tplan){
+        $arr = explode("-", $tplan, 2);
+        $subs[$arr[0]] = $arr[0];
+    }
+    return $subs;
+    /*$sql="SELECT distinct SUBSTRING_INDEX(n.name,'-',1) sub_adquirente FROM `nodes_hierarchy` n inner join builds b on (n.id = b.testplan_id) where b.active = $active and node_type_id = 5 and parent_id = $testprojectID";
+    
+    $sub_adquirenteSet2 = $db->fetchRowsIntoMap($sql,'sub_adquirente');
+    $tmp;
+    foreach($sub_adquirenteSet2 as $subk=>$subv){
+        $tmp[$subk] = $subk;
+    }
+    return $tmp;*/
+}
+
 function getSub_adquirentesID (&$db, $IDtestplan){
 	$sql = "SELECT SUBSTRING_INDEX(name,'-',1) sub_adquirente from nodes_hierarchy where id =".$IDtestplan;//echo $sql;
 	$temp = $db->get_recordset($sql);//print_r($temp);

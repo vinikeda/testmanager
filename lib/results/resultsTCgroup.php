@@ -24,10 +24,11 @@ if(isset($_GET['sub'])){
 }else{
     $args->sub =  $args->user->getSub_adquirentesID($db,$args->tplan_id);
 }
-$args->subs =  $args->user->getAccessibleSub_adquirentes($db,$args->tproject_id,$args->active);
+$args->subs =  $args->user->getAccessibleSub_adquirentesV2($db,$args->tproject_id,$args->active);
 if($args->sub == '0'){
-    //$args->tplanIDS = $args->user->getAccessibleTestPlans($db,$args->tproject_id,null,array('output' =>'combo', 'active' => 1));//$args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
-    $args->tplanIDS = $args->user->getAccessibleTestplansWithActiveBuilds($db,$args->tproject_id,$args->active);
+    //if($args->active == 1)
+    $args->tplanIDS = $args->user->getAccessibleTestPlans($db,$args->tproject_id,null,array('output' =>'combo', 'active' => $args->active));//$args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub);
+    //else $args->tplanIDS = $args->user->getAccessibleTestplansWithActiveBuilds($db,$args->tproject_id,$args->active);
 }else{
     $args->tplanIDS = $args->user->getAccessibleTestplansBySubaquirer($db,$args->tproject_id,$args->sub,$args->active);
 }
