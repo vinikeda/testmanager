@@ -28,6 +28,7 @@ $arrplans = $currentUser->getAccessibleTestPlans($db,$_SESSION['testprojectID'])
 foreach ($arrplans as $key=>$value){
     $gui->arrplans[$value['id']] = $value['name'];
 }
+$gui->canEdit = $_SESSION['currentUser']->globalRole->dbID != 10;
 //$gui->arrplans = $arrplans;
 $gui->tplan_id = isset($_SESSION['testplanID']) ? $_SESSION['testplanID'] : 0;
 $gui->tplan_name = $_SESSION['testplanName'];

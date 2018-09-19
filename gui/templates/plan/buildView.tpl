@@ -57,11 +57,13 @@ var del_action=fRoot+'{$deleteAction}';
   	<table id="item_view" class="simple_tableruler sortable">
   		<tr>
   			<th>{$tlImages.toggle_api_info}{$tlImages.sort_hint}{$labels.th_title}</th>
+                        {if $gui->canEdit}
   			<th class="{$noSortableColumnClass}">{$labels.reallocate}{*$labels.th_description*}</th>
   			<th class="{$noSortableColumnClass}" style="width:90px;">{$labels.release_date}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_active}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_open}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_delete}</th>
+                        {/if}
   		</tr>
   		{foreach item=build from=$gui->buildSet}
         	<tr>
@@ -73,6 +75,7 @@ var del_action=fRoot+'{$deleteAction}';
   					     {/if}    
   					  </a>   
   				</td>
+                                {if $gui->canEdit}
   				<td>{*$build.notes*}
                                     <select id="{$build.id}">
                                         {html_options options=$gui->arrplans selected=$gui->tplan_id}
@@ -116,6 +119,7 @@ var del_action=fRoot+'{$deleteAction}';
  					                                         '{$del_msgbox_title}','{$warning_msg}');"
   				            src="{$tlImages.delete}"/>
   				</td>
+                                {/if}
   			</tr>
   		{/foreach}
   	</table>
