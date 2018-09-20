@@ -493,6 +493,8 @@ $TLS_tcexec_notes = "Testing details";
 $TLS_tcexec_result = "Result";
 $TLS_tcexec_results_for = "Result for ";
 
+// ----- gui/templates/attachmentempty.tpl -----
+$TLS_attachment_empty = "Test cycle without attachments!";
 
 // ----- gui/templates/attachment404.tpl -----
 $TLS_error_attachment_not_found = "Error: Attachment not found!";
@@ -2011,6 +2013,7 @@ $TLS_warning_empty_filename = "Please give a file name";
 $TLS_alt_active_build = "Active build";
 $TLS_alt_edit_build = "Click here to edit this build";
 $TLS_alt_open_build = "Open build";
+$TLS_alt_attachment = "Click here to download the attachments of this cycle";
 $TLS_btn_build_create = "Create";
 $TLS_no_builds = "No builds are defined within this Test Plan!";
 $TLS_th_description = "Description";
@@ -2460,6 +2463,7 @@ $TLS_unknown_platform="Warning/Critic<br>" .
 						          " without platorms, all linked test cases will be updated with this platform ";
 
 // ----- lib/results/printDocOptions.php -----
+$TLS_download = "Download attachments";
 $TLS_opt_show_hdrNumbering = "Header Numbering";
 $TLS_opt_show_toc = "Table of Contents";
 $TLS_opt_show_suite_txt = "Test Suite description";

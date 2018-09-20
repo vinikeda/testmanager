@@ -530,6 +530,8 @@ $TLS_tcexec_notes = "Detalhes do Teste (notas):";	// changed to original transla
 $TLS_tcexec_result = "Resultados:";
 $TLS_tcexec_results_for = "Resultados para:";
 
+// ----- gui/templates/attachmentempty.tpl -----
+$TLS_attachment_empty = "Ciclo sem anexos!";
 
 // ----- gui/templates/attachment404.tpl -----
 $TLS_error_attachment_not_found = "Erro: Anexo não encontrado!";
@@ -2138,6 +2140,7 @@ $TLS_warning_empty_filename = "Por favor, dê um nome ao arquivo";
 $TLS_alt_active_build = "Requisição ativa";
 $TLS_alt_edit_build = "Clique aqui para editar esta requisição";
 $TLS_alt_open_build = "Requisição aberta";
+$TLS_alt_attachment = "Clique aqui para fazer download das evidências desse ciclo";
 $TLS_btn_build_create = "Criar";
 $TLS_no_builds = "As requisições não foram definidas neste Plano de Teste!";
 $TLS_th_description = "Descrição";
@@ -2617,6 +2620,7 @@ $TLS_unknown_platform="Atenção/Crítico<br>" .
                       " sem platarmas, todos os Casos de Teste associados serão atualizados com esta plataforma ";
 
 // ----- lib/results/printDocOptions.php -----
+$TLS_download = "Download evidências";
 $TLS_opt_displayVersion = "Esp. Req. Versão/Revisão de Requisitos";
 $TLS_opt_show_hdrNumbering = "Cabeçalho de numeração";
 $TLS_opt_show_toc = "Mostrar índice";
