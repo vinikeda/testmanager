@@ -5,12 +5,21 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 @since 1.9.14
 *}
 {lang_get var="labels"
-          s='doc_opt_title,doc_opt_guide,tr_td_show_as,check_uncheck_all_options,build,builds,onlywithuser'}
+          s='doc_opt_title,doc_opt_guide,tr_td_show_as,check_uncheck_all_options,build,builds,onlywithuser,download,alt_attachment'}
 
 {include file="inc_head.tpl" openHead="yes"}
 {include file="inc_ext_js.tpl" bResetEXTCss=1}
 {include file="inc_jsCheckboxes.tpl"}
 
+<script type="text/javascript">
+	  function downloadAttachments(id) {
+	document.getElementById('formZip').elements.namedItem("id").value = id;
+//	w = window.open('', 'FileDownload','width=510,height=300,resizeable,scrollbars'); 
+//	document.getElementById('formZip').target = 'FileDownload'; 
+//	w.focus(); 
+	document.getElementById('formZip').submit();
+}
+</script>	
 {if $gui->ajaxTree->loadFromChildren}
   <script type="text/javascript">
   /* space after { and before } to signal to smarty that is JS => do not process */
@@ -28,6 +37,7 @@ TestLink Open Source Project - http://testlink.sourceforge.net/
 
 {else}
   <script type="text/javascript">
+
   treeCfg = { tree_div_id:'tree_div',root_name:"",root_id:0,root_href:"",
                loader:"", enableDD:false, dragDropBackEndUrl:'' };
   </script>
@@ -54,6 +64,9 @@ jQuery(".chosen-select").chosen({ width: "100%" });
 </head>
 
 <body>
+<form method="POST" action="lib/attachments/attachmentzip.php" enctype="multipart/form-data" id="formZip" onsubmit="return false">
+	<input type="hidden" name="id"/>
+</form> 	
 <h1 class="title">{$gui->mainTitle} 
                   {if $gui->showHelpIcon}{include file="inc_help.tpl" helptopic="hlp_generateDocOptions" show_help_icon=true}{/if}
                 </h1>
@@ -66,6 +79,7 @@ jQuery(".chosen-select").chosen({ width: "100%" });
 
   <input type="hidden" name="docTestPlanId" value="{$docTestPlanId}" />
   <input type="hidden" name="toggle_memory" id="toggle_memory"  value="0" />
+	{$gui|@print_r} 
 
 
   {if $gui->buildInfoSet != ''}
@@ -84,6 +98,10 @@ jQuery(".chosen-select").chosen({ width: "100%" });
      <td><label for="with_user_assignment">{$labels.onlywithuser}</label></td>
      <td><input type="checkbox" name="with_user_assignment" 
                 id="with_user_assignment"></td>
+	 <td style="width:20px">&nbsp;</td>
+	 <td> <input type="button" style="border:none" id="attachments"
+                       title="{$labels.alt_attachment}" value="{$labels.download}" alt="{$labels.alt_attachment}" 
+                       onClick = "javascript:downloadAttachments(jQuery('#build_id').chosen().val());return false;"/></td>
     </tr>
    </table>
   {/if}

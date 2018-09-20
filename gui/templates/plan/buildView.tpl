@@ -25,7 +25,7 @@ Purpose: smarty template - Show existing builds
              th_open,th_delete,alt_edit_build,alt_active_build,reallocate,
              alt_open_build,alt_delete_build,no_builds,btn_build_create,
              builds_description,sort_table_by_column,th_id,release_date,btn_change,
-             inactive_click_to_change,active_click_to_change,click_to_set_open,click_to_set_closed'}
+             inactive_click_to_change,active_click_to_change,click_to_set_open,click_to_set_closed,alt_attachment'}
 
 {include file="inc_head.tpl" openHead="yes" jsValidate="yes" enableTableSorting="yes"}
 {include file="inc_del_onclick.tpl"}
@@ -33,12 +33,22 @@ Purpose: smarty template - Show existing builds
 <script type="text/javascript">
 /* All this stuff is needed for logic contained in inc_del_onclick.tpl */
 var del_action=fRoot+'{$deleteAction}';
+
+function downloadAttachments(id) {
+	document.getElementById('formZip').elements.namedItem("id").value = id;
+//	w = window.open('', 'FileDownload','width=510,height=300,resizeable,scrollbars'); 
+//	document.getElementById('formZip').target = 'FileDownload'; 
+//	w.focus(); 
+	document.getElementById('formZip').submit();
+}
 </script>
 
 </head>
 
 <body {$body_onload} id="buildEdit">
-
+<form method="POST" action="lib/attachments/attachmentzip.php" enctype="multipart/form-data" id="formZip" onsubmit="return false">
+	<input type="hidden" name="id"/>
+</form> 							 
 <h1 class="title">{$labels.title_build_2}{$smarty.const.TITLE_SEP_TYPE3}{$labels.test_plan}{$smarty.const.TITLE_SEP}{$gui->tplan_name|escape}</h1>
 
 <div class="workBack">
@@ -60,6 +70,7 @@ var del_action=fRoot+'{$deleteAction}';
                         {if $gui->canEdit}
   			<th class="{$noSortableColumnClass}">{$labels.reallocate}{*$labels.th_description*}</th>
   			<th class="{$noSortableColumnClass}" style="width:90px;">{$labels.release_date}</th>
+			<th class="{$noSortableColumnClass}">Download Evidências</th>											   
   			<th class="{$noSortableColumnClass}">{$labels.th_active}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_open}</th>
   			<th class="{$noSortableColumnClass}">{$labels.th_delete}</th>
@@ -83,6 +94,13 @@ var del_action=fRoot+'{$deleteAction}';
                                     <input value ="{$labels.btn_change}" type ="button" onclick="move(document.getElementById('{$build.id}').value,this,{$build.id})">
                                 </td>
   				<td>{if $build.release_date != ''}{localize_date d=$build.release_date}{/if}</td>
+					<td class="clickable_icon" > 
+                <input type="image" style="border:none" id="attachments"
+                       title="{$labels.alt_attachment}" alt="{$labels.alt_attachment}" 
+                       onClick = "javascript:downloadAttachments({$build.id});return false;"
+                       src="{$tlImages.download}"/> 
+              
+          </td>			 
 
           <td class="clickable_icon">
             {if $build.active==1} 

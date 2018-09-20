@@ -29,11 +29,11 @@ if ($args->id)
 {
 
   $attachmentRepository = tlAttachmentRepository::create($db);
-  $attachmentInfo = $attachmentRepository->getAttachmentInfo($args->id);  
+  $attachmentInfo = $attachmentRepository->getAttachmentInfo($args->id);
   if ($attachmentInfo && 
       ($args->skipCheck || checkAttachmentID($db,$args->id,$attachmentInfo)) )
   {
-     switch ($args->opmode) 
+    switch ($args->opmode) 
     {
       case 'API':
         // want to check if apikey provided is right for attachment context

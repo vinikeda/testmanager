@@ -59,10 +59,10 @@ var warning_delete_attachment = "{lang_get s='warning_delete_attachment'}";
 {if $gsmarty_attachments->enabled && $attach_show_upload_btn}
   {if $attach_show_upload_btn && !$attach_downloadOnly}
   <div  class="importArchives">
-		<h4 style="color: #5C1111;"><b>{$labels.attachments}</b></h4>
-		<br>
+	<h4 style="color: #5C1111;"><b>{$labels.attachments}</b></h4>
+	<br>
 		<label style="color: #5C1111;" for="uploadedFile" class="labelHolder">{$labels.logs}: </label>
-		<img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
+      <img class="clickable" src="{$tlImages.activity}" title="{$labels.max_size_file_upload}: {$gui->import_limit} Bytes)">
         <input type="file" name="uploadedFile[log][]" id="uploadedFile" multiple 
                size="{#UPLOAD_FILENAME_SIZE#}" />
 		<br/>	   

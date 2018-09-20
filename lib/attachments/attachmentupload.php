@@ -22,184 +22,48 @@ $gui->tableName = $args->tableName;
 $gui->import_limit = TL_REPOSITORY_MAXFILESIZE;
 $gui->id = $args->id;
 
-
-if ($args->bPostBack)	
+if ($args->bPostBack)
 {
-	$id = $_SESSION['s_upload_id'];
-	$gui->tableName = $_SESSION['s_upload_tableName'];
-	$attachmentRepository = tlAttachmentRepository::create($db);
-	if( isset($_FILES['uploadedFile']['name']['log']) && !is_null($_FILES['uploadedFile']['name']['log'])) 
-       {
-        // May be we have enabled MULTIPLE on file upload
-        if( is_array($_FILES['uploadedFile']['name']['log'])) 
-            {
-                $curly = count($_FILES['uploadedFile']['name']['log']);
-                for($moe=0; $moe < $curly; $moe++)
-                {
-                  $fSize = isset($_FILES['uploadedFile']['size']['log'][$moe]) ? 
-                           $_FILES['uploadedFile']['size']['log'][$moe] : 0;
+  $fInfo = isset($_FILES['uploadedFile']) ? $_FILES['uploadedFile'] : null;
+  $id = $_SESSION['s_upload_id'];
+  $gui->tableName = $_SESSION['s_upload_tableName'];
+  
+  new dBug($fInfo);
+  // die();
+  if ($fInfo && $id && $gui->tableName != "")
+  {
+    $l2d = count($fInfo);
+    for($fdx=0; $fdx <= $l2d; $fdx++)
+    {
+      $fSize = isset($fInfo['size'][$fdx]) ? $fInfo['size'][$fdx] : 0;
+      $fTmpName = isset($fInfo['tmp_name'][$fdx]) ? 
+                        $fInfo['tmp_name'][$fdx] : '';
 
-                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['log'][$moe]) ? 
-                              $_FILES['uploadedFile']['tmp_name']['log'][$moe] : '';
-
-                  if ($fSize && $fTmpName != "")
-                  {
-                    $fk2loop = array_keys($_FILES['uploadedFile']);
-                    foreach($fk2loop as $tk)
-                    {
-                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['log'][$moe];
-                    }  
-                     $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Log',$fInfo);
-                  }
-                }  
-            } 
-        else
-            {
-                $fSize = isset($_FILES['uploadedFile']['size']['log']) ? $_FILES['uploadedFile']['size']['log'] : 0;
-                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['log']) ? 
-                            $_FILES['uploadedFile']['tmp_name']['log'] : '';
-
-                if ($fSize && $fTmpName != "")
-                {
-                  $fk2loop = array_keys($_FILES['uploadedFile']);
-                  foreach($fk2loop as $tk)
-                  {
-                    $fInfo[$tk] = $_FILES['uploadedFile']['log'][$tk];
-                  }  
-                   $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Logs',$fInfo);
-                }
-            } 
-              
-        }
-	if( isset($_FILES['uploadedFile']['name']['receipt']) && !is_null($_FILES['uploadedFile']['name']['receipt'])) 
-			{
-              // May be we have enabled MULTIPLE on file upload
-              if( is_array($_FILES['uploadedFile']['name']['receipt'])) 
-              {
-                $curly = count($_FILES['uploadedFile']['name']['receipt']);
-                for($moe=0; $moe < $curly; $moe++)
-                {
-                  $fSize = isset($_FILES['uploadedFile']['size']['receipt'][$moe]) ? 
-                           $_FILES['uploadedFile']['size']['receipt'][$moe] : 0;
-
-                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['receipt'][$moe]) ? 
-                              $_FILES['uploadedFile']['tmp_name']['receipt'][$moe] : '';
-
-                  if ($fSize && $fTmpName != "")
-                  {
-                    $fk2loop = array_keys($_FILES['uploadedFile']);
-                    foreach($fk2loop as $tk)
-                    {
-                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['receipt'][$moe];
-                    }  
-                    $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Receipt',$fInfo);
-                  }
-                }  
-              } 
-        else
-            {
-                $fSize = isset($_FILES['uploadedFile']['size']['receipt']) ? $_FILES['uploadedFile']['size']['receipt'] : 0;
-                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['receipt']) ? 
-                            $_FILES['uploadedFile']['tmp_name']['receipt'] : '';
-
-                if ($fSize && $fTmpName != "")
-                {
-                  $fk2loop = array_keys($_FILES['uploadedFile']);
-                  foreach($fk2loop as $tk)
-                  {
-                    $fInfo[$tk] = $_FILES['uploadedFile']['receipt'][$tk];
-                  }  
-				 
-				  $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Receipt',$fInfo);
-                }
-            } 
-              
-        }
-		if( isset($_FILES['uploadedFile']['name']['cardspy']) && !is_null($_FILES['uploadedFile']['name']['cardspy'])) 
-			{
-              // May be we have enabled MULTIPLE on file upload
-              if( is_array($_FILES['uploadedFile']['name']['cardspy'])) 
-              {
-                $curly = count($_FILES['uploadedFile']['name']['cardspy']);
-                for($moe=0; $moe < $curly; $moe++)
-                {
-                  $fSize = isset($_FILES['uploadedFile']['size']['cardspy'][$moe]) ? 
-                           $_FILES['uploadedFile']['size']['cardspy'][$moe] : 0;
-
-                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['cardspy'][$moe]) ? 
-                              $_FILES['uploadedFile']['tmp_name']['cardspy'][$moe] : '';
-
-                  if ($fSize && $fTmpName != "")
-                  {
-                    $fk2loop = array_keys($_FILES['uploadedFile']);
-                    foreach($fk2loop as $tk)
-                    {
-                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['cardspy'][$moe];
-                    }  
-                    $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Cardspy',$fInfo);
-                  }
-                }  
-              } 
-        else
-            {
-                $fSize = isset($_FILES['uploadedFile']['size']['cardspy']) ? $_FILES['uploadedFile']['size']['cardspy'] : 0;
-                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['cardspy']) ? 
-                            $_FILES['uploadedFile']['tmp_name']['cardspy'] : '';
-
-                if ($fSize && $fTmpName != "")
-                {
-                  $fk2loop = array_keys($_FILES['uploadedFile']);
-                  foreach($fk2loop as $tk)
-                  {
-                    $fInfo[$tk] = $_FILES['uploadedFile']['cardspy'][$tk];
-                  }  
-                  $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Cardspy',$fInfo);
-                }
-            } 
-              
-        }
-		if( isset($_FILES['uploadedFile']['name']['others']) && !is_null($_FILES['uploadedFile']['name']['others'])) 
-			{
-              // May be we have enabled MULTIPLE on file upload
-              if( is_array($_FILES['uploadedFile']['name']['others'])) 
-              {
-                $curly = count($_FILES['uploadedFile']['name']['others']);
-                for($moe=0; $moe < $curly; $moe++)
-                {
-                  $fSize = isset($_FILES['uploadedFile']['size']['others'][$moe]) ? 
-                           $_FILES['uploadedFile']['size']['others'][$moe] : 0;
-
-                  $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['others'][$moe]) ? 
-                              $_FILES['uploadedFile']['tmp_name']['others'][$moe] : '';
-
-                  if ($fSize && $fTmpName != "")
-                  {
-                    $fk2loop = array_keys($_FILES['uploadedFile']);
-                    foreach($fk2loop as $tk)
-                    {
-                      $fInfo[$tk] = $_FILES['uploadedFile'][$tk]['others'][$moe];
-                    }  
-                    $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Others',$fInfo);
-                  }
-                }  
-              } 
-        else
-            {
-                $fSize = isset($_FILES['uploadedFile']['size']['others']) ? $_FILES['uploadedFile']['size']['others'] : 0;
-                $fTmpName = isset($_FILES['uploadedFile']['tmp_name']['others']) ? 
-                            $_FILES['uploadedFile']['tmp_name']['others'] : '';
-
-                if ($fSize && $fTmpName != "")
-                {
-                  $fk2loop = array_keys($_FILES['uploadedFile']);
-                  foreach($fk2loop as $tk)
-                  {
-                    $fInfo[$tk] = $_FILES['uploadedFile']['others'][$tk];
-                  }  
-                 $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,'Others',$fInfo);
-                }
-            }               
-        }
+      $fin = array();
+      $fin['size'] = $fSize;
+      $fin['tmp_name'] = $fTmpName;
+      $fin['type'] = $fInfo['type'][$fdx];
+      $fin['name'] = $fInfo['name'][$fdx];
+      $fin['error'] = $fInfo['error'][$fdx];
+      
+      if ($fSize && $fTmpName != "")
+      {
+        echo 'DOING'; 
+        $attachmentRepository = tlAttachmentRepository::create($db);
+        
+        $gui->uploaded = $attachmentRepository->insertAttachment($id,$gui->tableName,$args->title,$fin);
+        if ($gui->uploaded)
+        {
+          logAuditEvent(TLS("audit_attachment_created",$args->title,$fin['name']),
+                        "CREATE",$id,"attachments");
+        } 
+      }
+      else
+      {
+        $gui->msg  = getFileUploadErrorMessage($fin);
+      } 
+    }
+  }
 }
 else
 {

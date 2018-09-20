@@ -363,6 +363,7 @@ class TLSmarty extends Smarty
                    'disconnect' => TL_THEME_IMG_DIR . 'disconnect.png',
                    'disconnect_small' => TL_THEME_IMG_DIR . 'disconnect_small.png',
                    'direct_link' => TL_THEME_IMG_DIR . 'world_link.png',
+					'download' => TL_THEME_IMG_DIR . 'attach_download.png',													  
                    'duplicate' => TL_THEME_IMG_DIR . 'application_double.png',
                    'edit' => TL_THEME_IMG_DIR . 'icon_edit.png',
                    'edit_icon' => TL_THEME_IMG_DIR . 'edit_icon.png',
