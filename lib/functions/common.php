@@ -335,6 +335,7 @@ function initTopMenu(&$db)
           $_SESSION['testprojectTopMenu'] .= "</a></li>";
 		  /*comeca a adicionar nos LI em formato de vetor.*/
 		  $_SESSION['testprojectTopMenu2'][$element['label']] = '<li>'."<a href='{$element['url']}' " ./*"target='{$element['target']}'*/" target='mainframe' accesskey='{$element['shortcut']}'" ."tabindex='" . $idx++ . "'>".lang_get($element['label'])."</a></li>";
+		  $_SESSION['testprojectTopMenu3'][$element['label']] = "<a href='{$element['url']}' " ./*"target='{$element['target']}'*/" target='mainframe' accesskey='{$element['shortcut']}'" ."tabindex='" . $idx++ . "' class=\"dropdown-item\">".lang_get($element['label'])."</a>";
         }
       }
     }

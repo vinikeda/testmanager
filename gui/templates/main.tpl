@@ -44,6 +44,14 @@
 </frameset-->
 
 <script>
+    jQuery(document).ready(function(){
+    jQuery("#mainframe").on("load",function(){
+        jQuery(this).contents().on("mousedown, mouseup, click", function(){
+            jQuery("#sidebar").addClass("active");
+            jQuery("#sidebar").trigger("click");
+        });
+    });
+});
 //script criado para redimensionar o tamanho da navbar de acordo com a necesidade evitando problemas de tamanho
 var frame7 = document.getElementById("mainframe");
 var tamanho = function(event){
@@ -52,6 +60,7 @@ var navbar = document.getElementById("mainnavbar");
 	};
 window.addEventListener('load',tamanho );
 window.addEventListener('resize', tamanho);
+
 </script>
 
 </html>

@@ -17,27 +17,23 @@ title bar + menu
 {config_load file="input_dimensions.conf" section=$cfg_section}
 
 <nav id ="mainnavbar" class="navbar navbar-default" style ="margin-bottom:0px;">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand logo-navbar"  href="index.php" target="_parent">
-				<img style="height:100%;"class="image-responsive" alt="Company logo" title="logo" src="{$smarty.const.TL_THEME_IMG_DIR}{$tlCfg->logo_login}{*{$tlCfg->logo_navbar}*}" />
-			</a>
-		</div>	
-		<div class="collapse navbar-collapse" id="main-nav" >
-		
-			{include file="mainNavBar.tpl"}
-		
-		</div>
-	</div>	
+    <div class="container-fluid">
+        <div class="navbar-header" style="width:100%">            
+                <button type="button" class="btn-noback btn btn-default navbar-brand " id="sidebarCollapse">
+                   <span class="fas fa-bars" aria-hidden="true"></span>
+                </button>
+            <a class="navbar-brand logo-navbar"  href="index.php" target="_parent">
+                <img style="height:100%;"class="image-responsive" alt="Company logo" title="logo" src="{$smarty.const.TL_THEME_IMG_DIR}{$tlCfg->logo_login}{*{$tlCfg->logo_navbar}*}" />
+            </a>
+            {include file="mainNavBar.tpl"}
+        </div>	
+        <div class="collapse navbar-collapse" id="main-nav" >
+            
+            
+        </div>
+    </div>	
 </nav>
-				
-				
+        {include file="sidebar.tpl"}
 				
 				
 				{*if $gui->tprojectID}

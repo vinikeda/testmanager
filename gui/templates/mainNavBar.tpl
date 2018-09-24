@@ -123,7 +123,10 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
 .dropdown{
 display:block !important;
 }
-
+.chosen-container-active.chosen-with-drop >a {
+    background:none;
+    background-image:none !important;
+}
 .chosen-container-single .chosen-single {
 	display: inline-block;
     width: auto;
@@ -142,7 +145,7 @@ display:block !important;
 	text-transform: none;
 	margin: 0;
     font: inherit;
-	background: #f8f8f8;
+	/*background: #f8f8f8;*/
 	box-sizing: border-box;
 	align-items: center;
     white-space: pre;
@@ -166,21 +169,21 @@ display:block !important;
 {*
 COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 *}
-<div style="float:right;margin-top:-10px">
+<div style="float:right;margin-top:0px">
 	<style>
 		.spaced{
-			padding-top:7px;
-			padding-bottom:2px;
+			padding-top:3px;
+			padding-right:5px;
 		}
 	</style>
 	<div style="list-style-type:none;color: #777;text-align:right;float:left;">
 		<li class = "spaced"><label for="testproject" id="testproject-label" >{$labels.testproject}:</label></li>
 		<li class = "spaced"><label id="testplan-label" for="select_chosen">{$labels.title_test_plan_mgmt}{*$labels.current_test_plan*}:</label></li>
 	</div>
-	<div style="float:left;" class="container-fluid">					
+	<div class="container-fluid">					
 		{if $gui->TestProjects != ""}
 			<form class="form-inline" name="productForm" action="index.php?viewer={$gui->viewer}" method="post">
-				<select id="testproject" class="form-control" name="testproject" onchange="this.form.submit();" style="width:100%;">
+				<select id="testproject" class="chosen-select form-control" name="testproject" onchange="this.form.submit();" style="width:100%;">
 					{foreach key=tproject_id item=tproject_name from=$gui->TestProjects}
 						<option {*class="highlighted"*} value="{$tproject_id}" title="{$tproject_name|escape}"
 							{if $tproject_id == $gui->tprojectID} selected="selected" {/if}>
@@ -215,7 +218,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 	
 			<script>
 				jQuery( document ).ready(function() {
-					jQuery(".chosen-select").chosen({ width: '100%'});
+					jQuery(".chosen-select").chosen({ width:'400px' });
 				});
 			</script>
 			<style>
@@ -228,429 +231,5 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 </div>
 
 
-<ul class="nav navbar-nav" >
-	
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-			{$labels.th_user}<span class="caret">
-		</a>
-		<ul class="dropdown-menu">
-			<li>
-				<a>{*$gui->whoami|escape*}{$gui->userName}</a>
-			</li>
-			<li>
-				<a>{$gui->userRole}</a>
-			</li>
-			<li role="separator" class="divider"></li>
-                        {if $display_right_block_2}
-                            {if $gui->grants.testplan_execute == "yes"}
-                                {if $gui->grants.exec_testcases_assigned_to_me == "yes"}
-                                    <li><a href="{$gui->url.testcase_assignments}" target="mainframe">{$labels.href_my_testcase_assignments}</a></li>
-                                {/if}
-                            {/if}
-                        {/if}
-			<li>
-				<a href='lib/usermanagement/userInfo.php' target="mainframe" accesskey="i" tabindex="6">
-					{$labels.title_edit_personal_data}
-					<!--img src="{$tlImages.account}" title="{$labels.title_edit_personal_data}"-->
-				</a>
-			</li>
-			<li>
-				<a href="logout.php?viewer={$gui->viewer}" target="_parent" accesskey="q" >
-					Logout
-				</a>
-			</li>
-		</ul>
-	</li>
-</ul>
-	
-{if $display_left_block_2 || $display_left_block_1}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.system_config}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-                            {if $display_left_block_2}
-				{if $gui->grants.cfield_management == "yes"}
-					<li><a href="lib/cfields/cfieldsView.php" target="mainframe">{$labels.href_cfields_management}</a></li>
-				{/if}
-                            {/if}
-                                {if $display_left_block_1}
-                                    {if $gui->grants.cfield_management == "yes"}
-                                            <li><a href="lib/cfields/cfieldsTprojectAssign.php" target="mainframe">{$labels.href_cfields_tproject_assign}</a></li>
-                                    {/if}
 
-                                    {if $gui->grants.keywords_view == "yes"}
-                                            <li><a href="lib/keywords/keywordsView.php?tproject_id={$gui->testprojectID}" target="mainframe">{$labels.href_keywords_manage}</a></li>
-                                    {/if}
-
-                                    {if $gui->grants.platform_management == "yes"}
-                                            <li><a href="lib/platforms/platformsView.php" target="mainframe">{$labels.href_platform_management}</a></li>
-                                    {/if}
-                                {/if}
-                            {if $display_left_block_2}
-				{if $gui->grants.issuetracker_management || $gui->grants.issuetracker_view}
-					<li><a href="lib/issuetrackers/issueTrackerView.php" target="mainframe">{$labels.href_issuetracker_management}</a></li>
-				{/if}
-					{if isset($session.testprojectTopMenu2.title_admin)}{$session.testprojectTopMenu2.title_admin}{/if}
-					{if isset($session.testprojectTopMenu2.title_events)}{$session.testprojectTopMenu2.title_events}{/if}
-                            {/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13 || $gui->grants.tproject_user_role_assignment == "yes" || ($gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0)}
-    <ul class="nav navbar-nav" >
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-                Quality Assurance
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                {if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13}
-                    <li><a href="lib/macros/macrosView.php" target="mainframe">{$labels.macros_mgmt}</a></li>
-                {/if}
-                {if $gui->grants.tproject_user_role_assignment == "yes"}
-                    <li><a href="lib/usermanagement/usersAssign.php?featureType=testproject&amp;featureID={$gui->testprojectID}" target="mainframe">{$labels.href_assign_user_roles}</a></li>
-                {/if}
-                {if $gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0}
-					<li><a href="lib/plan/planMilestonesView.php" target="mainframe">{$labels.href_plan_mstones}</a></li>
-		{/if}
-            </ul>
-        </li>
-    </ul>
-{/if}
-{if $gui->role == 8 ||$gui->role == 11 || $gui->role == 13 || $gui->role == 9|| $gui->role == 14}
-    <ul class="nav navbar-nav" >
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-                {$labels.href_issue_manager}
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="lib/issue/issuesView.php" target="mainframe">
-                        {$labels.href_manage_issues}
-                    </a>
-                </li>
-                <li>
-                    <a href="lib/issue/CategoriesView.php" target="mainframe">
-                        {$labels.href_manage_issues_categories}
-                    </a>
-                </li>
-                <li>
-                    <a href="lib/issue/MarkersView.php" target="mainframe">
-                        {$labels.href_manage_issues_markers}
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-{/if}
-{if $display_left_block_4 || $gui->grants.testplan_update_linked_testcase_versions == "yes" || $gui->grants.testplan_show_testcases_newest_versions == "yes"}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_test_spec}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-                            {if $display_left_block_4}
-				<li>
-					<a href="{$gui->launcher}?feature=editTc" target="mainframe">
-						{if $gui->grants.modify_tc eq "yes"}
-							{lang_get s='href_edit_tc'}
-						{else}
-							{lang_get s='href_browse_tc'}
-						{/if}
-					</a>
-				</li>
-				{*if $gui->hasTestCases}comentado pois é redundante, esse seria o search testCase
-				<li>
-					<a href="lib/testcases/tcSearch.php?doAction=userInput&tproject_id={$gui->testprojectID}" target="mainframe">
-						{$labels.href_search_tc}
-					</a>
-				</li>
-				{/if*}    
-				{if $gui->hasKeywords}  
-                                    {if $gui->grants.keywords_view == "yes"}
-                                        {if $gui->grants.keywords_edit == "yes"}
-                                            <li>
-                                                <a href="{$gui->launcher}?feature=keywordsAssign" target="mainframe">
-                                                    {$labels.href_keywords_assign}
-                                                </a>
-                                            </li>
-                                        {/if}
-                                    {/if}
-				{/if}
-					  
-				{if $gui->grants.modify_tc eq "yes"}
-					<li>
-						<a href="lib/results/tcCreatedPerUserOnTestProject.php?do_action=uinput&tproject_id={$gui->testprojectID}" target="mainframe">
-							{$labels.link_report_test_cases_created_per_user}
-						</a>
-					</li>
-				{/if}
-                                {/if}
-                                {if $gui->grants.testplan_update_linked_testcase_versions == "yes"}
-					<li><a href="{$gui->launcher}?feature=planUpdateTC" target="mainframe">{$labels.href_update_tplan}</a></li>
-				{/if}
-                                {if $gui->grants.testplan_show_testcases_newest_versions == "yes"}
-					<li><a href="{$gui->launcher}?feature=newest_tcversions" target="mainframe">{$labels.href_newest_tcversions}</a></li>
-				{/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{if $display_left_block_1}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_product_mgmt}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{if $gui->grants.project_edit == "yes"}
-					<li><a href="lib/project/projectView.php" target="mainframe">{$labels.href_tproject_management}</a></li>
-					<li><a href="lib/subadiq/subadiqView.php" target="mainframe">{$labels.href_sub_aquire_management}</a></li>
-				{/if}
-
-				{*if $gui->grants.tproject_user_role_assignment == "yes"}
-					<li><a href="lib/usermanagement/usersAssign.php?featureType=testproject&amp;featureID={$gui->testprojectID}" target="mainframe">{$labels.href_assign_user_roles}</a></li>
-				{/if}
-
-				{if $gui->grants.cfield_management == "yes"}
-					<li><a href="lib/cfields/cfieldsTprojectAssign.php" target="mainframe">{$labels.href_cfields_tproject_assign}</a></li>
-				{/if}
-			
-				{if $gui->grants.keywords_view == "yes"}
-					<li><a href="lib/keywords/keywordsView.php?tproject_id={$gui->testprojectID}" target="mainframe">{$labels.href_keywords_manage}</a></li>
-				{/if}
-			
-				{if $gui->grants.platform_management == "yes"}
-					<li><a href="lib/platforms/platformsView.php" target="mainframe">{$labels.href_platform_management}</a></li>
-				{/if}
-
-				{if $gui->grants.project_inventory_view}
-					<li><a href="lib/inventory/inventoryView.php" target="mainframe">{$labels.href_inventory}</a></li>
-				{/if*}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{*if $display_left_block_3}comentado pois não será utilizado nessa versão em questão
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-		{$labels.title_requirements}
-		<span class="caret"></span>
-	</a>
-	<ul class="dropdown-menu">
-		{if $gui->grants.reqs_view == "yes"}
-			<li><a href="{$gui->launcher}?feature=reqSpecMgmt" target="mainframe">{$labels.href_req_spec}</a></li>
-			<li><a href="lib/requirements/reqOverview.php" target="mainframe">{$labels.href_req_overview}</a></li>
-			<li><a href="{$gui->launcher}?feature=searchReq" target="mainframe">{$labels.href_search_req}</a></li>
-			<li><a href="{$gui->launcher}?feature=searchReqSpec" target="mainframe">{$labels.href_search_req_spec}</a></li>
-		{/if}
-		{if $gui->grants.reqs_edit == "yes"}
-			<li><a href="lib/general/frmWorkArea.php?feature=assignReqs" target="mainframe">{$labels.href_req_assign}</a></li>
-			<li><a href="lib/requirements/reqMonitorOverview.php?tproject_id={$gui->testprojectID}" target="mainframe">{$labels.href_req_monitor_overview}</a></li>
-			<li><a href="{$gui->launcher}?feature=printReqSpec" target="mainframe">{$labels.href_print_req}</a></li>
-		{/if}
-	</ul>
-</li>
-{/if*}
-{if $display_left_block_top}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_plugins}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{if isset($gui->plugins.EVENT_LEFTMENU_TOP)}
-					<div id="plugin_left_top">
-						{foreach from=$gui->plugins.EVENT_LEFTMENU_TOP item=menu_item}
-							{$menu_item}
-						{/foreach}
-					</div>
-				{/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{if $display_left_block_bottom}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_plugins}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{if isset($gui->plugins.EVENT_LEFTMENU_BOTTOM)}
-					<div id="plugin_left_bottom">
-						{foreach from=$gui->plugins.EVENT_LEFTMENU_BOTTOM item=menu_item}
-							{$menu_item}
-							<br />
-						{/foreach}
-					</div>
-				{/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-				
-{if $gui->num_active_tplans > 0 and ($gui->grants.mgt_testplan_create == "yes" or $display_right_block_3)}
-<ul class="nav navbar-nav" >
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-			{$labels.title_test_plan_mgmt}{*include file="inc_help.tpl" helptopic="hlp_testPlan" show_help_icon=true  help padrão do destlink. desabilitado por solicitação do caio
-			inc_help_alt="$text_hint" inc_help_title="$text_hint"  
-			inc_help_style="float: right;vertical-align: top;"*}
-			<span class="caret"></span>
-		</a>
-		<ul class="dropdown-menu">
-			{if $display_right_block_1}
-				{if $gui->grants.mgt_testplan_create == "yes"}
-					<li><a href="lib/plan/planView.php" target="mainframe">{$labels.href_plan_management}</a></li>
-				{/if}
-				
-					
-				{*if $gui->grants.testplan_milestone_overview == "yes" and $gui->countPlans > 0}
-					<li><a href="lib/plan/planMilestonesView.php" target="mainframe">{$labels.href_plan_mstones}</a></li>
-				{/if*}
-			{/if}
-			
-			{if $display_right_block_3}
-				<!--li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-						{$labels.title_test_case_suite}
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu"-->
-				{if $gui->grants.testplan_add_remove_platforms == "yes"}
-					<!--li><a href="lib/platforms/platformsAssign.php?tplan_id={$gui->testplanID}">{$labels.href_platform_assign}</a></li-->
-				{/if}
-				
-				<li><a href="{$gui->launcher}?feature=planAddTC" target="mainframe">{$labels.href_add_remove_test_cases}</a></li>
-
-				<li><a href="{$gui->launcher}?feature=tc_exec_assignment" target="mainframe">{$labels.href_tc_exec_assignment}</a></li>
-					
-				{if $session['testprojectOptions']->testPriorityEnabled && 
-					$gui->grants.testplan_set_urgent_testcases == "yes"}
-					<li><a href="{$gui->launcher}?feature=test_urgency" target="mainframe">{$labels.href_plan_assign_urgency}</a></li>
-				{/if}
-
-				{*if $gui->grants.testplan_update_linked_testcase_versions == "yes"}
-					<li><a href="{$gui->launcher}?feature=planUpdateTC" target="mainframe">{$labels.href_update_tplan}</a></li>
-				{/if} 
-
-				{if $gui->grants.testplan_show_testcases_newest_versions == "yes"}
-					<li><a href="{$gui->launcher}?feature=newest_tcversions" target="mainframe">{$labels.href_newest_tcversions}</a></li>
-				{/if*}
-					<!--/ul>
-				</li-->
-			{/if}
-		</ul>
-	</li>
-</ul>
-{/if}
-	
-{if $display_right_block_2}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_test_execution}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{if $gui->num_active_tplans > 0}
-					{if $gui->grants.testplan_create_build == "yes" and $gui->countPlans > 0}
-						<li><a href="lib/plan/buildView.php?tplan_id={$gui->testplanID}" target="mainframe">{$labels.href_build_new}</a></li>
-					{/if}
-				{/if}
-				{if $gui->grants.testplan_execute == "yes"}
-					<li><a href="{$gui->launcher}?feature=executeTest" target="mainframe">{$labels.href_execute_test}</a></li>
-
-					{*if $gui->grants.exec_testcases_assigned_to_me == "yes"}
-						<li><a href="{$gui->url.testcase_assignments}" target="mainframe">{$labels.href_my_testcase_assignments}</a></li>
-					{/if*} 
-				{/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{if $display_right_block_top}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_plugins}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{if isset($gui->plugins.EVENT_RIGHTMENU_TOP)}
-					<div id="plugin_right_top">
-						{foreach from=$gui->plugins.EVENT_RIGHTMENU_TOP item=menu_item}
-							{$menu_item}
-							<br/>
-						{/foreach}
-					</div>
-				{/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{if $display_right_block_bottom}
-	<ul class="nav navbar-nav" >
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-				{$labels.title_plugins}
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{if isset($gui->plugins.EVENT_RIGHTMENU_BOTTOM)}
-					<div id="plugin_right_bottom">
-						{foreach from=$gui->plugins.EVENT_RIGHTMENU_BOTTOM item=menu_item}
-							{$menu_item}
-							<br/>
-						{/foreach}
-					</div>
-				{/if}
-			</ul>
-		</li>
-	</ul>
-{/if}
-{if $display_right_block_2}
-	{if isset($session.testprojectTopMenu2.title_results)}
-		<ul class="nav navbar-nav" >
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-					{$labels.title_results}
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-	
-					{if $gui->grants.testplan_metrics == "yes"}
-						<li><a href="{$gui->launcher}?feature=showMetrics" target="mainframe" method="post">{$labels.href_rep_and_metrics}</a></li>
-                                                <!-- CODIGO ORIGINAL 
-						<li><a href="{$gui->url.metrics_dashboard}" target="mainframe" method="post">{$labels.href_metrics_dashboard}</a></li>
-						-->
-						<li><a href="lib/results/resultsTCgroup.php?sub=0&active=1" target="mainframe" method="post">{$labels.href_complete_monitoring_report}</a></li>
-						{*<li><a href="lib/results/metricsDashboard5.php" target="mainframe" method="post">{$labels.href_complete_monitoring_report}</a></li>*}
-						<li><a href="lib/results/metricsDashboard3.php" target="mainframe" method="post">{$labels.href_quick_monitoring_report}</a></li>
-						<li><a href="lib/results/resultsTCgroup.php?sub=0&active=0" target="mainframe" method="post">{$labels.href_history_report}</a></li>
-					{/if}
-				</ul>
-			</li>
-		</ul>
-	{/if}
-{/if}
-<ul class="nav navbar-nav">
-    <li>
-        <a href="lib/dtManagement/categoriesView.php" target="mainframe">
-            Data Management
-        </a>
-    </li>
-</ul>
 <!-- termina aqui o mainNavBar.tpl-->
