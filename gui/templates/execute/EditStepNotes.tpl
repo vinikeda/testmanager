@@ -55,7 +55,7 @@
     <th>&nbsp;</th>
     {/if}
 
-    {if $inExec}
+    {if $inExec && $gui->usrType != 10}
         <th>Mensagens Padrão</th>
       <th>{if $tlCfg->exec_cfg->steps_exec_notes_default == 'latest'}{$inc_steps_labels.latest_exec_notes}
           {else}{$inc_steps_labels.step_exec_notes}{/if}
@@ -116,6 +116,7 @@
     {/if}
 <td {if $edit_enabled} style="cursor:pointer;" onclick="launchEditStep({$step_info.id})" {/if}>{$gui->execution_types[$step_info.execution_type]}
             <!--a onClick="C = window.open('lib/issue/searchIssue.php','janela teste','width = 800,height=600,resizable=yes,scrollbars=yes,dependent=yes');"> link torto</a-->
+            {if $gui->usrType != 10}
             <style>
                 #fixed{
                     display:inline-block !important;/*eu sei que isso não deveria existir, mas se tirar isso surge um display none que buga e eu não tive tempo de encontrar a raiz dele.*/
@@ -200,6 +201,7 @@
                 </table>
                 </div>
             </div>
+                            {/if}
         </td>
     {if $inExec}
       <td class="exec_tcstep_note">
