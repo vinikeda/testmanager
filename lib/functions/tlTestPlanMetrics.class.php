@@ -2884,6 +2884,26 @@ class tlTestPlanMetrics extends testplan
       $dummy = (array)$this->db->get_recordset($sql);
       return($dummy);
   }
+  function getAllExplainedBuildsPerProjectV2($id,$tplans,$getActive = 1){
+      $sql = "SELECT distinct
+        builds.id build_id,
+        @cname :=replace(replace(builds.name,'–','-'),'PRÉ-CICLO','PRÉ CICLO') cname,
+        SUBSTRING_INDEX(@cname,'-',1) sub_adquirente ,
+        SUBSTRING_INDEX(SUBSTRING_INDEX(@cname,'-',2),'-',-1) solucao, 
+        trim(BOTH '-' FROM substring_index(SUBSTRING_INDEX(@cname,SUBSTRING_INDEX(substring(@cname,1,instr(@cname,'CICLO')),'-',-1),1),SUBSTRING_INDEX(SUBSTRING_INDEX(@cname,'-',2),'-',-1),-1)) roteiro,
+        substring_index (@cname,substring_index(@cname,SUBSTRING_INDEX(substring(@cname,1,instr(@cname,'CICLO')),'-',-1),1),-1)ciclo,
+        a.id tplan_id, b.parent_id tproject_id
+        FROM 
+                `builds` 
+                inner join `testplans` a on (builds.testplan_id = a.id)
+                inner join nodes_hierarchy b on (a.id = b.id)
+            inner join testplans c on( SUBSTRING_INDEX(b.name,'-',1) = SUBSTRING_INDEX(replace(builds.name,'–','-'),'-',1))
+        where 
+                a.id in($tplans) and b.parent_id = $id  and builds.active = $getActive and builds.is_open = $getActive
+      and ( upper(builds.name) not like('%DUMMY%') AND UPPER(builds.name)not like('%DEBUG%') AND UPPER(builds.name) not like('%N/A%'))";
+      $dummy = (array)$this->db->get_recordset($sql);
+      return($dummy);
+  }
   
   function getOrganizedBuilds($id, $getActive = 1){
       $list = $this->getAllExplainedBuildsPerProject($id, $getActive);
@@ -2893,8 +2913,13 @@ class tlTestPlanMetrics extends testplan
       }
       return $oList;
   }
-  function getExecutionsByOrganizedBuilds($tprojectID, $getActive = 1){
+  function getExecutionsByOrganizedBuilds($tprojectID,$tplans = null, $getActive = 1){
+      if($tplans == null){
       $list = $this->getAllExplainedBuildsPerProject($tprojectID,$getActive);
+      }else{
+          print_r($tplans);
+          $list = $this->getAllExplainedBuildsPerProjectV2($tprojectID, implode (',',$tplans),$getActive);
+      }
       $oList;
       foreach($list as $build){
           $build['status'] = $this->getExecutionsStatus($build['build_id']);

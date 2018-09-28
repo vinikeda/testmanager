@@ -143,7 +143,7 @@ function getMetrics(&$db,$userObj,$args, $result_cfg, $labels)
     $metricsMgr = new tlTestPlanMetrics($db);
     //$show_platforms = false;
     
-    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id);
+    $list = $metricsMgr->getExecutionsByOrganizedBuilds($args->tproject_id,array_keys($test_plans));//var_dump($test_plans);
     $result_cfg['status_code'];
     //print_r($list);
     foreach($list as $sub_name=>$sub){
