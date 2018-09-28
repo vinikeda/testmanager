@@ -15,11 +15,50 @@
 	<base href="{$basehref}" />
 	<title>TestLink Inner Frame</title>
 	<style media="all" type="text/css">@import "{$css}";</style>
+        <script src="vendor/bootstrap-3.3.7/js/jquery-3.2.0.min.js"></script>
+        <script>
+    jQuery(document).ready(function(){
+        jQuery(document.getElementById("frame1").contentDocument).on("load",function(){
+        
+    
+    });
+        jQuery("#frame1 window").on("load",function(){
+            jQuery("#frame1").on("load",function(){
+                console.log(jQuery("body").html());
+                console.log(this);
+            });
+        //console.log(jQuery("#frame1").html());
+        jQuery("#frame1").contents().on("mousedown, mouseup, click", function(){
+            console.log("test");
+            window.parent.document.getElementById("sidebar").click();
+            jQuery("#sidebar").addClass("active");
+            jQuery("#frame1").trigger("click");
+        });
+    });
+    jQuery("#frame2").on("load",function(){
+        
+        jQuery(this).contents().on("mousedown, mouseup, click", function(){
+            jQuery("#sidebar").addClass("active");
+            jQuery("#frame1").trigger("click");
+        });
+    });
+});
+function dostuff(){
+    console.log("batatã");
+    console.log(jQuery("#frame1").contents().length);
+    jQuery("#frame1").contents().on("mousedown, mouseup, click", function(){
+            console.log("test");
+            window.parent.document.getElementById("sidebar").click();
+            jQuery("#sidebar").addClass("active");
+            jQuery("#frame1").trigger("click");
+        });
+}
+</script>
 </head>
-
+        
 <frameset cols="{$treewidth|default:"30%"},*" border="5" frameborder="10" framespacing="1">
-	<frame src="{$treeframe}" name="treeframe" scrolling="auto" />
-	<frame src="{$workframe}" name="workframe" scrolling="auto" style="background:#FFF;" />
+	<frame src="{$treeframe}" name="treeframe" scrolling="auto" id="frame1"/>
+	<frame src="{$workframe}" name="workframe" scrolling="auto" id="frame2" style="background:#FFF;" />
 </frameset>
 
 </html>

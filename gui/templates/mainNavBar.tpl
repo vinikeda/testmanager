@@ -123,7 +123,7 @@ durante a maior parte deste arquivo, o mainPageRight será referido como MPR par
 .dropdown{
 display:block !important;
 }
-.chosen-container-active.chosen-with-drop >a {
+.chosen-container-active.chosen-with-drop >a  button.noback{
     background:none;
     background-image:none !important;
 }
@@ -164,6 +164,7 @@ display:block !important;
     font-size: 14px;
     line-height: 1.42857143;
 }
+
 </style>
 
 {*

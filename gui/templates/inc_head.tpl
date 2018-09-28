@@ -78,8 +78,10 @@ editorType: used to understand if code for tinymce need to be loaded
 	<script type="text/javascript" src="{$basehref}third_party/prototype/prototype.js" language="javascript"></script>
 	<script type="text/javascript" src="{$basehref}vendor/Mask/jquery.mask.js" language="javascript"></script>
 	<script>
-		jQuery(document).ready(function(){
-			jQuery('.date').mask('00/00/0000');
+		jQuery(window).load(function(){
+                    //console.log(typeof parent.dostuff);
+                    parent.dostuff();
+                    jQuery('.date').mask('00/00/0000');
 		});
 	</script>
 	<script type="text/javascript" language="javascript">
@@ -108,27 +110,7 @@ editorType: used to understand if code for tinymce need to be loaded
                     }
                 });
             })();
-	<!--
-	var fRoot = '{$basehref}';
-	var menuUrl = '{$menuUrl}';
-	var args  = '{$args}';
-	var additionalArgs  = '{$additionalArgs}';
 	
-	// To solve problem diplaying help
-	var SP_html_help_file  = '{$SP_html_help_file}';
-	
-	//attachment related JS-Stuff
-	var attachmentDlg_refWindow = null;
-	var attachmentDlg_refLocation = null;
-	var attachmentDlg_bNoRefresh = false;
-	
-	// bug management (using logic similar to attachment)
-	var bug_dialog = new bug_dialog();
-
-	// for ext js
-	var extjsLocation = '{$smarty.const.TL_EXTJS_RELATIVE_PATH}';
-	
-	//-->
 	</script> 
 {if $openHead == "no"} {* 'no' is default defined in config *}
 </head>

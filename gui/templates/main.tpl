@@ -46,6 +46,7 @@
 <script>
     jQuery(document).ready(function(){
     jQuery("#mainframe").on("load",function(){
+        
         jQuery(this).contents().on("mousedown, mouseup, click", function(){
             jQuery("#sidebar").addClass("active");
             jQuery("#sidebar").trigger("click");

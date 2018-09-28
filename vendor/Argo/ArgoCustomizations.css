@@ -17,7 +17,7 @@ tradução dos hexadecimais das cores:
 
 *//*NUM VAI*/
 .btn-noback{
-    background:#FFF;
+    background:none;
     /*box-shadow: none;*/
 }
 .btn-noback:focus{

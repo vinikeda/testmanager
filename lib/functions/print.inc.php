@@ -1406,7 +1406,7 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
       unset($it_mgr);
     }  
 
-    $statusL10N = null;         
+    $statusL10N = null;        var_dump($cfg['results']['code_status'] );
     foreach($cfg['results']['code_status'] as $vc => $vstat)
     {
       if(isset($cfg['results']['status_label_for_exec_ui'][$vstat]))
