@@ -79,7 +79,7 @@ jQuery(".chosen-select").chosen({ width: "100%" });
 
   <input type="hidden" name="docTestPlanId" value="{$docTestPlanId}" />
   <input type="hidden" name="toggle_memory" id="toggle_memory"  value="0" />
-	{$gui|@print_r} 
+	 
 
 
   {if $gui->buildInfoSet != ''}

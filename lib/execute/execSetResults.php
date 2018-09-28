@@ -354,6 +354,7 @@ else
   }  
   initWebEditors($gui,$cfg,$_SESSION['basehref']);
   setupIssues($gui,$db);
+  $gui->usrType = $_SESSION['currentUser']->globalRole->dbID;
   // To silence smarty errors
   //  future must be initialized in a right way
   $smarty->assign('test_automation_enabled',0);
