@@ -99,7 +99,7 @@ function validateForm(f)
    <tr>
 	  <th style="background:none;">Descrição</th>
       <td>
-          <textarea name="descText" style="resize:both ;width:35%">{$gui->descText}</textarea>
+          <textarea name="descText" id="descText" style="resize:both ;width:35%">{$gui->descText}</textarea>
       </td>
     </tr>
    
@@ -112,9 +112,9 @@ function validateForm(f)
     <input type="hidden" name="markerID" value="{$gui->subadiq_id}" />
     
     <input type="submit" name="{$gui->buttonCfg->name}" value="{$gui->buttonCfg->value|escape}"
-           onclick="do_action.value='{$gui->buttonCfg->name}'"/>
+           onclick="do_action.value='{$gui->buttonCfg->name}';replaceSlash()"/>
     <input type="button" name="go_back" value="{$labels.cancel}" 
-           onclick="javascript: location.href=fRoot+'{$cancelAction}';"/>
+           onclick="javascript: location.href=fRoot+'{$cancelAction}'"/>
 
   </div>
   </form>
@@ -122,6 +122,12 @@ function validateForm(f)
 </div>
 </form>
 <script>
+    function replaceSlash(){
+        desc  = document.getElementById('descText');
+        desc.value = desc.value.replace(/'/g,"\\'");
+    }
+    desc  = document.getElementById('descText');
+    desc.value = desc.value.replace(/\\'/g,"'");
 jQuery( document ).ready(function() {
 jQuery(".chosen-select").chosen({ width: "85%", allow_single_deselect: true });
 jQuery(".chosen-bulk-select").chosen({ width: "35%", allow_single_deselect: true });
