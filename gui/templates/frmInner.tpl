@@ -17,7 +17,7 @@
 	<style media="all" type="text/css">@import "{$css}";</style>
         <script src="vendor/bootstrap-3.3.7/js/jquery-3.2.0.min.js"></script>
         <script>
-    jQuery(document).ready(function(){
+    /*jQuery(document).ready(function(){
         jQuery(document.getElementById("frame1").contentDocument).on("load",function(){
         
     
@@ -42,11 +42,17 @@
             jQuery("#frame1").trigger("click");
         });
     });
-});
-function dostuff(){
-    console.log("batatã");
+});*/
+function dostuff(page){
+    console.log('link: '+page.location.href );
+     console.log(jQuery(page.document).contents().length);
+   /* jQuery(page.document).contents().on('load',function(){
+    console.log('it works');
+    });*/
     console.log(jQuery("#frame1").contents().length);
-    jQuery("#frame1").contents().on("mousedown, mouseup, click", function(){
+    jQuery("#sidebar").addClass("active");
+    jQuery("#frame1").trigger("click");
+    jQuery(page.document).contents().on("mousedown, mouseup, click", function(){
             console.log("test");
             window.parent.document.getElementById("sidebar").click();
             jQuery("#sidebar").addClass("active");

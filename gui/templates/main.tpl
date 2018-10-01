@@ -35,21 +35,16 @@
 
 <iframe src="{$gui->mainframe}" scrolling='auto' name='mainframe' allowtransparency="true" id="mainframe" style="width:100%;"></iframe>
 </body>
-<!--frameset rows="100,*" frameborder="0" framespacing="0" id="mainframeset">
-	<frame src="{$gui->titleframe}" id="navframe" style="/*margin-bottom:30px;*/z-index:999;" name="titlebar" scrolling="no" noresize="noresize" allowtransparency="true" />
-	<frame src="{$gui->mainframe}" scrolling='auto' name='mainframe' allowtransparency="true" id="mainframe"/>
-	<noframes>
-		<body>TestLink required a frames supporting browser.</body>
-	</noframes>
-</frameset-->
 
 <script>
     jQuery(document).ready(function(){
     jQuery("#mainframe").on("load",function(){
-        
+        sidebar = jQuery("#sidebar");
+        sidebar.addClass("active");
+        sidebar.trigger("click");
         jQuery(this).contents().on("mousedown, mouseup, click", function(){
-            jQuery("#sidebar").addClass("active");
-            jQuery("#sidebar").trigger("click");
+            sidebar.addClass("active");
+            sidebar.trigger("click");
         });
     });
 });
