@@ -111,9 +111,7 @@ Author : franciscom
                         {if $tlCfg->exec_cfg->copyLatestExecIssues->default} checked {/if}>
                     {/if}
 					<p></p>
-				    
-            </div>
-			<button type="submit" name="save_results[{$args_tcversion_id}]" 					
+                                        <button type="submit" name="save_results[{$args_tcversion_id}]" 					
     		 	{$args_input_enable_mgmt}
                         onclick="document.getElementById('save_button_clicked').value={$args_tcversion_id};return checkSubmitForStatusCombo('statusSingle_{$tcversion_id}','{$ResultsStatusCode.not_run}')"
     		 	value="{$args_labels.btn_save_tc_exec_results}">{$args_labels.btn_save_tc_exec_results}</button> 
@@ -122,6 +120,9 @@ Author : franciscom
     		 	{$args_input_enable_mgmt}
                         onclick="document.getElementById('save_button_clicked').value={$args_tcversion_id};return checkSubmitForStatusCombo('{$ResultsStatusCode.not_run}')"
     		 	value="{$args_labels.btn_save_exec_and_movetonext}">{$args_labels.btn_save_exec_and_movetonext}</button> 
+				    
+            </div>
+			
 
     		{else}
      	    	    <button type="submit" id="do_bulk_save" name="do_bulk_save"
