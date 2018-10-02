@@ -219,7 +219,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 	
 			<script>
 				jQuery( document ).ready(function() {
-					jQuery(".chosen-select").chosen({ width:'400px' });
+					jQuery(".chosen-select").chosen({ width:'600px' });
 				});
 			</script>
 			<style>
