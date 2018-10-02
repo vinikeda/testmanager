@@ -796,7 +796,7 @@ function renderFirstPage($doc_info)
 	  $output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'Plano de Testes' . '<p>&nbsp;</p>';
   }
   else{
-	$output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'Relatório de Execução' . '</p>' . '<p>' . 'Roteiro executado' . '</p>';
+	$output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'RelatÃ³rio de ExecuÃ§Ã£o' . '</p>' . '<p>' . 'Roteiro executado' . '</p>';
   }
   if($doc_info->additional_info != '')
   {
@@ -864,8 +864,8 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
   if ($content != "")
   {
 	/* $output .= '<br style="page-break-before: always;"><br/>';
-	//tabela de informações da solução
-	$output .= '<b> <p>1. Informações da solução </p>'; 
+	//tabela de informaÃ§Ãµes da soluÃ§Ã£o
+	$output .= '<b> <p>1. InformaÃ§Ãµes da soluÃ§Ã£o </p>'; 
 	
 	$output .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
@@ -875,7 +875,7 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
 	$output .= '</tr>';
 	
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data da execução</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data da execuÃ§Ã£o</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
@@ -883,31 +883,31 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da Aplicação - Automação</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - AutomaÃ§Ã£o</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da Aplicação - Automação</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - AutomaÃ§Ã£o</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da Aplicação - Cliente</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - Cliente</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da Aplicação - Cliente</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - Cliente</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da Aplicação - Server</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - Server</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da Aplicação - Server</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - Server</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da biblioteca</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da biblioteca</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
@@ -919,7 +919,7 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão do Kernel</td>';
+	$output .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o do Kernel</td>';
 	$output .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
 	$output .= '</tr>';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
@@ -939,7 +939,7 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
 	$output .= '<p>2. Realizado por </p>'; 
 	$output .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
-	$output .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Título</th>';
+	$output .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">TÃ­tulo</th>';
 	$output .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome, Data</th>';
 	$output .= '</tr>';
 	$output .= '<tr height="54" style="border: 1px solid black;">';
@@ -948,12 +948,12 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
 	$output .= '</tr>';
 	$output .= '</table>';
 	
-	$output .= '<p>3. Documentos de Referência </p>'; 
+	$output .= '<p>3. Documentos de ReferÃªncia </p>'; 
 	$output .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 	$output .= '<tr style="border: 1px solid black;">';
-	$output .= '	<th rowspan="3" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Referências</th>';
+	$output .= '	<th rowspan="3" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">ReferÃªncias</th>';
 	$output .= '	<th height="24" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Documento</th>';
-	$output .= '	<th height="24" width="60%" style="border: 1px solid black; background-color: #E2ECD9;">Nome e versão</th>';
+	$output .= '	<th height="24" width="60%" style="border: 1px solid black; background-color: #E2ECD9;">Nome e versÃ£o</th>';
 	$output .= '</tr>';
 	$output .= '<tr style="border: 1px solid black;">';
 	$output .= '	<td height="24" width="20%" style="border: 1px solid black;"></td>';
@@ -969,7 +969,7 @@ function renderSimpleChapter($title, $content, $addToStyle=null)
 	$output .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 	$output .= '<tr height="24" style="border: 1px solid black;">';
 	$output .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Passou [%]</th>';
-	$output .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Não executado [%]</th>';
+	$output .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">NÃ£o executado [%]</th>';
 	$output .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Com falha [%]</th>';
 	$output .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Bloqueado [%]</th>';
 	$output .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Warning [%]</th>';
@@ -1030,8 +1030,8 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		// $code .= '<b> <p>POLVILHO ' . $env->item_type . ' DOCE</p> </b>'; 
 		
 		$code .= '<br style="page-break-before: always;"><br/>';
-		//tabela de informações da solução
-		$code .= '<b> <p>1. Informações da solução </p>'; 
+		//tabela de informaÃ§Ãµes da soluÃ§Ã£o
+		$code .= '<b> <p>1. InformaÃ§Ãµes da soluÃ§Ã£o </p>'; 
 		
 		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 		$code .= '<tr height="24" style="border: 1px solid black;">';
@@ -1042,7 +1042,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data da execução</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data da execuÃ§Ã£o</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
@@ -1056,49 +1056,49 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da Aplicação - Automação</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - AutomaÃ§Ã£o</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da Aplicação - Automação</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - AutomaÃ§Ã£o</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da Aplicação - Cliente</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - Cliente</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da Aplicação - Cliente</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - Cliente</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da Aplicação - Server</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - Server</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da Aplicação - Server</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - Server</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão da biblioteca</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da biblioteca</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
@@ -1112,7 +1112,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiração do LoA Lvl 1</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do LoA Lvl 1</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
@@ -1126,14 +1126,14 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Versão do Kernel</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o do Kernel</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiração do Kernel</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do Kernel</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
@@ -1146,7 +1146,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiração do PCI</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do PCI</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
@@ -1160,7 +1160,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiração do TQM</td>';
+		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do TQM</td>';
 		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
 		//$code .= ;
 		$code .= '</td>';
@@ -1178,7 +1178,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '<p>2. Realizado por </p>'; 
 		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Título</th>';
+		$code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">TÃ­tulo</th>';
 		$code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome, Data</th>';
 		$code .= '</tr>';
 		$code .= '<tr height="54" style="border: 1px solid black;">';
@@ -1187,12 +1187,12 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '</tr>';
 		$code .= '</table>';
 		
-		$code .= '<p>3. Documentos de Referência </p>'; 
+		$code .= '<p>3. Documentos de ReferÃªncia </p>'; 
 		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 		$code .= '<tr style="border: 1px solid black;">';
-		$code .= '	<th rowspan="3" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Referências</th>';
+		$code .= '	<th rowspan="3" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">ReferÃªncias</th>';
 		$code .= '	<th height="24" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Documento</th>';
-		$code .= '	<th height="24" width="60%" style="border: 1px solid black; background-color: #E2ECD9;">Nome e versão</th>';
+		$code .= '	<th height="24" width="60%" style="border: 1px solid black; background-color: #E2ECD9;">Nome e versÃ£o</th>';
 		$code .= '</tr>';
 		$code .= '<tr style="border: 1px solid black;">';
 		$code .= '	<td height="24" width="20%" style="border: 1px solid black;"></td>';
@@ -1208,7 +1208,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
 		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
 		$code .= '<tr height="24" style="border: 1px solid black;">';
 		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Passou [%]</th>';
-		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Não executado [%]</th>';
+		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">NÃ£o executado [%]</th>';
 		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Com falha [%]</th>';
 		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Bloqueado [%]</th>';
 		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Warning [%]</th>';
@@ -1406,7 +1406,7 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
       unset($it_mgr);
     }  
 
-    $statusL10N = null;        var_dump($cfg['results']['code_status'] );
+    $statusL10N = null;
     foreach($cfg['results']['code_status'] as $vc => $vstat)
     {
       if(isset($cfg['results']['status_label_for_exec_ui'][$vstat]))
@@ -1573,14 +1573,14 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
   }
 
   if ($options["docType"]== DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
-	if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='Não aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restrição' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
+	if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 		goto FAIL_ONLY_TEST_CASE_RENDER;
 	else
 		goto FAIL_ONLY_TEST_CASE_SKIPER;
   }
   
   else if ($options["docType"]== DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
-	if($cfg['status_labels'][$exec_info[0]['status']]=='Passed' || $cfg['status_labels'][$exec_info[0]['status']]=='Passou' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='Não aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restrição' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
+	if($cfg['status_labels'][$exec_info[0]['status']]=='Passed' || $cfg['status_labels'][$exec_info[0]['status']]=='Passou' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 		goto PASS_ONLY_TEST_CASE_RENDER;
 	else
 		goto PASS_ONLY_TEST_CASE_SKIPER;
@@ -1598,7 +1598,7 @@ PASS_ONLY_TEST_CASE_RENDER:
     $code .= '<a name="' . prefixToHTMLID('tc'.$id) . '"></a>';
   }
     
-   //Colore o cabeçalho da tabela de cada caso de teste de acordo com o status do caso.
+   //Colore o cabeÃ§alho da tabela de cada caso de teste de acordo com o status do caso.
    $table_style = '';
    $code .= '<div> <table class="tc" width="100%" ' . $table_style . '>';
 	if($cfg['status_labels'][$exec_info[0]['status']]=='Passed' || $cfg['status_labels'][$exec_info[0]['status']]=='Passou')
@@ -1609,9 +1609,9 @@ PASS_ONLY_TEST_CASE_RENDER:
 		$table_style = 'style="background-color: #DCE1F5; color: rgb(0,0,0);"';
 	else if($cfg['status_labels'][$exec_info[0]['status']]=='Warning')
 		$table_style = 'style="background-color: #FFFFCC; color: rgb(0,0,0);"';
-	else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Não aplicavel' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='N/A')
+	else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='NÃ£o aplicavel' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='N/A')
 		$table_style = 'style="background-color: #FEDF91; color: rgb(0,0,0);"';
-	else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Aprovado com restrição' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Approved with restrictions')
+	else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Aprovado com restriÃ§Ã£o' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Approved with restrictions')
 		$table_style = 'style="background-color: #FEDF91; color: rgb(0,0,0);"';
 	else
 		$table_style = 'style="color: rgb(0, 0, 0);"';
@@ -1620,7 +1620,7 @@ PASS_ONLY_TEST_CASE_RENDER:
   switch($env->reportType)
   {
     case DOC_TEST_PLAN_DESIGN:
-      //Para imprimir versões no plano de testes
+      //Para imprimir versÃµes no plano de testes
 	  $version_number = isset($node['version']) ? $node['version'] : $tcInfo['version'];
     break;
     
@@ -1651,7 +1651,7 @@ PASS_ONLY_TEST_CASE_RENDER:
     
   if ($options['body'])
   {
-    if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='Não aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restrição' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
+    if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 		$tcase_pieces[] = 'preconditions';
 	else if($options["docType"] == DOC_TEST_PLAN_EXECUTION_ON_BUILD || $options["docType"] == DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD)
 		$tcase_pieces[] = 'preconditions';
@@ -1660,14 +1660,14 @@ PASS_ONLY_TEST_CASE_RENDER:
   if( $options['body'] || $options['step_exec_notes'] || $options['step_exec_status'] )
   {
 	if ($options["docType"]== DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
-		if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='Não aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restrição' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
+		if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 			$tcase_pieces[] = 'steps';
 	}
 	if ($options["docType"]== DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD)
 		$tcase_pieces[] = 'steps';
 	
 	if ($options["docType"]== DOC_TEST_PLAN_DESIGN || $options["docType"]== SINGLE_TESTCASE || $options["docType"]== DOC_TEST_PLAN_EXECUTION_ON_BUILD)
-		if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='Não aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restrição' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
+		if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 			$tcase_pieces[] = 'steps';
   } 
     
@@ -1722,7 +1722,7 @@ PASS_ONLY_TEST_CASE_RENDER:
 
           $loop2do = count($tcInfo[$key]);
           for($ydx=0 ; $ydx < $loop2do; $ydx++){
-            //Colorização dos passos de acordo com o status
+            //ColorizaÃ§Ã£o dos passos de acordo com o status
 			$table_style = '';
 			if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Failed' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Com Falha')
 				$table_style = 'style="background-color: #FFE0E0; color: rgb(120, 12, 12);"';
@@ -1730,9 +1730,9 @@ PASS_ONLY_TEST_CASE_RENDER:
 				$table_style = 'style="background-color: #DCE1F5; color: rgb(0,0,0);"';
 			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Warning')
 				$table_style = 'style="background-color: #FFFFCC; color: rgb(0,0,0);"';
-			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Não aplicavel' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='N/A')
+			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='NÃ£o aplicavel' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='N/A')
 				$table_style = 'style="background-color: #B7B7B7; color: rgb(0,0,0);"';
-			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Aprovado com restrição' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Approved with restrictions')
+			else if($statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Aprovado com restriÃ§Ã£o' || $statusL10N[$sxni[$tcInfo[$key][$ydx]['id']]['status']]=='Approved with restrictions')
 				$table_style = 'style="background-color: #FBE4D5; color: rgb(132,60,12);"';
 			else
 				$table_style = 'style="color: rgb(0, 0, 0);"';
@@ -1822,7 +1822,7 @@ PASS_ONLY_TEST_CASE_RENDER:
     }
   }
 
-/* Tipo da execução (Não utilizado nos nossos relatórios)
+/* Tipo da execuÃ§Ã£o (NÃ£o utilizado nos nossos relatÃ³rios)
   $code .= '<tr><td width="' . $cfg['firstColWidth'] . '" valign="top">' . 
            '<span class="label">'.$labels['execution_type'].':</span></td>' .
            '<td colspan="' .  ($cfg['tableColspan']-1) . '">';
@@ -1881,7 +1881,7 @@ PASS_ONLY_TEST_CASE_RENDER:
 
   // Spacer
   $code .= '<tr><td colspan="' .  $cfg['tableColspan'] . '">' . "</td></tr>";
-  if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='Não aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restrição' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
+  if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 	$code .= '' . $cfields['specScope']['standard_location'] . $cfields['execScope'] . ' ';
   
   

@@ -1,5 +1,5 @@
 {if $gui->usrType != 10}
-<div class="resultBox" style="height: 350px;">
+<div class="resultBox">
 <table style="width:100%;">
     <tr style="/*display:none*/">
         <td>

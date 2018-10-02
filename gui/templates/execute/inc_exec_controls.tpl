@@ -23,7 +23,7 @@ Author : franciscom
     <tr>
 	<form>
         <td valign="top" style="width: 33%;">
-            <div class="resultBox" style="height: 350px;">
+            <div class="resultBox" >
 				{include file="attachments_simple.inc.tpl"}		
 				
 			</div>
@@ -40,7 +40,7 @@ Author : franciscom
                 {if $args_save_type == 'bulk'} {$args_labels.test_exec_result} {else} {/if}
             </div>
 
-            <div class="resultBox" style="height: 350px;line-height: 1.5;">
+            <div class="resultBox" style="line-height: 1.5;">
                 {if $args_save_type == 'bulk'}
                     {foreach key=verbose_status item=locale_status from=$tlCfg->results.status_label_for_exec_ui}<br/>
                         <input type="radio" {$args_input_enable_mgmt} name="{$radio_id_prefix}[{$args_tcversion_id}]" 
