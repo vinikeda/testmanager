@@ -188,7 +188,7 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 					{foreach key=tproject_id item=tproject_name from=$gui->TestProjects}
 						<option {*class="highlighted"*} value="{$tproject_id}" title="{$tproject_name|escape}"
 							{if $tproject_id == $gui->tprojectID} selected="selected" {/if}>
-							{$tproject_name|truncate:#TESTPROJECT_TRUNCATE_SIZE#|escape}
+							 {$tproject_name|truncate:#TESTPROJECT_TRUNCATE_SIZE#|escape}
 						</option>
 					{/foreach}
 				</select>
