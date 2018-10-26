@@ -836,8 +836,9 @@ function templateConfiguration($template2get=null)
   
   $path_parts=explode("/",dirname($_SERVER['SCRIPT_NAME']));
   $last_part="";
+  $rightpart=$path_parts[1];
   $dir = array_pop($path_parts);
-  while($dir!="lib" && $dir!="testlink"){
+  while($dir!="lib" && $dir!=$rightpart){
       //var_dump($dir);
       $last_part=$dir.'/'.$last_part;
       $dir = array_pop($path_parts);

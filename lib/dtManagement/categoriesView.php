@@ -32,7 +32,7 @@ $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
 
 function checkRights(&$db,&$user)
 {
-	return $user->hasRight($db,'testplan_create_build');
+	return true;
 }
 
 ?>

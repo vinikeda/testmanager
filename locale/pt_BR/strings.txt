@@ -3593,5 +3593,35 @@ $TLS_reqmgrsystem_management = "Gerenciamento do Sist. de Gestão de Requisitos"
 
 // reqMgrSystemCommands.class.php
 $TLS_reqmgrsystem_deleted = "Sist. de Gestão de Requisitos %s% foi apagado";
+
+
+//reports
+$TLS_solicitant_name = "Nome do solicitante";
+$TLS_exec_date = "Data da execução";
+$TLS_terminal_model = "Modelo do terminal";
+$TLS_app_name = "Nome da Aplicação";
+$TLS_app_version = "Versão da Aplicação";
+$TLS_client = "Cliente";
+$TLS_automation = "Automação";
+$TLS_terminal = "Terminal";
+$TLS_server = "Server";
+$TLS_library_version = "Versão da biblioteca";
+$TLS_expiration_date_LoA = "Data de expiração do LoA Lvl 1";
+$TLS_kernel_version = "Versão do Kernel";
+$TLS_kernel_expiration_date = "Data de expiração do Kernel";
+$TLS_pci_expiration_date = "Data de expiração do PCI";
+$TLS_TQM_expiration_date = "Data de expiração do TQM";
+$TLS_issued_by = "Emitido por";
+$TLS_cap_america = "Referência";
+$TLS_version_name = "Nome e Versão";
+$TLS_cicle_percentage = "percentual do ciclo";
+$TLS_done_by = "Realizado por";
+$TLS_reference = "Referência";
+$TLS_exec_report = "Relatório de Execução";
+$TLS_exec_script = "Roteiro executado";
+$TLS_requisitant = "Requisitante";
+$TLS_solution_data = "Informações da solução";
+$TLS_reference_docs = "Documentos de Referência";
+
 // ----- END ------------------------------------------------------------------
 ?>
