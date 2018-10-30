@@ -393,7 +393,7 @@ function renderGui(&$smartyObj,&$argsObj,&$tplanMgr,$templateCfg,$owebeditor,&$g
       $guiObj->is_active = $argsObj->is_active;
       $guiObj->is_open = $argsObj->is_open;
       $guiObj->copy_tester_assignments = $argsObj->copy_tester_assignments;
-	      
+	$guiObj->canEdit = $_SESSION['currentUser']->globalRole->dbID != 10;
       $smartyObj->assign('gui',$guiObj);//print_r($guiObj);
       $smartyObj->display($templateCfg->template_dir . $tpl);
     }
