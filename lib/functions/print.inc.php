@@ -2059,7 +2059,7 @@ function renderHeaderForPrinting(&$db,$context){
     //tabela de informaÃ§Ãµes da soluÃ§Ã£o
     $code .= '<b> <p>1. '.lang_get("solution_data").' </p>'; 
 
-    $code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
+    /*$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
     $code .= '<tr height="24" style="border: 1px solid black;">';
     $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("solicitant_name").'</td>';
     $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
