@@ -784,26 +784,25 @@ function renderFirstPage($doc_info)
   // Build Name (if applicable)
   // Test Suite Name (if applicable)
   //
-  
-  $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
+  for($i = 0;$i<6;$i++){
+      $output .= "<p>&nbsp;</p>\n";
+  }
   
   if($doc_info->type == DOC_TEST_PLAN_DESIGN || $doc_info->type == DOC_TEST_PLAN_EXECUTION){
-	  $output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'Plano de Testes' . '<p>&nbsp;</p>';
+	  $output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'Plano de Testes' . "<p>&nbsp;</p>\n";
   }
   else{
-	$output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'RelatÃ³rio de ExecuÃ§Ã£o' . '</p>' . '<p>' . 'Roteiro executado' . '</p>';
+	$output .= '<div class="doc_title" style="font-size:180%">' . '<p>' . 'Relatório de Execução' . '</p>' . '<p>' . 'Roteiro executado' . '</p>';
   }
   if($doc_info->additional_info != '')
   {
      $output .= '<p>' . $doc_info->additional_info . '</p>';
   }  
   $output .= "</div>\n";
-  
+  for($i = 0;$i<13;$i++){
+      $output .= "<p>&nbsp;</p>\n";
+  }
+  /*$output .= '<p>&nbsp;</p>';
   $output .= '<p>&nbsp;</p>';
   $output .= '<p>&nbsp;</p>';
   $output .= '<p>&nbsp;</p>';
@@ -815,8 +814,7 @@ function renderFirstPage($doc_info)
   $output .= '<p>&nbsp;</p>';
   $output .= '<p>&nbsp;</p>';
   $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
-  $output .= '<p>&nbsp;</p>';
+  $output .= '<p>&nbsp;</p>';/**/
   
   $output .= '<div class="doc_title" style="text-align:left;margin: auto; font-size:180%;">' . '<p>';// . $doc_info->tproject_name;
   if($doc_info->type == DOC_TEST_PLAN_EXECUTION_ON_BUILD || $doc_info->type == DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD || $doc_info->type == DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
@@ -1019,217 +1017,7 @@ function renderTestSpecTreeForPrinting(&$db,&$node,&$options,$env,$context,$tocP
   static $tplan_mgr;
   $code = null;
   
- // $GLOBALS['impar'] = $GLOBALS['impar'] + 1;
-    // $code .= '<p>bode ';
-	// $code .= $GLOBALS['impar'];
-	// $code .= ' diga</p>';
-	
-	if($GLOBALS['impar'] == 0){
-		
-		// $code .= '<b> <p>POLVILHO ' . $context['build_id'] . ' DOCE</p> </b>'; 
-		// $code .= '<b> <p>POLVILHO ' . $env->item_type . ' DOCE</p> </b>'; 
-		
-		$code .= '<br style="page-break-before: always;"><br/>';
-		//tabela de informaÃ§Ãµes da soluÃ§Ã£o
-		$code .= '<b> <p>1. InformaÃ§Ãµes da soluÃ§Ã£o </p>'; 
-		
-		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome do solicitante</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data da execuÃ§Ã£o</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Modelo do terminal</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - AutomaÃ§Ã£o</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - AutomaÃ§Ã£o</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - Cliente</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - Cliente</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome da AplicaÃ§Ã£o - Server</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da AplicaÃ§Ã£o - Server</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o da biblioteca</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">LoA Lvl1</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do LoA Lvl 1</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">LoA Lvl2</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">VersÃ£o do Kernel</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do Kernel</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">PCI PTS</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do PCI</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">TQM</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Data de expiraÃ§Ã£o do TQM</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '<tr height="24" height="24px" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Emitido por</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
-		//$code .= ;
-		$code .= '</td>';
-		$code .= '</tr>';
-		
-		$code .= '</table>';
-		
-		$code .= '<p>2. Realizado por </p>'; 
-		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">TÃ­tulo</th>';
-		$code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">Nome, Data</th>';
-		$code .= '</tr>';
-		$code .= '<tr height="54" style="border: 1px solid black;">';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '</tr>';
-		$code .= '</table>';
-		
-		$code .= '<p>3. Documentos de ReferÃªncia </p>'; 
-		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
-		$code .= '<tr style="border: 1px solid black;">';
-		$code .= '	<th rowspan="3" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">ReferÃªncias</th>';
-		$code .= '	<th height="24" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Documento</th>';
-		$code .= '	<th height="24" width="60%" style="border: 1px solid black; background-color: #E2ECD9;">Nome e versÃ£o</th>';
-		$code .= '</tr>';
-		$code .= '<tr style="border: 1px solid black;">';
-		$code .= '	<td height="24" width="20%" style="border: 1px solid black;"></td>';
-		$code .= '	<td height="24" width="60%" style="border: 1px solid black;"></td>';
-		$code .= '</tr>';
-		$code .= '<tr style="border: 1px solid black;">';
-		$code .= '	<td height="24" width="20%" style="border: 1px solid black;"></td>';
-		$code .= '	<td height="24" width="60%" style="border: 1px solid black;"></td>';
-		$code .= '</tr>';
-		$code .= '</table>';
-		
-		$code .= '<p>4. Percentual do ciclo </p>'; 
-		$code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Passou [%]</th>';
-		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">NÃ£o executado [%]</th>';
-		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Com falha [%]</th>';
-		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Bloqueado [%]</th>';
-		$code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">Warning [%]</th>';
-		$code .= '</tr>';
-		$code .= '<tr height="24" style="border: 1px solid black;">';
-		$code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
-		$code .= '</tr>';
-		$code .= '</table>';
-		$code .= '</b>';	
-		//tabela end
-		$code .= '<br style="page-break-before: always;"><br/>';
-		$code .= "<br/>";
-		
-		$GLOBALS['impar'] = $GLOBALS['impar'] + 1;
-	}
-	
-  if(!$tree_mgr)
+ if(!$tree_mgr)
   { 
     $tplan_mgr = new testplan($db);
     $tree_mgr = new tree($db);
@@ -1333,8 +1121,7 @@ function gendocGetUserName(&$db, $userId)
  *
  * @internal revisions
  */
-function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLevel)
-{
+function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLevel){
   
   static $req_mgr;
   static $tc_mgr;
@@ -1369,7 +1156,7 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
   $build_id = isset($context['build_id']) ? $context['build_id'] : 0;
 
   // init static elements
-  if (!$tables)
+  if (!$tables)//usa p declarar as coisas
   {
     $st = new stdClass();
 
@@ -1518,8 +1305,8 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
       }
       $sql .= " ORDER BY execution_id DESC";
     }
-    $exec_info = $db->get_recordset($sql,null,1);
-
+    $exec_info = $db->get_recordset($sql,null,1);/*realizando filtro para que pegue apenas um resultado*/
+    
     $getByID['tcversion_id'] = $linkedItem[0]['tcversion_id'];
     $getByID['filters'] = null;
     $linkedItem = null;
@@ -1571,7 +1358,7 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
                                        $tprojectID,$st->cfieldFormatting);
     }  
   }
-
+//os dois GOTO não executam no relatório completo
   if ($options["docType"]== DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
 	if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 		goto FAIL_ONLY_TEST_CASE_RENDER;
@@ -1581,7 +1368,7 @@ function renderTestCaseForPrinting(&$db,&$node,&$options,$env,$context,$indentLe
   
   else if ($options["docType"]== DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
 	if($cfg['status_labels'][$exec_info[0]['status']]=='Passed' || $cfg['status_labels'][$exec_info[0]['status']]=='Passou' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
-		goto PASS_ONLY_TEST_CASE_RENDER;
+            goto PASS_ONLY_TEST_CASE_RENDER;
 	else
 		goto PASS_ONLY_TEST_CASE_SKIPER;
   }
@@ -1863,7 +1650,7 @@ PASS_ONLY_TEST_CASE_RENDER:
   } */
 
 
-  // print priority when printing test plan
+  // print priority when printing test plan  --- RARAMENTE EXECUTADO
   if (isset($options['priority']) && $options['priority'])
   {
     // Get priority of this tc version for this test plan by using testplanUrgency class.
@@ -2074,9 +1861,31 @@ PASS_ONLY_TEST_CASE_RENDER:
                '<td colspan="' . ($cfg['tableColspan']-1) . '"><b>' . $labels["test_status_not_run"] . 
                "</b></td></tr>\n";
     }
+    if($options['issue'] && $exec_info != null){
+        /*$tmp;
+        foreach($node as $attr=>$val)if($attr != 'childNodes')$tmp[$attr] = $val;*/
+        
+        $issues_mgr = new issues($db);
+        $raw_isslist = $issues_mgr->getAssignedIssue($exec_info[0]['execution_id']);
+        $isslist;
+        //$colspan = count($raw_isslist);
+        $isslist.= "<tr><th>erros</th><td>";
+        $isfirst = true;
+        foreach($raw_isslist as $l){
+            /*$isslist 
+            if($isfirst){
+                $isslist .= "";
+                $isfirst = false;
+            }*/
+            $isslist .= $issues_mgr->get_by_id($l['id_issue'])['description']."<br>";
+        }
+        $isslist .= "</td></tr>";
+        $code .=$isslist;
+    }
     $execAttachInfo = null;
     $exec_info = null;
   }
+  
   
   $code .= "</table>\n</div>\n";
   $code .= '<br style="page-break-before: always;"><br/>';
@@ -2233,6 +2042,217 @@ function renderTestSuiteNodeForPrinting(&$db,&$node,$env,&$options,$context,$toc
 }
 
 
+/**
+ * function created to render the new heder designed by Caio Teles. i user to be inside the renderTestSpecTreeForPrinting function.
+ * But now it is located on a better place were it does not need a global var to not be printed in loop.
+ * alteration suggested and done by Vinícius Ikeda.
+ * @param type $context
+ */
+function renderHeaderForPrinting(&$db,$context){
+    $code = null;
+    
+    $bmgr = new build_mgr($db);
+    // $code .= '<b> <p>POLVILHO ' . $context['build_id'] . ' DOCE</p> </b>'; 
+    // $code .= '<b> <p>POLVILHO ' . $env->item_type . ' DOCE</p> </b>'; 
+
+    $code .= '<br style="page-break-before: always;"><br/>';
+    //tabela de informaÃ§Ãµes da soluÃ§Ã£o
+    $code .= '<b> <p>1. '.lang_get("solution_data").' </p>'; 
+
+    $code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("solicitant_name").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("exec_date").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("terminal_model").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("app_name").' - '.lang_get("automation").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("app_version").' - '.lang_get("automation").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("app_name").' - '.lang_get("client").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("app_version").' - '.lang_get("client").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("app_name").' - '.lang_get("server").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("app_version").' - '.lang_get("server").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("library_version").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">LoA Lvl1</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("expiration_date_LoA").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">LoA Lvl2</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("kernel_version").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("kernel_expiration_date ").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">PCI PTS</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("pci_expiration_date").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">TQM</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("TQM_expiration_date").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';
+
+    $code .= '<tr height="24" height="24px" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("issued_by").'</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;';	
+    //$code .= ;
+    $code .= '</td>';
+    $code .= '</tr>';/**/
+    $code .= $bmgr->html_table_of_custom_field_values($context['build_id'],$context['tproject_id']);
+    $code .= '</table>';
+
+    $code .= '<p>2. '.lang_get("done_by").' </p>'; 
+    $code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("title").'</th>';
+    $code .= '	<th width="50%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("name").', '.lang_get("date").'</th>';
+    $code .= '</tr>';
+    $code .= '<tr height="54" style="border: 1px solid black;">';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '	<td width="50%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '</tr>';
+    $code .= '</table>';
+
+    $code .= '<p>3. '.lang_get("reference_docs").' </p>'; 
+    $code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
+    $code .= '<tr style="border: 1px solid black;">';
+    $code .= '	<th rowspan="3" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("reference").'</th>';
+    $code .= '	<th height="24" width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("docs").'</th>';
+    $code .= '	<th height="24" width="60%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("version_name").'</th>';
+    $code .= '</tr>';
+    $code .= '<tr style="border: 1px solid black;">';
+    $code .= '	<td height="24" width="20%" style="border: 1px solid black;"></td>';
+    $code .= '	<td height="24" width="60%" style="border: 1px solid black;"></td>';
+    $code .= '</tr>';
+    $code .= '<tr style="border: 1px solid black;">';
+    $code .= '	<td height="24" width="20%" style="border: 1px solid black;"></td>';
+    $code .= '	<td height="24" width="60%" style="border: 1px solid black;"></td>';
+    $code .= '</tr>';
+    $code .= '</table>';
+
+    $code .= '<p>4. '.lang_get("cicle_percentage").' </p>'; 
+    $code .= '<table width="100%" style="border: 1px solid black; border-collapse: collapse;">';
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("test_status_passed").' [%]</th>';
+    $code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("test_status_not_run").' [%]</th>';
+    $code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("test_status_failed").' [%]</th>';
+    $code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("test_status_blocked").' [%]</th>';
+    $code .= '	<th width="20%" style="border: 1px solid black; background-color: #E2ECD9;">'.lang_get("test_status_warning").' [%]</th>';
+    $code .= '</tr>';
+    $code .= '<tr height="24" style="border: 1px solid black;">';
+    $code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '	<td width="20%" style="border: 1px solid black;">&nbsp;</td>';
+    $code .= '</tr>';
+    $code .= '</table>';
+    $code .= '</b>';	
+    //tabela end
+    $code .= '<br style="page-break-before: always;"><br/>';
+    $code .= "<br/>";
+    return $code;
+}
 
 
 /*

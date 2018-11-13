@@ -501,7 +501,7 @@ function tree_getPrintPreferences()
 {
   var params = [];
   var fields = ['header','summary','toc','body','passfail', 'cfields','testplan', 'metrics', 
-                'author','requirement','keyword','notes','assigned_to_me',
+                'author','requirement','keyword','notes','assigned_to_me','issue',
                 'req_spec_scope','req_spec_author','req_spec_overwritten_count_reqs',
                 'req_spec_type','req_spec_cf','req_scope','req_author','req_status',
                 'req_type','req_cf','req_relations','req_linked_tcs','req_coverage', 

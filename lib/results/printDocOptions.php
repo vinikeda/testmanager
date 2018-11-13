@@ -327,6 +327,7 @@ function init_checkboxes(&$args)
   // these are the options which are always needed, type-specific ones follow below in switch
   $arrCheckboxes[] = array( 'value' => 'toc','description' => 'opt_show_toc', 'checked' => 'n');
   $arrCheckboxes[] = array( 'value' => 'headerNumbering','description' => 'opt_show_hdrNumbering','checked' => 'n');
+  $arrCheckboxes[] = array( 'value' => 'issue','description' => 'show_issue_report','checked' => 'n');
   
   switch($args->doc_type) 
   {

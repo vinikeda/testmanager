@@ -227,6 +227,13 @@ class issues {
         foreach ($temp as $value)$a[] = $value['id_marker'];
         return $a;
     }
+    function getMarkersByPrefix ($id,$prefix){
+        $sql = "select id_marker from issues_markers inner join markers m on (id_marker = m.id)  where m.name like ('{$prefix}%') and id_issue = ".intval($id);
+        $temp =  $this->db->fetchRowsIntoMap($sql,"id_marker");
+        $a;
+        foreach ($temp as $value)$a[] = $value['id_marker'];
+        return $a;
+    }
     
     function getProjects($id){
         $temp =  $this->db->fetchRowsIntoMap("select id_tproject from issues_tprojects where id_issue = ".intval($id),"id_tproject");
@@ -255,6 +262,12 @@ class issues {
         $this->db->exec_query($sql);$temp[0] = $idExecution;
         $this->assignIssue($temp, $idIssues);
     }
+    
+    /**
+     * get the ID of the issues that were assigned on a execuution
+     * @param int  $id the execution id
+     * @return int-array array with the list of the id from the issues (null if empty)
+     */
     function getAssignedIssue($id){
         $sql = "select * from issues_executions where id_execution = $id";
         return $this->db->get_recordset($sql);

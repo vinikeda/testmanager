@@ -21,6 +21,9 @@ require('../../cfg/reports.cfg.php');
 require_once('common.php');
 require_once('print.inc.php');
 require_once('displayMgr.php');
+require_once('../issue/issues.class.php');
+require_once('../issue/categories.class.php');
+require_once('../issue/markers.class.php');
 
 // displayMemUsage('START SCRIPT - LINE:' .__LINE__);
 $treeForPlatform = null;
@@ -173,7 +176,7 @@ if( ($showPlatforms = !isset($treeForPlatform[0]) ? true : false) )
 if ($treeForPlatform)
 {
   // Things that have to be printed just once
-  // 
+  //tudo dentro desse switch case faz nada
   switch ($doc_info->type)
   {
     case DOC_TEST_PLAN_DESIGN:
@@ -256,6 +259,9 @@ if ($treeForPlatform)
           }
 
           $actionContext['level'] = 0;
+          $docText .= renderHeaderForPrinting($db,$actionContext);
+          if($printingOptions['issue'])$docText .= makesynthesis($treeForPlatform[0], $db, $args);
+          
           $docText .= renderTestPlanForPrinting($db,$tree2work,$printingOptions,$env,$actionContext);
           if( $printingOptions['metrics'] )
           {
@@ -379,7 +385,7 @@ function init_args(&$dbHandler)
 function initPrintOpt(&$UIhash,&$docInfo)
 {
   // Elements in this array must be updated if $arrCheckboxes, in printDocOptions.php is changed.
-  $pOpt = array( 'toc' => 0,'body' => 0,'summary' => 0, 'header' => 0,'headerNumbering' => 1,
+  $pOpt = array( 'toc' => 0,'body' => 0,'summary' => 0, 'header' => 0,'headerNumbering' => 1,'issue' =>0,
                  'passfail' => 0, 'author' => 0, 'notes' => 0, 'requirement' => 0, 'keyword' => 0, 
                  'cfields' => 0, 'testplan' => 0, 'metrics' => 0, 'assigned_to_me' => 0, 
                  'req_spec_scope' => 0,'req_spec_author' => 0,'build_cfields' => 0,
@@ -798,3 +804,187 @@ function checkRights(&$db,&$user,$context = null)
   $check = $user->hasRight($db,'testplan_metrics',$context->tproject_id,$context->tplan_id,$context->getAccessAttr);
   return $check;
 }
+
+function makesynthesis($tree, &$db, $args) {
+    foreach ($tree['childNodes'] as $arves)
+        looktree($db, $arves, $args, $v);
+    $rawlist = makelist($v, $db);
+    return maketable($db, $rawlist, $v);
+}
+
+function makelist(&$v, &$db) {
+    $issues_mgr = new issues($db);
+    $rawlist;
+    foreach ($v as $i) {//falta filtrar os casos q não tem sintese(passou, etc)
+        $issues = ($issues_mgr->getAssignedIssue($i[0]['execution_id']));
+        foreach ($issues as $issue)
+            $rawlist[$issue['id_issue']][] = $issue['id_execution'];
+    }
+    return $rawlist;
+}
+
+function looktree($db, $arve, $args, &$v) {
+    //var_dump($arve);
+    if ($arve['node_type_id'] == 2 && $arve['childNodes'] != null) {
+        //var_dump($arve['childNodes']);
+        foreach ($arve['childNodes'] as $node) {
+            looktree($db, $node, $args, $v);
+        }
+    } else if ($arve['node_type_id'] == 3) {
+        $sql = " SELECT E.id AS execution_id, E.status, E.execution_ts, E.tester_id, E.notes, E.build_id, E.tcversion_id,E.tcversion_number,E.testplan_id, E.execution_type, E.execution_duration,  B.name AS build_name  FROM executions E  JOIN builds B ON B.id = E.build_id  WHERE 1 = 1  AND E.testplan_id = $args->tplan_id AND E.platform_id = 0 AND E.tcversion_id = {$arve['tcversion_id']} AND E.build_id = $args->build_id ORDER BY execution_id DESC";
+        $exec_info = $db->get_recordset($sql, null, 1);
+        if ($exec_info != null) {
+            $exec_info[0]['parent_id'] = $arve['id'];
+            $v[$exec_info[0]['execution_id']] = $exec_info;
+        }
+    } else {
+        //var_dump(array("{$arve['node_type_id']}",$arve['id'],$arve['parent_id'],$arve['tcversion_id']));
+    }
+    //return $v;
+}
+
+function maketable(&$db, $rawlist, &$v) {
+    $issues_mgr = new issues($db);
+    $markers_mgr = new markers($db);
+    $cats_mgr = new categories($db);
+    $tcase_mgr = new testcase($db);
+    $categoriesList = array();
+    foreach ($rawlist as $iss => $list) {
+        $issue = $issues_mgr->get_by_id($iss);
+        $markers = $issues_mgr->getMarkersByPrefix($iss,'[APLICABILIDADE]');
+        if(is_null($markers)) continue;
+        $categoriesList[$issue['category_id']][$markers[0]][$iss] = $list;
+               
+    }
+    
+    $row.="<table class='report_table'  width=\"100%\">";
+    
+    foreach($categoriesList as $cat=>$marks){
+        $category = $cats_mgr->get_by_id($cat);
+        $cat_lbl = $category['name'];
+        $row .= "<tr><td width=\"25%\">$cat_lbl</td><td><table class='report_table'  width=\"100%\">";
+        foreach($marks as $mark=>$issues){
+            $mk = $markers_mgr->get_by_id($mark);
+            $mak_lbl = $mk['name'];
+            $row .= "<tr><td width=\"33%\">$mak_lbl</td><td><table width=\"100%\">";
+            foreach($issues as $is=>$tcases){
+                $isse = $issues_mgr->get_by_id($is);
+                $iss_lbl = $isse['description'];
+                $row .= "<tr><td width=\"50%\">$iss_lbl</td><td><table class='clear' width=\"100%\">";
+                foreach($tcases as $tcase){
+                    $tc = $tcase_mgr->get_by_id($v[$tcase][0]['parent_id']);
+                    $tc_lbl = $tc[0]['name'];
+                    $tc_id = $v[$tcase][0]['parent_id'];
+                    $row .= "<tr><td width=\"50%\"><a href='#toc_tc$tc_id'>-$tc_lbl</a></td></tr>";
+                }
+                $row .= "</table></td></tr>";
+            }
+            $row .= "</table></td></tr>";
+        }
+        $row .= "</table></td></tr>";
+    }
+    $row.="</table>";
+    
+    $totaliss = count($rawlist);//quantidade de erros apontados
+    $counter = 0;//quntidade de apontamentos
+    $altlist;
+    foreach($rawlist as $ls){
+        $counter += count($ls);
+        foreach($ls as $s) $altlist[$s] = 0;
+    }
+    $testcount = count($altlist);
+    $row.="<br><table class='report_table'>"
+            . "<tr><th>Quantidade de Erros diferentes Apontados</th><td width=\"40px\">$totaliss</td></tr>"
+            . "<tr><th>Quantidade de Apontamentos de Erros</th><td>$counter</td></tr>"
+            . "<tr><th>Quantidade de Casos de Teste com Erro</th><td>$testcount</td></tr>"
+            . "</table><br>";
+    /**
+     * objetivo de gerar uma lista por erro com os casos de teste em que ocorrem atendido, falta talvez separar por transação
+     */
+    $table = "\n<style>\n "
+            . ".report_table tr{border: 1px solid black;}\n"
+            //. ".report_table {border: 1px solid black;}\n"
+            . ".report_table th{border: 1px solid black; background-color: #E2ECD9;}\n"
+            . ".report_table td{border: 1px solid black;}\n"
+            . ".clear {border:none}"
+            . ".clear td{border:none}"
+            . "</style>\n";
+
+    $table.="<table class='report_table' width=\"100%\">"
+            . "<tr><th width=\"25%\">categoria</th><th width=\"25%\">marcador</th><th width=\"25%\">erro</th><th width=\"25%\">casos de teste</th></tr>".$rows;
+
+    $table .= "</table>".$row;
+    return $table;
+}
+
+//function makesynthesis($tree, &$db, $args) {
+//    foreach ($tree['childNodes'] as $arves)
+//        looktree($db, $arves, $args, $v);
+//    $rawlist = makelist($v, $db);
+//    return maketable($db, $rawlist, $v);
+//}
+//
+//function makelist(&$v, &$db) {
+//    $issues_mgr = new issues($db);
+//    $rawlist;
+//    foreach ($v as $i) {//falta filtrar os casos q não tem sintese(passou, etc)
+//        $issues = ($issues_mgr->getAssignedIssue($i[0]['execution_id']));
+//        foreach ($issues as $issue)
+//            $rawlist[$issue['id_issue']][] = $issue['id_execution'];
+//    }
+//    return $rawlist;
+//}
+//
+//function looktree($db, $arve, $args, &$v) {
+//    //var_dump($arve);
+//    if ($arve['node_type_id'] == 2 && $arve['childNodes'] != null) {
+//        //var_dump($arve['childNodes']);
+//        foreach ($arve['childNodes'] as $node) {
+//            looktree($db, $node, $args, $v);
+//        }
+//    } else if ($arve['node_type_id'] == 3) {
+//        $sql = " SELECT E.id AS execution_id, E.status, E.execution_ts, E.tester_id, E.notes, E.build_id, E.tcversion_id,E.tcversion_number,E.testplan_id, E.execution_type, E.execution_duration,  B.name AS build_name  FROM executions E  JOIN builds B ON B.id = E.build_id  WHERE 1 = 1  AND E.testplan_id = $args->tplan_id AND E.platform_id = 0 AND E.tcversion_id = {$arve['tcversion_id']} AND E.build_id = $args->build_id ORDER BY execution_id DESC";
+//        $exec_info = $db->get_recordset($sql, null, 1);
+//        if ($exec_info != null) {
+//            $exec_info[0]['parent_id'] = $arve['id'];
+//            $v[$exec_info[0]['execution_id']] = $exec_info;
+//        }
+//    } else {
+//        
+//    }
+//    //return $v;
+//}
+//
+//function maketable(&$db, $rawlist, &$v) {
+//    $issues_mgr = new issues($db);
+//    $tcase_mgr = new testcase($db);
+//    /**
+//     * objetivo de gerar uma lista por erro com os casos de teste em que ocorrem atendido, falta talvez separar por transação
+//     */
+//    $table = "\n<style>\n "
+//            . ".report_table tr{border: 1px solid black;}\n"
+//            . ".report_table th{border: 1px solid black; background-color: #E2ECD9;}\n"
+//            . ".report_table td{border: 1px solid black;}\n"
+//            . "</style>\n";
+//
+//    $table .= "<table class='report_table'><tr class='trow'><th >#</th><th width='45%'>erro</th><th>QTD de ocorrencias</th><th>Casos de Teste</th></tr>";
+//
+//    $cont = 1;
+//    foreach ($rawlist as $iss => $list) {
+//        $issue = $issues_mgr->get_by_id($iss);
+//        $table .= "<tr>";
+//        $table .= "\n<td>{$cont}</td>";
+//        $cont++;
+//        $table .= "<td>{$issue['description']}</td>";
+//        $table .= "<td>" . count($list) . "</td>";
+//        $ocurrencies = "";
+//        foreach ($list as $is) {
+//            $ocurrencies .= $tcase_mgr->get_by_id($v[$is][0]['parent_id'])[0]['name'] . "<br>"; //não faço a menor ideia de como isso funciona, não mexe
+//            
+//        }
+//        $table .= "<td>$ocurrencies</td>";
+//        $tablelist[] = $issue;
+//    }
+//    $table .= "</table>";
+//    return $table;
+//}

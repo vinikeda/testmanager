@@ -182,7 +182,6 @@ jQuery(".chosen-select").chosen({ width: "100%" });
 			var loading = document.getElementById("loading");
 			loading.hidden = false;
 			document.cookie = "terminouDown=1";//criando cookie para identificar se o download já terminou(vai ser alterado pelo server)
-			console.log(getCookie('terminouDown'));
 			setInterval(
 				function(){ console.log(getCookie('terminouDown'));
 				var loading = document.getElementById("loading");
