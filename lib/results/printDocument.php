@@ -948,7 +948,7 @@ function maketable(&$db, $rawlist, &$v) {
             . ".report_table td{border: 1px solid black;}\n"
             . "</style>\n";
 
-    if(count($rawlist) > 0)$table .= "<table class='report_table'><tr class='trow'><th >#</th><th width='20%'>Erro</th><th width='25%'>Descrição do Erro</th><th>QTD de ocorrencias</th><th>Casos de Teste</th></tr>";
+    if(count($rawlist) > 0)$table .= "<table class='report_table'><tr class='trow'><th >ID</th><th width='20%'>Erro</th><th width='25%'>Descrição do Erro</th><th>QTD de ocorrencias</th><th>Casos de Teste</th></tr>";
 
     $cont = 1;
     foreach ($rawlist as $iss => $list) {
