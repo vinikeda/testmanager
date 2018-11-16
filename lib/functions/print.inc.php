@@ -1869,7 +1869,7 @@ PASS_ONLY_TEST_CASE_RENDER:
         $raw_isslist = $issues_mgr->getAssignedIssue($exec_info[0]['execution_id']);
         $isslist;
         //$colspan = count($raw_isslist);
-        $isslist.= "<tr><th>erros</th><td>";
+        $isslist.= "<tr><th>". lang_get("issues")."</th><td>";
         $isfirst = true;
         foreach($raw_isslist as $l){
             /*$isslist 
