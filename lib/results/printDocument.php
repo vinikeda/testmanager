@@ -259,8 +259,10 @@ if ($treeForPlatform)
           }
 
           $actionContext['level'] = 0;
-          $docText .= renderHeaderForPrinting($db,$actionContext);
+          $execstats = CalcExecPercentages($treeForPlatform[0], $db, $args);
+          $docText .= renderHeaderForPrinting($db,$actionContext,$execstats);
           if($printingOptions['issue'])$docText .= makesynthesis($treeForPlatform[0], $db, $args);
+          
           
           $docText .= renderTestPlanForPrinting($db,$tree2work,$printingOptions,$env,$actionContext);
           if( $printingOptions['metrics'] )
@@ -280,7 +282,7 @@ if ($printingOptions['toc'])
   $printingOptions['tocCode'] .= '</div>';
   $topText .= $printingOptions['tocCode'];
 }
-$docText = $topText . $docText;
+$docText = $topText ."<style>body{background-color:FFF;}</style>". $docText;
 
 
 // add application header to HTTP 
@@ -805,6 +807,27 @@ function checkRights(&$db,&$user,$context = null)
   return $check;
 }
 
+function CalcExecPercentages($tree, &$db, $args){
+    
+    //var_dump($args);
+    $metricsMgr = new tlTestPlanMetrics($db);
+    $rcfg = config_get('results')['status_code'];var_dump($rcfg);
+    unset($rcfg['passed']);
+    unset($rcfg['failed']);
+    unset($rcfg['not_run']);
+    unset($rcfg['warning']);
+    $totals2 = $metricsMgr->getExecStatusPerBuild($args->tplan_id)[$args->build_id];
+    $counter;
+    foreach($rcfg as $r => $cfg){
+        if(isset($totals2[$r]))$counter[$r] = round(100*$totals2[$r]/$totals2['total'],2);
+    }
+    $counter['not_run'] = isset($totals2['not_run'])? round(100*$totals2['not_run']/$totals2['total'],2):0;
+    $counter['passed'] = isset($totals2['passed'])? round(100*$totals2['passed']/$totals2['total'],2):0;
+    $counter['failed'] = isset($totals2['failed'])? round(100*$totals2['failed']/$totals2['total'],2):0;
+    $counter['warning'] = isset($totals2['warning'])? round(100*$totals2['warning']/$totals2['total'],2):0;
+    return($counter);
+}
+
 function makesynthesis($tree, &$db, $args) {
     foreach ($tree['childNodes'] as $arves)
         looktree($db, $arves, $args, $v);
@@ -844,7 +867,7 @@ function looktree($db, $arve, $args, &$v) {
 }
 
 function maketable(&$db, $rawlist, &$v) {
-    $issues_mgr = new issues($db);
+    /*$issues_mgr = new issues($db);
     $markers_mgr = new markers($db);
     $cats_mgr = new categories($db);
     $tcase_mgr = new testcase($db);
@@ -898,9 +921,7 @@ function maketable(&$db, $rawlist, &$v) {
             . "<tr><th>Quantidade de Apontamentos de Erros</th><td>$counter</td></tr>"
             . "<tr><th>Quantidade de Casos de Teste com Erro</th><td>$testcount</td></tr>"
             . "</table><br>";
-    /**
-     * objetivo de gerar uma lista por erro com os casos de teste em que ocorrem atendido, falta talvez separar por transação
-     */
+
     $table = "\n<style>\n "
             . ".report_table tr{border: 1px solid black;}\n"
             //. ".report_table {border: 1px solid black;}\n"
@@ -914,7 +935,40 @@ function maketable(&$db, $rawlist, &$v) {
             . "<tr><th width=\"25%\">categoria</th><th width=\"25%\">marcador</th><th width=\"25%\">erro</th><th width=\"25%\">casos de teste</th></tr>".$rows;
 
     $table .= "</table>".$row;
-    return $table;
+    return $table;*/
+    
+     $issues_mgr = new issues($db);
+    $tcase_mgr = new testcase($db);
+    /**
+     * objetivo de gerar uma lista por erro com os casos de teste em que ocorrem atendido, falta talvez separar por transação
+     */
+    $table = "\n<style>\n "
+            . ".report_table tr{border: 1px solid black;}\n"
+            . ".report_table th{border: 1px solid black; background-color: #E2ECD9;}\n"
+            . ".report_table td{border: 1px solid black;}\n"
+            . "</style>\n";
+
+    $table .= "<table class='report_table'><tr class='trow'><th >#</th><th width='20%'>Erro</th><th width='25%'>Descrição do Erro</th><th>QTD de ocorrencias</th><th>Casos de Teste</th></tr>";
+
+    $cont = 1;
+    foreach ($rawlist as $iss => $list) {
+        $issue = $issues_mgr->get_by_id($iss);
+        $table .= "<tr>";
+        $table .= "\n<td>{$cont}</td>";
+        $cont++;
+        $table .= "<td>{$issue['description']}</td>";
+        $table .= "<td>{$issue['text_description']}</td>";
+        $table .= "<td>" . count($list) . "</td>";
+        $ocurrencies = "";
+        foreach ($list as $is) {
+            $ocurrencies .= "<a href ='#toc_tc{$v[$is][0]['parent_id']}'>".$tcase_mgr->get_by_id($v[$is][0]['parent_id'])[0]['name'] . "</a><br>"; //não faço a menor ideia de como isso funciona, não mexe
+            
+        }
+        $table .= "<td>$ocurrencies</td>";
+        $tablelist[] = $issue;
+    }
+    $table .= "</table>";
+   return $table;
 }
 
 //function makesynthesis($tree, &$db, $args) {
