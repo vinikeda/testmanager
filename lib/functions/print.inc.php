@@ -817,11 +817,7 @@ function renderFirstPage($doc_info)
   $output .= '<p>&nbsp;</p>';/**/
   
   $output .= '<div class="doc_title" style="text-align:left;margin: auto; font-size:180%;">' . '<p>';// . $doc_info->tproject_name;
-  if($doc_info->type == DOC_TEST_PLAN_EXECUTION_ON_BUILD || $doc_info->type == DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD || $doc_info->type == DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
-	$output .= '<br>' . 'Cliente: ';
-	$output .= '<br>' . 'Requisitante: ';
-  }  
-
+  
   // if($doc_info->type == DOC_TEST_PLAN_EXECUTION_ON_BUILD || $doc_info->type == DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD)
   // {
     // $output .= '<br>' . $doc_info->build_name;
