@@ -24,6 +24,7 @@ $templateCfg = templateConfiguration();
 $categories = new categories($db);
 $gui = new StdClass();
 $gui->categories = $categories->getDashboardByTestproject($_SESSION['testprojectID'],$_SESSION['testplanName']);
+if(count($gui->categories) == 1)header('Location: '.$gui->categories[0]['link']);
 $gui->user_feedback = null;
 //var_dump($_SESSION['testplanName']);
 $smarty = new TLSmarty();
