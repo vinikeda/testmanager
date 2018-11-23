@@ -17,6 +17,7 @@
 require('../../config.inc.php');
 require_once("common.php");
 require_once("issues.class.php");
+require_once('exec.inc.php');
 testlinkInitPage($db,false,false,"checkRights");
 
 $templateCfg = templateConfiguration();
@@ -30,6 +31,7 @@ $gui->isSUP= ($_SESSION['currentUser']->globalRole->dbID === '12'?1:0);
 $gui->isAnalist = ($_SESSION['currentUser']->user->globalRole->dbID === '9'?1:0 );
 //var_dump($gui->issues);
 $gui->user_feedback = null;
+setupIssues($gui,$db);
 
 $smarty = new TLSmarty();
 $smarty->assign('gui', $gui);

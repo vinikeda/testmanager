@@ -33,6 +33,8 @@ var del_action=fRoot+'{$deleteAction}';
 <h1 class="title">Inconsistencias</h1>
 
 <div class="workBack">
+    
+    {include file="issue/issueSearch.tpl" }
 {include file="inc_update.tpl" result=$sqlResult item="Marcadores" user_feedback=$gui->user_feedback}
 
 {* ------------------------------------------------------------------------------------------- *}
@@ -56,7 +58,7 @@ var del_action=fRoot+'{$deleteAction}';
                 {if $gui->isADM == 1}<th class="{$noSortableColumnClass}">{$labels.th_delete}</th>{/if}
             </tr>
             {foreach item=build from=$gui->issues}
-                <tr>
+                <tr issid="{$build.id}" active="{$build.active}" class="issue">
                     <td><span class="api_info" style='display:none'>{$tlCfg->api->id_format|replace:"%s":$build.id}</span>
                         <a href="{$editAction}{$build.id}" title="{$labels.alt_edit_build}">{$build.description|escape}
                                  {if $gsmarty_gui->show_icon_edit}
@@ -152,7 +154,7 @@ var del_action=fRoot+'{$deleteAction}';
   	</table>
    </form> 
   {else}
-  	<p>Nenhum marcador criado!</p>
+  	<p>Nenhuma Sintese criada!</p>
   {/if}
 </div>
 {* ------------------------------------------------------------------------------------------- *}
