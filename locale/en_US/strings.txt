@@ -37,7 +37,7 @@ $TLS_STRINGFILE_CHARSET = "UTF-8";
 
 // Last Update of this file
 $TLS_last_update = "Last localization update: 03/27/2011";
-
+$TLS_print_every_step = "Print every step";
 // ----- General terms (used wide) ----------------------------
 $TLS_attachments = "Attachments";
 $TLS_addtestplan = "Add Testplan";

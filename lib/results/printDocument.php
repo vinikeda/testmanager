@@ -387,7 +387,7 @@ function init_args(&$dbHandler)
 function initPrintOpt(&$UIhash,&$docInfo)
 {
   // Elements in this array must be updated if $arrCheckboxes, in printDocOptions.php is changed.
-  $pOpt = array( 'toc' => 0,'body' => 0,'summary' => 0, 'header' => 0,'headerNumbering' => 1,'issue' =>0,
+  $pOpt = array( 'toc' => 0,'body' => 0,'summary' => 0, 'header' => 0,'headerNumbering' => 1,'issue' =>0, 
                  'passfail' => 0, 'author' => 0, 'notes' => 0, 'requirement' => 0, 'keyword' => 0, 
                  'cfields' => 0, 'testplan' => 0, 'metrics' => 0, 'assigned_to_me' => 0, 
                  'req_spec_scope' => 0,'req_spec_author' => 0,'build_cfields' => 0,
@@ -395,7 +395,7 @@ function initPrintOpt(&$UIhash,&$docInfo)
                  'req_spec_cf' => 0,'req_scope' => 0,'req_author' => 0,
                  'req_status' => 0,'req_type' => 0,'req_cf' => 0,'req_relations' => 0,
                  'req_linked_tcs' => 0,'req_coverage' => 0,'displayVersion' => 0,
-                 'step_exec_notes' => 0, 'step_exec_status' => 0);
+                 'step_exec_notes' => 0, 'step_exec_status' => 0,'print_every_step'=>0);
   
   $lightOn = isset($UIhash['allOptionsOn']);
   foreach($pOpt as $opt => $val)

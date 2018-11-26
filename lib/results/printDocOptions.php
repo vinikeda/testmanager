@@ -328,6 +328,7 @@ function init_checkboxes(&$args)
   $arrCheckboxes[] = array( 'value' => 'toc','description' => 'opt_show_toc', 'checked' => 'n');
   $arrCheckboxes[] = array( 'value' => 'headerNumbering','description' => 'opt_show_hdrNumbering','checked' => 'n');
   $arrCheckboxes[] = array( 'value' => 'issue','description' => 'href_issue_manager','checked' => 'n');
+  $arrCheckboxes[] = array( 'value' => 'print_every_step','description' => 'print_every_step','checked' => 'n');
   
   switch($args->doc_type) 
   {

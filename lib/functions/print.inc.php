@@ -1438,8 +1438,8 @@ PASS_ONLY_TEST_CASE_RENDER:
 		$tcase_pieces[] = 'preconditions';
 	else if($options["docType"] == DOC_TEST_PLAN_EXECUTION_ON_BUILD || $options["docType"] == DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD)
 		$tcase_pieces[] = 'preconditions';
-                $tcase_pieces[] = 'steps';
   }
+  if($options["print_every_step"])$tcase_pieces[] = 'steps';
 if(end($tcase_pieces) != 'steps'){
   if( $options['body'] || $options['step_exec_notes'] || $options['step_exec_status'] )
   {

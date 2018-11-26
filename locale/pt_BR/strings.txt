@@ -34,7 +34,7 @@ $TLS_STRINGFILE_CHARSET = "UTF-8";
 
 // Last Update of this file
 $TLS_last_update = "Last localization update: 13/03/2013 (TestLink 1.9.6)";
-
+$TLS_print_every_step = "Mostrar todos os passos";
 // ----- General terms (used wide) ----------------------------
 $TLS_attachments = "Anexos";
 $TLS_addtestplan = "Adicionar Plano de Teste";
