@@ -1438,8 +1438,9 @@ PASS_ONLY_TEST_CASE_RENDER:
 		$tcase_pieces[] = 'preconditions';
 	else if($options["docType"] == DOC_TEST_PLAN_EXECUTION_ON_BUILD || $options["docType"] == DOC_PASS_ONLY_TEST_PLAN_EXECUTION_ON_BUILD)
 		$tcase_pieces[] = 'preconditions';
+                $tcase_pieces[] = 'steps';
   }
-
+if(end($tcase_pieces) != 'steps'){
   if( $options['body'] || $options['step_exec_notes'] || $options['step_exec_status'] )
   {
 	if ($options["docType"]== DOC_FAIL_ONLY_TEST_PLAN_EXECUTION_ON_BUILD){
@@ -1453,7 +1454,7 @@ PASS_ONLY_TEST_CASE_RENDER:
 		if($cfg['status_labels'][$exec_info[0]['status']]=='Failed' || $cfg['status_labels'][$exec_info[0]['status']]=='Com Falha' || $cfg['status_labels'][$exec_info[0]['status']]=='Warning' || $cfg['status_labels'][$exec_info[0]['status']]=='NÃ£o aplicavel' || $cfg['status_labels'][$exec_info[0]['status']]=='N/A' || $cfg['status_labels'][$exec_info[0]['status']]=='Aprovado com restriÃ§Ã£o' || $cfg['status_labels'][$exec_info[0]['status']]=='Approved with restrictions')
 			$tcase_pieces[] = 'steps';
   } 
-    
+}    
   if(!is_null($tcase_pieces))
   {
 
