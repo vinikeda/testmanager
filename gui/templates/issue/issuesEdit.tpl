@@ -118,6 +118,8 @@ function validateForm(f)
 
   </div>
   </form>
+           
+           {include file="issue/confirmIssue.tpl"}{*include file="inc_show_hide_mgmt.tpl"*}
 </div>
 </div>
 </form>

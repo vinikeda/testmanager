@@ -40,15 +40,15 @@ function TreePanelState(mytree,cookiePrefix)
 TreePanelState.prototype.init = function() 
 {
     this.cp = new Ext.state.CookieProvider();
-    // this.state = this.cp.get('TLExecTreePanelState_' + this.mytree.id, new Array() );
-    //this.state = this.cp.get(this.cookiePrefix + this.mytree.id, new Array() );
+     this.state = this.cp.get('TLExecTreePanelState_' + this.mytree.id, new Array() );
+    this.state = this.cp.get(this.cookiePrefix + this.mytree.id, new Array() );
 
 }
 
 TreePanelState.prototype.saveState = function(newState) 
 {
     this.state = newState;
-    // this.cp.set('TLExecTreePanelState_' + this.mytree.id, this.state);
+    this.cp.set('TLExecTreePanelState_' + this.mytree.id, this.state);
     this.cp.set(this.cookiePrefix + this.mytree.id, this.state);
 }
 
