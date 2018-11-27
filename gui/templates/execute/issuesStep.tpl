@@ -68,6 +68,7 @@
                                                 {$issue.description|escape}
                                             </button>
                                         </a>
+                                            {$issue.text_description|escape}
                                     </div><br errID="{$issue.id}" data-reference="{$issue.description|escape}">
 
                                 {/foreach}
