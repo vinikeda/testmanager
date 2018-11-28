@@ -22,7 +22,7 @@ title bar + menu
                 <button type="button" class="btn-noback btn btn-default navbar-brand " id="sidebarCollapse">
                    <span class="fas fa-bars" aria-hidden="true"></span>
                 </button>
-            <a class="navbar-brand logo-navbar"  href="index.php" target="_parent">
+            <a class="navbar-brand logo-navbar"  href="index.php" target="_parent" onclick="document.cookie='link=/portal.php'">
                 <img style="height:100%;"class="image-responsive" alt="Company logo" title="logo" src="{$smarty.const.TL_THEME_IMG_DIR}{$tlCfg->logo_login}{*{$tlCfg->logo_navbar}*}" />
             </a>
             {include file="mainNavBar.tpl"}
