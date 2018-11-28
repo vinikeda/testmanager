@@ -101,9 +101,9 @@ function pre_submit()
 {if $gui->loadRightPaneAddTC}
   {* MOLIII *}  
 {/if}
-mk1
+
 {include file='inc_filter_panel.tpl'}
-mk2
+
 
 {include file="tree_control_add_tc_navigator.inc.tpl"}
 <div id="tree_div" style="overflow:auto; height:100%;border:1px solid #c3daf9;"></div>

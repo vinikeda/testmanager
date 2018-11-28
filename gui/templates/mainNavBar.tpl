@@ -183,8 +183,8 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 	</div>
 	<div class="container-fluid">					
 		{if $gui->TestProjects != ""}
-			<form class="form-inline" name="productForm" action="index.php?viewer={$gui->viewer}" method="post">
-				<select id="testproject" class="chosen-select form-control" name="testproject" onchange="this.form.submit();" style="width:100%;">
+			<form class="form-inline" name="productForm" action="index.php?viewer={$gui->viewer}" method="post" onsubmit="keepframe();">
+				<select id="testproject" class="chosen-select form-control" name="testproject" onchange="keepframe();this.form.submit();" style="width:100%;">
 					{foreach key=tproject_id item=tproject_name from=$gui->TestProjects}
 						<option {*class="highlighted"*} value="{$tproject_id}" title="{$tproject_name|escape}"
 							{if $tproject_id == $gui->tprojectID} selected="selected" {/if}>
@@ -199,9 +199,9 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 			{lang_get s='help' var='common_prefix'}
 			{lang_get s='test_plan' var="xx_alt"}
 			{$text_hint="$common_prefix: $xx_alt"}
-			<form class="form-inline" name="testplanForm" id="testplanForm" action="index.php?" method="get">
+			<form class="form-inline" name="testplanForm" id="testplanForm" action="index.php?" method="get" onsubmit="keepframe();">
 				{if $gui->countPlans > 0}
-					<select class="chosen-select form-control" id="select" name="testplan" onchange="this.form.submit();">
+					<select class="chosen-select form-control" id="select" name="testplan" onchange="keepframe();this.form.submit();">
 						{section name=tPlan loop=$gui->arrPlans}
 							<option value="{$gui->arrPlans[tPlan].id}"
 								{if $gui->arrPlans[tPlan].selected} selected="selected" {/if}
@@ -216,8 +216,14 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 					{if $gui->num_active_tplans > 0}{$labels.msg_no_rights_for_tp}{/if}
 				{/if}
 			</form>
-	
+                                
+                        <script>
+                            function keepframe(){
+                                document.cookie = "link ="+(document.getElementById("mainframe").contentWindow.location.href);
+                            }
+                        </script>
 			<script>
+                            
 				jQuery( document ).ready(function() {
 					jQuery(".chosen-select").chosen({ width:'600px' });
 				});

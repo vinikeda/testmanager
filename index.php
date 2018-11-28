@@ -75,7 +75,8 @@ $gui->launcher = 'lib/general/frmWorkArea.php';
 $gui->role = $_SESSION['currentUser']->globalRoleID;
 $gui->url = array('metrics_dashboard' => 'lib/results/metricsDashboard.php',
                   'testcase_assignments' => 'lib/testcases/tcAssignedToUser.php');
-$tplEngine = new TLSmarty();//print_r($_SESSION);
+if(isset($_COOKIE['link'])){$gui->mainframe = $_COOKIE['link'];}
+$tplEngine = new TLSmarty();
 $tplEngine->assign('gui', $gui);//print_r($gui);
 $tplEngine->display('main.tpl');
 
