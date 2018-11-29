@@ -1703,7 +1703,7 @@ define ('TL_DEFAULT_LOCALE', $tlCfg->default_language);
 $tlCfg->results['code_status'] = array_flip($tlCfg->results['status_code']);
 
 // Enable CSRF global protection
-$tlCfg->csrf_filter_enabled = TRUE;
+$tlCfg->csrf_filter_enabled = false;//TRUE;
 
 // --------------------------------------------------------------------------------------
 /** Converted and derived variables (Users should not modify this section) */

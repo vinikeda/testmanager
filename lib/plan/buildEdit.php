@@ -16,7 +16,7 @@ require_once("treeMenu.inc.php");
 require_once("../macros/macros.class.php");
 
 $editorCfg = getWebEditorCfg('build');
-require_once(require_web_editor($editorCfg['type']));//echo '<!--'.require_web_editor($editorCfg['type'])."-->";
+require_once(require_web_editor($editorCfg['type']));
 
 testlinkInitPage($db,false,false,"checkRights");
 $templateCfg = templateConfiguration();
