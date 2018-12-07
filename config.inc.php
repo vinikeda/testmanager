@@ -1483,10 +1483,10 @@ $tlCfg->tplanDesign->hideTestCaseWithStatusIn = array($tlCfg->testCaseStatus['ob
 /** Maximum uploadfile size to importing stuff in TL */
 // Also check your PHP settings (default is usually 2MBs)
 // unit BYTES is required by MAX_FILE_SIZE HTML option
-$tlCfg->import_file_max_size_bytes = '99999999';
+$tlCfg->import_file_max_size_bytes = '99999999999';
 
 /** Maximum line size of the imported file */
-$tlCfg->import_max_row = '10000'; // in chars
+$tlCfg->import_max_row = '99999999999'; // in chars
 
 /** Set the default role used for new users */
 // - created from the login page.
