@@ -217,7 +217,9 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 				{/if}
 			</form>
                                 
-                        <script>
+                        
+		{/if}
+                <script>
                             function keepframe(){
                                 document.cookie = "link ="+(document.getElementById("mainframe").contentWindow.location.href);
                             }
@@ -233,7 +235,6 @@ COMEÇA PELOS DELECTS DE PLANO DE TESTE, ADQUIRENTE, E PROJETO DE TESTE
 					width:/*calc(100% - 18px)*/100% !important;
 				}
 			</style>
-		{/if}
 	</div>
 </div>
 
